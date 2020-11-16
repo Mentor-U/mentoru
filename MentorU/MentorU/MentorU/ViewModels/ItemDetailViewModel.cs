@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MentorU.Models;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using MentorU.Models;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels

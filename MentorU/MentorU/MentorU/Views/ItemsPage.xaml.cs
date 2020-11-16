@@ -1,15 +1,14 @@
-﻿using System;
-using System.ComponentModel;
+﻿using MentorU.Models;
+using MentorU.ViewModels;
+using MentorU.Views;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-
-using MentorU.Models;
-using MentorU.Views;
-using MentorU.ViewModels;
 
 namespace MentorU.Views
 {

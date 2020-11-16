@@ -5,14 +5,15 @@ using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
-    public class AboutViewModel : BaseViewModel
+    public class HomeViewModel : BaseViewModel
     {
-        public AboutViewModel()
+        public HomeViewModel()
         {
             Title = "Home";
             OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
         }
 
         public ICommand OpenWebCommand { get; }
+
     }
 }

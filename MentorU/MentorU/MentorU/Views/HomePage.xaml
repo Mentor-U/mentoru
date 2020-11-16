@@ -6,7 +6,7 @@
              Title="{Binding Title}">
     
     <ContentPage.BindingContext>
-        <vm:AboutViewModel />
+        <vm:HomeViewModel />
     </ContentPage.BindingContext>
     
     <ContentPage.Resources>

@@ -1,6 +1,6 @@
-﻿using System.ComponentModel;
+﻿using MentorU.ViewModels;
+using System.ComponentModel;
 using Xamarin.Forms;
-using MentorU.ViewModels;
 
 namespace MentorU.Views
 {

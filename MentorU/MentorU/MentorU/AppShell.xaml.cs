@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using MentorU.ViewModels;
+﻿using MentorU.ViewModels;
 using MentorU.Views;
+using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace MentorU

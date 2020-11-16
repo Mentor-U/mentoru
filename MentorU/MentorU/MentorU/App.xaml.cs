@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MentorU.Services;
+using MentorU.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using MentorU.Services;
-using MentorU.Views;
 
 namespace MentorU
 {

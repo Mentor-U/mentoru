@@ -42,8 +42,8 @@
                     </Label.FormattedText>
                 </Label>
                 <Button Margin="0,10,0,0" Text="Profile Page"
-                        Command="{Binding OpenWebCommand}"
-                        BackgroundColor="{StaticResource Primary}"
+                        Command="{Binding GoToProfileCommand}"
+                        BackgroundColor="red"
                         TextColor="White" />
 
             </StackLayout>

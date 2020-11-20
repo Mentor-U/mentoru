@@ -15,8 +15,8 @@ namespace MentorU.Models
         public User(string name)
         {
             Name = name;
-            Major = "None";
-            Bio = "Hello there.";
+            Major = "Computer Science";
+            Bio = "Beep boop bop this is me talking about myself!";
             Classes = new List<string>();
         }
 

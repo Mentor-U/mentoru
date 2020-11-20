@@ -12,41 +12,27 @@ namespace MentorU.ViewModels
     {
         private User _user;
         public Command EditProfileCommmand { get; set; }
-        public Command LoadInfoCommand { get; }
 
-        public string Name
-        {
-            get => _user.Name;
-        }
-        public string Major
-        {
-            get => _user.Major;
-        }
+        /* Attributes from the user that are needed for dispaly */
+        public string Name { get => _user.Name; }
+        public string Major { get => _user.Major; }
+        public ObservableCollection<string> Classes { get; }
+        public string Bio { get => _user.Bio; }
 
-        public ObservableCollection<string> Classes
-        {
-            get;
-        }
-        public string Bio
-        {
-            get => _user.Bio;
-        }
-
+        /***
+         * Constructor. Initialize bindings from view
+         */
         public ProfileViewModel()
         {
-            _user = new User("jon");
+            _user = new User("Wallace");
             Title = "Profile";
-            LoadInfoCommand = new Command(LoadInfo);
             EditProfileCommmand = new Command(EditProfile);
         }
 
         public async void EditProfile()
         {
-
-        }
-
-        public async void LoadInfo()
-        {
+            // TODO: navigate to the edit view to make changes to the user. 
+            // changes should be set up to automatically update.
         }
 
         public void OnAppearing()

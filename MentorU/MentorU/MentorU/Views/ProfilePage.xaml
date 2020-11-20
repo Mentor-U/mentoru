@@ -26,9 +26,13 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Source="Logo" MinimumWidthRequest="300"  
-                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1"
                    HorizontalOptions="CenterAndExpand"
                    Scale="2"/>
+            <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                <Button Text="Edit Profile" FontSize="Small" Command="{Binding EditProfileCommmand}"
+                    HeightRequest="35" WidthRequest="10"/>
+            </StackLayout>
             <Label Text="Profile Picture" FontAttributes="Italic"
                    HorizontalTextAlignment="Center" 
                    VerticalTextAlignment="Center" 
@@ -47,16 +51,18 @@
                    TextDecorations="Underline"/>
             <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" />
             <ScrollView Grid.Row="6" Grid.ColumnSpan="2">
-                <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
+                <StackLayout Orientation="Vertical" Spacing="5">
                     <Label Text="MENTORS:"/>
                     <Button Text="Here is a Mentor" 
                             Command="{Binding MentorSelectCommand}" 
                             BackgroundColor="LightCoral" 
-                            TextColor="Black"></Button>
+                            TextColor="Black"
+                            HeightRequest="80"></Button>
                     <Button Text="Here is another Mentor"
                             Command="{Binding SaveCommand}" 
                             BackgroundColor="LightCoral" 
-                            TextColor="Black"></Button>
+                            TextColor="Black"
+                            HeightRequest="80"></Button>
                 </StackLayout>
             </ScrollView>
             <ScrollView Grid.Row="7" Grid.ColumnSpan="2">

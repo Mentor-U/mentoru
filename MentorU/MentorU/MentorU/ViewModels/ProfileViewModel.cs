@@ -31,8 +31,12 @@ namespace MentorU.ViewModels
 
         public async void EditProfile()
         {
-            // TODO: navigate to the edit view to make changes to the user. 
-            // changes should be set up to automatically update.
+            EditProfileViewModel editProfileVM = new EditProfileViewModel(_user);
+            EditProfilePage editProfilePage = new EditProfilePage
+            {
+                BindingContext = editProfileVM
+            };
+            await Application.Current.MainPage.Navigation.PushModalAsync(editProfilePage);
         }
 
         public void OnAppearing()

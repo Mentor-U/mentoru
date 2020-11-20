@@ -19,12 +19,5 @@ namespace MentorU.Models
             Bio = "Beep boop bop this is me talking about myself!";
             Classes = new List<string>();
         }
-
-        public void AddClass(string newClass)
-        {
-            Classes.Add(newClass);
-        }
-
-
     }
 }

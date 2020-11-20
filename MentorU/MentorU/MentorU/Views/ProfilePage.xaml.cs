@@ -1,25 +1,22 @@
-﻿using MentorU.Models;
-using MentorU.ViewModels;
-using MentorU.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MentorU.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MentorU.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UserPage : ContentPage
+    public partial class ProfilePage : ContentPage
     {
         ProfileViewModel _viewModel;
-        public UserPage()
+        public ProfilePage()
         {
             InitializeComponent();
-            BindingContext = _viewModel =  new ProfileViewModel();
+            BindingContext = _viewModel = new ProfileViewModel();
         }
 
         protected override void OnAppearing()
@@ -27,5 +24,6 @@ namespace MentorU.Views
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
     }
 }

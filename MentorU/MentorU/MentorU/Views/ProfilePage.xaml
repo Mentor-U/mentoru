@@ -1,56 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MentorU.Views.UserPage"
+             x:Class="MentorU.Views.ProfilePage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
-             xmlns:model="clr-namespace:MentorU.Models"
              x:Name="profilePage">
 
     <ContentPage.BindingContext>
         <local:ProfileViewModel/>
     </ContentPage.BindingContext>
-    
+
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Source="Logo" MinimumWidthRequest="300"  Grid.Column="1" Grid.Row="0" HorizontalOptions="End"/>
-            <Label Text="Profile Picture" FontAttributes="Italic" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
-                   BackgroundColor="LightGray" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"/>
-            <Label Label.Text="{Binding Name, StringFormat='Name: {0:N}'}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" TextDecorations="Underline"/>
-            <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" TextDecorations="Underline"/>
-            <Label Text ="{Binding Classes, StringFormat='Classes: {0:N}'}" Grid.Column="1" Grid.Row="3"/>
-            <Label Text="  Bio:" FontSize="Medium" Grid.Column="0" Grid.Row="4" TextDecorations="Underline"/>
-            <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
-            <Button Text="Here is a Mentor" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"
-                    Command="{Binding CancelCommand}" 
-                    BackgroundColor="LightCoral" 
-                    TextColor="Black"></Button>
-            <Button Text="Here is another Mentor" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
-                    Command="{Binding SaveCommand}" 
-                    BackgroundColor="LightCoral" 
-                    TextColor="Black"></Button>    
-            </Grid>
+            <Image Source="Logo" MinimumWidthRequest="300"  
+                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                   HorizontalOptions="CenterAndExpand"
+                   Scale="2"/>
+            <Label Text="Profile Picture" FontAttributes="Italic"
+                   HorizontalTextAlignment="Center" 
+                   VerticalTextAlignment="Center" 
+                   BackgroundColor="LightGray" 
+                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"/>
+            <Label Label.Text="{Binding Name, StringFormat='Name: {0:N}'}" 
+                   Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" 
+                   TextDecorations="Underline"/>
+            <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" 
+                    Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" 
+                    TextDecorations="Underline"/>
+            <Label Text ="{Binding Classes, StringFormat='Classes: {0:N}'}" 
+                   Grid.Column="1" Grid.Row="3"/>
+            <Label Text="Bio:" FontSize="Medium" 
+                   Grid.Column="0" Grid.Row="4" 
+                   TextDecorations="Underline"/>
+            <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" />
+            <ScrollView Grid.Row="6" Grid.ColumnSpan="2">
+                <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
+                    <Label Text="MENTORS:"/>
+                    <Button Text="Here is a Mentor" 
+                            Command="{Binding MentorSelectCommand}" 
+                            BackgroundColor="LightCoral" 
+                            TextColor="Black"></Button>
+                    <Button Text="Here is another Mentor"
+                            Command="{Binding SaveCommand}" 
+                            BackgroundColor="LightCoral" 
+                            TextColor="Black"></Button>
+                </StackLayout>
+            </ScrollView>
+            <ScrollView Grid.Row="7" Grid.ColumnSpan="2">
+                <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
+                    <Label Text="RECOMMENDED:"/>
+                    <Button Text="Here is a Book" 
+                            Command="{Binding ItemSelectCommand}" 
+                            BackgroundColor="LightCoral" 
+                            TextColor="Black"></Button>
+                    <Button Text="Here is a Laptop"
+                            Command="{Binding ItemSelectCommand}" 
+                            BackgroundColor="LightCoral" 
+                            TextColor="Black"></Button>
+                    <Button Text="Here is a Laptop"
+                            Command="{Binding ItemSelectCommand}" 
+                            BackgroundColor="LightCoral" 
+                            TextColor="Black"></Button>
+                    <Button Text="Here is a Laptop"
+                            Command="{Binding ItemSelectCommand}" 
+                            BackgroundColor="LightCoral" 
+                            TextColor="Black"></Button>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
     </ScrollView>
-
-    <!--
-    <RefreshView x:DataType="local:UserViewModel" Command="{Binding LoadInfoCommand}" 
-                 IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-    </RefreshView>
-    -->
 </ContentPage>

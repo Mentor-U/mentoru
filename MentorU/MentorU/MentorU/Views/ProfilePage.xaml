@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MentorU.Views.UserPage"
+             x:Class="MentorU.Views.ProfilePage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
-             xmlns:model="clr-namespace:MentorU.Models"
-             x:Name="UserPage">
+             x:Name="profilePage">
 
     <ContentPage.BindingContext>
-        <local:UserViewModel/>
+        <local:ProfileViewModel/>
     </ContentPage.BindingContext>
-    
+
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
@@ -35,7 +34,7 @@
             <Label Label.Text="{Binding Name, StringFormat='Name: {0:N}'}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" TextDecorations="Underline"/>
             <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" TextDecorations="Underline"/>
             <Label Text ="{Binding Classes, StringFormat='Classes: {0:N}'}" Grid.Column="1" Grid.Row="3"/>
-                <Label Text="  Bio:" FontSize="Medium" Grid.Column="0" Grid.Row="4" TextDecorations="Underline"/>
+            <Label Text="  Bio:" FontSize="Medium" Grid.Column="0" Grid.Row="4" TextDecorations="Underline"/>
             <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2"/>
             <Button Text="Here is a Mentor" Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"
                     Command="{Binding CancelCommand}" 
@@ -44,8 +43,8 @@
             <Button Text="Here is another Mentor" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
                     Command="{Binding SaveCommand}" 
                     BackgroundColor="LightCoral" 
-                    TextColor="Black"></Button>    
-            </Grid>
+                    TextColor="Black"></Button>
+        </Grid>
     </ScrollView>
 
     <!--

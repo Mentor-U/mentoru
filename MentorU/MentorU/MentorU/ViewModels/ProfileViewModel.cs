@@ -8,7 +8,7 @@ using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
-    public class UserViewModel : BaseViewModel
+    public class ProfileViewModel : BaseViewModel
     {
         private User _user;
         public Command EditProfileCommmand { get; set; }
@@ -32,7 +32,7 @@ namespace MentorU.ViewModels
             get => _user.Bio;
         }
 
-        public UserViewModel()
+        public ProfileViewModel()
         {
             _user = new User("jon");
             Title = "Profile";

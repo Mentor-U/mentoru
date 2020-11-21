@@ -14,10 +14,10 @@ namespace MentorU.ViewModels
         public Command EditProfileCommmand { get; set; }
 
         /* Attributes from the user that are needed for dispaly */
-        public string Name { get => _user.Name; }
-        public string Major { get => _user.Major; }
+        public string Name { get; set; }
+        public string Major { get; set; }
         public ObservableCollection<string> Classes { get; }
-        public string Bio { get => _user.Bio; }
+        public string Bio { get; set; }
 
         /***
          * Constructor. Initialize bindings from view
@@ -25,6 +25,9 @@ namespace MentorU.ViewModels
         public ProfileViewModel()
         {
             _user = new User("Wallace");
+            Name = _user.Name;
+            Major = _user.Major;
+            Bio = _user.Bio;
             Title = "Profile";
             EditProfileCommmand = new Command(EditProfile);
         }
@@ -41,7 +44,7 @@ namespace MentorU.ViewModels
 
         public void OnAppearing()
         {
-            IsBusy = true;
+            IsBusy = false;
         }
     }
 }

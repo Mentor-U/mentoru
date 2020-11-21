@@ -12,11 +12,10 @@ namespace MentorU.ViewModels
     public class EditProfileViewModel : BaseViewModel
     {
         private User _user;
-        private User _tempChanges;
-        public string Name { get => _user.Name; set => _tempChanges.Name = Name; }
-        public string Major { get => _user.Major; set => _tempChanges.Major = Major; }
+        public string Name { get; set; }
+        public string Major { get; set; }
         public ObservableCollection<string> Classes { get; set; }
-        public string Bio { get => _user.Bio; set => _tempChanges.Name = Bio; }
+        public string Bio { get; set; }
         public Command SaveButtonCommand { get; set; }
         public Command CancelButtonCommand { get; set; }
 
@@ -27,18 +26,19 @@ namespace MentorU.ViewModels
         public EditProfileViewModel(User user)
         {
             _user = user;
-            _tempChanges = new User("");
+            Name = _user.Name;
+            Major = _user.Major;
+            Bio = _user.Bio;
             SaveButtonCommand = new Command(OnSave);
-            
+            CancelButtonCommand = new Command(OnCancel);
         }
 
         public async void OnSave()
         {
             // update attributes
-            _user.Name = _tempChanges.Name;
-            _user.Major = _tempChanges.Major;
-            _user.Classes = new List<string>(_tempChanges.Classes);
-            _user.Bio = _tempChanges.Bio;
+            _user.Name = Name;
+            _user.Major = Major;
+            _user.Bio = Bio;
 
             // Navigate back to the profile page
             await Application.Current.MainPage.Navigation.PopModalAsync();

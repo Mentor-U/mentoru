@@ -23,7 +23,7 @@ namespace MentorU.ViewModels
          * Creates a temporary user that saves the changes. If cancelled the _user
          * remains the same. If save the temp values are copied over to the _user
          */
-        public EditProfileViewModel(User user)
+        public EditProfileViewModel(ref User user)
         {
             _user = user;
             Name = _user.Name;

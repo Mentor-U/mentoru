@@ -6,10 +6,6 @@
              xmlns:local="clr-namespace:MentorU.ViewModels"
              x:Name="profilePage">
 
-    <ContentPage.BindingContext>
-        <local:ProfileViewModel/>
-    </ContentPage.BindingContext>
-
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>

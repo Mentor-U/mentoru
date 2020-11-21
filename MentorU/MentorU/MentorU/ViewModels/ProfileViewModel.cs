@@ -22,9 +22,9 @@ namespace MentorU.ViewModels
         /***
          * Constructor. Initialize bindings from view
          */
-        public ProfileViewModel()
+        public ProfileViewModel(User user)
         {
-            _user = new User("Wallace");
+            _user = user;
             Name = _user.Name;
             Major = _user.Major;
             Bio = _user.Bio;
@@ -34,7 +34,7 @@ namespace MentorU.ViewModels
 
         public async void EditProfile()
         {
-            EditProfileViewModel editProfileVM = new EditProfileViewModel(_user);
+            EditProfileViewModel editProfileVM = new EditProfileViewModel(ref _user);
             EditProfilePage editProfilePage = new EditProfilePage
             {
                 BindingContext = editProfileVM

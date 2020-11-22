@@ -10,20 +10,20 @@ namespace MentorU.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private MarketplaceItem _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<MarketplaceItem> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<MarketplaceItem> ItemTapped { get; }
 
         public ItemsViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Title = "Marketplace";
+            Items = new ObservableCollection<MarketplaceItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<MarketplaceItem>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -57,7 +57,7 @@ namespace MentorU.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public MarketplaceItem SelectedItem
         {
             get => _selectedItem;
             set
@@ -72,7 +72,7 @@ namespace MentorU.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(MarketplaceItem item)
         {
             if (item == null)
                 return;

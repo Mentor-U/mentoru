@@ -5,10 +5,10 @@
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"  
              xmlns:model="clr-namespace:MentorU.Models"  
-             x:Name="BrowseItemsPage">
+             x:Name="MarketplaceItemsPage">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="List an Item" Command="{Binding AddItemCommand}" />
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
@@ -20,8 +20,19 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:Item">
+                    <StackLayout Padding="10" x:DataType="model:MarketplaceItem" Spacing="10.0">
                         <Label Text="{Binding Text}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="16" />
+                        <Label Text="Item Picture" FontAttributes="Italic"
+                           HorizontalTextAlignment="Center" 
+                           VerticalTextAlignment="Center" 
+                           BackgroundColor="LightGray" 
+                           Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                           HeightRequest="100"
+                           />
+                        <Label Text="{Binding ItemPrice, StringFormat='Item Price = {0:N} $'}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" />

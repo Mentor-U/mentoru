@@ -12,12 +12,19 @@ namespace MentorU.ViewModels
         private string itemId;
         private string text;
         private string description;
+        private double itemPrice;
         public string Id { get; set; }
 
         public string Text
         {
             get => text;
             set => SetProperty(ref text, value);
+        }
+
+        public Double ItemPrice
+        {
+            get => itemPrice;
+            set => SetProperty(ref itemPrice, value);
         }
 
         public string Description
@@ -47,6 +54,7 @@ namespace MentorU.ViewModels
                 Id = item.Id;
                 Text = item.Text;
                 Description = item.Description;
+                ItemPrice = item.ItemPrice;
             }
             catch (Exception)
             {

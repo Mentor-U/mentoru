@@ -14,7 +14,15 @@ namespace MentorU
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new NavigationPage(new LoginPage());
+            var isLoggedIn = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;
+            if(isLoggedIn == "1")
+            {
+                MainPage = new AppShell();
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
         }
 
         protected override void OnStart()

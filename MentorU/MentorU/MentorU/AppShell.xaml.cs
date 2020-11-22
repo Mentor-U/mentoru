@@ -19,7 +19,6 @@ namespace MentorU
         {
             await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "0");
             Application.Current.MainPage = new NavigationPage(new LoginPage());
-            //await Shell.Current.GoToAsync("/LoginPage");
         }
     }
 }

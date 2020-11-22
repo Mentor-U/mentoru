@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MentorU.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,12 @@ namespace MentorU.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditProfilePage : ContentPage
     {
+        EditProfileViewModel _viewModel;
+
         public EditProfilePage()
         {
             InitializeComponent();
+            BindingContext = _viewModel = new EditProfileViewModel();
         }
     }
 }

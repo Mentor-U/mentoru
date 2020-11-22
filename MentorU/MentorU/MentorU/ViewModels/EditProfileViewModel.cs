@@ -23,30 +23,30 @@ namespace MentorU.ViewModels
          * Creates a temporary user that saves the changes. If cancelled the _user
          * remains the same. If save the temp values are copied over to the _user
          */
-        public EditProfileViewModel(ref User user)
+        public EditProfileViewModel()
         {
-            _user = user;
+            // TODO: pull current user data from database or local cache
+            _user = new User("Wallace");
             Name = _user.Name;
             Major = _user.Major;
             Bio = _user.Bio;
-            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
             SaveButtonCommand = new Command(OnSave);
             CancelButtonCommand = new Command(OnCancel);
         }
 
         public async void OnSave()
         {
-            // update attributes
+            // TODO: update attributes to data base
             _user.Name = Name;
             _user.Major = Major;
             _user.Bio = Bio;
 
-            await Shell.Current.GoToAsync(nameof(ProfilePage));
+            await Shell.Current.GoToAsync("..");
         }
 
         public async void OnCancel()
         {
-            await Shell.Current.GoToAsync(nameof(ProfilePage));
+            await Shell.Current.GoToAsync("..");
         }
     }
 }

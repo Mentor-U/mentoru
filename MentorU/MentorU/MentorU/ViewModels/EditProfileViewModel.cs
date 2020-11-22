@@ -41,13 +41,13 @@ namespace MentorU.ViewModels
             _user.Bio = Bio;
 
             // Navigate back to the profile page
-            await Application.Current.MainPage.Navigation.PopModalAsync();
+            //await Application.Current.MainPage.Navigation.PopModalAsync();
         }
 
         public async void OnCancel()
         {
             // Disregard changes and go back
-            await Application.Current.MainPage.Navigation.PopModalAsync();
+            //await Application.Current.MainPage.Navigation.PopModalAsync();
         }
     }
 }

@@ -12,15 +12,8 @@ namespace MentorU.ViewModels
         public HomeViewModel()
         {
             Title = "Home";
-            //OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
             GoToProfileCommand = new Command(async () => {
-                User user = new User("Wallace");
-                var profileVM = new ProfileViewModel(user);
-                var profilePage = new ProfilePage
-                {
-                    BindingContext = profileVM
-                };
-                await Application.Current.MainPage.Navigation.PushAsync(profilePage);
+                await Shell.Current.GoToAsync(nameof(ProfilePage));
             });
         }
 

@@ -19,7 +19,7 @@ namespace MentorU.ViewModels
         {
             // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
             //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-            await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
+            //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
             Application.Current.MainPage = new AppShell();
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
         }

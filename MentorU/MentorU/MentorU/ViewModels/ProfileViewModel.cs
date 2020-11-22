@@ -24,6 +24,7 @@ namespace MentorU.ViewModels
          */
         public ProfileViewModel()
         {
+            // TODO: get user from data base as they should already exist if they are on this page
             _user = new User("Wallace");
             Title = "Profile";
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));

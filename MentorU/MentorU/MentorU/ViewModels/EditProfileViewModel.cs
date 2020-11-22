@@ -25,6 +25,7 @@ namespace MentorU.ViewModels
          */
         public EditProfileViewModel()
         {
+            // TODO: pull current user data from database or local cache
             _user = new User("Wallace");
             Name = _user.Name;
             Major = _user.Major;
@@ -35,7 +36,7 @@ namespace MentorU.ViewModels
 
         public async void OnSave()
         {
-            // update attributes
+            // TODO: update attributes to data base
             _user.Name = Name;
             _user.Major = Major;
             _user.Bio = Bio;

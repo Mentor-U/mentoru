@@ -34,18 +34,16 @@
                    VerticalTextAlignment="Center" 
                    BackgroundColor="LightGray" 
                    Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"/>
-            <Label Label.Text="{Binding Name, StringFormat='Name: {0:N}'}" 
-                   Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" 
-                   TextDecorations="Underline"/>
+            <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
+                    Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
             <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" 
-                    Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" 
-                    TextDecorations="Underline"/>
+                    Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
             <Label Text ="{Binding Classes, StringFormat='Classes: {0:N}'}" 
                    Grid.Column="1" Grid.Row="3"/>
             <Label Text="Bio:" FontSize="Medium" 
                    Grid.Column="0" Grid.Row="4" 
                    TextDecorations="Underline"/>
-            <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" />
+            <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
             <ScrollView Grid.Row="6" Grid.ColumnSpan="2">
                 <StackLayout Orientation="Vertical" Spacing="5">
                     <Label Text="MENTORS:"/>
@@ -55,7 +53,7 @@
                             TextColor="Black"
                             HeightRequest="80"></Button>
                     <Button Text="Here is another Mentor"
-                            Command="{Binding SaveCommand}" 
+                            Command="{Binding MentorSelectedCommand}" 
                             BackgroundColor="LightCoral" 
                             TextColor="Black"
                             HeightRequest="80"></Button>

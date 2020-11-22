@@ -34,8 +34,9 @@
             <Editor  Text="{Binding Major}" 
                     Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" 
                     Placeholder="Major"/>
-            <Label Text ="{Binding Classes}" 
-                    Grid.Column="1" Grid.Row="3"/>
+            <Editor Text ="{Binding Classes}" 
+                    Grid.Column="1" Grid.Row="3"
+                    Placeholder="Classes"/>
             <Label Text="Bio:" FontSize="Medium" 
                     Grid.Column="0" Grid.Row="4" 
                     TextDecorations="Underline"/>

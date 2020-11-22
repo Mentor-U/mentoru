@@ -9,6 +9,7 @@ using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
+    //[QueryProperty(nameof(User), nameof(User))]
     public class EditProfileViewModel : BaseViewModel
     {
         private User _user;
@@ -34,19 +35,19 @@ namespace MentorU.ViewModels
             CancelButtonCommand = new Command(OnCancel);
         }
 
-        public async void OnSave()
+        public void OnSave()
         {
             // TODO: update attributes to data base
             _user.Name = Name;
             _user.Major = Major;
             _user.Bio = Bio;
 
-            await Shell.Current.GoToAsync("..");
+            Shell.Current.SendBackButtonPressed();
         }
 
-        public async void OnCancel()
+        public void OnCancel()
         {
-            await Shell.Current.GoToAsync("..");
+            Shell.Current.SendBackButtonPressed();
         }
     }
 }

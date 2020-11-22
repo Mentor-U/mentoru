@@ -15,9 +15,9 @@ namespace MentorU
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
 
-        private void OnLogoutButtonClicked(object sender, EventArgs e)
+        private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-            Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "0");
+            await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "0");
             Application.Current.MainPage = new NavigationPage(new LoginPage());
             //await Shell.Current.GoToAsync("//LoginPage");
         }

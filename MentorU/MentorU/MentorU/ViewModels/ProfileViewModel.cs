@@ -26,17 +26,13 @@ namespace MentorU.ViewModels
         {
             _user = new User("Wallace");
             Title = "Profile";
+            Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             EditProfileCommmand = new Command(EditProfile);
         }
 
         public async void EditProfile()
         {
-           /** EditProfileViewModel editProfileVM = new EditProfileViewModel(ref _user);
-            EditProfilePage editProfilePage = new EditProfilePage
-            {
-                BindingContext = editProfileVM
-            };
-            await Application.Current.MainPage.Navigation.PushModalAsync(editProfilePage); */
+            await Shell.Current.GoToAsync(nameof(EditProfilePage));
         }
 
         public void OnAppearing()

@@ -29,6 +29,7 @@ namespace MentorU.ViewModels
             Name = _user.Name;
             Major = _user.Major;
             Bio = _user.Bio;
+            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
             SaveButtonCommand = new Command(OnSave);
             CancelButtonCommand = new Command(OnCancel);
         }
@@ -40,14 +41,12 @@ namespace MentorU.ViewModels
             _user.Major = Major;
             _user.Bio = Bio;
 
-            // Navigate back to the profile page
-            //await Application.Current.MainPage.Navigation.PopModalAsync();
+            await Shell.Current.GoToAsync(nameof(ProfilePage));
         }
 
         public async void OnCancel()
         {
-            // Disregard changes and go back
-            //await Application.Current.MainPage.Navigation.PopModalAsync();
+            await Shell.Current.GoToAsync(nameof(ProfilePage));
         }
     }
 }

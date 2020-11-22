@@ -12,6 +12,7 @@ namespace MentorU.ViewModels
         public HomeViewModel()
         {
             Title = "Home";
+            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
             GoToProfileCommand = new Command(async () => {
                 await Shell.Current.GoToAsync(nameof(ProfilePage));
             });

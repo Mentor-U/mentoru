@@ -15,9 +15,10 @@ namespace MentorU
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
+        private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            Application.Current.MainPage = new NavigationPage(new LoginPage());
+            //await Shell.Current.GoToAsync("//LoginPage");
         }
     }
 }

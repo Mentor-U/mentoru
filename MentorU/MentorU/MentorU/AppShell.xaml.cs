@@ -18,7 +18,6 @@ namespace MentorU
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
             Application.Current.MainPage = new NavigationPage(new LoginPage());
-            //await Shell.Current.GoToAsync("/LoginPage");
         }
     }
 }

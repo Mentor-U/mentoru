@@ -12,9 +12,8 @@ namespace MentorU.ViewModels
         public HomeViewModel()
         {
             Title = "Home";
-            //OpenWebCommand = new Command(async () => await Browser.OpenAsync("https://aka.ms/xamarin-quickstart"));
             GoToProfileCommand = new Command(async () => {
-                await Shell.Current.GoToAsync("/ProfilePage");
+                await Shell.Current.GoToAsync(nameof(ProfilePage));
             });
         }
 

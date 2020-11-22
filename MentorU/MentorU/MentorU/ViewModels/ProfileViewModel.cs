@@ -14,32 +14,29 @@ namespace MentorU.ViewModels
         public Command EditProfileCommmand { get; set; }
 
         /* Attributes from the user that are needed for dispaly */
-        public string Name { get; set; }
-        public string Major { get; set; }
+        public string Name { get => _user.Name; }
+        public string Major { get => _user.Major; }
         public ObservableCollection<string> Classes { get; }
-        public string Bio { get; set; }
+        public string Bio { get => _user.Bio; }
 
         /***
          * Constructor. Initialize bindings from view
          */
-        public ProfileViewModel(User user)
+        public ProfileViewModel()
         {
-            _user = user;
-            Name = _user.Name;
-            Major = _user.Major;
-            Bio = _user.Bio;
+            _user = new User("Wallace");
             Title = "Profile";
             EditProfileCommmand = new Command(EditProfile);
         }
 
         public async void EditProfile()
         {
-            EditProfileViewModel editProfileVM = new EditProfileViewModel(ref _user);
+           /** EditProfileViewModel editProfileVM = new EditProfileViewModel(ref _user);
             EditProfilePage editProfilePage = new EditProfilePage
             {
                 BindingContext = editProfileVM
             };
-            await Application.Current.MainPage.Navigation.PushModalAsync(editProfilePage);
+            await Application.Current.MainPage.Navigation.PushModalAsync(editProfilePage); */
         }
 
         public void OnAppearing()

@@ -14,7 +14,8 @@ namespace MentorU
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new NavigationPage(new HomePage());
+            //MainPage = new NavigationPage(new HomePage());
+            MainPage = new Shell();
         }
 
         protected override void OnStart()

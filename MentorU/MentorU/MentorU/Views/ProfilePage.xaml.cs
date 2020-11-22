@@ -16,6 +16,7 @@ namespace MentorU.Views
         public ProfilePage()
         {
             InitializeComponent();
+            BindingContext = _viewModel = new ProfileViewModel();
         }
 
         protected override void OnAppearing()

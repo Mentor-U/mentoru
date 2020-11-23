@@ -11,7 +11,7 @@ namespace MentorU.ViewModels
     public class ProfileViewModel : BaseViewModel
     {
         private User _user;
-        public Command EditProfileCommmand { get; set; }
+        public Command EditProfileCommand { get; }
 
         /* Attributes from the user that are needed for dispaly */
         public string Name { get => _user.Name; }
@@ -27,11 +27,10 @@ namespace MentorU.ViewModels
             // TODO: get user from data base as they should already exist if they are on this page
             _user = new User("Wallace");
             Title = "Profile";
-            Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
-            EditProfileCommmand = new Command(EditProfile);
+            EditProfileCommand = new Command(EditProfile);
         }
 
-        public async void EditProfile()
+        private async void EditProfile(object obj)
         {
             await Shell.Current.GoToAsync(nameof(EditProfilePage));
         }

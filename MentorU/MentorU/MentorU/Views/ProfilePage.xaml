@@ -6,6 +6,10 @@
              xmlns:local="clr-namespace:MentorU.ViewModels"
              x:Name="profilePage">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Edit Profile" Command="{Binding EditProfileCommand}"/>
+    </ContentPage.ToolbarItems>
+    
     <ScrollView>
         <Grid>
             <Grid.RowDefinitions>
@@ -22,13 +26,9 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Image Source="Logo" MinimumWidthRequest="300"  
-                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="1"
+                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                    HorizontalOptions="CenterAndExpand"
                    Scale="2"/>
-            <StackLayout Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                <Button Text="Edit Profile" FontSize="Small" Command="{Binding EditProfileCommmand}"
-                    HeightRequest="35" WidthRequest="10"/>
-            </StackLayout>
             <Label Text="Profile Picture" FontAttributes="Italic"
                    HorizontalTextAlignment="Center" 
                    VerticalTextAlignment="Center" 

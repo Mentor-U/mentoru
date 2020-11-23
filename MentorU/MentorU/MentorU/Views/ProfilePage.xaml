@@ -4,82 +4,96 @@
              x:Class="MentorU.Views.ProfilePage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
+             xmlns:model="clr-namespace:MentorU.Models"
              x:Name="profilePage">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit Profile" Command="{Binding EditProfileCommand}"/>
     </ContentPage.ToolbarItems>
-    
-    <ScrollView>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Image Source="Logo" MinimumWidthRequest="300"  
-                   Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
-                   HorizontalOptions="CenterAndExpand"
-                   Scale="2"/>
-            <Label Text="Profile Picture" FontAttributes="Italic"
-                   HorizontalTextAlignment="Center" 
-                   VerticalTextAlignment="Center" 
-                   BackgroundColor="LightGray" 
-                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"/>
-            <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
-                    Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
-            <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" 
-                    Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
-            <Label Text ="{Binding Classes, StringFormat='Classes: {0:N}'}" 
-                   Grid.Column="1" Grid.Row="3"/>
-            <Label Text="Bio:" FontSize="Medium" 
-                   Grid.Column="0" Grid.Row="4" 
-                   TextDecorations="Underline"/>
-            <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
-            <ScrollView Grid.Row="6" Grid.ColumnSpan="2">
-                <StackLayout Orientation="Vertical" Spacing="5">
-                    <Label Text="MENTORS:"/>
-                    <Button Text="Here is a Mentor" 
-                            Command="{Binding MentorSelectCommand}" 
-                            BackgroundColor="LightCoral" 
-                            TextColor="Black"
-                            HeightRequest="80"></Button>
-                    <Button Text="Here is another Mentor"
-                            Command="{Binding MentorSelectedCommand}" 
-                            BackgroundColor="LightCoral" 
-                            TextColor="Black"
-                            HeightRequest="80"></Button>
-                </StackLayout>
-            </ScrollView>
-            <ScrollView Grid.Row="7" Grid.ColumnSpan="2">
-                <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
-                    <Label Text="RECOMMENDED:"/>
-                    <Button Text="Here is a Book" 
-                            Command="{Binding ItemSelectCommand}" 
-                            BackgroundColor="LightCoral" 
-                            TextColor="Black"></Button>
-                    <Button Text="Here is a Laptop"
-                            Command="{Binding ItemSelectCommand}" 
-                            BackgroundColor="LightCoral" 
-                            TextColor="Black"></Button>
-                    <Button Text="Here is a Laptop"
-                            Command="{Binding ItemSelectCommand}" 
-                            BackgroundColor="LightCoral" 
-                            TextColor="Black"></Button>
-                    <Button Text="Here is a Laptop"
-                            Command="{Binding ItemSelectCommand}" 
-                            BackgroundColor="LightCoral" 
-                            TextColor="Black"></Button>
-                </StackLayout>
-            </ScrollView>
-        </Grid>
-    </ScrollView>
+    <RefreshView x:DataType="local:ProfileViewModel" Command="{Binding LoadPageDataCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="150"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Source="Logo" MinimumWidthRequest="300"  
+                       Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
+                       HorizontalOptions="CenterAndExpand"
+                       Scale="2"/>
+                <Label Text="Profile Picture" FontAttributes="Italic"
+                       HorizontalTextAlignment="Center" 
+                       VerticalTextAlignment="Center" 
+                       BackgroundColor="LightGray" 
+                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"/>
+                <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
+                        Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
+                <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" 
+                        Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
+                <Label Text ="{Binding Classes, StringFormat='Classes: {0:N}'}" 
+                       Grid.Column="1" Grid.Row="3"/>
+                <Label Text="Bio:" FontSize="Medium" 
+                       Grid.Column="0" Grid.Row="4" 
+                       FontAttributes="Bold"
+                       TextDecorations="Underline"/>
+                <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
+                <Label Text="Mentors:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="6"/>
+                <CollectionView x:Name="MentorListView"
+                        ItemsSource="{Binding Mentors}"
+                        SelectionMode="None"
+                        Grid.Row="7" Grid.ColumnSpan="2" >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate >
+                            <StackLayout Padding="10" x:DataType="model:User" >
+                                <Label Text="{Binding Name}" 
+                                    LineBreakMode="NoWrap" 
+                                    Style="{DynamicResource ListItemTextStyle}" 
+                                    FontSize="16"
+                                    TextDecorations="Underline"/>
+                                <Label Text="{Binding Major}" 
+                                    LineBreakMode="NoWrap"
+                                    Style="{DynamicResource ListItemDetailTextStyle}"
+                                    FontSize="13" />
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProfileViewModel}}, Path=ItemTapped}"		
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <ScrollView Grid.Row="8" Grid.ColumnSpan="2">
+                    <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
+                        <Label Text="Recommended:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
+                        <!-- TODO: Change to a collectionview template and add command bindings -->
+                        <Button Text="Here is a Book"  
+                                BackgroundColor="LightCoral" 
+                                TextColor="Black"></Button>
+                        <Button Text="Here is a Laptop" 
+                                BackgroundColor="LightCoral" 
+                                TextColor="Black"></Button>
+                        <Button Text="Here is a Laptop"
+                                BackgroundColor="LightCoral" 
+                                TextColor="Black"></Button>
+                        <Button Text="Here is a Laptop"
+                                BackgroundColor="LightCoral" 
+                                TextColor="Black"></Button>
+                    </StackLayout>
+                </ScrollView>
+            </Grid>
+        </ScrollView>
+    </RefreshView>
 </ContentPage>

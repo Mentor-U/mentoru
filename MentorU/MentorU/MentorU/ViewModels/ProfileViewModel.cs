@@ -65,7 +65,7 @@ namespace MentorU.ViewModels
 
         public void OnAppearing()
         {
-            IsBusy = false;
+            IsBusy = true;
         }
     }
 }

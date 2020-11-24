@@ -18,6 +18,7 @@ namespace MentorU.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = new CreateAccountViewModel();
+            this.BackgroundColor = Color.White;
         }
     }
 }

@@ -24,6 +24,7 @@ namespace MentorU.ViewModels
             //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
             Application.Current.MainPage = new AppShell();
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+
         }
 
         private async void OnCreateClicked(object obj)

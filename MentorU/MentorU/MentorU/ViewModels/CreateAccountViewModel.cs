@@ -9,6 +9,13 @@ namespace MentorU.ViewModels
     public class CreateAccountViewModel : BaseViewModel
     {
         public Command CreateAccountCommand { get; }
+        public string Email { get; set; }
+        
+        public string UserName { get; set;  }
+
+        public string ConfirmPassword { get; set; }
+
+        public string Password { get; set; }
 
         public CreateAccountViewModel()
         {

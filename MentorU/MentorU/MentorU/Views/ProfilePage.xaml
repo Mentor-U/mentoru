@@ -21,7 +21,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="160"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -40,6 +40,7 @@
                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
                 <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" 
                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
+                <!-- FIXME: Figure out the proper way to stor and display these-->
                 <Label Text ="{Binding Classes, StringFormat='Classes: {0:N}'}" 
                        Grid.Column="1" Grid.Row="3"/>
                 <Label Text="Bio:" FontSize="Medium" 
@@ -49,26 +50,29 @@
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
                 <Label Text="Mentors:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="6"/>
                 <CollectionView x:Name="MentorListView"
-                        ItemsSource="{Binding Mentors}"
-                        SelectionMode="None"
-                        Grid.Row="7" Grid.ColumnSpan="2" >
+                            ItemsSource="{Binding Mentors}"
+                            SelectionMode="None"
+                            Grid.Row="7" Grid.ColumnSpan="2" >
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
-                            <StackLayout Padding="10" x:DataType="model:User" >
-                                <Label Text="{Binding Name}" 
-                                    LineBreakMode="NoWrap" 
-                                    Style="{DynamicResource ListItemTextStyle}" 
-                                    FontSize="16"
-                                    TextDecorations="Underline"/>
-                                <Label Text="{Binding Major}" 
-                                    LineBreakMode="NoWrap"
-                                    Style="{DynamicResource ListItemDetailTextStyle}"
-                                    FontSize="13" />
+                            <StackLayout Padding="10" x:DataType="model:User" BackgroundColor="LightCoral">
+                                <Frame BackgroundColor="LightGray" HasShadow="True">
+                                    <Label LineBreakMode="NoWrap" 
+                                            Style="{DynamicResource ListItemTextStyle}" 
+                                            FontSize="16">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0}: {1}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="Major" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </Frame>
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer 
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProfileViewModel}}, Path=ItemTapped}"		
-                                        CommandParameter="{Binding .}">
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProfileViewModel}}, Path=MentorTapped}"		
+                                            CommandParameter="{Binding .}">
                                     </TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>
                             </StackLayout>
@@ -78,7 +82,7 @@
                 <ScrollView Grid.Row="8" Grid.ColumnSpan="2">
                     <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
                         <Label Text="Recommended:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
-                        <!-- TODO: Change to a collectionview template and add command bindings -->
+                        <!-- FIXME: Change to a collectionview template and add command bindings -->
                         <Button Text="Here is a Book"  
                                 BackgroundColor="LightCoral" 
                                 TextColor="Black"></Button>

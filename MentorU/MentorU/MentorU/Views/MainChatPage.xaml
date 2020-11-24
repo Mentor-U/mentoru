@@ -13,11 +13,13 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="10" x:DataType="model:User" Spacing="10.0">
-                            <Label Text="{Binding Name}"
-                            FontAttributes="Bold"
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
+                            <Frame BackgroundColor="LightGray" HasShadow="True">
+                                <Label Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                LineBreakMode="NoWrap" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" />
+                            </Frame>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"

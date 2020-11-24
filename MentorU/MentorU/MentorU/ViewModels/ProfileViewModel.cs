@@ -13,6 +13,7 @@ namespace MentorU.ViewModels
         private User _user;
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
+        public Command<User> MentorTapped { get; }
 
         /* Attributes from the user that are needed for dispaly */
         public string Name { get => _user.Name; }
@@ -30,10 +31,11 @@ namespace MentorU.ViewModels
             _user = new User("Wallace");
             Title = "Profile";
             Mentors = new ObservableCollection<User>();
-
+            
             //TODO: add all commands for loading market place recommendations and fetching user data from DB
             LoadPageDataCommand = new Command(async () => await ExecuteLoadMentors()); 
             EditProfileCommand = new Command(EditProfile);
+            MentorTapped = new Command<User>(OnMentorSelected);
         }
 
         private async void EditProfile(object obj)
@@ -61,6 +63,12 @@ namespace MentorU.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        async void OnMentorSelected(User mentor)
+        {
+            // TODO: pass in the mentor that is wanting to be used as they are hard coded right now
+            await Shell.Current.GoToAsync(nameof(ViewOnlyProfilePage));
         }
 
         public void OnAppearing()

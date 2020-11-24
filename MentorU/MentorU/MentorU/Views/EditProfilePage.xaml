@@ -2,8 +2,9 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MentorU.ViewModels"
-             x:Class="MentorU.Views.EditProfilePage">
-
+             x:Class="MentorU.Views.EditProfilePage"
+             Shell.PresentationMode="ModalAnimated">
+             
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -34,8 +35,9 @@
             <Editor  Text="{Binding Major}" 
                     Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" 
                     Placeholder="Major"/>
-            <Label Text ="{Binding Classes}" 
-                    Grid.Column="1" Grid.Row="3"/>
+            <Editor Text ="{Binding Classes}" 
+                    Grid.Column="1" Grid.Row="3"
+                    Placeholder="Classes"/>
             <Label Text="Bio:" FontSize="Medium" 
                     Grid.Column="0" Grid.Row="4" 
                     TextDecorations="Underline"/>

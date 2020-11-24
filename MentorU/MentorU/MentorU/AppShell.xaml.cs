@@ -13,6 +13,8 @@ namespace MentorU
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
+
         }
 
         private async void OnLogoutButtonClicked(object sender, EventArgs e)

@@ -14,7 +14,6 @@ namespace MentorU.Views
     {
         public ViewOnlyProfilePage()
         {
-            InitializeComponent();
             BindingContext = new ViewOnlyProfilePage();
         }
     }

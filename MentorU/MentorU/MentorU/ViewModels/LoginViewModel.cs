@@ -28,8 +28,10 @@ namespace MentorU.ViewModels
 
         private async void OnCreateClicked(object obj)
         {
-            Application.Current.MainPage = new AppShell();
-            await Shell.Current.GoToAsync($"//{nameof(CreateAccount)}");
+            //CreateAccountViewModel _viewModel = new CreateAccountViewModel();
+            //CreateAccount createAccount = new CreateAccount();
+            //createAccount.BindingContext = _viewModel;
+            await Application.Current.MainPage.Navigation.PushModalAsync(new CreateAccount());
         }
     }
 }

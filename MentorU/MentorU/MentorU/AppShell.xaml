@@ -88,6 +88,9 @@
     <FlyoutItem Title="Profile" Icon="blank_profile.png">
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}"/>
     </FlyoutItem>
+    <FlyoutItem Title="Chat">
+        <ShellContent Route="MainChatPage" ContentTemplate="{DataTemplate local:MainChatPage}"/>
+    </FlyoutItem>
     
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->

@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="MentorU.Views.LoginPage"
+             x:Class="MentorU.Views.CreateAccount"
              Shell.NavBarIsVisible="False">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
@@ -18,10 +18,17 @@
                            PlaceholderColor="White" HeightRequest="40"   
                            IsPassword="True"  
                            TextColor="White"/>
+                    <Entry x:Name="ConfirmPassword" Text="{Binding ConfirmPassword}" Placeholder="Confirm Password"   
+                           PlaceholderColor="White" HeightRequest="40"   
+                           IsPassword="True"  
+                           TextColor="White"/>
+                    <Entry x:Name="Name" Text="{Binding Name}" Placeholder="Full Name"   
+                           PlaceholderColor="White" HeightRequest="40"   
+                           Keyboard="Name"  
+                           TextColor="White"/>
                 </StackLayout>
             </Frame>
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-            <Button VerticalOptions="Center" Text="Create" Command="{Binding CreateCommand}"/>
+            <Button VerticalOptions="Center" Text="Login" Command="{Binding CreateAccountCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

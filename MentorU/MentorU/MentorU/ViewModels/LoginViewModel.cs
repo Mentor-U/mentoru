@@ -9,10 +9,12 @@ namespace MentorU.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         public Command LoginCommand { get; }
+        public Command CreateCommand { get; }
 
         public LoginViewModel()
         {
             LoginCommand = new Command(OnLoginClicked);
+            CreateCommand = new Command(OnCreateClicked);
         }
 
         private async void OnLoginClicked(object obj)
@@ -22,6 +24,12 @@ namespace MentorU.ViewModels
             //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
             Application.Current.MainPage = new AppShell();
             await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+        }
+
+        private async void OnCreateClicked(object obj)
+        {
+            Application.Current.MainPage = new AppShell();
+            await Shell.Current.GoToAsync($"//{nameof(CreateAccount)}");
         }
     }
 }

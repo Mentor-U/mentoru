@@ -6,18 +6,28 @@ using System.Threading.Tasks;
 
 namespace MentorU.Services
 {
-    public class MockDataStore : IDataStore<MarketplaceItem>
+    public class MockDataStore : IDataStore
     {
         readonly List<MarketplaceItem> items;
+        readonly List<User> Mentors;
+        private User _user;
 
         public MockDataStore()
         {
+            _user = new User("Wallace"); // This is the person that is using the app and should be consistent in all aspects of the app
             items = new List<MarketplaceItem>()
             {
                 new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "First item", ItemPrice = 10.0, Description="This is an item description." },
                 new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "Second item", ItemPrice = 100.0,Description="This is an item description." }
             };
+            Mentors = new List<User>()
+            {
+                new User("George"),
+                new User("Steve")
+            };
         }
+
+        /** ---- Marketplace methods ---- */
 
         public async Task<bool> AddItemAsync(MarketplaceItem item)
         {
@@ -52,5 +62,22 @@ namespace MentorU.Services
         {
             return await Task.FromResult(items);
         }
+
+
+        /** ---- Profile Methods ---- */
+        public async Task<User> GetUser()
+        {
+            return await Task.FromResult(_user);
+        }
+        public async Task<bool> UpdateProfileAsync(User user)
+        {
+            _user = user;
+            return await Task.FromResult(true);
+        }
+        public async Task<IEnumerable<User>> GetMentorsAsync(bool forceRefresh = false)
+        {
+            return await Task.FromResult(Mentors);
+        }
+
     }
 }

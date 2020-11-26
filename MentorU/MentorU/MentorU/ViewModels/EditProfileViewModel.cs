@@ -9,14 +9,29 @@ using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
-    //[QueryProperty(nameof(User), nameof(User))]
+    [QueryProperty(nameof(User), nameof(User))]
     public class EditProfileViewModel : BaseViewModel
     {
         private User _user;
-        public string Name { get; set; }
-        public string Major { get; set; }
+        private string _name;
+        private string _major;
+        private string _bio;
+        public string Name 
+        { 
+            get => _name; 
+            set => SetProperty(ref _name, value); 
+        }
+        public string Major
+        { 
+            get => _major; 
+            set => SetProperty(ref _major, value); 
+        }
         public ObservableCollection<string> Classes { get; set; }
-        public string Bio { get; set; }
+        public string Bio
+        { 
+            get => _bio;
+            set => SetProperty(ref _bio, value); 
+        }
         public Command SaveButtonCommand { get; set; }
         public Command CancelButtonCommand { get; set; }
 
@@ -26,23 +41,20 @@ namespace MentorU.ViewModels
          */
         public EditProfileViewModel()
         {
-            // TODO: pull current user data from database or local cache
-            // _user = await DataStore.GetUserAsync(User);
-            _user = new User("Wallace");
-            Name = _user.Name;
-            Major = _user.Major;
-            Bio = _user.Bio;
+            _user = DataStore.GetUser().Result;
+            _name = _user.Name;
+            _major = _user.Major;
+            _bio = _user.Bio;
             SaveButtonCommand = new Command(OnSave);
             CancelButtonCommand = new Command(OnCancel);
         }
 
-        public void OnSave()
+        public async void OnSave()
         {
-            // TODO: update attributes to database
-            _user.Name = Name;
-            _user.Major = Major;
-            _user.Bio = Bio;
-
+            _user.Name = _name;
+            _user.Major = _major;
+            _user.Bio = _bio;
+            await DataStore.UpdateProfileAsync(_user);
             Shell.Current.SendBackButtonPressed();
         }
 

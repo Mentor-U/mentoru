@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MentorU.Models;
 
 namespace MentorU.Services
 {
-    public interface IDataStore<T>
+    public interface IDataStore
     {
-        Task<bool> AddItemAsync(T item);
-        Task<bool> UpdateItemAsync(T item);
+        /** Marketplace*/
+        Task<bool> AddItemAsync(MarketplaceItem item);
+        Task<bool> UpdateItemAsync(MarketplaceItem item);
         Task<bool> DeleteItemAsync(string id);
-        Task<T> GetItemAsync(string id);
-        Task<IEnumerable<T>> GetItemsAsync(bool forceRefresh = false);
+        Task<MarketplaceItem> GetItemAsync(string id);
+        Task<IEnumerable<MarketplaceItem>> GetItemsAsync(bool forceRefresh = false);
+
+        /** Profile */
+        Task<User> GetUser();
+        Task<bool> UpdateProfileAsync(User user);
+        Task<IEnumerable<User>> GetMentorsAsync(bool forceRefresh = false);
     }
 }

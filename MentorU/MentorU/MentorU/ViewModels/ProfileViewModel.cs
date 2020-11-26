@@ -27,8 +27,7 @@ namespace MentorU.ViewModels
          */
         public ProfileViewModel()
         {
-            // TODO: get user from data base as they should already exist if they are on this page
-            _user = new User("Wallace");
+            _user = DataStore.GetUser().Result;
             Title = "Profile";
             Mentors = new ObservableCollection<User>();
             
@@ -38,22 +37,17 @@ namespace MentorU.ViewModels
             MentorTapped = new Command<User>(OnMentorSelected);
         }
 
-        private async void EditProfile(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(EditProfilePage));
-        }
-
         async Task ExecuteLoadMentors() //TODO: make async with the call to the datastore
         {
             IsBusy = true;
             try
             {
                 Mentors.Clear();
-                // var mentors = await DataStore.GetMentorsAsync(); // TODO: add datastore method
-                User m1 = new User("George");
-                User m2 = new User("Steve");
-                Mentors.Add(m1);
-                Mentors.Add(m2);
+                var mentors = await DataStore.GetMentorsAsync(); 
+                foreach(var m in mentors)
+                {
+                    Mentors.Add(m);
+                }
             }
             catch(Exception ex)
             {
@@ -63,6 +57,11 @@ namespace MentorU.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private async void EditProfile(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(EditProfilePage));
         }
 
         async void OnMentorSelected(User mentor)

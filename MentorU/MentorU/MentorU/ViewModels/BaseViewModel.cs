@@ -10,7 +10,7 @@ namespace MentorU.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore DataStore = new MockDataStore();
+        public IDataStore DataStore => DependencyService.Get<IDataStore>();
 
         bool isBusy = false;
         public bool IsBusy

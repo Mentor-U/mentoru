@@ -27,7 +27,7 @@ namespace MentorU.ViewModels
          */
         public ProfileViewModel()
         {
-            _user = DataStore.GetUser().Result;
+            _user =  DataStore.GetUser().Result;
             Title = "Profile";
             Mentors = new ObservableCollection<User>();
             
@@ -37,13 +37,13 @@ namespace MentorU.ViewModels
             MentorTapped = new Command<User>(OnMentorSelected);
         }
 
-        async Task ExecuteLoadMentors() //TODO: make async with the call to the datastore
+        async Task ExecuteLoadMentors() 
         {
             IsBusy = true;
             try
             {
                 Mentors.Clear();
-                var mentors = await DataStore.GetMentorsAsync(); 
+                var mentors = await DataStore.GetMentorsAsync(true); 
                 foreach(var m in mentors)
                 {
                     Mentors.Add(m);
@@ -66,8 +66,9 @@ namespace MentorU.ViewModels
 
         async void OnMentorSelected(User mentor)
         {
-            // TODO: pass in the mentor that is wanting to be used as they are hard coded right now
-            await Shell.Current.GoToAsync(nameof(ViewOnlyProfilePage));
+            if (mentor == null)
+                return;
+            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.UserID}");
         }
 
         public void OnAppearing()

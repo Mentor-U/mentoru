@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MentorU.Models
 {
-    public class User
+    public class User : MarketplaceItem
     {
         public int UserID { get; set; }
         

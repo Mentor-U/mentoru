@@ -25,6 +25,9 @@ namespace MentorU.Services
                 new User("George"),
                 new User("Steve")
             };
+            Mentors[0].UserID = 1;
+            Mentors[1].UserID = 2;
+            Mentors[1].Bio = "I love coffee and code";
         }
 
         /** ---- Marketplace methods ---- */
@@ -65,9 +68,13 @@ namespace MentorU.Services
 
 
         /** ---- Profile Methods ---- */
-        public async Task<User> GetUser()
-        {
-            return await Task.FromResult(_user);
+        public async Task<User> GetUser(int id = -1) // no UserID's should be negative, so -1 can be 'me'
+        {   
+            if(id == -1) // Get the user of the application
+                return await Task.FromResult(_user);
+
+            // Get the user data that the primary user wants to interact with
+            return await Task.FromResult(Mentors.FirstOrDefault(s => s.UserID == id));
         }
         public async Task<bool> UpdateProfileAsync(User user)
         {

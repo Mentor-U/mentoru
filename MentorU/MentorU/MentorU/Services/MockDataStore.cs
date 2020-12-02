@@ -76,11 +76,6 @@ namespace MentorU.Services
             // Get the user data that the primary user wants to interact with
             return await Task.FromResult(Mentors.FirstOrDefault(s => s.UserID == id));
         }
-        public async Task<bool> UpdateProfileAsync(User user)
-        {
-            _user = user;
-            return await Task.FromResult(true);
-        }
         public async Task<IEnumerable<User>> GetMentorsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(Mentors);

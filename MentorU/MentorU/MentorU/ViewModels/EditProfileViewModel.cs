@@ -15,6 +15,7 @@ namespace MentorU.ViewModels
         private string _name;
         private string _major;
         private string _bio;
+        private ProfileViewModel _vm;
         public string Name 
         { 
             get => _name; 
@@ -38,30 +39,28 @@ namespace MentorU.ViewModels
          * Creates a temporary user that saves the changes. If cancelled the _user
          * remains the same. If save the temp values are copied over to the _user
          */
-        public EditProfileViewModel()
+        public EditProfileViewModel(ProfileViewModel profileVM)
         {
+            _vm = profileVM;
             _user = DataStore.GetUser().Result;
             _name = _user.Name;
             _major = _user.Major;
             _bio = _user.Bio;
             SaveButtonCommand = new Command(OnSave);
             CancelButtonCommand = new Command(OnCancel);
-            this.PropertyChanged += (_,__) => SaveButtonCommand.ChangeCanExecute();
         }
 
         private async void OnSave()
         {
-            _user.Name = _name;
-            _user.Major = _major;
-            _user.Bio = _bio;
-            await DataStore.UpdateProfileAsync(_user);
-            //await Shell.Current.GoToAsync("..");
-            Shell.Current.SendBackButtonPressed();
+            _user.Name = _vm.Name = Name;
+            _user.Major = _vm.Major = Major;
+            _user.Bio = _vm.Bio = Bio;
+            await Shell.Current.Navigation.PopModalAsync();
         }
 
-        private void OnCancel()
+        private async void OnCancel()
         {
-            Shell.Current.SendBackButtonPressed();
+            await Shell.Current.Navigation.PopModalAsync();
         }
     }
 }

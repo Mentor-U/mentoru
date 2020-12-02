@@ -11,38 +11,68 @@ namespace MentorU.ViewModels
     public class ProfileViewModel : BaseViewModel
     {
         private User _user;
+        private string _name;
+        private string _major;
+        private string _bio;
+         
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
         public Command<User> MentorTapped { get; }
 
         /* Attributes from the user that are needed for dispaly */
-        public string Name { get => _user.Name; }
-        public string Major { get => _user.Major; }
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Major
+        { 
+            get => _major;
+            set
+            {
+                _major = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<string> Classes { get; }
         public ObservableCollection<User> Mentors { get; }
-        public string Bio { get => _user.Bio; }
+        public string Bio
+        {
+            get => _user.Bio;
+            set
+            {
+                _bio = value;
+                OnPropertyChanged();
+            }
+        }
 
         /***
          * Constructor. Initialize bindings from view
          */
         public ProfileViewModel()
         {
-            _user =  DataStore.GetUser().Result;
+            _user = DataStore.GetUser().Result;
+            Name = _user.Name;
+            Major = _user.Major;
+            Bio = _user.Bio;
             Title = "Profile";
             Mentors = new ObservableCollection<User>();
-            
-            //TODO: add all commands for loading market place recommendations and fetching user data from DB
-            LoadPageDataCommand = new Command(async () => await ExecuteLoadMentors()); 
+
+            LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
             MentorTapped = new Command<User>(OnMentorSelected);
         }
 
-        async Task ExecuteLoadMentors() 
+        async Task ExecuteLoad() 
         {
             IsBusy = true;
             try
             {
-                Mentors.Clear();
+                Mentors.Clear(); // mentor list
                 var mentors = await DataStore.GetMentorsAsync(true); 
                 foreach(var m in mentors)
                 {
@@ -61,7 +91,7 @@ namespace MentorU.ViewModels
 
         private async void EditProfile(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(EditProfilePage));
+            await Shell.Current.Navigation.PushModalAsync(new EditProfilePage(this));
         }
 
         async void OnMentorSelected(User mentor)

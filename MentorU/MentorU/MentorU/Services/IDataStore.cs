@@ -16,7 +16,6 @@ namespace MentorU.Services
 
         /** Profile */
         Task<User> GetUser(int id = -1);
-        Task<bool> UpdateProfileAsync(User user);
         Task<IEnumerable<User>> GetMentorsAsync(bool forceRefresh = false);
     }
 }

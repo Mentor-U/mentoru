@@ -42,7 +42,7 @@ namespace MentorU.ViewModels
         public ObservableCollection<User> Mentors { get; }
         public string Bio
         {
-            get => _user.Bio;
+            get => _bio;
             set
             {
                 _bio = value;

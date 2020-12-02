@@ -27,6 +27,7 @@ namespace MentorU.Services
             };
             Mentors[0].UserID = 1;
             Mentors[1].UserID = 2;
+            Mentors[0].Bio = "I like to ski and I like art";
             Mentors[1].Bio = "I love coffee and code";
         }
 

@@ -88,7 +88,7 @@
     <FlyoutItem Title="Profile" Icon="blank_profile.png">
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Chat">
+    <FlyoutItem Title="Chat" Icon="chat.png">
         <ShellContent Route="MainChatPage" ContentTemplate="{DataTemplate local:MainChatPage}"/>
     </FlyoutItem>
     

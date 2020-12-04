@@ -11,6 +11,8 @@ namespace MentorU
     {
         static Database context;
 
+        public static string DatabaseLocation = string.Empty;
+
         public static Database Database
         {
             get
@@ -37,6 +39,24 @@ namespace MentorU
             {
                 MainPage = new LoginPage();
             }
+        }
+
+        public App(string databaseLocation)
+        {
+            InitializeComponent();
+
+            DependencyService.Register<MockDataStore>();
+            var isLoggedIn = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;
+            if (isLoggedIn == "1")
+            {
+                MainPage = new AppShell();
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
+
+            DatabaseLocation = databaseLocation;
         }
 
         protected override void OnStart()

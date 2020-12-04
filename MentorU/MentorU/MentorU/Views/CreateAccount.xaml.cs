@@ -8,6 +8,7 @@ using MentorU.Models;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SQLite;
 
 namespace MentorU.Views
 {
@@ -29,20 +30,33 @@ namespace MentorU.Views
             listView.ItemsSource = await App.Database.GetUserAsync();
         }
 
-        async void OnCreateAccountClicked(object sender, EventArgs e)
+        private void OnCreateAccountClicked(object sender, EventArgs e)
         {
-            if(!string.IsNullOrEmpty(email.Text) && !string.IsNullOrEmpty(password.Text))
+            if(password.Text == confirmPassword.Text)
             {
-                await App.Database.SaveUserAsync(new Profile
+                Profile newProfile = new Profile()
                 {
                     UserName = userName.Text,
                     Email = email.Text,
-                    //Password = password.Text
-                });
+                    Password = password.Text,
+                };
 
-                email.Text = password.Text = string.Empty;
-                listView.ItemsSource = await App.Database.GetUserAsync();
+                SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+                conn.CreateTable<Profile>();
+                int rows = conn.Insert(newProfile);
+                conn.Close();
+
+
+                if(rows > 0)
+                {
+                    DisplayAlert("Success", "Profile inserted", "Ok");
+                }
+                else
+                {
+                    DisplayAlert("Failed", "Profile not inserted", "Ok");
+                }
             }
+         
         }
     }
 }

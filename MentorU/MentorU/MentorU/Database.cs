@@ -7,7 +7,7 @@ using MentorU.Models;
 
 namespace MentorU
 {
-    class Database
+    public class Database
     {
         readonly SQLiteAsyncConnection _context;
 

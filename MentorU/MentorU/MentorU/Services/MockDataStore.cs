@@ -14,7 +14,7 @@ namespace MentorU.Services
 
         public MockDataStore()
         {
-            _user = new User("Wallace"); // This is the person that is using the app and should be consistent in all aspects of the app
+            _user = new User { Name = "Wallace" }; // This is the person that is using the app and should be consistent in all aspects of the app
             items = new List<MarketplaceItem>()
             {
                 new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "First item", ItemPrice = 10.0, Description="This is an item description." },
@@ -22,8 +22,8 @@ namespace MentorU.Services
             };
             Mentors = new List<User>()
             {
-                new User("George"),
-                new User("Steve")
+                new User { Name = "George" },
+                new User { Name = "Steve" }
             };
             Mentors[0].UserID = 1;
             Mentors[1].UserID = 2;

@@ -14,15 +14,15 @@ namespace MentorU
         public Database(string dbPath)
         {
             _context = new SQLiteAsyncConnection(dbPath);
-            _context.CreateTableAsync<User>().Wait();
+            _context.CreateTableAsync<Profile>().Wait();
         }
 
-        public Task<List<User>> GetUserAsync()
+        public Task<List<Profile>> GetUserAsync()
         {
-            return _context.Table<User>().ToListAsync();
+            return _context.Table<Profile>().ToListAsync();
         }
 
-        public Task<int> SaveUserAsync(User user)
+        public Task<int> SaveUserAsync(Profile user)
         {
             return _context.InsertAsync(user);
         }

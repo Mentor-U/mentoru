@@ -10,14 +10,14 @@ namespace MentorU.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        private User _user;
+        private Profile _user;
         private string _name;
         private string _major;
         private string _bio;
          
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
-        public Command<User> MentorTapped { get; }
+        public Command<Profile> MentorTapped { get; }
 
         /* Attributes from the user that are needed for dispaly */
         public string Name
@@ -39,7 +39,7 @@ namespace MentorU.ViewModels
             }
         }
         public ObservableCollection<string> Classes { get; }
-        public ObservableCollection<User> Mentors { get; }
+        public ObservableCollection<Profile> Mentors { get; }
         public string Bio
         {
             get => _bio;
@@ -60,11 +60,11 @@ namespace MentorU.ViewModels
             Major = _user.Major;
             Bio = _user.Bio;
             Title = "Profile";
-            Mentors = new ObservableCollection<User>();
+            Mentors = new ObservableCollection<Profile>();
 
             LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
-            MentorTapped = new Command<User>(OnMentorSelected);
+            MentorTapped = new Command<Profile>(OnMentorSelected);
         }
 
         async Task ExecuteLoad() 
@@ -94,7 +94,7 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PushModalAsync(new EditProfilePage(this));
         }
 
-        async void OnMentorSelected(User mentor)
+        async void OnMentorSelected(Profile mentor)
         {
             if (mentor == null)
                 return;

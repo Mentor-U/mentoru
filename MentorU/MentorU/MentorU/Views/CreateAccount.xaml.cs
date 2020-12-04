@@ -33,11 +33,11 @@ namespace MentorU.Views
         {
             if(!string.IsNullOrEmpty(email.Text) && !string.IsNullOrEmpty(password.Text))
             {
-                await App.Database.SaveUserAsync(new User
+                await App.Database.SaveUserAsync(new Profile
                 {
                     UserName = userName.Text,
                     Email = email.Text,
-                    Password = password.Text
+                    //Password = password.Text
                 });
 
                 email.Text = password.Text = string.Empty;

@@ -9,21 +9,21 @@ namespace MentorU.Services
     public class MockDataStore : IDataStore
     {
         readonly List<MarketplaceItem> items;
-        readonly List<User> Mentors;
-        private User _user;
+        readonly List<Profile> Mentors;
+        private Profile _user;
 
         public MockDataStore()
         {
-            _user = new User { Name = "Wallace" }; // This is the person that is using the app and should be consistent in all aspects of the app
+            _user = new Profile { Name = "Wallace" }; // This is the person that is using the app and should be consistent in all aspects of the app
             items = new List<MarketplaceItem>()
             {
                 new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "First item", ItemPrice = 10.0, Description="This is an item description." },
                 new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "Second item", ItemPrice = 100.0,Description="This is an item description." }
             };
-            Mentors = new List<User>()
+            Mentors = new List<Profile>()
             {
-                new User { Name = "George" },
-                new User { Name = "Steve" }
+                new Profile { Name = "George" },
+                new Profile { Name = "Steve" }
             };
             Mentors[0].UserID = 1;
             Mentors[1].UserID = 2;
@@ -69,7 +69,7 @@ namespace MentorU.Services
 
 
         /** ---- Profile Methods ---- */
-        public async Task<User> GetUser(int id = -1) // no UserID's should be negative, so -1 can be 'me'
+        public async Task<Profile> GetUser(int id = -1) // no UserID's should be negative, so -1 can be 'me'
         {   
             if(id == -1) // Get the user of the application
                 return await Task.FromResult(_user);
@@ -77,7 +77,7 @@ namespace MentorU.Services
             // Get the user data that the primary user wants to interact with
             return await Task.FromResult(Mentors.FirstOrDefault(s => s.UserID == id));
         }
-        public async Task<IEnumerable<User>> GetMentorsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Profile>> GetMentorsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(Mentors);
         }

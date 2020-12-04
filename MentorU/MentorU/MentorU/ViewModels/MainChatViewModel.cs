@@ -10,14 +10,14 @@ namespace MentorU.ViewModels
 {
     public class MainChatViewModel : BaseViewModel
     {
-        private User _user;
-        public ObservableCollection<User> Chats { get; }
+        private Profile _user;
+        public ObservableCollection<Profile> Chats { get; }
         public Command LoadChatsCommand { get; }
         public MainChatViewModel()
         {
             Title = "Chats";
             _user.Name = "Wallace";
-            Chats = new ObservableCollection<User>();
+            Chats = new ObservableCollection<Profile>();
             LoadChatsCommand = new Command(async () => await ExecuteLoadChats());
         }
 
@@ -30,8 +30,8 @@ namespace MentorU.ViewModels
                 // var chats = await Data.GetChatsAsync(true);
                 //User u1 = new User("George");
                 //User u2 = new User("Steve");
-                User u1 = new User { Name = "George" };
-                User u2 = new User { Name = "Steve" };
+                Profile u1 = new Profile { Name = "George" };
+                Profile u2 = new Profile { Name = "Steve" };
                 Chats.Add(u1);
                 Chats.Add(u2);
             }

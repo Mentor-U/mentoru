@@ -11,7 +11,7 @@ namespace MentorU.ViewModels
 {
     public class EditProfileViewModel : ProfileViewModel
     {
-        private User _user;
+        private Profile _user;
         private ProfileViewModel _parentVM;
         public Command SaveButtonCommand { get; set; }
         public Command CancelButtonCommand { get; set; }

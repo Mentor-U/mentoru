@@ -6,7 +6,7 @@ using SQLite;
 
 namespace MentorU.Models
 {
-    public class User : MarketplaceItem
+    public class Profile : MarketplaceItem
     {
         [PrimaryKey, AutoIncrement]
         public int UserID { get; set; }
@@ -15,7 +15,7 @@ namespace MentorU.Models
         public string Major { get; set; }
         public string Bio { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
+        //public string Password { get; set; }
 
         public List<string> Classes;
     }

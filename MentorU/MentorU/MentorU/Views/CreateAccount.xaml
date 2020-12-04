@@ -19,11 +19,11 @@
             </StackLayout>
             <StackLayout Orientation="Vertical" Grid.Row="2" >
                 <Label Text="Create a New Account" FontSize="Large" TextColor="Black" HorizontalOptions="Center" Margin="0,10,0,0" />
-                <Entry Text="{Binding UserName}" Placeholder="Username" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
-                <Entry Text="{Binding Email}" Placeholder="Email" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
-                <Entry Text="{Binding Password}" Placeholder="Password" TextColor="Black" PlaceholderColor="Black" IsPassword="True" Margin="0,5,0,0" />
-                <Entry Text="{Binding ConfirmPassword}" Placeholder="Confirm Password" TextColor="Black" PlaceholderColor="Black" IsPassword="True" Margin="0,5,0,0" />
-                <Button VerticalOptions="Center" Text="Create" Command="{Binding OnCreateAccountClicked}"/>
+                <Entry x:Name="userName"  Text="{Binding UserName}" Placeholder="Username" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
+                <Entry x:Name="email" Text="{Binding Email}" Placeholder="Email" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
+                <Entry x:Name="password" Text="{Binding Password}" Placeholder="Password" TextColor="Black" PlaceholderColor="Black" IsPassword="True" Margin="0,5,0,0" />
+                <Entry x:Name="confirmPassword" Text="{Binding ConfirmPassword}" Placeholder="Confirm Password" TextColor="Black" PlaceholderColor="Black" IsPassword="True" Margin="0,5,0,0" />
+                <Button VerticalOptions="Center" Text="Create" Clicked="OnCreateAccountClicked"/>
             </StackLayout>
 
             <!--<StackLayout Orientation="Vertical" Grid.Row="2">

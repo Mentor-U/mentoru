@@ -17,18 +17,18 @@ namespace MentorU.ViewModels
 
         public string Password { get; set; }
 
-        public CreateAccountViewModel()
-        {
-            CreateAccountCommand = new Command(OnCreateAccountClicked);
-        }
+        //public CreateAccountViewModel()
+        //{
+        //    CreateAccountCommand = new Command(OnCreateAccountClicked);
+        //}
 
-        private async void OnCreateAccountClicked(object obj)
-        {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-            //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
-            Shell.Current.SendBackButtonPressed();
-        }
+        //private async void OnCreateAccountClicked(object obj)
+        //{
+        //    // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
+        //    //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+        //    //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
+        //    await Shell.Current.SendBackButtonPressed();
+        //}
 
     }
 }

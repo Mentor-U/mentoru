@@ -10,13 +10,13 @@ namespace MentorU.ViewModels
 {
     public class MainChatViewModel : BaseViewModel
     {
-        private Users _user;
+        //private Users _user;
         public ObservableCollection<Users> Chats { get; }
         public Command LoadChatsCommand { get; }
         public MainChatViewModel()
         {
             Title = "Chats";
-            _user.FirstName = "Wallace";
+            //_user.FirstName = "Wallace";
             Chats = new ObservableCollection<Users>();
             LoadChatsCommand = new Command(async () => await ExecuteLoadChats());
         }

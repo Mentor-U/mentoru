@@ -11,6 +11,7 @@ namespace MentorU.Models
         [PrimaryKey]
         public string id { get; set; }
         public string FirstName { get; set; }
+        public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
 
@@ -18,6 +19,8 @@ namespace MentorU.Models
         // Move to profiles eventually
         public string Major { get; set; }
         public string Bio { get; set; }
+
+        public List<string> Classes { get; set; }
 
     }
 }

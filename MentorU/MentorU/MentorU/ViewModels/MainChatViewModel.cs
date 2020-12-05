@@ -27,9 +27,6 @@ namespace MentorU.ViewModels
             try
             {
                 Chats.Clear();
-                // var chats = await Data.GetChatsAsync(true);
-                //User u1 = new User("George");
-                //User u2 = new User("Steve");
                 Users u1 = new Users { FirstName = "George" };
                 Users u2 = new Users { FirstName = "Steve" };
                 Chats.Add(u1);

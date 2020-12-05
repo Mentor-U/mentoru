@@ -1,5 +1,4 @@
 ﻿using MentorU.Models;
-using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -51,9 +50,6 @@ namespace MentorU.ViewModels
 
         private async void CreateAccount()
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-            //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
             if (Password == ConfirmPassword)
             {
                 Users newProfile = new Users()
@@ -62,30 +58,13 @@ namespace MentorU.ViewModels
                     Password = Password,
                 };
 
-
-                //LOCAL DB
-                //SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-                //conn.CreateTable<Users>();
-                //int rows = conn.Insert(newProfile);
-                //conn.Close();
-
                 await App.client.GetTable<Users>().InsertAsync(newProfile);
                 await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
-                // If insert successful
-                //if (rows > 0)
-                //{
-                //    await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
-                //}
-                //else
-                //{
-                //    await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");
-                //}
             }
             else
             {
                 await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");
             }
-
         }
 
     }

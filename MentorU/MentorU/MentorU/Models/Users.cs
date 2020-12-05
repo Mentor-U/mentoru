@@ -8,7 +8,7 @@ namespace MentorU.Models
 {
     public class Users
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public string id { get; set; }
         public string FirstName { get; set; }
         public string Email { get; set; }

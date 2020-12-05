@@ -15,7 +15,7 @@ namespace MentorU.Views
 
     public partial class CreateAccount : ContentPage
     {
-        public Profile newProfile { get; set; }
+        public Users newProfile { get; set; }
         public CreateAccount()
         {
             InitializeComponent();

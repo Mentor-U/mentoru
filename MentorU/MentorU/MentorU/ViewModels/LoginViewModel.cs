@@ -41,12 +41,12 @@ namespace MentorU.ViewModels
             //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
 
             SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-            conn.CreateTable<Profile>();
-            var profiles = conn.Table<Profile>().ToList();
+            conn.CreateTable<Users>();
+            var profiles = conn.Table<Users>().ToList();
             conn.Close();
 
             bool loginSuccess = false;
-            foreach(Profile P in profiles)
+            foreach(Users P in profiles)
             {
                 if(P.Email.Equals(Email) && P.Password.Equals(Password))
                 {

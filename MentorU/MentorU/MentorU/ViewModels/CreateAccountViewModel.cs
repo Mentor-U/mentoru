@@ -56,7 +56,7 @@ namespace MentorU.ViewModels
             //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
             if (Password == ConfirmPassword)
             {
-                Profile newProfile = new Profile()
+                Users newProfile = new Users()
                 {
                     UserName = UserName,
                     Email = Email,
@@ -64,7 +64,7 @@ namespace MentorU.ViewModels
                 };
 
                 SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-                conn.CreateTable<Profile>();
+                conn.CreateTable<Users>();
                 int rows = conn.Insert(newProfile);
                 conn.Close();
 

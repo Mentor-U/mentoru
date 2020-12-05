@@ -1,5 +1,6 @@
 ﻿using MentorU.Services;
 using MentorU.Views;
+using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.IO;
 using Xamarin.Forms;
@@ -12,6 +13,8 @@ namespace MentorU
         static Database context;
 
         public static string DatabaseLocation = string.Empty;
+
+        MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
 
         public static Database Database
         {

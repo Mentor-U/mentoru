@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using System.IO;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace MentorU.Droid
 {
@@ -27,6 +28,7 @@ namespace MentorU.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
+            CurrentPlatform.Init();
             LoadApplication(new App(fullPath));
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

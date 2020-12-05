@@ -40,30 +40,54 @@ namespace MentorU.ViewModels
             //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
             //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
 
-            SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-            conn.CreateTable<Users>();
-            var profiles = conn.Table<Users>().ToList();
-            conn.Close();
-
-            bool loginSuccess = false;
-            foreach(Users P in profiles)
+            try
             {
-                if(P.Email.Equals(Email) && P.Password.Equals(Password))
+                string email = Email;
+                //string password = Password;
+
+                var pwd = await App.client.GetTable<Users>().Where(e => e.Email == email)
+                    .Select(p => p.Password).ToListAsync();
+
+                if (pwd.Contains(Password))
                 {
-                    loginSuccess = true;
+                    Application.Current.MainPage = new AppShell();
+                    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Failed", "Email or Password Incorrect!", "Ok");
                 }
             }
-
-            if(loginSuccess)
+            catch (Exception ex)
             {
-                Application.Current.MainPage = new AppShell();
-                await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                await Application.Current.MainPage.DisplayAlert("Failed", "Email or Password Incorrect!", "Ok");
             }
-            else
-            {
-                await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");
+            
 
-            }
+            //SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+            //conn.CreateTable<Users>();
+            //var profiles = conn.Table<Users>().ToList();
+            //conn.Close();
+
+            //bool loginSuccess = false;
+            //foreach(Users P in profiles)
+            //{
+            //    if(P.Email.Equals(Email) && P.Password.Equals(Password))
+            //    {
+            //        loginSuccess = true;
+            //    }
+            //}
+
+            //if(loginSuccess)
+            //{
+            //    Application.Current.MainPage = new AppShell();
+            //    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+            //}
+            //else
+            //{
+            //    await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");
+
+            //}
 
         }
 

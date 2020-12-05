@@ -58,25 +58,28 @@ namespace MentorU.ViewModels
             {
                 Users newProfile = new Users()
                 {
-                    UserName = UserName,
                     Email = Email,
                     Password = Password,
                 };
 
-                SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
-                conn.CreateTable<Users>();
-                int rows = conn.Insert(newProfile);
-                conn.Close();
 
+                //LOCAL DB
+                //SQLiteConnection conn = new SQLiteConnection(App.DatabaseLocation);
+                //conn.CreateTable<Users>();
+                //int rows = conn.Insert(newProfile);
+                //conn.Close();
+
+                await App.client.GetTable<Users>().InsertAsync(newProfile);
+                await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
                 // If insert successful
-                if (rows > 0)
-                {
-                    await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");
-                }
+                //if (rows > 0)
+                //{
+                //    await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
+                //}
+                //else
+                //{
+                //    await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");
+                //}
             }
             else
             {

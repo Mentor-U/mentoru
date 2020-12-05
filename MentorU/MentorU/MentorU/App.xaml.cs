@@ -14,7 +14,7 @@ namespace MentorU
 
         public static string DatabaseLocation = string.Empty;
 
-        MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
+        public static MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
 
         public static Database Database
         {

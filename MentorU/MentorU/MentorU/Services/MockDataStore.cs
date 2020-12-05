@@ -14,7 +14,7 @@ namespace MentorU.Services
 
         public MockDataStore()
         {
-            _user = new Users { Name = "Wallace" }; // This is the person that is using the app and should be consistent in all aspects of the app
+            _user = new Users { FirstName = "Wallace" }; // This is the person that is using the app and should be consistent in all aspects of the app
             items = new List<MarketplaceItem>()
             {
                 new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "First item", ItemPrice = 10.0, Description="This is an item description." },
@@ -22,11 +22,11 @@ namespace MentorU.Services
             };
             Mentors = new List<Users>()
             {
-                new Users { Name = "George" },
-                new Users { Name = "Steve" }
+                new Users { FirstName = "George" },
+                new Users { FirstName = "Steve" }
             };
-            Mentors[0].UserID = 1;
-            Mentors[1].UserID = 2;
+            Mentors[0].id = "1";
+            Mentors[1].id = "2";
             Mentors[0].Bio = "I like to ski and I like art";
             Mentors[1].Bio = "I love coffee and code";
         }
@@ -75,7 +75,7 @@ namespace MentorU.Services
                 return await Task.FromResult(_user);
 
             // Get the user data that the primary user wants to interact with
-            return await Task.FromResult(Mentors.FirstOrDefault(s => s.UserID == id));
+            return await Task.FromResult(Mentors.FirstOrDefault(s => s.id.Equals(id)));
         }
         public async Task<IEnumerable<Users>> GetMentorsAsync(bool forceRefresh = false)
         {

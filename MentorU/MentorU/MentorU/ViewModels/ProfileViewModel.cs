@@ -56,7 +56,7 @@ namespace MentorU.ViewModels
         public ProfileViewModel()
         {
             _user = DataStore.GetUser().Result;
-            Name = _user.Name;
+            Name = _user.FirstName;
             Major = _user.Major;
             Bio = _user.Bio;
             Title = "Profile";
@@ -98,7 +98,7 @@ namespace MentorU.ViewModels
         {
             if (mentor == null)
                 return;
-            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.UserID}");
+            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.id}");
         }
 
         public void OnAppearing()

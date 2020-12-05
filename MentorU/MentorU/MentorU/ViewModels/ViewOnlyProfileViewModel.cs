@@ -39,7 +39,7 @@ namespace MentorU.ViewModels
             try
             {
                 Users user = await DataStore.GetUser(int.Parse(id));
-                Name = user.Name;
+                Name = user.FirstName;
                 Field = user.Major;
                 Bio = user.Bio;
             }

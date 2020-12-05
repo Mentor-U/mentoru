@@ -25,7 +25,7 @@ namespace MentorU.ViewModels
         {
             _parentVM = profileVM;
             _user = DataStore.GetUser().Result;
-            Name = _user.Name;
+            Name = _user.FirstName;
             Major = _user.Major;
             Bio = _user.Bio;
             SaveButtonCommand = new Command(OnSave);
@@ -34,7 +34,7 @@ namespace MentorU.ViewModels
 
         private async void OnSave()
         {
-            _user.Name = _parentVM.Name = Name;
+            _user.FirstName = _parentVM.Name = Name;
             _user.Major = _parentVM.Major = Major;
             _user.Bio = _parentVM.Bio = Bio;
             await Shell.Current.Navigation.PopModalAsync();

@@ -1,19 +1,22 @@
 ﻿using System;
-using System.ComponentModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using MentorU.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
-using MentorU.ViewModels;
 
 namespace MentorU.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class HomePage : ContentPage
+    public partial class SearchNewMentorPage : ContentPage
     {
-        HomeViewModel _vm;
-        public HomePage()
+        SearchNewMentorViewModel _vm;
+        public SearchNewMentorPage()
         {
             InitializeComponent();
-            BindingContext = _vm = new HomeViewModel();
+            BindingContext = _vm = new SearchNewMentorViewModel();
         }
 
         protected override void OnAppearing()

@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.SearchNewMentorPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             xmlns:model="clr-namespace:MentorU.Models">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Filter" Command="{Binding FilterCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <RefreshView x:DataType="local:SearchNewMentorViewModel" Command="{Binding LoadMentorsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <CollectionView x:Name="MentorList" 
+                            ItemsSource="{Binding Mentors}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate >
+                        <StackLayout Padding="10" x:DataType="model:User">
+                            <Frame BackgroundColor="LightCoral" HasShadow="True">
+                                <Label LineBreakMode="NoWrap" 
+                                            Style="{DynamicResource ListItemTextStyle}" 
+                                            FontSize="16">
+                                    <Label.Text>
+                                        <MultiBinding StringFormat="{}{0}: {1}"> <!-- MAYBE: add profile pic in bindings?-->
+                                            <Binding Path="Name"/>
+                                            <Binding Path="Major"/>
+                                        </MultiBinding>
+                                    </Label.Text>
+                                </Label>
+                            </Frame>
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:SearchNewMentorViewModel}}, Path=MentorTapped}"		
+                                            CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+                   
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

@@ -14,17 +14,20 @@ namespace MentorU.Services
 
         public MockDataStore()
         {
-            _user = new User("Wallace"); // This is the person that is using the app and should be consistent in all aspects of the app
+            _user = new User() { Name = "Wallace", Major = "Computer Science", Bio = "I need help with my career path"}; // This is the person that is using the app and should be consistent in all aspects of the app
             items = new List<MarketplaceItem>()
             {
-                new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "First item", ItemPrice = 10.0, Description="This is an item description." },
-                new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "Second item", ItemPrice = 100.0,Description="This is an item description." }
+                new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "Book: Shakespeare", ItemPrice = 10.0, Description="This is an item description." },
+                new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "Computer: Macbook Pro", ItemPrice = 100.0,Description="This is an item description." }
             };
             Mentors = new List<User>()
             {
-                new User("George"),
-                new User("Steve")
-            };
+                new User(){ Name = "Jim", Major = "Computer Science" },
+                new User(){ Name = "Philip", Major = "Computer Science"},
+                new User() { Name = "Bob", Major = "Art", Bio = "Pottery is my favorite" , UserID = 10},
+                new User() { Name = "Jerry", Major = "Comedy", Bio = "I love to make people laugh", UserID = 11 },
+                new User() { Name = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning", UserID = 12 },
+        };
             Mentors[0].UserID = 1;
             Mentors[1].UserID = 2;
             Mentors[0].Bio = "I like to ski and I like art";

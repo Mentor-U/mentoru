@@ -91,10 +91,13 @@
     <FlyoutItem Title="Chat" Icon="chat.png">
         <ShellContent Route="MainChatPage" ContentTemplate="{DataTemplate local:MainChatPage}"/>
     </FlyoutItem>
+    <FlyoutItem Title="Find New Mentors" Icon="search.png">
+        <ShellContent Route="SearchNewMentorsPage" ContentTemplate="{DataTemplate local:SearchNewMentorPage}"/>
+    </FlyoutItem>
     
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
-    <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnLogoutButtonClicked">
+    <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnLogoutButtonClicked" IconImageSource="exit.png">
     </MenuItem>
 
     <!--

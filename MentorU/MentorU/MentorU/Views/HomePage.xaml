@@ -3,37 +3,99 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MentorU.Views.HomePage"
              xmlns:vm="clr-namespace:MentorU.ViewModels"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             xmlns:model="clr-namespace:MentorU.Models"
              Title="{Binding Title}">
-    
-    <ContentPage.BindingContext>
-        <vm:HomeViewModel />
-    </ContentPage.BindingContext>
-    
+
     <ContentPage.Resources>
         <ResourceDictionary>
             <Color x:Key="Accent">#96d1ff</Color>
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <StackLayout BackgroundColor="{StaticResource Accent}" HeightRequest="150" HorizontalOptions="Fill">
-            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                    <Image Source="Logo" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
-                           HeightRequest="150"/>
-                </ContentView>
-            </StackLayout>
-        </StackLayout>
-        <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                <Label Text="Welcome to MentorU" FontSize="Title"/>
-                <Label Text="This is our prototype" FontSize="16" Padding="0,0,0,0"/>
-            </StackLayout>
+    <RefreshView x:DataType="local:HomeViewModel" Command="{Binding LoadPageDataCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="160"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="160"/>
+                </Grid.RowDefinitions>
+                <StackLayout BackgroundColor="{StaticResource Accent}" HeightRequest="150" HorizontalOptions="Fill" Grid.Row="0">
+                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                        <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                            <Image Source="Logo" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
+                               HeightRequest="150"/>
+                        </ContentView>
+                    </StackLayout>
+                </StackLayout>
+                <Label Text="{Binding UsersName, StringFormat='Welcome {0:N}!'}" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Row="1" HorizontalOptions="Center"/>
+                <Label Text="Your Mentors:" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End"/>
+                <CollectionView x:Name="MentorListView"
+                                ItemsSource="{Binding Mentors}"
+                                SelectionMode="None"
+                                Grid.Row="3">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate >
+                            <StackLayout Padding="10" x:DataType="model:User" BackgroundColor="LightCoral">
+                                <Frame BackgroundColor="LightGray" HasShadow="True">
+                                    <Label LineBreakMode="NoWrap" 
+                                                Style="{DynamicResource ListItemTextStyle}" 
+                                                FontSize="16">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0}: {1}">
+                                                <Binding Path="Name"/>
+                                                <Binding Path="Major"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </Frame>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=MentorTapped}"		
+                                                CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Label Text="Recommended Purchases:" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="4" VerticalTextAlignment="End"/>
+                <CollectionView x:Name="MarketListView"
+                                ItemsSource="{Binding MarketItems}"
+                                SelectionMode="None"
+                                Grid.Row="5">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate >
+                            <StackLayout Padding="10" x:DataType="model:MarketplaceItem" BackgroundColor="LightBlue">
+                                <Frame BackgroundColor="LightGray" HasShadow="True">
+                                    <Label LineBreakMode="NoWrap" 
+                                                Style="{DynamicResource ListItemTextStyle}" 
+                                                FontSize="16">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0}: ${1}">
+                                                <Binding Path="Text"/>
+                                                <Binding Path="ItemPrice"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </Frame>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=ItemTapped}"		
+                                                CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
         </ScrollView>
-    </Grid>
-
+    </RefreshView>
 </ContentPage>

@@ -10,11 +10,11 @@
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
             <Frame BackgroundColor="#BF043055" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10">
-                    <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   
+                    <Entry x:Name="email" Text="{Binding Email}" Placeholder="Email"   
                            PlaceholderColor="White" HeightRequest="40"   
                            Keyboard="Email"  
                            TextColor="White"/>
-                    <Entry x:Name="Password" Text="{Binding Password}" Placeholder="Password"   
+                    <Entry x:Name="password" Text="{Binding Password}" Placeholder="Password"   
                            PlaceholderColor="White" HeightRequest="40"   
                            IsPassword="True"  
                            TextColor="White"/>

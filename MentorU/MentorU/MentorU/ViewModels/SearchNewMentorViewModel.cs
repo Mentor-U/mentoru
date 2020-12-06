@@ -12,16 +12,16 @@ namespace MentorU.ViewModels
     {
         public Command LoadMentorsCommand { get; }
         public Command FilterCommand { get; }
-        public Command<User> MentorTapped { get; }
-        public ObservableCollection<User> Mentors { get; }
+        public Command<Users> MentorTapped { get; }
+        public ObservableCollection<Users> Mentors { get; }
 
         public SearchNewMentorViewModel()
         {
             Title = "Find New Mentors";
-            Mentors = new ObservableCollection<User>();
+            Mentors = new ObservableCollection<Users>();
             LoadMentorsCommand = new Command(async () => await ExecuteLoadMentors());
             FilterCommand = new Command(async () => await ExecuteFilterMentors());
-            MentorTapped = new Command<User>(OnMentorSelected);
+            MentorTapped = new Command<Users>(OnMentorSelected);
         }
 
         async Task ExecuteLoadMentors(object filters = null)
@@ -43,9 +43,9 @@ namespace MentorU.ViewModels
                 }
 
                 // REMOVE: once above is implemented
-                User u1 = new User() { Name = "Bob", Major = "Art", Bio = "Pottery is my favorite" , UserID = 10};
-                User u2 = new User() { Name = "Jerry", Major = "Comedy", Bio = "I love to make people laugh" , UserID = 11};
-                User u3 = new User() { Name = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning" , UserID = 12};
+                Users u1 = new Users() { FirstName = "Bob", Major = "Art", Bio = "Pottery is my favorite" , id = "10"};
+                Users u2 = new Users() { FirstName = "Jerry", Major = "Comedy", Bio = "I love to make people laugh" , id = "11"};
+                Users u3 = new Users() { FirstName = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning" , id = "12"};
                 Mentors.Add(u1);
                 Mentors.Add(u2);
                 Mentors.Add(u3);
@@ -68,15 +68,12 @@ namespace MentorU.ViewModels
         }
 
 
-        async void OnMentorSelected(User mentor)
+        async void OnMentorSelected(Users mentor)
         {
             if (mentor == null)
                 return;
-            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.UserID}");
+            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.id}");
             //TODO: Inherit from the viewonly? and have page button request connection
-            //TODO: after merge convert from above to the below code
-
-            //await Shell.Current.Navigation.PushModalAsync(new ViewOnlyProfilePage(mentor));
         }
 
         public void OnAppearing()

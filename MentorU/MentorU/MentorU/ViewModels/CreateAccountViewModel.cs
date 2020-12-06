@@ -1,6 +1,7 @@
-﻿using MentorU.Views;
+﻿using MentorU.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Xamarin.Forms;
 
@@ -8,26 +9,106 @@ namespace MentorU.ViewModels
 {
     public class CreateAccountViewModel : BaseViewModel
     {
-        public Command CreateAccountCommand { get; }
-        public string Email { get; set; }
-        
-        public string UserName { get; set;  }
 
-        public string ConfirmPassword { get; set; }
+        private string _firstname;
+        private string _lastname;
+        private string _email;
+        private string _password;
+        private string _confirmPassword;
+        private string _major;
+        private string _bio;
+        private ObservableCollection<string> _classes;
 
-        public string Password { get; set; }
+        public Command OnCreateAccountClicked { get; }
+        public Command AddClassClicked { get; }
+
 
         public CreateAccountViewModel()
         {
-            CreateAccountCommand = new Command(OnCreateAccountClicked);
+            OnCreateAccountClicked = new Command(CreateAccount);
+            AddClassClicked = new Command(AddClass);
+            _classes = new ObservableCollection<string>();
+            this.PropertyChanged +=
+                (_, __) => OnCreateAccountClicked.ChangeCanExecute();
         }
 
-        private async void OnCreateAccountClicked(object obj)
+        public string FirstName
         {
-            // Prefixing with `//` switches to a different navigation stack instead of pushing to the active one
-            //await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-            //await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "1");
-            Shell.Current.SendBackButtonPressed();
+            get => _firstname;
+            set => SetProperty(ref _firstname, value);
+        }
+
+        public string LastName
+        {
+            get => _lastname;
+            set => SetProperty(ref _lastname, value);
+        }
+
+        public string Email
+        {
+            get => _email;
+            set => SetProperty(ref _email, value);
+        }
+
+        public string Password
+        {
+            get => _password;
+            set => SetProperty(ref _password, value);
+        }
+
+        public string ConfirmPassword
+        {
+            get => _confirmPassword;
+            set => SetProperty(ref _confirmPassword, value);
+        }
+
+        public string Major
+        {
+            get => _major;
+            set => SetProperty(ref _major, value);
+        }
+
+        public string Bio
+        {
+            get => _bio;
+            set => SetProperty(ref _bio, value);
+        }
+
+        private async void CreateAccount()
+        {
+            if (Password == ConfirmPassword)
+            {
+                Users newProfile = new Users()
+                {
+                    FirstName = FirstName,
+                    LastName = LastName,
+                    Email = Email,
+                    Password = Password,
+                    Major = Major,
+                    Bio = Bio,
+                    //Classes = new List<string>(_classes)
+                };
+
+                await App.client.GetTable<Users>().InsertAsync(newProfile);
+                await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");
+            }
+        }
+
+        private async void AddClass()
+        {
+            string result = await Application.Current.MainPage.DisplayPromptAsync("Add a class", "E.g, CS2420 Data Structure");
+            if(!String.IsNullOrWhiteSpace(result))
+            {
+                _classes.Add(result);
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Failed", "Invalid Class!", "Ok");
+            }
         }
 
     }

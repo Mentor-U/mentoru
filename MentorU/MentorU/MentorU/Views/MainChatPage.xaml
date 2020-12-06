@@ -12,9 +12,9 @@
                 SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10" x:DataType="model:User" Spacing="10.0">
+                        <StackLayout Padding="10" x:DataType="model:Users" Spacing="10.0">
                             <Frame BackgroundColor="LightGray" HasShadow="True">
-                                <Label Text="{Binding Name}"
+                                <Label Text="{Binding FirstName}"
                                 FontAttributes="Bold"
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 

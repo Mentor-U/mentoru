@@ -40,14 +40,14 @@
                                 Grid.Row="3">
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
-                            <StackLayout Padding="10" x:DataType="model:User" BackgroundColor="LightCoral">
+                            <StackLayout Padding="10" x:DataType="model:Users" BackgroundColor="LightCoral">
                                 <Frame BackgroundColor="LightGray" HasShadow="True">
                                     <Label LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
                                                 FontSize="16">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0}: {1}">
-                                                <Binding Path="Name"/>
+                                                <Binding Path="FirstName"/>
                                                 <Binding Path="Major"/>
                                             </MultiBinding>
                                         </Label.Text>

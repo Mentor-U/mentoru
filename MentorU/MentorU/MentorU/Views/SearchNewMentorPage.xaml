@@ -16,14 +16,14 @@
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate >
-                        <StackLayout Padding="10" x:DataType="model:User">
-                            <Frame BackgroundColor="LightCoral" HasShadow="True">
+                        <StackLayout Padding="10" x:DataType="model:Users">
+                            <Frame BackgroundColor="LightGray" HasShadow="True">
                                 <Label LineBreakMode="NoWrap" 
                                             Style="{DynamicResource ListItemTextStyle}" 
                                             FontSize="16">
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0}: {1}"> <!-- MAYBE: add profile pic in bindings?-->
-                                            <Binding Path="Name"/>
+                                            <Binding Path="FirstName"/>
                                             <Binding Path="Major"/>
                                         </MultiBinding>
                                     </Label.Text>

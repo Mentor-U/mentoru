@@ -4,21 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MentorU.Models;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using SQLite;
 
 namespace MentorU.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
+
     public partial class CreateAccount : ContentPage
     {
-        CreateAccountViewModel _viewModel;
+        public Users newProfile { get; set; }
         public CreateAccount()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new CreateAccountViewModel();
-            this.BackgroundColor = Color.White;
+            BindingContext = new CreateAccountViewModel();
         }
+
     }
 }

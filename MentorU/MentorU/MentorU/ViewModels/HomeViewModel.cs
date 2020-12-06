@@ -12,22 +12,23 @@ namespace MentorU.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        public ObservableCollection<User> Mentors { get; }
+        public ObservableCollection<Users> Mentors { get; }
         public ObservableCollection<MarketplaceItem> MarketItems { get; }
         public Command LoadPageDataCommand { get; }
-        public Command<User> MentorTapped { get; }
+        public Command<Users> MentorTapped { get; }
         public Command<MarketplaceItem> ItemTapped { get; }
-        public string UsersName { get => _user.Name; }
-        private User _user;
+        private string _usersName;
+        public string UsersName { get => _user.FirstName; }
+        private Users _user;
 
         public HomeViewModel()
         {
             Title = "Home";
             _user = DataStore.GetUser().Result;
-            Mentors = new ObservableCollection<User>();
+            Mentors = new ObservableCollection<Users>();
             MarketItems = new ObservableCollection<MarketplaceItem>();
             LoadPageDataCommand = new Command(async () => await ExecuteLoadPageData());
-            MentorTapped = new Command<User>(OnMentorSelected);
+            MentorTapped = new Command<Users>(OnMentorSelected);
             ItemTapped = new Command<MarketplaceItem>(OnItemSelected);
         }
 
@@ -61,11 +62,11 @@ namespace MentorU.ViewModels
         }
 
 
-        async void OnMentorSelected(User mentor)
+        async void OnMentorSelected(Users mentor)
         {
             if (mentor == null)
                 return;
-            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.UserID}");
+            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.id}");
         }
 
 

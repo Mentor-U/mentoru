@@ -10,14 +10,14 @@ namespace MentorU.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        private User _user;
+        private Users _user;
         private string _name;
         private string _major;
         private string _bio;
          
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
-        public Command<User> MentorTapped { get; }
+        public Command<Users> MentorTapped { get; }
 
         /* Attributes from the user that are needed for dispaly */
         public string Name
@@ -39,7 +39,7 @@ namespace MentorU.ViewModels
             }
         }
         public ObservableCollection<string> Classes { get; }
-        public ObservableCollection<User> Mentors { get; }
+        public ObservableCollection<Users> Mentors { get; }
         public string Bio
         {
             get => _bio;
@@ -56,15 +56,15 @@ namespace MentorU.ViewModels
         public ProfileViewModel()
         {
             _user = DataStore.GetUser().Result;
-            Name = _user.Name;
+            Name = _user.FirstName;
             Major = _user.Major;
             Bio = _user.Bio;
             Title = "Profile";
-            Mentors = new ObservableCollection<User>();
+            Mentors = new ObservableCollection<Users>();
 
             LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
-            MentorTapped = new Command<User>(OnMentorSelected);
+            MentorTapped = new Command<Users>(OnMentorSelected);
         }
 
         async Task ExecuteLoad() 
@@ -94,11 +94,11 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PushModalAsync(new EditProfilePage(this));
         }
 
-        async void OnMentorSelected(User mentor)
+        async void OnMentorSelected(Users mentor)
         {
             if (mentor == null)
                 return;
-            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.UserID}");
+            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.id}");
         }
 
         public void OnAppearing()

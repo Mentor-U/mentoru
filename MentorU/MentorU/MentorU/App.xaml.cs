@@ -1,6 +1,8 @@
 ﻿using MentorU.Services;
 using MentorU.Views;
+using Microsoft.WindowsAzure.MobileServices;
 using System;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -8,6 +10,8 @@ namespace MentorU
 {
     public partial class App : Application
     {
+
+        public static MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
 
         public App()
         {

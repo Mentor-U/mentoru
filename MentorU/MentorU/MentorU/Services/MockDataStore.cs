@@ -86,5 +86,17 @@ namespace MentorU.Services
             return await Task.FromResult(Mentors);
         }
 
+        public async Task<IEnumerable<Users>> GetAvailableMentors()
+        {
+            List<Users> available = new List<Users>() {
+            new Users() { FirstName = "Bob", Major = "Art", Bio = "Pottery is my favorite", id = "10" },
+            new Users() { FirstName = "Jerry", Major = "Comedy", Bio = "I love to make people laugh", id = "11" },
+            new Users() { FirstName = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning", id = "12" },
+             new Users() { FirstName = "Kramer", Major = "Computer Science", Bio = "I love food", id = "12" }
+            };
+
+            return await Task.FromResult(available);
+        }
+
     }
 }

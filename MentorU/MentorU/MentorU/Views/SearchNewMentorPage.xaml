@@ -11,7 +11,19 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <RefreshView x:DataType="local:SearchNewMentorViewModel" Command="{Binding LoadMentorsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <CollectionView x:Name="MentorList" 
+            <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding ShowFilters, StringFormat='Filters: {0:N}'}" FontAttributes="Bold" FontSize="Medium" VerticalOptions="Center"/>
+                    <Button Text="Clear" Command="{Binding ClearFilters}" Grid.Column="1" FontSize="Small" BackgroundColor="LightCoral"/>
+                </Grid>
+                <CollectionView x:Name="MentorList" 
                             ItemsSource="{Binding Mentors}"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
@@ -39,8 +51,8 @@
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
-                   
+                </CollectionView>
+            </StackLayout>
         </RefreshView>
     </ContentPage.Content>
 </ContentPage>

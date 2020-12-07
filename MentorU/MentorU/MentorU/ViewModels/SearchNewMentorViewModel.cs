@@ -12,50 +12,50 @@ namespace MentorU.ViewModels
     {
         public Command LoadMentorsCommand { get; }
         public Command FilterCommand { get; }
+        public Command ClearFilters { get; }
         public Command<Users> MentorTapped { get; }
         public ObservableCollection<Users> Mentors { get; }
+        public ObservableCollection<string> Filters { get; }
+        private string _filters;
+        public string ShowFilters { get => _filters; set { _filters = value; OnPropertyChanged(); } }
 
         public SearchNewMentorViewModel()
         {
             Title = "Find New Mentors";
             Mentors = new ObservableCollection<Users>();
+            Filters = new ObservableCollection<string>();
             LoadMentorsCommand = new Command(async () => await ExecuteLoadMentors());
             FilterCommand = new Command(async () => await ExecuteFilterMentors());
             MentorTapped = new Command<Users>(OnMentorSelected);
+            ClearFilters = new Command(async () => { Filters.Clear(); await ExecuteLoadMentors(); });
         }
 
-        async Task ExecuteLoadMentors(object filters = null)
+        async Task ExecuteLoadMentors()
         {
             IsBusy = true;
             try
             {
                 Mentors.Clear();
-
-                // FIXME: determine correct DB parameters for getting available mentors and filtering
-
-                //if (filters != null)
-                //{
-                //    var temp = await App.client.GetTable<Users>().Select(user => user.Role == 0).ToListAsync();
-                //}
-                //else()
-                //{
-                //    await App.clientt.getTable<User>().Where(m => m.isMentor == true).Read();
-                //}
-
-                var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
-
-                foreach(Users element in temp)
+                if (Filters.Count != 0)
                 {
-                    Mentors.Add(element);
+                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
+                    foreach (Users m in temp)
+                    {
+                        if (Filters.Contains(m.Major))
+                            Mentors.Add(m);
+                    }
+                    ShowFilters = string.Join(", ", Filters);
                 }
-
-                //// REMOVE: once above is implemented)
-                //Users u1 = new Users() { FirstName = "Bob", Major = "Art", Bio = "Pottery is my favorite" , id = "10"};
-                //Users u2 = new Users() { FirstName = "Jerry", Major = "Comedy", Bio = "I love to make people laugh" , id = "11"};
-                //Users u3 = new Users() { FirstName = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning" , id = "12"};
-                //Mentors.Add(u1);
-                //Mentors.Add(u2);
-                //Mentors.Add(u3);
+                else
+                {
+                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
+                    foreach (Users element in temp)
+                    {
+                        Mentors.Add(element);
+                    }
+                    ShowFilters = "";
+                }
+                
             }
             catch(Exception ex)
             {
@@ -69,9 +69,12 @@ namespace MentorU.ViewModels
 
         async Task ExecuteFilterMentors()
         {
-            //TODO: determine the structure of filtering options. right now does nothing
-            var filters = await Application.Current.MainPage.DisplayPromptAsync("Filter", "Select Filters");
-            await ExecuteLoadMentors(filters);
+            var filters = await Application.Current.MainPage.DisplayPromptAsync("Filter", "Enter a Filter");
+            if (filters != null)
+            {
+                Filters.Add(filters.ToString());
+                await ExecuteLoadMentors();
+            }
         }
 
 
@@ -79,8 +82,7 @@ namespace MentorU.ViewModels
         {
             if (mentor == null)
                 return;
-            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.id}");
-            //TODO: Inherit from the viewonly? and have page button request connection
+            await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, false));
         }
 
         public void OnAppearing()

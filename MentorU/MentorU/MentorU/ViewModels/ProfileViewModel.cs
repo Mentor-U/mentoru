@@ -98,7 +98,7 @@ namespace MentorU.ViewModels
         {
             if (mentor == null)
                 return;
-            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.id}");
+            await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
         }
 
         public void OnAppearing()

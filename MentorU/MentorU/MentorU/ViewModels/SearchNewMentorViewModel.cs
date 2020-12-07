@@ -14,17 +14,19 @@ namespace MentorU.ViewModels
         public Command FilterCommand { get; }
         public Command<Users> MentorTapped { get; }
         public ObservableCollection<Users> Mentors { get; }
+        public ObservableCollection<string> Filters { get; }
 
         public SearchNewMentorViewModel()
         {
             Title = "Find New Mentors";
             Mentors = new ObservableCollection<Users>();
+            Filters = new ObservableCollection<string>();
             LoadMentorsCommand = new Command(async () => await ExecuteLoadMentors());
             FilterCommand = new Command(async () => await ExecuteFilterMentors());
             MentorTapped = new Command<Users>(OnMentorSelected);
         }
 
-        async Task ExecuteLoadMentors(object filters = null)
+        async Task ExecuteLoadMentors(string filter = null)
         {
             IsBusy = true;
             try
@@ -33,23 +35,30 @@ namespace MentorU.ViewModels
 
                 // FIXME: determine correct DB parameters for getting available mentors and filtering
 
-                if (filters != null)
+                if (filter != null)
                 {
                     //await App.clientt.getTable<User>().Where(filters).Read();
+                    var mentors = await DataStore.GetAvailableMentors();
+                    foreach (var m in mentors)
+                    {
+                        if (filter == "All" || Filters.Contains(m.Major))
+                            Mentors.Add(m);
+                    }
                 }
                 else
                 {
                     //await App.clientt.getTable<User>().Where(m => m.isMentor == true).Read();
-                }
 
-                // REMOVE: once above is implemented
-                Users u1 = new Users() { FirstName = "Bob", Major = "Art", Bio = "Pottery is my favorite" , id = "10"};
-                Users u2 = new Users() { FirstName = "Jerry", Major = "Comedy", Bio = "I love to make people laugh" , id = "11"};
-                Users u3 = new Users() { FirstName = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning" , id = "12"};
-                Mentors.Add(u1);
-                Mentors.Add(u2);
-                Mentors.Add(u3);
+                    // REMOVE: once above is implemented
+                    var mentors = await DataStore.GetAvailableMentors();
+                    foreach (var m in mentors)
+                    {
+                        Mentors.Add(m);
+                    }
+                }
             }
+
+
             catch(Exception ex)
             {
                 Debug.WriteLine(ex);
@@ -63,7 +72,8 @@ namespace MentorU.ViewModels
         async Task ExecuteFilterMentors()
         {
             //TODO: determine the structure of filtering options. right now does nothing
-            var filters = await Application.Current.MainPage.DisplayPromptAsync("Filter", "Select Filters");
+            var filters = await Application.Current.MainPage.DisplayPromptAsync("Filter", "Enter a Filter");
+            Filters.Add(filters.ToString());
             await ExecuteLoadMentors(filters);
         }
 
@@ -72,8 +82,7 @@ namespace MentorU.ViewModels
         {
             if (mentor == null)
                 return;
-            await Shell.Current.GoToAsync($"{nameof(ViewOnlyProfilePage)}?{nameof(ViewOnlyProfileViewModel.UserID)}={mentor.id}");
-            //TODO: Inherit from the viewonly? and have page button request connection
+            await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, false));
         }
 
         public void OnAppearing()

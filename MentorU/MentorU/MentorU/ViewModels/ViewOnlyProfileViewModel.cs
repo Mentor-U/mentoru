@@ -8,50 +8,32 @@ using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
-    [QueryProperty(nameof(UserID), nameof(UserID))]
     public class ViewOnlyProfileViewModel : BaseViewModel
     {
         private string name;
         private string field;
         private string bio;
-        private string userID;
-        public Command StartChatCommand { get; }
+        private Users _user;
         public string Name { get => name; set => SetProperty(ref name, value); }
         public string Field { get => field; set => SetProperty(ref field, value); }
         public string Bio { get => bio; set => SetProperty(ref bio, value); }
-        public string UserID
+
+        public ViewOnlyProfileViewModel(Users user)
         {
-            get => userID;
-            set
-            {
-                userID = value;
-                LoadUserID(value);
-            }
+            _user = user;
+            Name = _user.FirstName;
+            Field = _user.Major;
+            Bio = _user.Bio;
         }
 
-        public ViewOnlyProfileViewModel()
+        public async void OnRequestMentor()
         {
-            StartChatCommand = new Command(StartChat);
+            // TODO: handle requests to add a mentor
+            await Application.Current.MainPage.DisplayAlert("You have sent a request to "+ _user.FirstName, "We'll let you know if they accept your request!", "OK");
         }
 
-        public async void LoadUserID(string id)
+        public async void StartChat(object obj)
         {
-            try
-            {
-                Users user = await DataStore.GetUser(id);
-                Name = user.FirstName;
-                Field = user.Major;
-                Bio = user.Bio;
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Unable to get mentor for viewing");
-            }
-        }
-
-        private async void StartChat(object obj)
-        {
-            // TODO: pass userID to chat page to open the conversation
             await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
             await Shell.Current.GoToAsync(nameof(MainChatPage));
         }

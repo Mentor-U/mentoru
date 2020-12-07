@@ -17,5 +17,6 @@ namespace MentorU.Services
         /** Profile */
         Task<Users> GetUser(string id = "");
         Task<IEnumerable<Users>> GetMentorsAsync(bool forceRefresh = false);
+        Task<IEnumerable<Users>> GetAvailableMentors();
     }
 }

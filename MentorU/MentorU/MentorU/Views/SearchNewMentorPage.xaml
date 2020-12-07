@@ -11,7 +11,8 @@
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <RefreshView x:DataType="local:SearchNewMentorViewModel" Command="{Binding LoadMentorsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <CollectionView x:Name="MentorList" 
+            <StackLayout>
+                <CollectionView x:Name="MentorList" 
                             ItemsSource="{Binding Mentors}"
                             SelectionMode="None">
                 <CollectionView.ItemTemplate>
@@ -39,8 +40,8 @@
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
-                   
+                </CollectionView>
+            </StackLayout>
         </RefreshView>
     </ContentPage.Content>
 </ContentPage>

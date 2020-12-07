@@ -28,8 +28,14 @@ namespace MentorU.Views
                 AuthenticationResult result = await App.AuthenticationClient
                     .AcquireTokenSilent(Constants.Scopes, accounts.FirstOrDefault())
                     .ExecuteAsync();
-
-                await Navigation.PushAsync(new LogoutPage(result));
+                if (result != null)
+                {
+                    if (result.Account.Username != "unknown")
+                    {
+                         Application.Current.MainPage = new AppShell(result);
+                    }
+                }
+                       
             }
             catch
             {
@@ -49,7 +55,13 @@ namespace MentorU.Views
                     .WithParentActivityOrWindow(App.UIParent)
                     .ExecuteAsync();
 
-                await Navigation.PushAsync(new LogoutPage(result));
+                if (result != null)
+                {
+                    if (result.Account.Username != "unknown")
+                    {
+                        Application.Current.MainPage = new AppShell(result);
+                    }
+                }
             }
             catch (MsalException ex)
             {

@@ -27,37 +27,6 @@ namespace MentorU.ViewModels
             set => SetProperty(ref _password, value);
         }
 
-        public LoginViewModel()
-        {
-            LoginCommand = new Command(OnLoginClicked);
-            CreateCommand = new Command(OnCreateClicked);
-        }
-
-        private async void OnLoginClicked(object obj)
-        {
-            try
-            {
-                string email = Email;
-
-                var pwd = await App.client.GetTable<Users>().Where(e => e.Email == email)
-                    .Select(p => p.Password).ToListAsync();
-
-                if (pwd.Contains(Password))
-                {
-                    Application.Current.MainPage = new AppShell();
-                    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Failed", "Email or Password Incorrect!", "Ok");
-                }
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Failed", "Email or Password Incorrect!", "Ok");
-            }
-        }
-
         private async void OnCreateClicked(object obj)
         {
             await Application.Current.MainPage.Navigation.PushModalAsync(new CreateAccount());

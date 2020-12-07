@@ -44,6 +44,12 @@ namespace MentorU.ViewModels
 
                 if (pwd.Contains(Password))
                 {
+                    var userList = await App.client.GetTable<Users>().Where(user => user.Password == Password).ToListAsync();
+                    foreach(Users logged in userList)
+                    {
+                        App.loggedUser = logged;
+                    }
+
                     Application.Current.MainPage = new AppShell();
                     await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
                 }

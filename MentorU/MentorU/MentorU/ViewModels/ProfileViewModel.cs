@@ -55,10 +55,10 @@ namespace MentorU.ViewModels
          */
         public ProfileViewModel()
         {
-            _user = DataStore.GetUser().Result;
-            Name = _user.FirstName;
-            Major = _user.Major;
-            Bio = _user.Bio;
+
+            Name = App.loggedUser.FirstName + App.loggedUser.LastName;
+            Major = App.loggedUser.Major;
+            Bio = App.loggedUser.Bio;
             Title = "Profile";
             Mentors = new ObservableCollection<Users>();
 
@@ -73,6 +73,9 @@ namespace MentorU.ViewModels
             try
             {
                 Mentors.Clear(); // mentor list
+                //if mentor
+                if(App.loggedUser.Role == 0) { return; }
+                
                 var mentors = await DataStore.GetMentorsAsync(true); 
                 foreach(var m in mentors)
                 {

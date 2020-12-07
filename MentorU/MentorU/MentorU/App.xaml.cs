@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using MentorU.Models;
 
 namespace MentorU
 {
@@ -13,9 +14,12 @@ namespace MentorU
 
         public static MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
 
+        public static Users loggedUser; 
+
         public App()
         {
             InitializeComponent();
+
 
             DependencyService.Register<MockDataStore>();
             var isLoggedIn = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;

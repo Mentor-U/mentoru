@@ -44,11 +44,17 @@ namespace MentorU.Views
             base.OnAppearing();
         }
 
+        /// <summary>
+        /// Sends request out to MSAL to login/sign up 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
             AuthenticationResult result;
             try
             {
+                // prompt the user to log in or sign up
                 result = await App.AuthenticationClient
                     .AcquireTokenInteractive(Constants.Scopes)
                     .WithPrompt(Prompt.SelectAccount)
@@ -59,6 +65,7 @@ namespace MentorU.Views
                 {
                     if (result.Account.Username != "unknown")
                     {
+                        // user is authenticated, their informations stored in result and passed to the app shell for general availability
                         Application.Current.MainPage = new AppShell(result);
                     }
                 }
@@ -77,6 +84,10 @@ namespace MentorU.Views
             }
         }
 
+        /// <summary>
+        /// Sends request out to MSAL to reset password
+        /// </summary>
+        /// <returns></returns>
         async Task<AuthenticationResult> OnForgotPassword()
         {
             try

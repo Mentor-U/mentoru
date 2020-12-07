@@ -10,6 +10,11 @@ using Xamarin.Forms.Xaml;
 
 namespace MentorU.Views
 {
+    /// <summary>
+    /// This logout is UNUSED for now with the MSAL stuff. Im doing the same actions using the logout method from appshell.
+    /// Maybe we can embed this logout as a way for the user to confirm if they want to log out or not,
+    /// as well as keep the whole app in the AppShell and not use the Navigation class for pages at all.
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LogoutPage : ContentPage
     {

@@ -15,7 +15,7 @@ namespace MentorU
 
         public static MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
 
-        // MSAL Auth with AAD
+        // MSAL Auth with AAD items
         public static IPublicClientApplication AuthenticationClient { get; private set; }
         public static object UIParent { get; set; } = null;
 
@@ -25,23 +25,14 @@ namespace MentorU
 
             DependencyService.Register<MockDataStore>();
 
-            //// OLD LOGIN
-            //var isLoggedIn = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;
-            //if (isLoggedIn == "1")
-            //{
-            //    MainPage = new AppShell();
-            //}
-            //else
-            //{
-            //    MainPage = new LoginPage();
-            //}
-
+            // Set up the auth client for MSAL
             AuthenticationClient = PublicClientApplicationBuilder.Create(Constants.ClientId)
                 .WithIosKeychainSecurityGroup(Constants.IosKeychainSecurityGroups)
                 .WithB2CAuthority(Constants.AuthoritySignin)
                 .WithRedirectUri($"msal{Constants.ClientId}://auth")
                 .Build();
 
+            // Send the user to the login page
             MainPage = new NavigationPage(new LoginPage());
         }
 

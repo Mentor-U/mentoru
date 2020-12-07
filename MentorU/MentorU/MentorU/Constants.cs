@@ -1,5 +1,8 @@
 ﻿namespace MentorU
 {
+    /// <summary>
+    /// These constants are used in the MSAL library for user authentication with AAD
+    /// </summary>
     public static class Constants
     {
         // set your tenant name, for example "contoso123tenant"
@@ -18,6 +21,7 @@
         static readonly string policyPassword = "B2C_1_RESET_PASSWORD";
 
         // set to a unique value for your app, such as your bundle identifier. Used on iOS to share keychain access.
+        // Wasnt sure what to set this to, left it as default from MS docs
         static readonly string iosKeychainSecurityGroup = "com.xamarin.adb2cauthorization";
 
 

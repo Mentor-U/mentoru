@@ -34,6 +34,13 @@ namespace MentorU.iOS
             return base.FinishedLaunching(app, options);
         }
 
+        /// <summary>
+        /// Redirections for authentication on IOS
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="url"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
             AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);

@@ -44,12 +44,7 @@ namespace MentorU.ViewModels
                         if (Filters.Contains(m.Major))
                             Mentors.Add(m);
                     }
-                    string s = "";
-                    foreach(string f in Filters)
-                    {
-                        s += f + ", ";
-                    }
-                    ShowFilters = s.Substring(0,s.Length-2);
+                    ShowFilters = string.Join(", ", Filters);
                 }
                 else
                 {

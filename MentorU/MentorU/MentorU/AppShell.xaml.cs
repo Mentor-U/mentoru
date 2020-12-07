@@ -21,7 +21,7 @@ namespace MentorU
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
             await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "0");
-            Application.Current.MainPage = new NavigationPage(new LoginPage());
+            await Shell.Current.Navigation.PushAsync(new LoginPage());
         }
     }
 }

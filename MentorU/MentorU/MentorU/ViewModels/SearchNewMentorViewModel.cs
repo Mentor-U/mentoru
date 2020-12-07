@@ -33,22 +33,29 @@ namespace MentorU.ViewModels
 
                 // FIXME: determine correct DB parameters for getting available mentors and filtering
 
-                if (filters != null)
+                //if (filters != null)
+                //{
+                //    var temp = await App.client.GetTable<Users>().Select(user => user.Role == 0).ToListAsync();
+                //}
+                //else()
+                //{
+                //    await App.clientt.getTable<User>().Where(m => m.isMentor == true).Read();
+                //}
+
+                var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
+
+                foreach(Users element in temp)
                 {
-                    //await App.clientt.getTable<User>().Where(filters).Read();
-                }
-                else
-                {
-                    //await App.clientt.getTable<User>().Where(m => m.isMentor == true).Read();
+                    Mentors.Add(element);
                 }
 
-                // REMOVE: once above is implemented
-                Users u1 = new Users() { FirstName = "Bob", Major = "Art", Bio = "Pottery is my favorite" , id = "10"};
-                Users u2 = new Users() { FirstName = "Jerry", Major = "Comedy", Bio = "I love to make people laugh" , id = "11"};
-                Users u3 = new Users() { FirstName = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning" , id = "12"};
-                Mentors.Add(u1);
-                Mentors.Add(u2);
-                Mentors.Add(u3);
+                //// REMOVE: once above is implemented)
+                //Users u1 = new Users() { FirstName = "Bob", Major = "Art", Bio = "Pottery is my favorite" , id = "10"};
+                //Users u2 = new Users() { FirstName = "Jerry", Major = "Comedy", Bio = "I love to make people laugh" , id = "11"};
+                //Users u3 = new Users() { FirstName = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning" , id = "12"};
+                //Mentors.Add(u1);
+                //Mentors.Add(u2);
+                //Mentors.Add(u3);
             }
             catch(Exception ex)
             {

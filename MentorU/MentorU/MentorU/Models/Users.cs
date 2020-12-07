@@ -15,12 +15,14 @@ namespace MentorU.Models
         public string Email { get; set; }
         public string Password { get; set; }
 
+        //0 - mentor 1 - mentee 2 - mentor/mentee
+        public int Role { get; set; }
 
         // Move to profiles eventually
         public string Major { get; set; }
         public string Bio { get; set; }
 
-        public List<string> Classes { get; set; }
+        //public List<string> Classes { get; set; }
 
     }
 }

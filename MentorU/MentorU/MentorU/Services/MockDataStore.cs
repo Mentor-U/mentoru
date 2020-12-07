@@ -25,8 +25,8 @@ namespace MentorU.Services
                 new Users(){ FirstName = "Jim", Major = "Computer Science" },
                 new Users(){ FirstName = "Philip", Major = "Computer Science"},
                 new Users() { FirstName = "Bob", Major = "Art", Bio = "Pottery is my favorite" , id="10"},
-                new Users() { FirstName = "Jerry", Major = "Comedy", Bio = "I love to make people laugh", id="11" },
-                new Users() { FirstName = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning", id="12" },
+                new Users() { FirstName = "Jerry", Major = "Comedy", Bio = "I love to make people laugh", id= "11" },
+                new Users() { FirstName = "Jonny", Major = "Computer Science", Bio = "I love Machine Learning", id= "12" },
 
             };
             Mentors[0].id = "1";

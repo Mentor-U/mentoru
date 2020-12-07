@@ -17,6 +17,7 @@ namespace MentorU.ViewModels
         private string _confirmPassword;
         private string _major;
         private string _bio;
+        private int _role;
         private ObservableCollection<string> _classes;
 
         public Command OnCreateAccountClicked { get; }
@@ -74,6 +75,12 @@ namespace MentorU.ViewModels
             set => SetProperty(ref _bio, value);
         }
 
+        public int Role
+        {
+            get => _role;
+            set => SetProperty(ref _role, value);
+        }
+
         private async void CreateAccount()
         {
             if (Password == ConfirmPassword)
@@ -86,7 +93,8 @@ namespace MentorU.ViewModels
                     Password = Password,
                     Major = Major,
                     Bio = Bio,
-                    //Classes = new List<string>(_classes)
+                    Role = Role,
+                
                 };
 
                 await App.client.GetTable<Users>().InsertAsync(newProfile);

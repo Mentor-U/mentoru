@@ -15,7 +15,7 @@ namespace MentorU.Services
         Task<IEnumerable<MarketplaceItem>> GetItemsAsync(bool forceRefresh = false);
 
         /** Profile */
-        Task<Users> GetUser(string id = "");
+        Task<Users> GetUser(string id = "");    
         Task<IEnumerable<Users>> GetMentorsAsync(bool forceRefresh = false);
         Task<IEnumerable<Users>> GetAvailableMentors();
     }

@@ -32,14 +32,10 @@ namespace MentorU.ViewModels
             try
             {
                 Mentors.Clear();
-
-                // FIXME: determine correct DB parameters for getting available mentors and filtering
-
                 if (filter != null)
                 {
-                    //await App.clientt.getTable<User>().Where(filters).Read();
-                    var mentors = await DataStore.GetAvailableMentors();
-                    foreach (var m in mentors)
+                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
+                    foreach (var m in temp)
                     {
                         if (filter == "All" || Filters.Contains(m.Major))
                             Mentors.Add(m);
@@ -47,18 +43,13 @@ namespace MentorU.ViewModels
                 }
                 else
                 {
-                    //await App.clientt.getTable<User>().Where(m => m.isMentor == true).Read();
-
-                    // REMOVE: once above is implemented
-                    var mentors = await DataStore.GetAvailableMentors();
-                    foreach (var m in mentors)
+                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
+                    foreach (Users element in temp)
                     {
-                        Mentors.Add(m);
+                        Mentors.Add(element);
                     }
                 }
             }
-
-
             catch(Exception ex)
             {
                 Debug.WriteLine(ex);
@@ -73,8 +64,11 @@ namespace MentorU.ViewModels
         {
             //TODO: determine the structure of filtering options. right now does nothing
             var filters = await Application.Current.MainPage.DisplayPromptAsync("Filter", "Enter a Filter");
-            Filters.Add(filters.ToString());
-            await ExecuteLoadMentors(filters);
+            if (filters != null)
+            {
+                Filters.Add(filters.ToString());
+                await ExecuteLoadMentors(filters);
+            }
         }
 
 

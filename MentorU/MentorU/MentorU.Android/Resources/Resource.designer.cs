@@ -25,6 +25,192 @@ namespace MentorU.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.alpha = global::MentorU.Droid.Resource.Attribute.alpha;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.coordinatorLayoutStyle = global::MentorU.Droid.Resource.Attribute.coordinatorLayoutStyle;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.font = global::MentorU.Droid.Resource.Attribute.font;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontProviderAuthority = global::MentorU.Droid.Resource.Attribute.fontProviderAuthority;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontProviderCerts = global::MentorU.Droid.Resource.Attribute.fontProviderCerts;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontProviderFetchStrategy = global::MentorU.Droid.Resource.Attribute.fontProviderFetchStrategy;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontProviderFetchTimeout = global::MentorU.Droid.Resource.Attribute.fontProviderFetchTimeout;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontProviderPackage = global::MentorU.Droid.Resource.Attribute.fontProviderPackage;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontProviderQuery = global::MentorU.Droid.Resource.Attribute.fontProviderQuery;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontStyle = global::MentorU.Droid.Resource.Attribute.fontStyle;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontVariationSettings = global::MentorU.Droid.Resource.Attribute.fontVariationSettings;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.fontWeight = global::MentorU.Droid.Resource.Attribute.fontWeight;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.keylines = global::MentorU.Droid.Resource.Attribute.keylines;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.layout_anchor = global::MentorU.Droid.Resource.Attribute.layout_anchor;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.layout_anchorGravity = global::MentorU.Droid.Resource.Attribute.layout_anchorGravity;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.layout_behavior = global::MentorU.Droid.Resource.Attribute.layout_behavior;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.layout_dodgeInsetEdges = global::MentorU.Droid.Resource.Attribute.layout_dodgeInsetEdges;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.layout_insetEdge = global::MentorU.Droid.Resource.Attribute.layout_insetEdge;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.layout_keyline = global::MentorU.Droid.Resource.Attribute.layout_keyline;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.statusBarBackground = global::MentorU.Droid.Resource.Attribute.statusBarBackground;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Attribute.ttcIndex = global::MentorU.Droid.Resource.Attribute.ttcIndex;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Color.browser_actions_bg_grey = global::MentorU.Droid.Resource.Color.browser_actions_bg_grey;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Color.browser_actions_divider_color = global::MentorU.Droid.Resource.Color.browser_actions_divider_color;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Color.browser_actions_text_color = global::MentorU.Droid.Resource.Color.browser_actions_text_color;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Color.browser_actions_title_color = global::MentorU.Droid.Resource.Color.browser_actions_title_color;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Color.notification_action_color_filter = global::MentorU.Droid.Resource.Color.notification_action_color_filter;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Color.notification_icon_bg_color = global::MentorU.Droid.Resource.Color.notification_icon_bg_color;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Color.ripple_material_light = global::MentorU.Droid.Resource.Color.ripple_material_light;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Color.secondary_text_default_material_light = global::MentorU.Droid.Resource.Color.secondary_text_default_material_light;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.browser_actions_context_menu_max_width = global::MentorU.Droid.Resource.Dimension.browser_actions_context_menu_max_width;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.browser_actions_context_menu_min_padding = global::MentorU.Droid.Resource.Dimension.browser_actions_context_menu_min_padding;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.compat_button_inset_horizontal_material = global::MentorU.Droid.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.compat_button_inset_vertical_material = global::MentorU.Droid.Resource.Dimension.compat_button_inset_vertical_material;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.compat_button_padding_horizontal_material = global::MentorU.Droid.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.compat_button_padding_vertical_material = global::MentorU.Droid.Resource.Dimension.compat_button_padding_vertical_material;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.compat_control_corner_material = global::MentorU.Droid.Resource.Dimension.compat_control_corner_material;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.compat_notification_large_icon_max_height = global::MentorU.Droid.Resource.Dimension.compat_notification_large_icon_max_height;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.compat_notification_large_icon_max_width = global::MentorU.Droid.Resource.Dimension.compat_notification_large_icon_max_width;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_action_icon_size = global::MentorU.Droid.Resource.Dimension.notification_action_icon_size;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_action_text_size = global::MentorU.Droid.Resource.Dimension.notification_action_text_size;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_big_circle_margin = global::MentorU.Droid.Resource.Dimension.notification_big_circle_margin;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_content_margin_start = global::MentorU.Droid.Resource.Dimension.notification_content_margin_start;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_large_icon_height = global::MentorU.Droid.Resource.Dimension.notification_large_icon_height;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_large_icon_width = global::MentorU.Droid.Resource.Dimension.notification_large_icon_width;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_main_column_padding_top = global::MentorU.Droid.Resource.Dimension.notification_main_column_padding_top;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_media_narrow_margin = global::MentorU.Droid.Resource.Dimension.notification_media_narrow_margin;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_right_icon_size = global::MentorU.Droid.Resource.Dimension.notification_right_icon_size;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_right_side_padding_top = global::MentorU.Droid.Resource.Dimension.notification_right_side_padding_top;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_small_icon_background_padding = global::MentorU.Droid.Resource.Dimension.notification_small_icon_background_padding;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_small_icon_size_as_large = global::MentorU.Droid.Resource.Dimension.notification_small_icon_size_as_large;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_subtext_size = global::MentorU.Droid.Resource.Dimension.notification_subtext_size;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_top_pad = global::MentorU.Droid.Resource.Dimension.notification_top_pad;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Dimension.notification_top_pad_large_text = global::MentorU.Droid.Resource.Dimension.notification_top_pad_large_text;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_action_background = global::MentorU.Droid.Resource.Drawable.notification_action_background;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_bg = global::MentorU.Droid.Resource.Drawable.notification_bg;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_bg_low = global::MentorU.Droid.Resource.Drawable.notification_bg_low;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_bg_low_normal = global::MentorU.Droid.Resource.Drawable.notification_bg_low_normal;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_bg_low_pressed = global::MentorU.Droid.Resource.Drawable.notification_bg_low_pressed;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_bg_normal = global::MentorU.Droid.Resource.Drawable.notification_bg_normal;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_bg_normal_pressed = global::MentorU.Droid.Resource.Drawable.notification_bg_normal_pressed;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_icon_background = global::MentorU.Droid.Resource.Drawable.notification_icon_background;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_template_icon_bg = global::MentorU.Droid.Resource.Drawable.notification_template_icon_bg;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_template_icon_low_bg = global::MentorU.Droid.Resource.Drawable.notification_template_icon_low_bg;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notification_tile_bg = global::MentorU.Droid.Resource.Drawable.notification_tile_bg;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Drawable.notify_panel_notification_icon_bg = global::MentorU.Droid.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.actions = global::MentorU.Droid.Resource.Id.actions;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.action_container = global::MentorU.Droid.Resource.Id.action_container;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.action_divider = global::MentorU.Droid.Resource.Id.action_divider;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.action_image = global::MentorU.Droid.Resource.Id.action_image;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.action_text = global::MentorU.Droid.Resource.Id.action_text;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.all = global::MentorU.Droid.Resource.Id.all;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.async = global::MentorU.Droid.Resource.Id.async;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.blocking = global::MentorU.Droid.Resource.Id.blocking;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.bottom = global::MentorU.Droid.Resource.Id.bottom;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.browser_actions_header_text = global::MentorU.Droid.Resource.Id.browser_actions_header_text;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.browser_actions_menu_items = global::MentorU.Droid.Resource.Id.browser_actions_menu_items;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.browser_actions_menu_item_icon = global::MentorU.Droid.Resource.Id.browser_actions_menu_item_icon;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.browser_actions_menu_item_text = global::MentorU.Droid.Resource.Id.browser_actions_menu_item_text;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.browser_actions_menu_view = global::MentorU.Droid.Resource.Id.browser_actions_menu_view;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.center = global::MentorU.Droid.Resource.Id.center;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.center_horizontal = global::MentorU.Droid.Resource.Id.center_horizontal;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.center_vertical = global::MentorU.Droid.Resource.Id.center_vertical;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.chronometer = global::MentorU.Droid.Resource.Id.chronometer;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.clip_horizontal = global::MentorU.Droid.Resource.Id.clip_horizontal;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.clip_vertical = global::MentorU.Droid.Resource.Id.clip_vertical;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.end = global::MentorU.Droid.Resource.Id.end;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.fill = global::MentorU.Droid.Resource.Id.fill;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.fill_horizontal = global::MentorU.Droid.Resource.Id.fill_horizontal;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.fill_vertical = global::MentorU.Droid.Resource.Id.fill_vertical;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.forever = global::MentorU.Droid.Resource.Id.forever;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.icon = global::MentorU.Droid.Resource.Id.icon;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.icon_group = global::MentorU.Droid.Resource.Id.icon_group;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.info = global::MentorU.Droid.Resource.Id.info;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.italic = global::MentorU.Droid.Resource.Id.italic;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.left = global::MentorU.Droid.Resource.Id.left;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.line1 = global::MentorU.Droid.Resource.Id.line1;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.line3 = global::MentorU.Droid.Resource.Id.line3;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.none = global::MentorU.Droid.Resource.Id.none;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.normal = global::MentorU.Droid.Resource.Id.normal;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.notification_background = global::MentorU.Droid.Resource.Id.notification_background;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.notification_main_column = global::MentorU.Droid.Resource.Id.notification_main_column;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.notification_main_column_container = global::MentorU.Droid.Resource.Id.notification_main_column_container;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.right = global::MentorU.Droid.Resource.Id.right;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.right_icon = global::MentorU.Droid.Resource.Id.right_icon;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.right_side = global::MentorU.Droid.Resource.Id.right_side;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.start = global::MentorU.Droid.Resource.Id.start;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.tag_transition_group = global::MentorU.Droid.Resource.Id.tag_transition_group;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.tag_unhandled_key_event_manager = global::MentorU.Droid.Resource.Id.tag_unhandled_key_event_manager;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.tag_unhandled_key_listeners = global::MentorU.Droid.Resource.Id.tag_unhandled_key_listeners;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.text = global::MentorU.Droid.Resource.Id.text;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.text2 = global::MentorU.Droid.Resource.Id.text2;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.time = global::MentorU.Droid.Resource.Id.time;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.title = global::MentorU.Droid.Resource.Id.title;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Id.top = global::MentorU.Droid.Resource.Id.top;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Integer.status_bar_notification_info_maxnum = global::MentorU.Droid.Resource.Integer.status_bar_notification_info_maxnum;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Layout.browser_actions_context_menu_page = global::MentorU.Droid.Resource.Layout.browser_actions_context_menu_page;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Layout.browser_actions_context_menu_row = global::MentorU.Droid.Resource.Layout.browser_actions_context_menu_row;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Layout.notification_action = global::MentorU.Droid.Resource.Layout.notification_action;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Layout.notification_action_tombstone = global::MentorU.Droid.Resource.Layout.notification_action_tombstone;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Layout.notification_template_custom_big = global::MentorU.Droid.Resource.Layout.notification_template_custom_big;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Layout.notification_template_icon_group = global::MentorU.Droid.Resource.Layout.notification_template_icon_group;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Layout.notification_template_part_chronometer = global::MentorU.Droid.Resource.Layout.notification_template_part_chronometer;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Layout.notification_template_part_time = global::MentorU.Droid.Resource.Layout.notification_template_part_time;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.String.ApplicationName = global::MentorU.Droid.Resource.String.ApplicationName;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.String.Hello = global::MentorU.Droid.Resource.String.Hello;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.String.status_bar_notification_info_overflow = global::MentorU.Droid.Resource.String.status_bar_notification_info_overflow;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Style.TextAppearance_Compat_Notification = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Style.TextAppearance_Compat_Notification_Info = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Style.TextAppearance_Compat_Notification_Time = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Style.TextAppearance_Compat_Notification_Title = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Style.Widget_Compat_NotificationActionContainer = global::MentorU.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Style.Widget_Compat_NotificationActionText = global::MentorU.Droid.Resource.Style.Widget_Compat_NotificationActionText;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Style.Widget_Support_CoordinatorLayout = global::MentorU.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.ColorStateListItem = global::MentorU.Droid.Resource.Styleable.ColorStateListItem;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.ColorStateListItem_alpha = global::MentorU.Droid.Resource.Styleable.ColorStateListItem_alpha;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.ColorStateListItem_android_alpha = global::MentorU.Droid.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.ColorStateListItem_android_color = global::MentorU.Droid.Resource.Styleable.ColorStateListItem_android_color;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_keylines = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_keylines;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_Layout = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamily = global::MentorU.Droid.Resource.Styleable.FontFamily;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont = global::MentorU.Droid.Resource.Styleable.FontFamilyFont;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_android_font = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_font;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_android_fontStyle = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_android_fontVariationSettings = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_fontVariationSettings;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_android_fontWeight = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_android_ttcIndex = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_ttcIndex;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_font = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_font;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_fontStyle = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_fontVariationSettings = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_fontVariationSettings;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_fontWeight = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamilyFont_ttcIndex = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_ttcIndex;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamily_fontProviderAuthority = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamily_fontProviderCerts = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamily_fontProviderPackage = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.FontFamily_fontProviderQuery = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor = global::MentorU.Droid.Resource.Styleable.GradientColor;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColorItem = global::MentorU.Droid.Resource.Styleable.GradientColorItem;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColorItem_android_color = global::MentorU.Droid.Resource.Styleable.GradientColorItem_android_color;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColorItem_android_offset = global::MentorU.Droid.Resource.Styleable.GradientColorItem_android_offset;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_centerColor = global::MentorU.Droid.Resource.Styleable.GradientColor_android_centerColor;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_centerX = global::MentorU.Droid.Resource.Styleable.GradientColor_android_centerX;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_centerY = global::MentorU.Droid.Resource.Styleable.GradientColor_android_centerY;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_endColor = global::MentorU.Droid.Resource.Styleable.GradientColor_android_endColor;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_endX = global::MentorU.Droid.Resource.Styleable.GradientColor_android_endX;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_endY = global::MentorU.Droid.Resource.Styleable.GradientColor_android_endY;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_gradientRadius = global::MentorU.Droid.Resource.Styleable.GradientColor_android_gradientRadius;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_startColor = global::MentorU.Droid.Resource.Styleable.GradientColor_android_startColor;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_startX = global::MentorU.Droid.Resource.Styleable.GradientColor_android_startX;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_startY = global::MentorU.Droid.Resource.Styleable.GradientColor_android_startY;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_tileMode = global::MentorU.Droid.Resource.Styleable.GradientColor_android_tileMode;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Styleable.GradientColor_android_type = global::MentorU.Droid.Resource.Styleable.GradientColor_android_type;
+			global::Microsoft.WindowsAzure.MobileServices.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::MentorU.Droid.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
+			global::PCLCrypto.Resource.String.ApplicationName = global::MentorU.Droid.Resource.String.ApplicationName;
+			global::PCLCrypto.Resource.String.Hello = global::MentorU.Droid.Resource.String.Hello;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::MentorU.Droid.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.coordinatorLayoutStyle = global::MentorU.Droid.Resource.Attribute.coordinatorLayoutStyle;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::MentorU.Droid.Resource.Attribute.font;
@@ -8310,94 +8496,103 @@ namespace MentorU.Droid
 			public const int blank_profile = 2131165276;
 			
 			// aapt resource value: 0x7F07005D
-			public const int design_bottom_navigation_item_background = 2131165277;
+			public const int chat = 2131165277;
 			
 			// aapt resource value: 0x7F07005E
-			public const int design_fab_background = 2131165278;
+			public const int design_bottom_navigation_item_background = 2131165278;
 			
 			// aapt resource value: 0x7F07005F
-			public const int design_ic_visibility = 2131165279;
+			public const int design_fab_background = 2131165279;
 			
 			// aapt resource value: 0x7F070060
-			public const int design_ic_visibility_off = 2131165280;
+			public const int design_ic_visibility = 2131165280;
 			
 			// aapt resource value: 0x7F070061
-			public const int design_password_eye = 2131165281;
+			public const int design_ic_visibility_off = 2131165281;
 			
 			// aapt resource value: 0x7F070062
-			public const int design_snackbar_background = 2131165282;
-			
-			// aapt resource value: 0x7F070066
-			public const int icon_about = 2131165286;
-			
-			// aapt resource value: 0x7F070067
-			public const int icon_feed = 2131165287;
+			public const int design_password_eye = 2131165282;
 			
 			// aapt resource value: 0x7F070063
-			public const int ic_mtrl_chip_checked_black = 2131165283;
+			public const int design_snackbar_background = 2131165283;
 			
 			// aapt resource value: 0x7F070064
-			public const int ic_mtrl_chip_checked_circle = 2131165284;
-			
-			// aapt resource value: 0x7F070065
-			public const int ic_mtrl_chip_close_circle = 2131165285;
+			public const int exit = 2131165284;
 			
 			// aapt resource value: 0x7F070068
-			public const int Logo = 2131165288;
+			public const int icon_about = 2131165288;
 			
 			// aapt resource value: 0x7F070069
-			public const int mtrl_snackbar_background = 2131165289;
+			public const int icon_feed = 2131165289;
+			
+			// aapt resource value: 0x7F070065
+			public const int ic_mtrl_chip_checked_black = 2131165285;
+			
+			// aapt resource value: 0x7F070066
+			public const int ic_mtrl_chip_checked_circle = 2131165286;
+			
+			// aapt resource value: 0x7F070067
+			public const int ic_mtrl_chip_close_circle = 2131165287;
 			
 			// aapt resource value: 0x7F07006A
-			public const int mtrl_tabs_default_indicator = 2131165290;
+			public const int Logo = 2131165290;
 			
 			// aapt resource value: 0x7F07006B
-			public const int navigation_empty_icon = 2131165291;
+			public const int mtrl_snackbar_background = 2131165291;
 			
 			// aapt resource value: 0x7F07006C
-			public const int notification_action_background = 2131165292;
+			public const int mtrl_tabs_default_indicator = 2131165292;
 			
 			// aapt resource value: 0x7F07006D
-			public const int notification_bg = 2131165293;
+			public const int navigation_empty_icon = 2131165293;
 			
 			// aapt resource value: 0x7F07006E
-			public const int notification_bg_low = 2131165294;
+			public const int notification_action_background = 2131165294;
 			
 			// aapt resource value: 0x7F07006F
-			public const int notification_bg_low_normal = 2131165295;
+			public const int notification_bg = 2131165295;
 			
 			// aapt resource value: 0x7F070070
-			public const int notification_bg_low_pressed = 2131165296;
+			public const int notification_bg_low = 2131165296;
 			
 			// aapt resource value: 0x7F070071
-			public const int notification_bg_normal = 2131165297;
+			public const int notification_bg_low_normal = 2131165297;
 			
 			// aapt resource value: 0x7F070072
-			public const int notification_bg_normal_pressed = 2131165298;
+			public const int notification_bg_low_pressed = 2131165298;
 			
 			// aapt resource value: 0x7F070073
-			public const int notification_icon_background = 2131165299;
+			public const int notification_bg_normal = 2131165299;
 			
 			// aapt resource value: 0x7F070074
-			public const int notification_template_icon_bg = 2131165300;
+			public const int notification_bg_normal_pressed = 2131165300;
 			
 			// aapt resource value: 0x7F070075
-			public const int notification_template_icon_low_bg = 2131165301;
+			public const int notification_icon_background = 2131165301;
 			
 			// aapt resource value: 0x7F070076
-			public const int notification_tile_bg = 2131165302;
+			public const int notification_template_icon_bg = 2131165302;
 			
 			// aapt resource value: 0x7F070077
-			public const int notify_panel_notification_icon_bg = 2131165303;
+			public const int notification_template_icon_low_bg = 2131165303;
 			
 			// aapt resource value: 0x7F070078
-			public const int tooltip_frame_dark = 2131165304;
+			public const int notification_tile_bg = 2131165304;
 			
 			// aapt resource value: 0x7F070079
-			public const int tooltip_frame_light = 2131165305;
+			public const int notify_panel_notification_icon_bg = 2131165305;
 			
 			// aapt resource value: 0x7F07007A
-			public const int xamarin_logo = 2131165306;
+			public const int search = 2131165306;
+			
+			// aapt resource value: 0x7F07007B
+			public const int tooltip_frame_dark = 2131165307;
+			
+			// aapt resource value: 0x7F07007C
+			public const int tooltip_frame_light = 2131165308;
+			
+			// aapt resource value: 0x7F07007D
+			public const int xamarin_logo = 2131165309;
 			
 			static Drawable()
 			{
@@ -9377,170 +9572,176 @@ namespace MentorU.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7F0D0000
-			public const int abc_action_bar_home_description = 2131558400;
-			
-			// aapt resource value: 0x7F0D0001
-			public const int abc_action_bar_up_description = 2131558401;
-			
 			// aapt resource value: 0x7F0D0002
-			public const int abc_action_menu_overflow_description = 2131558402;
+			public const int abc_action_bar_home_description = 2131558402;
 			
 			// aapt resource value: 0x7F0D0003
-			public const int abc_action_mode_done = 2131558403;
-			
-			// aapt resource value: 0x7F0D0005
-			public const int abc_activitychooserview_choose_application = 2131558405;
+			public const int abc_action_bar_up_description = 2131558403;
 			
 			// aapt resource value: 0x7F0D0004
-			public const int abc_activity_chooser_view_see_all = 2131558404;
+			public const int abc_action_menu_overflow_description = 2131558404;
 			
-			// aapt resource value: 0x7F0D0006
-			public const int abc_capital_off = 2131558406;
+			// aapt resource value: 0x7F0D0005
+			public const int abc_action_mode_done = 2131558405;
 			
 			// aapt resource value: 0x7F0D0007
-			public const int abc_capital_on = 2131558407;
+			public const int abc_activitychooserview_choose_application = 2131558407;
+			
+			// aapt resource value: 0x7F0D0006
+			public const int abc_activity_chooser_view_see_all = 2131558406;
 			
 			// aapt resource value: 0x7F0D0008
-			public const int abc_font_family_body_1_material = 2131558408;
+			public const int abc_capital_off = 2131558408;
 			
 			// aapt resource value: 0x7F0D0009
-			public const int abc_font_family_body_2_material = 2131558409;
+			public const int abc_capital_on = 2131558409;
 			
 			// aapt resource value: 0x7F0D000A
-			public const int abc_font_family_button_material = 2131558410;
+			public const int abc_font_family_body_1_material = 2131558410;
 			
 			// aapt resource value: 0x7F0D000B
-			public const int abc_font_family_caption_material = 2131558411;
+			public const int abc_font_family_body_2_material = 2131558411;
 			
 			// aapt resource value: 0x7F0D000C
-			public const int abc_font_family_display_1_material = 2131558412;
+			public const int abc_font_family_button_material = 2131558412;
 			
 			// aapt resource value: 0x7F0D000D
-			public const int abc_font_family_display_2_material = 2131558413;
+			public const int abc_font_family_caption_material = 2131558413;
 			
 			// aapt resource value: 0x7F0D000E
-			public const int abc_font_family_display_3_material = 2131558414;
+			public const int abc_font_family_display_1_material = 2131558414;
 			
 			// aapt resource value: 0x7F0D000F
-			public const int abc_font_family_display_4_material = 2131558415;
+			public const int abc_font_family_display_2_material = 2131558415;
 			
 			// aapt resource value: 0x7F0D0010
-			public const int abc_font_family_headline_material = 2131558416;
+			public const int abc_font_family_display_3_material = 2131558416;
 			
 			// aapt resource value: 0x7F0D0011
-			public const int abc_font_family_menu_material = 2131558417;
+			public const int abc_font_family_display_4_material = 2131558417;
 			
 			// aapt resource value: 0x7F0D0012
-			public const int abc_font_family_subhead_material = 2131558418;
+			public const int abc_font_family_headline_material = 2131558418;
 			
 			// aapt resource value: 0x7F0D0013
-			public const int abc_font_family_title_material = 2131558419;
+			public const int abc_font_family_menu_material = 2131558419;
 			
 			// aapt resource value: 0x7F0D0014
-			public const int abc_menu_alt_shortcut_label = 2131558420;
+			public const int abc_font_family_subhead_material = 2131558420;
 			
 			// aapt resource value: 0x7F0D0015
-			public const int abc_menu_ctrl_shortcut_label = 2131558421;
+			public const int abc_font_family_title_material = 2131558421;
 			
 			// aapt resource value: 0x7F0D0016
-			public const int abc_menu_delete_shortcut_label = 2131558422;
+			public const int abc_menu_alt_shortcut_label = 2131558422;
 			
 			// aapt resource value: 0x7F0D0017
-			public const int abc_menu_enter_shortcut_label = 2131558423;
+			public const int abc_menu_ctrl_shortcut_label = 2131558423;
 			
 			// aapt resource value: 0x7F0D0018
-			public const int abc_menu_function_shortcut_label = 2131558424;
+			public const int abc_menu_delete_shortcut_label = 2131558424;
 			
 			// aapt resource value: 0x7F0D0019
-			public const int abc_menu_meta_shortcut_label = 2131558425;
+			public const int abc_menu_enter_shortcut_label = 2131558425;
 			
 			// aapt resource value: 0x7F0D001A
-			public const int abc_menu_shift_shortcut_label = 2131558426;
+			public const int abc_menu_function_shortcut_label = 2131558426;
 			
 			// aapt resource value: 0x7F0D001B
-			public const int abc_menu_space_shortcut_label = 2131558427;
+			public const int abc_menu_meta_shortcut_label = 2131558427;
 			
 			// aapt resource value: 0x7F0D001C
-			public const int abc_menu_sym_shortcut_label = 2131558428;
+			public const int abc_menu_shift_shortcut_label = 2131558428;
 			
 			// aapt resource value: 0x7F0D001D
-			public const int abc_prepend_shortcut_label = 2131558429;
-			
-			// aapt resource value: 0x7F0D001F
-			public const int abc_searchview_description_clear = 2131558431;
-			
-			// aapt resource value: 0x7F0D0020
-			public const int abc_searchview_description_query = 2131558432;
-			
-			// aapt resource value: 0x7F0D0021
-			public const int abc_searchview_description_search = 2131558433;
-			
-			// aapt resource value: 0x7F0D0022
-			public const int abc_searchview_description_submit = 2131558434;
-			
-			// aapt resource value: 0x7F0D0023
-			public const int abc_searchview_description_voice = 2131558435;
+			public const int abc_menu_space_shortcut_label = 2131558429;
 			
 			// aapt resource value: 0x7F0D001E
-			public const int abc_search_hint = 2131558430;
+			public const int abc_menu_sym_shortcut_label = 2131558430;
+			
+			// aapt resource value: 0x7F0D001F
+			public const int abc_prepend_shortcut_label = 2131558431;
+			
+			// aapt resource value: 0x7F0D0021
+			public const int abc_searchview_description_clear = 2131558433;
+			
+			// aapt resource value: 0x7F0D0022
+			public const int abc_searchview_description_query = 2131558434;
+			
+			// aapt resource value: 0x7F0D0023
+			public const int abc_searchview_description_search = 2131558435;
 			
 			// aapt resource value: 0x7F0D0024
-			public const int abc_shareactionprovider_share_with = 2131558436;
+			public const int abc_searchview_description_submit = 2131558436;
 			
 			// aapt resource value: 0x7F0D0025
-			public const int abc_shareactionprovider_share_with_application = 2131558437;
+			public const int abc_searchview_description_voice = 2131558437;
+			
+			// aapt resource value: 0x7F0D0020
+			public const int abc_search_hint = 2131558432;
 			
 			// aapt resource value: 0x7F0D0026
-			public const int abc_toolbar_collapse_description = 2131558438;
+			public const int abc_shareactionprovider_share_with = 2131558438;
 			
 			// aapt resource value: 0x7F0D0027
-			public const int appbar_scrolling_view_behavior = 2131558439;
+			public const int abc_shareactionprovider_share_with_application = 2131558439;
 			
 			// aapt resource value: 0x7F0D0028
-			public const int bottom_sheet_behavior = 2131558440;
+			public const int abc_toolbar_collapse_description = 2131558440;
 			
 			// aapt resource value: 0x7F0D0029
-			public const int character_counter_content_description = 2131558441;
+			public const int appbar_scrolling_view_behavior = 2131558441;
+			
+			// aapt resource value: 0x7F0D0000
+			public const int ApplicationName = 2131558400;
 			
 			// aapt resource value: 0x7F0D002A
-			public const int character_counter_pattern = 2131558442;
+			public const int bottom_sheet_behavior = 2131558442;
 			
 			// aapt resource value: 0x7F0D002B
-			public const int fab_transformation_scrim_behavior = 2131558443;
+			public const int character_counter_content_description = 2131558443;
 			
 			// aapt resource value: 0x7F0D002C
-			public const int fab_transformation_sheet_behavior = 2131558444;
+			public const int character_counter_pattern = 2131558444;
 			
 			// aapt resource value: 0x7F0D002D
-			public const int hide_bottom_view_on_scroll_behavior = 2131558445;
+			public const int fab_transformation_scrim_behavior = 2131558445;
 			
 			// aapt resource value: 0x7F0D002E
-			public const int mtrl_chip_close_icon_content_description = 2131558446;
+			public const int fab_transformation_sheet_behavior = 2131558446;
+			
+			// aapt resource value: 0x7F0D0001
+			public const int Hello = 2131558401;
 			
 			// aapt resource value: 0x7F0D002F
-			public const int overflow_tab_title = 2131558447;
+			public const int hide_bottom_view_on_scroll_behavior = 2131558447;
 			
 			// aapt resource value: 0x7F0D0030
-			public const int password_toggle_content_description = 2131558448;
+			public const int mtrl_chip_close_icon_content_description = 2131558448;
 			
 			// aapt resource value: 0x7F0D0031
-			public const int path_password_eye = 2131558449;
+			public const int overflow_tab_title = 2131558449;
 			
 			// aapt resource value: 0x7F0D0032
-			public const int path_password_eye_mask_strike_through = 2131558450;
+			public const int password_toggle_content_description = 2131558450;
 			
 			// aapt resource value: 0x7F0D0033
-			public const int path_password_eye_mask_visible = 2131558451;
+			public const int path_password_eye = 2131558451;
 			
 			// aapt resource value: 0x7F0D0034
-			public const int path_password_strike_through = 2131558452;
+			public const int path_password_eye_mask_strike_through = 2131558452;
 			
 			// aapt resource value: 0x7F0D0035
-			public const int search_menu_title = 2131558453;
+			public const int path_password_eye_mask_visible = 2131558453;
 			
 			// aapt resource value: 0x7F0D0036
-			public const int status_bar_notification_info_overflow = 2131558454;
+			public const int path_password_strike_through = 2131558454;
+			
+			// aapt resource value: 0x7F0D0037
+			public const int search_menu_title = 2131558455;
+			
+			// aapt resource value: 0x7F0D0038
+			public const int status_bar_notification_info_overflow = 2131558456;
 			
 			static String()
 			{

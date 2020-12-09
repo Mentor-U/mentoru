@@ -15,10 +15,10 @@ namespace MentorU.Views
     {
         EditProfileViewModel _viewModel;
 
-        public EditProfilePage()
+        public EditProfilePage(ProfileViewModel profileVM)
         {
             InitializeComponent();
-            BindingContext = _viewModel = new EditProfileViewModel();
+            BindingContext = _viewModel = new EditProfileViewModel(profileVM);
         }
     }
 }

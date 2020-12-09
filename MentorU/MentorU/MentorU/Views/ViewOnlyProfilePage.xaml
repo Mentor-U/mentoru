@@ -4,10 +4,11 @@
              x:Class="MentorU.Views.ViewOnlyProfilePage"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models">
-    
+    <!--
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Chat" Command="{Binding StartChatCommand}"/>
     </ContentPage.ToolbarItems>
+    -->
     
     <ContentPage.Content>
         <Grid>

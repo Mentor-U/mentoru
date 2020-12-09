@@ -9,46 +9,40 @@ using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
-    //[QueryProperty(nameof(User), nameof(User))]
-    public class EditProfileViewModel : BaseViewModel
+    public class EditProfileViewModel : ProfileViewModel
     {
-        private User _user;
-        public string Name { get; set; }
-        public string Major { get; set; }
-        public ObservableCollection<string> Classes { get; set; }
-        public string Bio { get; set; }
+        private Users _user;
+        private ProfileViewModel _parentVM;
         public Command SaveButtonCommand { get; set; }
         public Command CancelButtonCommand { get; set; }
 
         /***
-         * Creates a temporary user that saves the changes. If cancelled the _user
-         * remains the same. If save the temp values are copied over to the _user
+         * Allows for changes to the users profile and inherits the state of
+         * the ProfileViewModel to allow the changes to be reflected in the ProfileView
+         * if the are saved.
          */
-        public EditProfileViewModel()
+        public EditProfileViewModel(ProfileViewModel profileVM)
         {
-            // TODO: pull current user data from database or local cache
-            // _user = await DataStore.GetUserAsync(User);
-            _user = new User("Wallace");
-            Name = _user.Name;
+            _parentVM = profileVM;
+            _user = DataStore.GetUser().Result;
+            Name = _user.FirstName;
             Major = _user.Major;
             Bio = _user.Bio;
             SaveButtonCommand = new Command(OnSave);
             CancelButtonCommand = new Command(OnCancel);
         }
 
-        public void OnSave()
+        private async void OnSave()
         {
-            // TODO: update attributes to database
-            _user.Name = Name;
-            _user.Major = Major;
-            _user.Bio = Bio;
-
-            Shell.Current.SendBackButtonPressed();
+            _user.FirstName = _parentVM.Name = Name;
+            _user.Major = _parentVM.Major = Major;
+            _user.Bio = _parentVM.Bio = Bio;
+            await Shell.Current.Navigation.PopModalAsync();
         }
 
-        public void OnCancel()
+        private async void OnCancel()
         {
-            Shell.Current.SendBackButtonPressed();
+            await Shell.Current.Navigation.PopModalAsync();
         }
     }
 }

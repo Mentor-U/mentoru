@@ -10,50 +10,74 @@ namespace MentorU.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        private User _user;
+        private Users _user;
+        private string _name;
+        private string _major;
+        private string _bio;
+         
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
-        public Command<User> MentorTapped { get; }
+        public Command<Users> MentorTapped { get; }
 
         /* Attributes from the user that are needed for dispaly */
-        public string Name { get => _user.Name; }
-        public string Major { get => _user.Major; }
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Major
+        { 
+            get => _major;
+            set
+            {
+                _major = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<string> Classes { get; }
-        public ObservableCollection<User> Mentors { get; }
-        public string Bio { get => _user.Bio; }
+        public ObservableCollection<Users> Mentors { get; }
+        public string Bio
+        {
+            get => _bio;
+            set
+            {
+                _bio = value;
+                OnPropertyChanged();
+            }
+        }
 
         /***
          * Constructor. Initialize bindings from view
          */
         public ProfileViewModel()
         {
-            // TODO: get user from data base as they should already exist if they are on this page
-            _user = new User("Wallace");
+            _user = DataStore.GetUser().Result;
+            Name = _user.FirstName;
+            Major = _user.Major;
+            Bio = _user.Bio;
             Title = "Profile";
-            Mentors = new ObservableCollection<User>();
-            
-            //TODO: add all commands for loading market place recommendations and fetching user data from DB
-            LoadPageDataCommand = new Command(async () => await ExecuteLoadMentors()); 
+            Mentors = new ObservableCollection<Users>();
+
+            LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
-            MentorTapped = new Command<User>(OnMentorSelected);
+            MentorTapped = new Command<Users>(OnMentorSelected);
         }
 
-        private async void EditProfile(object obj)
-        {
-            await Shell.Current.GoToAsync(nameof(EditProfilePage));
-        }
-
-        async Task ExecuteLoadMentors() //TODO: make async with the call to the datastore
+        async Task ExecuteLoad() 
         {
             IsBusy = true;
             try
             {
-                Mentors.Clear();
-                // var mentors = await DataStore.GetMentorsAsync(); // TODO: add datastore method
-                User m1 = new User("George");
-                User m2 = new User("Steve");
-                Mentors.Add(m1);
-                Mentors.Add(m2);
+                Mentors.Clear(); // mentor list
+                var mentors = await DataStore.GetMentorsAsync(true); 
+                foreach(var m in mentors)
+                {
+                    Mentors.Add(m);
+                }
             }
             catch(Exception ex)
             {
@@ -65,10 +89,16 @@ namespace MentorU.ViewModels
             }
         }
 
-        async void OnMentorSelected(User mentor)
+        private async void EditProfile(object obj)
         {
-            // TODO: pass in the mentor that is wanting to be used as they are hard coded right now
-            await Shell.Current.GoToAsync(nameof(ViewOnlyProfilePage));
+            await Shell.Current.Navigation.PushModalAsync(new EditProfilePage(this));
+        }
+
+        async void OnMentorSelected(Users mentor)
+        {
+            if (mentor == null)
+                return;
+            await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
         }
 
         public void OnAppearing()

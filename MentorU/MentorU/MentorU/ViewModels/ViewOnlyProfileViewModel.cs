@@ -8,23 +8,31 @@ using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
-
     public class ViewOnlyProfileViewModel : BaseViewModel
     {
-        private User _user;
-        public Command StartChatCommand { get; }
-        public string Name { get => _user.Name; }
-        public string Field { get => _user.Major; }
-        public string Bio { get => _user.Bio; }
+        private string name;
+        private string field;
+        private string bio;
+        private Users _user;
+        public string Name { get => name; set => SetProperty(ref name, value); }
+        public string Field { get => field; set => SetProperty(ref field, value); }
+        public string Bio { get => bio; set => SetProperty(ref bio, value); }
 
-        public ViewOnlyProfileViewModel()
+        public ViewOnlyProfileViewModel(Users user)
         {
-            _user = new User("George");
-            _user.Bio = "I enjoy good coffee and helping people with programming";
-            StartChatCommand = new Command(StartChat);
+            _user = user;
+            Name = _user.FirstName;
+            Field = _user.Major;
+            Bio = _user.Bio;
         }
 
-        private async void StartChat(object obj)
+        public async void OnRequestMentor()
+        {
+            // TODO: handle requests to add a mentor
+            await Application.Current.MainPage.DisplayAlert("You have sent a request to "+ _user.FirstName, "We'll let you know if they accept your request!", "OK");
+        }
+
+        public async void StartChat(object obj)
         {
             await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
             await Shell.Current.GoToAsync(nameof(MainChatPage));

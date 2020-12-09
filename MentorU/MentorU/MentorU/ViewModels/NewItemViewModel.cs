@@ -11,6 +11,7 @@ namespace MentorU.ViewModels
     {
         private string text;
         private string description;
+        private Double itemPrice;
 
         public NewItemViewModel()
         {
@@ -32,6 +33,12 @@ namespace MentorU.ViewModels
             set => SetProperty(ref text, value);
         }
 
+        public Double ItemPrice
+        {
+            get => itemPrice;
+            set => SetProperty(ref itemPrice, value);
+        }
+
         public string Description
         {
             get => description;
@@ -49,11 +56,12 @@ namespace MentorU.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            MarketplaceItem newItem = new MarketplaceItem()
             {
                 Id = Guid.NewGuid().ToString(),
                 Text = Text,
-                Description = Description
+                Description = Description,
+                ItemPrice = ItemPrice
             };
 
             await DataStore.AddItemAsync(newItem);

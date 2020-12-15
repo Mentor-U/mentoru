@@ -74,7 +74,7 @@ namespace MentorU.ViewModels
             {
                 Mentors.Clear(); // mentor list
                 //if mentor
-                if(App.loggedUser.Role == 0) { return; }
+                //if(App.loggedUser.Role == 0) { return; }
                 
                 var mentors = await DataStore.GetMentorsAsync(true); 
                 foreach(var m in mentors)

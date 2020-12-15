@@ -1,5 +1,5 @@
 ﻿using MentorU.Models;
-using MentorU.Views;
+using MentorU.Views.ChatViews;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -10,15 +10,18 @@ namespace MentorU.ViewModels
 {
     public class MainChatViewModel : BaseViewModel
     {
-        //private Users _user;
         public ObservableCollection<Users> Chats { get; }
         public Command LoadChatsCommand { get; }
+        public Command<Users> UserTapped { get; }
+
+
         public MainChatViewModel()
         {
             Title = "Chats";
             //_user.FirstName = "Wallace";
             Chats = new ObservableCollection<Users>();
             LoadChatsCommand = new Command(async () => await ExecuteLoadChats());
+            UserTapped = new Command<Users>(OpenChat);
         }
 
         async Task ExecuteLoadChats()
@@ -41,6 +44,13 @@ namespace MentorU.ViewModels
                 IsBusy = false;
             }
         }
+
+
+        async void OpenChat(Users ChatRecipient)
+        {
+            await Shell.Current.Navigation.PushAsync(new ChatPage(ChatRecipient));
+        }
+
 
         public void OnAppearing()
         {

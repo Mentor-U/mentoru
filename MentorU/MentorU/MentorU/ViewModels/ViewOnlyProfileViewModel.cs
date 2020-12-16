@@ -1,5 +1,5 @@
 ﻿using MentorU.Models;
-using MentorU.Views;
+using MentorU.Views.ChatViews;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -35,7 +35,7 @@ namespace MentorU.ViewModels
         public async void StartChat(object obj)
         {
             await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
-            await Shell.Current.GoToAsync(nameof(MainChatPage));
+            await Shell.Current.Navigation.PushAsync(new ChatPage(_user));
         }
 
     }

@@ -12,6 +12,7 @@ namespace MentorU.ViewModels
     public class ChatViewModel : BaseViewModel
     {
         private string _textDraft;
+        private Users _recipient;
 
         public ObservableCollection<Message> Messages { get; }
         public string TextDraft { get => _textDraft; set { _textDraft = value; OnPropertyChanged(); } }
@@ -21,6 +22,7 @@ namespace MentorU.ViewModels
 
         public ChatViewModel(Users ChatRecipient)
         {
+            _recipient = ChatRecipient;
             Title = ChatRecipient.FirstName;
             Messages = new ObservableCollection<Message>();
             OnSendCommand = new Command(async () => await ExecuteSend());
@@ -36,7 +38,7 @@ namespace MentorU.ViewModels
                 // TODO: load message history
                 List<Message> messages = new List<Message>(); //REMOVE ME: (placeholder)
                 messages.Add(new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = "Hello There" });
-                messages.Add(new Message { User = new Users { FirstName = "Bob"}, Mine = false, Theirs = true, Text = "Hi, how are you today? What can I help you with? " });
+                messages.Add(new Message { User = _recipient, Mine = false, Theirs = true, Text = "Hi, how are you today? What can I help you with? " });
                 foreach (var m in messages)
                 {
                     Messages.Add(m);

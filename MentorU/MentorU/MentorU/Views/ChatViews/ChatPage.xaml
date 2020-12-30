@@ -61,7 +61,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Editor Placeholder="Message" Grid.Row="1" Grid.Column="0" Text="{Binding TextDraft}"/>
+                <Editor Placeholder="Message" Grid.Row="1" Grid.Column="0" Text="{Binding TextDraft}" AutoSize="TextChanges"/>
                 <Button Text="Send" Grid.Row="1" Grid.Column="1" WidthRequest="70" Command="{Binding OnSendCommand}"/>
             </Grid>
         </RefreshView>

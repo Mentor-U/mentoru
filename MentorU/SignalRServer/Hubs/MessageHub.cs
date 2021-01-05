@@ -19,9 +19,7 @@ namespace SignalRServer.Hubs
 
         public async Task SendMessage(string groupName, string message)
         {
-            await Clients.All.SendAsync("ReceiveMessage", message);
-            //await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
-            //await Clients.AllExcept(Context.ConnectionId).SendAsync("ReceiveMessage", message);
+            await Clients.AllExcept(Context.ConnectionId).SendAsync("ReceiveMessage", message);
         }
 
     }

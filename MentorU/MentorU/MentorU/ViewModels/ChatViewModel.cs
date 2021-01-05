@@ -73,6 +73,7 @@ namespace MentorU.ViewModels
             });
         }
 
+
         async Task Connect()
         {
             if (!hubIsConnected)
@@ -117,7 +118,7 @@ namespace MentorU.ViewModels
                 }
                 Message m = new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = TextDraft };
                 await hubConnection.InvokeAsync("SendMessage", _groupName, m.Text);
-                //Messages.Add(m);
+                Messages.Add(m);
                 TextDraft = "";
             }
             catch(Exception ex)

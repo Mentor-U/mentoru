@@ -31,11 +31,17 @@ namespace MentorU.ViewModels
 
         public ChatViewModel(Users ChatRecipient)
         {
-            _recipient = ChatRecipient;
             Title = ChatRecipient.FirstName;
+            _recipient = ChatRecipient;
+
+            if (int.Parse(_recipient.id) < int.Parse(App.loggedUser.id))
+                _groupName = _recipient.id + "-" + App.loggedUser.id;
+            else
+                _groupName = App.loggedUser.id + "-" + _recipient.id;
+
             Messages = new ObservableCollection<Message>();
             OnSendCommand = new Command(async () => await ExecuteSend());
-            LoadPageData = new Command(async () => await ExecuteLoadPageData());
+            LoadPageData = new Command(async () => { await ExecuteLoadPageData(); await Connect(); });
             ConnectChat = new Command(async () => await Connect());
 
             hubConnection = new HubConnectionBuilder()
@@ -54,16 +60,16 @@ namespace MentorU.ViewModels
                 })
                 .Build();
 
-            _groupName = _recipient.FirstName + App.loggedUser.FirstName;
-           //hubConnection.InvokeAsync("AddToGroup", _groupName);
-
-            hubConnection.On<string>("ReceiveMessage", (message) =>
+            hubConnection.On<string,string>("ReceiveMessage", (userID, message) =>
             {
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     try
                     {
-                        Messages.Add(new Message() { User = _recipient, Mine = false, Theirs = true, Text = message });
+                        if (userID == _recipient.id)
+                            Messages.Add(new Message() { User = _recipient, Mine = false, Theirs = true, Text = message });
+                        else
+                            Messages.Add(new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = message });
                     }
                     catch(Exception ex)
                     {
@@ -78,6 +84,7 @@ namespace MentorU.ViewModels
         {
             if (!hubIsConnected)
                 await hubConnection.StartAsync();
+            await hubConnection.InvokeAsync("AddToGroup", _groupName);
             hubIsConnected = true;
         }
 
@@ -87,10 +94,8 @@ namespace MentorU.ViewModels
             IsBusy = true;
             try
             {
-                // TODO: load message history
+                // TODO: load message history from database
                 List<Message> messages = new List<Message>(); //REMOVE ME: (placeholder)
-                messages.Add(new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = "Hello There" });
-                messages.Add(new Message { User = _recipient, Mine = false, Theirs = true, Text = "Hi, how are you today? What can I help you with? " });
                 foreach (var m in messages)
                 {
                     Messages.Add(m);
@@ -113,12 +118,9 @@ namespace MentorU.ViewModels
             {
                 if (!hubIsConnected)
                 {
-                    await hubConnection.StartAsync();
-                    hubIsConnected = true;
+                    await Connect();
                 }
-                Message m = new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = TextDraft };
-                await hubConnection.InvokeAsync("SendMessage", _groupName, m.Text);
-                Messages.Add(m);
+                await hubConnection.InvokeAsync("SendMessage", _groupName, App.loggedUser.id, TextDraft);
                 TextDraft = "";
             }
             catch(Exception ex)

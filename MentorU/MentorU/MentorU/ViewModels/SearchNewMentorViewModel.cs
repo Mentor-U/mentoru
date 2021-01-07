@@ -38,7 +38,7 @@ namespace MentorU.ViewModels
                 Mentors.Clear();
                 if (Filters.Count != 0)
                 {
-                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
+                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
                     foreach (Users m in temp)
                     {
                         if (Filters.Contains(m.Major))
@@ -48,7 +48,7 @@ namespace MentorU.ViewModels
                 }
                 else
                 {
-                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
+                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
                     foreach (Users element in temp)
                     {
                         Mentors.Add(element);

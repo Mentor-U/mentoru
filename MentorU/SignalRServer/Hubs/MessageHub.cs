@@ -17,11 +17,9 @@ namespace SignalRServer.Hubs
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
         }
 
-        public async Task SendMessage(string groupName, string message)
+        public async Task SendMessage(string groupName, string userID, string message)
         {
-            await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
-            //await Clients.Group(groupName).SendAsync("ReceiveMessage", message);
-            //await Clients.AllExcept(Context.ConnectionId).SendAsync("ReceiveMessage", message);
+            await Clients.Group(groupName).SendAsync("ReceiveMessage", userID, message);
         }
 
     }

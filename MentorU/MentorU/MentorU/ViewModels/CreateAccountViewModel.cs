@@ -17,7 +17,7 @@ namespace MentorU.ViewModels
         private string _confirmPassword;
         private string _major;
         private string _bio;
-        private int _role;
+        private string _role;
         private ObservableCollection<string> _classes;
 
         public Command OnCreateAccountClicked { get; }
@@ -75,7 +75,7 @@ namespace MentorU.ViewModels
             set => SetProperty(ref _bio, value);
         }
 
-        public int Role
+        public string Role
         {
             get => _role;
             set => SetProperty(ref _role, value);

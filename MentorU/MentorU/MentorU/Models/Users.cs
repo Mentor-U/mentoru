@@ -16,7 +16,7 @@ namespace MentorU.Models
         public string Password { get; set; }
 
         //0 - mentor 1 - mentee 2 - mentor/mentee
-        public int Role { get; set; }
+        public string Role { get; set; }
 
         // Move to profiles eventually
         public string Major { get; set; }

@@ -5,9 +5,7 @@
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
              Title="{Binding Title}">
- <ContentPage.ToolbarItems>
-     <ToolbarItem Text="Connect" Command="{Binding ConnectChat}"/>
- </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <RefreshView x:DataType="local:ChatViewModel" Command="{Binding LoadPageData}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <Grid>
@@ -19,7 +17,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Messages}" FlowDirection="LeftToRight" VerticalOptions="End" HasUnevenRows="True">
+                <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Messages}" FlowDirection="LeftToRight" VerticalOptions="End" HasUnevenRows="True" SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

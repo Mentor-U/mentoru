@@ -10,11 +10,11 @@ namespace MentorU.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        private Users _user;
         private string _name;
         private string _major;
         private string _bio;
-         
+        private string _classes;
+
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
@@ -38,7 +38,16 @@ namespace MentorU.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<string> Classes { get; }
+        //public ObservableCollection<string> Classes { get; }
+        public string Classes
+        {
+            get => _classes;
+            set
+            {
+                _classes = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<Users> Mentors { get; }
         public string Bio
         {
@@ -81,6 +90,9 @@ namespace MentorU.ViewModels
                 {
                     Mentors.Add(m);
                 }
+                //REMOVE: once database contains the classes information
+                //string classes =  "\n".Join(App.loggedUser.Classes);
+                Classes = "CS 1410 \n CS 2420 \n CS 3500";
             }
             catch(Exception ex)
             {

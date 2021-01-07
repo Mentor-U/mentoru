@@ -28,7 +28,6 @@ namespace MentorU.ViewModels
         private bool hubIsConnected = false;
         private string _groupName;
 
-
         public ChatViewModel(Users ChatRecipient)
         {
             Title = ChatRecipient.FirstName;
@@ -44,20 +43,21 @@ namespace MentorU.ViewModels
             LoadPageData = new Command(async () => { await ExecuteLoadPageData(); await Connect(); });
             ConnectChat = new Command(async () => await Connect());
 
+
             hubConnection = new HubConnectionBuilder()
-                .WithUrl($"{App.SignalRBackendUrl}/messages",
-                (opts) =>
-                {
-                    opts.HttpMessageHandlerFactory = (message) =>
-                    {
-                        if (message is HttpClientHandler clientHandler)
-                            // FIXME: This is a TEMPORARY work around to avoid SSL errors and pulled from ->
-                            // https://stackoverflow.com/questions/60794798/signalr-with-xamarin-client-getting-certificate-verify-failed-on-calling-start
-                            clientHandler.ServerCertificateCustomValidationCallback +=
-                                (sender, certificate, chain, sslPolicyErrors) => { return true; };
-                        return message;
-                    };
-                })
+                .WithUrl($"https://mentoruchat.azurewebsites.net/messages")
+                //, // This is a work around to avoid SSL errors when run on localhost
+                //(opts) =>
+                //{
+                //    opts.HttpMessageHandlerFactory = (message) =>
+                //    {
+                //        if (message is HttpClientHandler clientHandler)
+                //                
+                //                clientHandler.ServerCertificateCustomValidationCallback +=
+                //                (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                //        return message;
+                //    };
+                //})
                 .Build();
 
             hubConnection.On<string,string>("ReceiveMessage", (userID, message) =>

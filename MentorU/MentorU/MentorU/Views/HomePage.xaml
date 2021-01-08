@@ -27,7 +27,7 @@
                 <StackLayout BackgroundColor="{StaticResource Accent}" HeightRequest="150" HorizontalOptions="Fill" Grid.Row="0">
                     <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
                         <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                            <Image Source="Logo" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
+                            <Image Source="Logo.png" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
                                HeightRequest="150"/>
                         </ContentView>
                     </StackLayout>

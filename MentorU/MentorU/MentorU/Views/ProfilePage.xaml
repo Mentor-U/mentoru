@@ -17,6 +17,7 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -27,7 +28,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Image Source="Logo" MinimumWidthRequest="300"  
+                <Image Source="Logo.png" MinimumWidthRequest="300"  
                        Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                        HorizontalOptions="CenterAndExpand"
                        Scale="2"/>
@@ -35,24 +36,23 @@
                        HorizontalTextAlignment="Center" 
                        VerticalTextAlignment="Center" 
                        BackgroundColor="LightGray" 
-                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"/>
+                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"/>
                 <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
                 <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" 
                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
-                <!-- FIXME: Figure out the proper way to stor and display these-->
-                <Label Text ="{Binding Classes, StringFormat='Classes: {0:N}'}" 
-                       Grid.Column="1" Grid.Row="3"/>
+                <Label Text ="Classes:" Grid.Column="1" Grid.Row="3"/>
+                <CollectionView ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
                 <Label Text="Bio:" FontSize="Medium" 
-                       Grid.Column="0" Grid.Row="4" 
+                       Grid.Column="0" Grid.Row="5" 
                        FontAttributes="Bold"
                        TextDecorations="Underline"/>
-                <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
-                <Label Text="Mentors:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="6"/>
+                <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
+                <Label Text="Mentors:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
                 <CollectionView x:Name="MentorListView"
                             ItemsSource="{Binding Mentors}"
                             SelectionMode="None"
-                            Grid.Row="7" Grid.ColumnSpan="2" >
+                            Grid.Row="8" Grid.ColumnSpan="2" >
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
                             <StackLayout Padding="10" x:DataType="model:Users" BackgroundColor="LightCoral">
@@ -79,7 +79,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <ScrollView Grid.Row="8" Grid.ColumnSpan="2">
+                <ScrollView Grid.Row="9" Grid.ColumnSpan="2">
                     <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
                         <Label Text="Recommended:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
                         <!-- FIXME: Change to a collectionview template and add command bindings -->

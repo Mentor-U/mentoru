@@ -15,9 +15,9 @@ namespace MentorU
 
         public static MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
 
-        //TODO: Replace this with the hosted url rather than localhosts
-        public static string SignalRBackendUrl =
-            DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089" : "https://localhost:60089";
+        //Hosted server for in app messaging
+        public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
+            // local host testing -> DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089" : "https://localhost:60089";
 
         public static Users loggedUser; 
 

@@ -45,7 +45,7 @@ namespace MentorU.ViewModels
 
 
             hubConnection = new HubConnectionBuilder()
-                .WithUrl($"https://mentoruchat.azurewebsites.net/messages")
+                .WithUrl($"{App.SignalRBackendUrl}")
                 //, // This is a work around to avoid SSL errors when run on localhost
                 //(opts) =>
                 //{

@@ -23,6 +23,5 @@ namespace MentorU.Models
         public string Bio { get; set; }
 
         //public List<string> Classes { get; set; }
-
     }
 }

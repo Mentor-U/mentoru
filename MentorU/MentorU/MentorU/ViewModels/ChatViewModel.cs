@@ -45,19 +45,19 @@ namespace MentorU.ViewModels
 
 
             hubConnection = new HubConnectionBuilder()
-                .WithUrl($"{App.SignalRBackendUrl}")
-                //, // This is a work around to avoid SSL errors when run on localhost
-                //(opts) =>
-                //{
-                //    opts.HttpMessageHandlerFactory = (message) =>
-                //    {
-                //        if (message is HttpClientHandler clientHandler)
-                //                
-                //                clientHandler.ServerCertificateCustomValidationCallback +=
-                //                (sender, certificate, chain, sslPolicyErrors) => { return true; };
-                //        return message;
-                //    };
-                //})
+                .WithUrl($"{App.SignalRBackendUrl}"
+                , // This is a work around to avoid SSL errors when run on localhost
+                (opts) =>
+                {
+                    opts.HttpMessageHandlerFactory = (message) =>
+                    {
+                        if (message is HttpClientHandler clientHandler)
+
+                            clientHandler.ServerCertificateCustomValidationCallback +=
+                            (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                        return message;
+                    };
+                })
                 .Build();
 
             hubConnection.On<string,string>("ReceiveMessage", (userID, message) =>
@@ -120,7 +120,7 @@ namespace MentorU.ViewModels
                 {
                     await Connect();
                 }
-                await hubConnection.InvokeAsync("SendMessage", _groupName, App.loggedUser.id, TextDraft);
+                await hubConnection.SendAsync("SendMessage", _groupName, App.loggedUser.id, TextDraft);
                 TextDraft = "";
             }
             catch(Exception ex)

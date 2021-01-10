@@ -10,6 +10,7 @@ namespace SignalRServer.Hubs
         public async Task AddToGroup(string groupName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+            Console.WriteLine(groupName);
         }
 
         public async Task RemoveFromGroup(string groupName)
@@ -20,6 +21,8 @@ namespace SignalRServer.Hubs
         public async Task SendMessage(string groupName, string userID, string message)
         {
             await Clients.Group(groupName).SendAsync("ReceiveMessage", userID, message);
+            Console.WriteLine("Message from: " + userID);
+            Console.WriteLine("With Message: " + message);
         }
 
     }

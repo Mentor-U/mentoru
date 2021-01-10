@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using MentorU.Views.ChatViews;
 
 namespace MentorU.ViewModels
 {
@@ -14,8 +15,11 @@ namespace MentorU.ViewModels
         public Command FilterCommand { get; }
         public Command ClearFilters { get; }
         public Command<Users> MentorTapped { get; }
+        public Command OpenAssistU { get; }
+
         public ObservableCollection<Users> Mentors { get; }
         public ObservableCollection<string> Filters { get; }
+
         private string _filters;
         public string ShowFilters { get => _filters; set { _filters = value; OnPropertyChanged(); } }
 
@@ -24,10 +28,12 @@ namespace MentorU.ViewModels
             Title = "Find New Mentors";
             Mentors = new ObservableCollection<Users>();
             Filters = new ObservableCollection<string>();
+
             LoadMentorsCommand = new Command(async () => await ExecuteLoadMentors());
             FilterCommand = new Command(async () => await ExecuteFilterMentors());
             MentorTapped = new Command<Users>(OnMentorSelected);
             ClearFilters = new Command(async () => { Filters.Clear(); await ExecuteLoadMentors(); });
+            OpenAssistU = new Command(AssistUChat);
         }
 
         async Task ExecuteLoadMentors()
@@ -85,9 +91,18 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, false));
         }
 
+
+        async void AssistUChat()
+        {
+            await Shell.Current.Navigation.PushAsync(new ChatPage(App.assistU));
+            App.assistU.StartChat();
+        }
+
+
         public void OnAppearing()
         {
             IsBusy = true;
         }
+
     }
 }

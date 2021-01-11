@@ -20,5 +20,9 @@ namespace MentorU.Views
             InitializeComponent();
             BindingContext = _viewModel = new EditProfileViewModel(profileVM);
         }
+
+        void ListView_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        {
+        }
     }
 }

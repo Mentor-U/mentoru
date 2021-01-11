@@ -10,11 +10,14 @@ namespace MentorU.ViewModels
 {
     public class ProfileViewModel : BaseViewModel
     {
-        private Users _user;
         private string _name;
         private string _major;
         private string _bio;
-         
+        private string _classes;
+
+        public ObservableCollection<string> Classes { get; set; }
+        public ObservableCollection<Users> Mentors { get; set; }
+
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
@@ -38,8 +41,7 @@ namespace MentorU.ViewModels
                 OnPropertyChanged();
             }
         }
-        public ObservableCollection<string> Classes { get; }
-        public ObservableCollection<Users> Mentors { get; }
+
         public string Bio
         {
             get => _bio;
@@ -59,15 +61,23 @@ namespace MentorU.ViewModels
             Name = App.loggedUser.FirstName + " " + App.loggedUser.LastName;
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
+
             Title = "Profile";
+
             Mentors = new ObservableCollection<Users>();
+            Classes = new ObservableCollection<string>();
 
             LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
             MentorTapped = new Command<Users>(OnMentorSelected);
+
+            //REMOVE: once database contains the classes information
+            Classes.Add("CS 1410");
+            Classes.Add("CS 3500");
+            Classes.Add("CS 2420");
         }
 
-        async Task ExecuteLoad() 
+        protected async Task ExecuteLoad() 
         {
             IsBusy = true;
             try
@@ -81,6 +91,8 @@ namespace MentorU.ViewModels
                 {
                     Mentors.Add(m);
                 }
+
+                // TODO: Add class loading here from data base or logged user. what ever we decide on
             }
             catch(Exception ex)
             {

@@ -28,42 +28,48 @@ namespace MentorU.ViewModels
         private bool hubIsConnected = false;
         private string _groupName;
 
-
         public ChatViewModel(Users ChatRecipient)
         {
-            _recipient = ChatRecipient;
             Title = ChatRecipient.FirstName;
+            _recipient = ChatRecipient;
+
+            if (int.Parse(_recipient.id) < int.Parse(App.loggedUser.id))
+                _groupName = _recipient.id + "-" + App.loggedUser.id;
+            else
+                _groupName = App.loggedUser.id + "-" + _recipient.id;
+
             Messages = new ObservableCollection<Message>();
             OnSendCommand = new Command(async () => await ExecuteSend());
-            LoadPageData = new Command(async () => await ExecuteLoadPageData());
+            LoadPageData = new Command(async () => { await ExecuteLoadPageData(); await Connect(); });
             ConnectChat = new Command(async () => await Connect());
 
+
             hubConnection = new HubConnectionBuilder()
-                .WithUrl($"{App.SignalRBackendUrl}/messages",
-                (opts) =>
-                {
-                    opts.HttpMessageHandlerFactory = (message) =>
-                    {
-                        if (message is HttpClientHandler clientHandler)
-                            // FIXME: This is a TEMPORARY work around to avoid SSL errors and pulled from ->
-                            // https://stackoverflow.com/questions/60794798/signalr-with-xamarin-client-getting-certificate-verify-failed-on-calling-start
-                            clientHandler.ServerCertificateCustomValidationCallback +=
-                                (sender, certificate, chain, sslPolicyErrors) => { return true; };
-                        return message;
-                    };
-                })
+                .WithUrl($"{App.SignalRBackendUrl}")
+                //, // This is a work around to avoid SSL errors when run on localhost
+                //(opts) =>
+                //{
+                //    opts.HttpMessageHandlerFactory = (message) =>
+                //    {
+                //        if (message is HttpClientHandler clientHandler)
+                //                
+                //                clientHandler.ServerCertificateCustomValidationCallback +=
+                //                (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                //        return message;
+                //    };
+                //})
                 .Build();
 
-            _groupName = _recipient.FirstName + App.loggedUser.FirstName;
-           //hubConnection.InvokeAsync("AddToGroup", _groupName);
-
-            hubConnection.On<string>("ReceiveMessage", (message) =>
+            hubConnection.On<string,string>("ReceiveMessage", (userID, message) =>
             {
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     try
                     {
-                        Messages.Add(new Message() { User = _recipient, Mine = false, Theirs = true, Text = message });
+                        if (userID == _recipient.id)
+                            Messages.Add(new Message() { User = _recipient, Mine = false, Theirs = true, Text = message });
+                        else
+                            Messages.Add(new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = message });
                     }
                     catch(Exception ex)
                     {
@@ -73,10 +79,12 @@ namespace MentorU.ViewModels
             });
         }
 
+
         async Task Connect()
         {
             if (!hubIsConnected)
                 await hubConnection.StartAsync();
+            await hubConnection.InvokeAsync("AddToGroup", _groupName);
             hubIsConnected = true;
         }
 
@@ -86,10 +94,8 @@ namespace MentorU.ViewModels
             IsBusy = true;
             try
             {
-                // TODO: load message history
+                // TODO: load message history from database
                 List<Message> messages = new List<Message>(); //REMOVE ME: (placeholder)
-                messages.Add(new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = "Hello There" });
-                messages.Add(new Message { User = _recipient, Mine = false, Theirs = true, Text = "Hi, how are you today? What can I help you with? " });
                 foreach (var m in messages)
                 {
                     Messages.Add(m);
@@ -112,12 +118,9 @@ namespace MentorU.ViewModels
             {
                 if (!hubIsConnected)
                 {
-                    await hubConnection.StartAsync();
-                    hubIsConnected = true;
+                    await Connect();
                 }
-                Message m = new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = TextDraft };
-                await hubConnection.InvokeAsync("SendMessage", _groupName, m.Text);
-                //Messages.Add(m);
+                await hubConnection.InvokeAsync("SendMessage", _groupName, App.loggedUser.id, TextDraft);
                 TextDraft = "";
             }
             catch(Exception ex)

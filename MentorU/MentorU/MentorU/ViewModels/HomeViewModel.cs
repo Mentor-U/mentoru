@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Windows.Input;
 using MentorU.Models;
 using MentorU.Views;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

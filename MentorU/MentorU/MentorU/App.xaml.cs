@@ -1,6 +1,5 @@
 ﻿using MentorU.Services;
 using MentorU.Views;
-using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.IO;
@@ -8,7 +7,6 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MentorU.Models;
 using Xamarin.Essentials;
-
 
 namespace MentorU
 {
@@ -19,9 +17,9 @@ namespace MentorU
 
         //Hosted server for in app messaging
         public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
-            // local host testing -> DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089" : "https://localhost:60089";
+        // local host testing -> DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089" : "https://localhost:60089";
 
-        public static Users loggedUser; 
+        public static Users loggedUser;
 
         public App()
         {
@@ -29,16 +27,15 @@ namespace MentorU
 
 
             DependencyService.Register<MockDataStore>();
-
-            // Set up the auth client for MSAL
-            AuthenticationClient = PublicClientApplicationBuilder.Create(Constants.ClientId)
-                .WithIosKeychainSecurityGroup(Constants.IosKeychainSecurityGroups)
-                .WithB2CAuthority(Constants.AuthoritySignin)
-                .WithRedirectUri($"msal{Constants.ClientId}://auth")
-                .Build();
-
-            // Send the user to the login page
-            MainPage = new NavigationPage(new LoginPage());
+            var isLoggedIn = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;
+            if (isLoggedIn == "1")
+            {
+                MainPage = new AppShell();
+            }
+            else
+            {
+                MainPage = new LoginPage();
+            }
         }
 
         protected override void OnStart()

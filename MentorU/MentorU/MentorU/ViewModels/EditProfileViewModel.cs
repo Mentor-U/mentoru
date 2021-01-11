@@ -1,10 +1,4 @@
-﻿using MentorU.Models;
-using MentorU.Views;
-using System;
-using System.Collections.ObjectModel;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels

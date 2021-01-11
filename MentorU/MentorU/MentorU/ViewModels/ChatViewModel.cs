@@ -1,15 +1,11 @@
 ﻿using MentorU.Models;
-using MentorU.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Microsoft.AspNetCore.SignalR.Client;
-using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace MentorU.ViewModels
 {

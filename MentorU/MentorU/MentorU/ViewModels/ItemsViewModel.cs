@@ -10,20 +10,20 @@ namespace MentorU.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private MarketplaceItem _selectedItem;
+        private Items _selectedItem;
 
-        public ObservableCollection<MarketplaceItem> Items { get; }
+        public ObservableCollection<Items> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<MarketplaceItem> ItemTapped { get; }
+        public Command<Items> ItemTapped { get; }
 
         public ItemsViewModel()
         {
             Title = "Marketplace";
-            Items = new ObservableCollection<MarketplaceItem>();
+            Items = new ObservableCollection<Items>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<MarketplaceItem>(OnItemSelected);
+            ItemTapped = new Command<Items>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -35,7 +35,8 @@ namespace MentorU.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await App.client.GetTable<Items>().ToListAsync();
+ 
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -57,7 +58,7 @@ namespace MentorU.ViewModels
             SelectedItem = null;
         }
 
-        public MarketplaceItem SelectedItem
+        public Items SelectedItem
         {
             get => _selectedItem;
             set
@@ -72,13 +73,13 @@ namespace MentorU.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(MarketplaceItem item)
+        async void OnItemSelected(Items item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
         }
     }
 }

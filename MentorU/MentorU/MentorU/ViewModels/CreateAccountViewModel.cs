@@ -96,9 +96,9 @@ namespace MentorU.ViewModels
                     Role = Role,
                 
                 };
-
                 await App.client.GetTable<Users>().InsertAsync(newProfile);
                 await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
+
             }
             else
             {

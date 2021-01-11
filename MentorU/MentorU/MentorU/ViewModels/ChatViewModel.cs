@@ -67,9 +67,9 @@ namespace MentorU.ViewModels
                     try
                     {
                         if (userID == _recipient.id)
-                            MessageList.Add(new Message() { UserID = _recipient, Mine = false, Theirs = true, Text = message });
+                            MessageList.Add(new Message() { UserID = _recipient.id, Mine = false, Theirs = true, Text = message });
                         else
-                            MessageList.Add(new Message() { UserID = App.loggedUser, Mine = true, Theirs = false, Text = message });
+                            MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
                     }
                     catch(Exception ex)
                     {
@@ -94,11 +94,17 @@ namespace MentorU.ViewModels
             IsBusy = true;
             try
             {
-                // TODO: load message history from database
-                List<Message> messages = new List<Message>(); //REMOVE ME: (placeholder)
-                foreach (var m in messages)
+                // Load message history from database
+                var history = await App.client.GetTable<Messages>().OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
+                foreach (var m in history)
                 {
-                    MessageList.Add(m);
+                    MessageList.Add(new Message()
+                    {
+                        Text = m.Text,
+                        UserID = m.UserID,
+                        Mine = m.UserID == _recipient.id ? false : true,
+                        Theirs = m.UserID == _recipient.id ? true : false
+                    });
                 }
             }
             catch(Exception ex)
@@ -126,6 +132,7 @@ namespace MentorU.ViewModels
                 {
                     Text = TextDraft,
                     UserID = App.loggedUser.id,
+                    GroupName = _groupName,
                     TimeStamp = DateTime.Now
                 };
                 TextDraft = "";
@@ -142,6 +149,7 @@ namespace MentorU.ViewModels
             public string id { get; set; }
             public string Text { get; set; }
             public string UserID { get; set; }
+            public string GroupName { get; set; }
             public DateTime TimeStamp { get; set; }
         }
 

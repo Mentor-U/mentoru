@@ -17,7 +17,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding Messages}" FlowDirection="LeftToRight" VerticalOptions="End" HasUnevenRows="True" SeparatorVisibility="None">
+                <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding MessageList}" FlowDirection="LeftToRight" VerticalOptions="End" HasUnevenRows="True" SeparatorVisibility="None">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

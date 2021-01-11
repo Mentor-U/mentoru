@@ -18,7 +18,7 @@ namespace MentorU.ViewModels
         private string _textDraft;
         private Users _recipient;
 
-        public ObservableCollection<Message> Messages { get; }
+        public ObservableCollection<Message> MessageList { get; }
         public string TextDraft { get => _textDraft; set { _textDraft = value; OnPropertyChanged(); } }
         public Command OnSendCommand { get; set; }
         public Command LoadPageData { get; set; }
@@ -38,7 +38,7 @@ namespace MentorU.ViewModels
             else
                 _groupName = App.loggedUser.id + "-" + _recipient.id;
 
-            Messages = new ObservableCollection<Message>();
+            MessageList = new ObservableCollection<Message>();
             OnSendCommand = new Command(async () => await ExecuteSend());
             LoadPageData = new Command(async () => { await ExecuteLoadPageData(); await Connect(); });
             ConnectChat = new Command(async () => await Connect());
@@ -67,9 +67,9 @@ namespace MentorU.ViewModels
                     try
                     {
                         if (userID == _recipient.id)
-                            Messages.Add(new Message() { User = _recipient, Mine = false, Theirs = true, Text = message });
+                            MessageList.Add(new Message() { UserID = _recipient, Mine = false, Theirs = true, Text = message });
                         else
-                            Messages.Add(new Message() { User = App.loggedUser, Mine = true, Theirs = false, Text = message });
+                            MessageList.Add(new Message() { UserID = App.loggedUser, Mine = true, Theirs = false, Text = message });
                     }
                     catch(Exception ex)
                     {
@@ -98,7 +98,7 @@ namespace MentorU.ViewModels
                 List<Message> messages = new List<Message>(); //REMOVE ME: (placeholder)
                 foreach (var m in messages)
                 {
-                    Messages.Add(m);
+                    MessageList.Add(m);
                 }
             }
             catch(Exception ex)
@@ -120,8 +120,16 @@ namespace MentorU.ViewModels
                 {
                     await Connect();
                 }
+                
                 await hubConnection.InvokeAsync("SendMessage", _groupName, App.loggedUser.id, TextDraft);
+                Messages newMessage = new Messages
+                {
+                    Text = TextDraft,
+                    UserID = App.loggedUser.id,
+                    TimeStamp = DateTime.Now
+                };
                 TextDraft = "";
+                await App.client.GetTable<Messages>().InsertAsync(newMessage);
             }
             catch(Exception ex)
             {
@@ -129,6 +137,13 @@ namespace MentorU.ViewModels
             }
         }
 
+        public class Messages
+        {
+            public string id { get; set; }
+            public string Text { get; set; }
+            public string UserID { get; set; }
+            public DateTime TimeStamp { get; set; }
+        }
 
         public void OnAppearing()
         {

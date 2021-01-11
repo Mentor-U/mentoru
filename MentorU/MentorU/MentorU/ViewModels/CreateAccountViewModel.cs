@@ -94,7 +94,6 @@ namespace MentorU.ViewModels
                     Major = Major,
                     Bio = Bio,
                     Role = Role,
-                
                 };
 
                 await App.client.GetTable<Users>().InsertAsync(newProfile);

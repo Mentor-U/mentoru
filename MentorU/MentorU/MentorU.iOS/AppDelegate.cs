@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 
 using Foundation;
+using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
 
@@ -32,5 +33,19 @@ namespace MentorU.iOS
 
             return base.FinishedLaunching(app, options);
         }
+
+        /// <summary>
+        /// Redirections for authentication on IOS
+        /// </summary>
+        /// <param name="app"></param>
+        /// <param name="url"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
+        {
+            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
+            return base.OpenUrl(app, url, options);
+        }
+
     }
 }

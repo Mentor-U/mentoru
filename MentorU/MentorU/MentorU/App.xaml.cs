@@ -1,5 +1,6 @@
 ﻿using MentorU.Services;
 using MentorU.Views;
+using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using System;
 using System.IO;
@@ -7,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MentorU.Models;
 using Xamarin.Essentials;
+
 
 namespace MentorU
 {
@@ -27,15 +29,16 @@ namespace MentorU
 
 
             DependencyService.Register<MockDataStore>();
-            var isLoggedIn = Xamarin.Essentials.SecureStorage.GetAsync("isLogged").Result;
-            if (isLoggedIn == "1")
-            {
-                MainPage = new AppShell();
-            }
-            else
-            {
-                MainPage = new LoginPage();
-            }
+
+            // Set up the auth client for MSAL
+            AuthenticationClient = PublicClientApplicationBuilder.Create(Constants.ClientId)
+                .WithIosKeychainSecurityGroup(Constants.IosKeychainSecurityGroups)
+                .WithB2CAuthority(Constants.AuthoritySignin)
+                .WithRedirectUri($"msal{Constants.ClientId}://auth")
+                .Build();
+
+            // Send the user to the login page
+            MainPage = new NavigationPage(new LoginPage());
         }
 
         protected override void OnStart()

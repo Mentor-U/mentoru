@@ -9,6 +9,8 @@ using Android.OS;
 using System.IO;
 using Microsoft.WindowsAzure.MobileServices;
 using SQLite;
+using Microsoft.Identity.Client;
+using Android.Content;
 
 namespace MentorU.Droid
 {
@@ -27,12 +29,27 @@ namespace MentorU.Droid
 
             CurrentPlatform.Init();
             LoadApplication(new App());
+            App.UIParent = this;
         }
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        }
+
+        /// <summary>
+        /// Redirections for auth on android
+        /// </summary>
+        /// <param name="requestCode"></param>
+        /// <param name="resultCode"></param>
+        /// <param name="data"></param>
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
         }
     }
 }

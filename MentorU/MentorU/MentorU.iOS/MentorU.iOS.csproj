@@ -80,21 +80,51 @@
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
-    <ImageAsset Include="Assets.xcassets\chat.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png" />
-    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile.png" />
-    <ImageAsset Include="Assets.xcassets\exit.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit.png" />
-    <ImageAsset Include="Assets.xcassets\icon_about.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\icon_about.png.imageset\icon_about.png" />
-    <ImageAsset Include="Assets.xcassets\icon_feed.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\icon_feed.png.imageset\icon_feed.png" />
-    <ImageAsset Include="Assets.xcassets\Logo.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Logo.png.imageset\Logo.png" />
-    <ImageAsset Include="Assets.xcassets\search.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\search.png.imageset\search.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\chat.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\exit.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\icon_about.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\icon_about.png.imageset\icon_about.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\icon_feed.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\icon_feed.png.imageset\icon_feed.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Logo.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Logo.png.imageset\Logo.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\search.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\search.png.imageset\search.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

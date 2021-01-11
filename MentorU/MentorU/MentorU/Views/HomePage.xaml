@@ -71,7 +71,7 @@
                                 Grid.Row="5">
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
-                            <StackLayout Padding="10" x:DataType="model:MarketplaceItem" BackgroundColor="LightBlue">
+                            <StackLayout Padding="10" x:DataType="model:Items" BackgroundColor="LightBlue">
                                 <Frame BackgroundColor="LightGray" HasShadow="True">
                                     <Label LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 

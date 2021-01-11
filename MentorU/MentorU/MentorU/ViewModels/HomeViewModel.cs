@@ -13,10 +13,10 @@ namespace MentorU.ViewModels
     public class HomeViewModel : BaseViewModel
     {
         public ObservableCollection<Users> Mentors { get; }
-        public ObservableCollection<MarketplaceItem> MarketItems { get; }
+        public ObservableCollection<Items> MarketItems { get; }
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
-        public Command<MarketplaceItem> ItemTapped { get; }
+        public Command<Items> ItemTapped { get; }
         private string _usersName;
         public string UsersName { get => _user.FirstName; }
         private Users _user;
@@ -26,10 +26,10 @@ namespace MentorU.ViewModels
             Title = "Home";
             _user = DataStore.GetUser().Result;
             Mentors = new ObservableCollection<Users>();
-            MarketItems = new ObservableCollection<MarketplaceItem>();
+            MarketItems = new ObservableCollection<Items>();
             LoadPageDataCommand = new Command(async () => await ExecuteLoadPageData());
             MentorTapped = new Command<Users>(OnMentorSelected);
-            ItemTapped = new Command<MarketplaceItem>(OnItemSelected);
+            ItemTapped = new Command<Items>(OnItemSelected);
         }
 
         async Task ExecuteLoadPageData()
@@ -71,13 +71,13 @@ namespace MentorU.ViewModels
 
 
 
-        async void OnItemSelected(MarketplaceItem item)
+        async void OnItemSelected(Items item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
         }
 
 

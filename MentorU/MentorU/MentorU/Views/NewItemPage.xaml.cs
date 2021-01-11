@@ -10,7 +10,7 @@ namespace MentorU.Views
 {
     public partial class NewItemPage : ContentPage
     {
-        public MarketplaceItem Item { get; set; }
+        public Items Item { get; set; }
 
         public NewItemPage()
         {

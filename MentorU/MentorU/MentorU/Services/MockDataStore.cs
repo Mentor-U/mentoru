@@ -1,5 +1,4 @@
 ﻿using MentorU.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,18 +7,18 @@ namespace MentorU.Services
 {
     public class MockDataStore : IDataStore
     {
-        readonly List<MarketplaceItem> items;
+        readonly List<Items> items;
         readonly List<Users> Mentors;
         private Users _user;
 
         public MockDataStore()
         {
             _user = new Users { FirstName = "Wallace", Major = "Computer Science", Bio = "I need help with my career path" }; // This is the person that is using the app and should be consistent in all aspects of the app
-            items = new List<MarketplaceItem>()
-            {
-                new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "Book: Shakespeare", ItemPrice = 10.0, Description="This is an item description." },
-                new MarketplaceItem { Id = Guid.NewGuid().ToString(), Text = "Computer: Macbook Pro", ItemPrice = 100.0,Description="This is an item description." }
-            };
+            //items = new List<Items>()
+            //{
+            //    new Items { id = Guid.NewGuid().ToString(), Text = "Book: Shakespeare", ItemPrice = "10.0, Description="This is an item description." },
+            //    new Items { id = Guid.NewGuid().ToString(), Text = "Computer: Macbook Pro", ItemPrice = "100.0",Description="This is an item description." }
+            //};
             Mentors = new List<Users>()
             {
                 new Users(){ FirstName = "Jim", Major = "Computer Science" },
@@ -37,16 +36,16 @@ namespace MentorU.Services
 
         /** ---- Marketplace methods ---- */
 
-        public async Task<bool> AddItemAsync(MarketplaceItem item)
+        public async Task<bool> AddItemAsync(Items item)
         {
             items.Add(item);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<bool> UpdateItemAsync(MarketplaceItem item)
+        public async Task<bool> UpdateItemAsync(Items item)
         {
-            var oldItem = items.Where((MarketplaceItem arg) => arg.Id == item.Id).FirstOrDefault();
+            var oldItem = items.Where((Items arg) => arg.id == item.id).FirstOrDefault();
             items.Remove(oldItem);
             items.Add(item);
 
@@ -55,18 +54,18 @@ namespace MentorU.Services
 
         public async Task<bool> DeleteItemAsync(string id)
         {
-            var oldItem = items.Where((MarketplaceItem arg) => arg.Id == id).FirstOrDefault();
+            var oldItem = items.Where((Items arg) => arg.id == id).FirstOrDefault();
             items.Remove(oldItem);
 
             return await Task.FromResult(true);
         }
 
-        public async Task<MarketplaceItem> GetItemAsync(string id)
+        public async Task<Items> GetItemAsync(string id)
         {
-            return await Task.FromResult(items.FirstOrDefault(s => s.Id == id));
+            return await Task.FromResult(items.FirstOrDefault(s => s.id == id));
         }
 
-        public async Task<IEnumerable<MarketplaceItem>> GetItemsAsync(bool forceRefresh = false)
+        public async Task<IEnumerable<Items>> GetItemsAsync(bool forceRefresh = false)
         {
             return await Task.FromResult(items);
         }

@@ -1,7 +1,8 @@
 ﻿using MentorU.Models;
-using MentorU.Views;
+using MentorU.Views.ChatViews;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -10,15 +11,18 @@ namespace MentorU.ViewModels
 {
     public class MainChatViewModel : BaseViewModel
     {
-        //private Users _user;
         public ObservableCollection<Users> Chats { get; }
         public Command LoadChatsCommand { get; }
+        public Command<Users> UserTapped { get; }
+
+
         public MainChatViewModel()
         {
             Title = "Chats";
             //_user.FirstName = "Wallace";
             Chats = new ObservableCollection<Users>();
             LoadChatsCommand = new Command(async () => await ExecuteLoadChats());
+            UserTapped = new Command<Users>(OpenChat);
         }
 
         async Task ExecuteLoadChats()
@@ -27,10 +31,16 @@ namespace MentorU.ViewModels
             try
             {
                 Chats.Clear();
-                Users u1 = new Users { FirstName = "George" };
-                Users u2 = new Users { FirstName = "Steve" };
-                Chats.Add(u1);
-                Chats.Add(u2);
+                List<Users> mentor_list;
+                if (App.loggedUser.Role == "1")
+                    mentor_list = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
+                else
+                    mentor_list = await App.client.GetTable<Users>().Where(user => user.Role == "1").ToListAsync();
+
+                foreach (Users m in mentor_list)
+                {
+                    Chats.Add(m);
+                }
             }
             catch(Exception ex)
             {
@@ -41,6 +51,13 @@ namespace MentorU.ViewModels
                 IsBusy = false;
             }
         }
+
+
+        async void OpenChat(Users ChatRecipient)
+        {
+            await Shell.Current.Navigation.PushAsync(new ChatPage(ChatRecipient));
+        }
+
 
         public void OnAppearing()
         {

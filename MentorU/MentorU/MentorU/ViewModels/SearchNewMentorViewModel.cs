@@ -12,9 +12,12 @@ namespace MentorU.ViewModels
     {
         public Command LoadMentorsCommand { get; }
         public Command FilterCommand { get; }
+        public Command ClearFilters { get; }
         public Command<Users> MentorTapped { get; }
         public ObservableCollection<Users> Mentors { get; }
         public ObservableCollection<string> Filters { get; }
+        private string _filters;
+        public string ShowFilters { get => _filters; set { _filters = value; OnPropertyChanged(); } }
 
         public SearchNewMentorViewModel()
         {
@@ -24,31 +27,35 @@ namespace MentorU.ViewModels
             LoadMentorsCommand = new Command(async () => await ExecuteLoadMentors());
             FilterCommand = new Command(async () => await ExecuteFilterMentors());
             MentorTapped = new Command<Users>(OnMentorSelected);
+            ClearFilters = new Command(async () => { Filters.Clear(); await ExecuteLoadMentors(); });
         }
 
-        async Task ExecuteLoadMentors(string filter = null)
+        async Task ExecuteLoadMentors()
         {
             IsBusy = true;
             try
             {
                 Mentors.Clear();
-                if (filter != null)
+                if (Filters.Count != 0)
                 {
-                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
-                    foreach (var m in temp)
+                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
+                    foreach (Users m in temp)
                     {
-                        if (filter == "All" || Filters.Contains(m.Major))
+                        if (Filters.Contains(m.Major))
                             Mentors.Add(m);
                     }
+                    ShowFilters = string.Join(", ", Filters);
                 }
                 else
                 {
-                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == 0).ToListAsync();
+                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
                     foreach (Users element in temp)
                     {
                         Mentors.Add(element);
                     }
+                    ShowFilters = "";
                 }
+                
             }
             catch(Exception ex)
             {
@@ -62,12 +69,11 @@ namespace MentorU.ViewModels
 
         async Task ExecuteFilterMentors()
         {
-            //TODO: determine the structure of filtering options. right now does nothing
             var filters = await Application.Current.MainPage.DisplayPromptAsync("Filter", "Enter a Filter");
             if (filters != null)
             {
                 Filters.Add(filters.ToString());
-                await ExecuteLoadMentors(filters);
+                await ExecuteLoadMentors();
             }
         }
 

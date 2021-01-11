@@ -1,8 +1,5 @@
 ﻿using MentorU.Models;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
@@ -56,15 +53,17 @@ namespace MentorU.ViewModels
 
         private async void OnSave()
         {
-            MarketplaceItem newItem = new MarketplaceItem()
+            Items newItem = new Items()
             {
-                Id = Guid.NewGuid().ToString(),
                 Text = Text,
                 Description = Description,
-                ItemPrice = ItemPrice
+                Price = ItemPrice,
+                Owner = App.loggedUser.FirstName + " " + App.loggedUser.LastName
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await App.client.GetTable<Items>().InsertAsync(newItem);
+
+            await Application.Current.MainPage.DisplayAlert("Success", "Item Added", "Ok");
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

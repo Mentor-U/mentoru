@@ -1,7 +1,5 @@
-﻿using MentorU.Models;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
@@ -21,7 +19,7 @@ namespace MentorU.ViewModels
             set => SetProperty(ref text, value);
         }
 
-        public Double ItemPrice
+        public double ItemPrice
         {
             get => itemPrice;
             set => SetProperty(ref itemPrice, value);
@@ -51,10 +49,10 @@ namespace MentorU.ViewModels
             try
             {
                 var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
+                Id = item.id;
                 Text = item.Text;
                 Description = item.Description;
-                ItemPrice = item.ItemPrice;
+                ItemPrice = item.Price;
             }
             catch (Exception)
             {

@@ -20,7 +20,7 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="model:MarketplaceItem" Spacing="10.0">
+                    <StackLayout Padding="10" x:DataType="model:Items" Spacing="10.0">
                         <Label Text="{Binding Text}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
@@ -32,10 +32,10 @@
                            Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                            HeightRequest="100"
                            />
-                        <Label Text="{Binding ItemPrice, StringFormat='Item Price = {0:N} $'}" 
+                        <Label Text="{Binding Price, StringFormat='Item Price = {0:N} $'}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
+                            FontSize="16" />    
                         <Label Text="{Binding Description}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"

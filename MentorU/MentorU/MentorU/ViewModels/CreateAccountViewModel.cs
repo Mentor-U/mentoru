@@ -1,8 +1,6 @@
 ﻿using MentorU.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
@@ -17,7 +15,7 @@ namespace MentorU.ViewModels
         private string _confirmPassword;
         private string _major;
         private string _bio;
-        private int _role;
+        private string _role;
         private ObservableCollection<string> _classes;
 
         public Command OnCreateAccountClicked { get; }
@@ -75,7 +73,7 @@ namespace MentorU.ViewModels
             set => SetProperty(ref _bio, value);
         }
 
-        public int Role
+        public string Role
         {
             get => _role;
             set => SetProperty(ref _role, value);
@@ -94,11 +92,10 @@ namespace MentorU.ViewModels
                     Major = Major,
                     Bio = Bio,
                     Role = Role,
-                
                 };
-
                 await App.client.GetTable<Users>().InsertAsync(newProfile);
                 await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
+
             }
             else
             {

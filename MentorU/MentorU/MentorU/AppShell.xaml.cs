@@ -16,12 +16,13 @@ namespace MentorU
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(MainChatPage), typeof(MainChatPage));
             Routing.RegisterRoute(nameof(ViewOnlyProfilePage), typeof(ViewOnlyProfilePage));
+            Routing.RegisterRoute("Main/Login", typeof(LoginPage));
         }
 
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-            await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "0");
-            Application.Current.MainPage = new NavigationPage(new LoginPage());
+            Shell.Current.FlyoutIsPresented = false;   //close the menu 
+            await GoToAsync("Main/Login");
         }
     }
 }

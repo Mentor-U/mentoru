@@ -7,6 +7,7 @@ using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Microsoft.AppCenter.Crashes;
 
 namespace MentorU.ViewModels
 {
@@ -50,6 +51,7 @@ namespace MentorU.ViewModels
                 {
                     MarketItems.Add(i);
                 }
+                
             }
             catch (Exception ex)
             {

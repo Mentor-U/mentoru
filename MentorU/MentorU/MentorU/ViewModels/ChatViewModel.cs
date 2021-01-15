@@ -27,7 +27,7 @@ namespace MentorU.ViewModels
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
         private string _groupName;
-
+        
         public ChatViewModel(Users ChatRecipient)
         {
             Title = ChatRecipient.FirstName;
@@ -45,19 +45,19 @@ namespace MentorU.ViewModels
 
 
             hubConnection = new HubConnectionBuilder()
-                .WithUrl($"{App.SignalRBackendUrl}"
-                , // This is a work around to avoid SSL errors when run on localhost
-                (opts) =>
-                {
-                    opts.HttpMessageHandlerFactory = (message) =>
-                    {
-                        if (message is HttpClientHandler clientHandler)
+                .WithUrl($"{App.SignalRBackendUrl}")
+                //, // This is a work around to avoid SSL errors when run on localhost
+                //(opts) =>
+                //{
+                //    opts.HttpMessageHandlerFactory = (message) =>
+                //    {
+                //        if (message is HttpClientHandler clientHandler)
 
-                            clientHandler.ServerCertificateCustomValidationCallback +=
-                            (sender, certificate, chain, sslPolicyErrors) => { return true; };
-                        return message;
-                    };
-                })
+                //            clientHandler.ServerCertificateCustomValidationCallback +=
+                //            (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                //        return message;
+                //    };
+                //})
                 .Build();
 
             hubConnection.On<string,string>("ReceiveMessage", (userID, message) =>

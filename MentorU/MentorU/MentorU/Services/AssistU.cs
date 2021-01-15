@@ -14,7 +14,7 @@ namespace MentorU.Services
 {
     public class AssistU : Users
     {
-        public Dictionary<Users,List<MarketplaceItem>> MarketHistory;
+        //public Dictionary<Users,List<MarketplaceItem>> MarketHistory;
         public Dictionary<Users,List<string>> CourseHistory;
 
         private AssistUChat chat;
@@ -25,7 +25,7 @@ namespace MentorU.Services
             id = "0";
             FirstName = "AssistU";
 
-            MarketHistory = new Dictionary<Users, List<MarketplaceItem>>();
+            //MarketHistory = new Dictionary<Users, List<MarketplaceItem>>();
             CourseHistory = new Dictionary<Users, List<string>>();
         }
 
@@ -53,19 +53,19 @@ namespace MentorU.Services
                 messages = new List<string>();
                 groupName = "0-" + App.loggedUser.id;
                 hubConnection = new HubConnectionBuilder()
-                    .WithUrl($"{App.SignalRBackendUrl}"
-                    ,
-                    (opts) =>
-                    {
-                        opts.HttpMessageHandlerFactory = (message) =>
-                        {
-                            if (message is HttpClientHandler clientHandler)
+                    .WithUrl($"{App.SignalRBackendUrl}")
+                    //,
+                    //(opts) =>
+                    //{
+                    //    opts.HttpMessageHandlerFactory = (message) =>
+                    //    {
+                    //        if (message is HttpClientHandler clientHandler)
 
-                                clientHandler.ServerCertificateCustomValidationCallback +=
-                                (sender, certificate, chain, sslPolicyErrors) => { return true; };
-                            return message;
-                        };
-                    })
+                    //            clientHandler.ServerCertificateCustomValidationCallback +=
+                    //            (sender, certificate, chain, sslPolicyErrors) => { return true; };
+                    //        return message;
+                    //    };
+                    //})
                     .Build();
 
                 hubConnection.On<string, string>("ReceiveMessage", (userID, message) =>

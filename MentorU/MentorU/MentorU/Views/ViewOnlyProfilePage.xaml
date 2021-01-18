@@ -4,17 +4,15 @@
              x:Class="MentorU.Views.ViewOnlyProfilePage"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models">
-    <!--
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Chat" Command="{Binding StartChatCommand}"/>
-    </ContentPage.ToolbarItems>
-    -->
     
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="50"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -36,35 +34,8 @@
             <Label Text="Bio:" FontAttributes="Bold" TextDecorations="Underline"
                    Grid.Column="0" Grid.Row="4"/>
             <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
-            <!-- TODO: Undecided representation for locations
-            <CollectionView x:Name="LocationListView"
-                        ItemsSource="{Binding Locations}"
-                        SelectionMode="None"
-                        Grid.Row="7" Grid.ColumnSpan="2" >
-                <CollectionView.ItemTemplate>
-                    <DataTemplate >
-                        <StackLayout Padding="10" x:DataType="model:Location" >
-                            <Label Text="{Binding Name}" 
-                                    LineBreakMode="NoWrap" 
-                                    Style="{DynamicResource ListItemTextStyle}" 
-                                    FontSize="16"
-                                    TextDecorations="Underline"/>
-                            <Label Text="{Binding Address}" 
-                                    LineBreakMode="NoWrap"
-                                    Style="{DynamicResource ListItemDetailTextStyle}"
-                                    FontSize="13" />
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:ViewOnlyProfileViewModel}}, Path=ItemTapped}"		
-                                        CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            -->
+            <Button Text="Decline" Command="{Binding DeclineCommand}" BackgroundColor="Red" IsVisible="{Binding FromNotification}" Grid.Column="0" Grid.Row="6"/>
+            <Button Text="Accept" Command="{Binding AcceptCommand}" BackgroundColor="Green" IsVisible="{Binding FromNotification}" Grid.Column="1" Grid.Row="6"/>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

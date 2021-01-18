@@ -6,6 +6,7 @@ using Microsoft.AppCenter;
 using Microsoft.AppCenter.Analytics;
 using Microsoft.AppCenter.Crashes;
 using Foundation;
+using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
 

@@ -1,34 +1,23 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MentorU.Views.NotificationPage">
+             x:Class="MentorU.Views.NotificationPage"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             xmlns:model="clr-namespace:MentorU.Models"
+             Title="Notifications">
+
     <ContentPage.Content>
-         <RefreshView x:DataType="local:ChatViewModel" Command="{Binding LoadPageData}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-             <ListView>
-                 <ListView.ItemTemplate>
-                     <DataTemplate>
-                         <ViewCell>
-                             <Grid>
-                                 <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto"/>
-                                    </Grid.ColumnDefinitions>
-                                 </Grid>
-                                 <Label Text="Notification" Grid.Row="0" Grid.Column="0"/>
-                                 <Label Text="{Binding Message}" Grid.Row="1" Grid.Column="1"/>
-                                 <Button Text="Decline" Command="{Binding Decline}" BackgroundColor="Red" Grid.Row="1" Grid.Column="1"/>
-                                 <Button Text="Accept" Command="{Binding Accept}" BackgroundColor="Green" Grid.Row="1" Grid.Column="2"/>
-                            </Grid>
-                         </ViewCell>
-                     </DataTemplate>
-                 </ListView.ItemTemplate>
-             </ListView>
+         <RefreshView x:DataType="local:NotificationViewModel" Command="{Binding LoadPageData}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView ItemsSource="{Binding NotificationList}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding SelectedCommand}"
+                            SelectedItem="{Binding Noty, Mode=TwoWay}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label x:DataType="model:Notification" Text="{Binding Message}" FontSize="Large"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
          </RefreshView>
     </ContentPage.Content>
 </ContentPage>

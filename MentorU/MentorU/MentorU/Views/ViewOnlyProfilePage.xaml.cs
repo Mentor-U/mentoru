@@ -15,10 +15,10 @@ namespace MentorU.Views
     public partial class ViewOnlyProfilePage : ContentPage
     {
         ViewOnlyProfileViewModel _vm;
-        public ViewOnlyProfilePage(Users u, bool isConnected)
+        public ViewOnlyProfilePage(Users u, bool isConnected, bool fromNotification=false)
         {
             InitializeComponent();
-            BindingContext = _vm =  new ViewOnlyProfileViewModel(u);
+            BindingContext = _vm =  new ViewOnlyProfileViewModel(u, fromNotification);
             if (isConnected) // Toggles the interactions available to the mentee depending on if they are connected
             {
 

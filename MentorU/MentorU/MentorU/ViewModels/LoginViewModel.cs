@@ -1,8 +1,6 @@
 ﻿using MentorU.Models;
 using MentorU.Views;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
@@ -66,7 +64,7 @@ namespace MentorU.ViewModels
 
         private async void OnCreateClicked(object obj)
         {
-            await Application.Current.MainPage.Navigation.PushModalAsync(new CreateAccount());
+            //await Application.Current.MainPage.Navigation.PushModalAsync(new CreateAccount());
         }
     }
 }

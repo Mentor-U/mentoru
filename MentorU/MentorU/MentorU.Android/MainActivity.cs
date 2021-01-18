@@ -9,6 +9,8 @@ using Android.OS;
 using System.IO;
 using Microsoft.WindowsAzure.MobileServices;
 using SQLite;
+using Microsoft.Identity.Client;
+using Android.Content;
 
 namespace MentorU.Droid
 {
@@ -28,11 +30,6 @@ namespace MentorU.Droid
             CurrentPlatform.Init();
             LoadApplication(new App());
         }
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
     }
 }

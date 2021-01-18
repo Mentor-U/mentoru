@@ -34,5 +34,27 @@
 	<string>MentorU</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+<<<<<<< HEAD
+=======
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>ADB2C Auth</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>msal65b454ab-7da1-475c-b409-24fc81bf92ca://auth</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>None</string>
+		</dict>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>URL Type 1</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+	</array>
+>>>>>>> 2ccf17ea623296f30e23b1388c663e0c36b02053
 </dict>
 </plist>

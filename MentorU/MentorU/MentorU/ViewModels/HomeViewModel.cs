@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Windows.Input;
 using MentorU.Models;
 using MentorU.Views;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.AppCenter.Crashes;
+using Microsoft.Identity.Client;
 
 namespace MentorU.ViewModels
 {
@@ -19,8 +18,10 @@ namespace MentorU.ViewModels
         public Command<Users> MentorTapped { get; }
         public Command<Items> ItemTapped { get; }
         private string _usersName;
-        public string UsersName { get => _user.FirstName; }
+        public string UsersName { get => authResult.UniqueId; }
         private Users _user;
+
+        private AuthenticationResult authResult;
 
         public HomeViewModel()
         {

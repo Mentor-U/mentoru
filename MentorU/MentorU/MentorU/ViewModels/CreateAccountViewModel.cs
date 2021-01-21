@@ -136,6 +136,7 @@ namespace MentorU.ViewModels
                     Role = Role,
                     Hash = hashSalt.Hash,
                     Salt = hashSalt.Salt
+                   
                 };
                 await App.client.GetTable<Users>().InsertAsync(newProfile);
                 await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");

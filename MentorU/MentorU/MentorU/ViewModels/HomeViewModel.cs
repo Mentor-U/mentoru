@@ -16,16 +16,14 @@ namespace MentorU.ViewModels
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
         public Command<Items> ItemTapped { get; }
-        private string _usersName;
-        public string UsersName { get => authResult.UniqueId; }
         private Users _user;
-
-        private AuthenticationResult authResult;
-
+        public String UsersName { get; set; }
+      
         public HomeViewModel()
         {
+            _user = App.ActiveUser;
+            UsersName = _user.FirstName;
             Title = "Home";
-            _user = DataStore.GetUser().Result;
             Mentors = new ObservableCollection<Users>();
             MarketItems = new ObservableCollection<Items>();
             LoadPageDataCommand = new Command(async () => await ExecuteLoadPageData());
@@ -38,6 +36,7 @@ namespace MentorU.ViewModels
             IsBusy = true;
             try
             {
+                
                 //TODO: pull mentor list data and market place data here
 
                 //REMOVE: once above task has be done
@@ -84,7 +83,11 @@ namespace MentorU.ViewModels
 
         public void OnAppearing()
         {
+            _user = App.ActiveUser;
+            UsersName = _user.FirstName;
+
             IsBusy = true;
+
         }
     }
 }

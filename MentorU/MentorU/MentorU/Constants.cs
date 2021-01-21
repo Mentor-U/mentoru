@@ -9,11 +9,11 @@ namespace MentorU
     /// </summary>
     public static class Constants
     {
-        // set your tenant name, for example "contoso123tenant"
-        static readonly string tenantName = "mentoruauth";
+        //// set your tenant name, for example "contoso123tenant"
+        //static readonly string tenantName = "mentoruauth";
 
-        // set your tenant id, for example: "contoso123tenant.onmicrosoft.com"
-        static readonly string tenantId = "mentoruauth.onmicrosoft.com";
+        //// set your tenant id, for example: "contoso123tenant.onmicrosoft.com"
+        //static readonly string tenantId = "mentoruauth.onmicrosoft.com";
 
         // set your client/application id, for example: aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
         static readonly string clientId = "0ef84791-fdb9-4e97-ac12-32327cc42644";

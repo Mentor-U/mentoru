@@ -1,4 +1,5 @@
-﻿using MentorU.ViewModels;
+﻿using MentorU.Models;
+using MentorU.ViewModels;
 using MentorU.Views;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,9 @@ namespace MentorU
             {
                 await App.PCA.RemoveAsync(account);
             }
+
+            App.ActiveUser = new Users();
+            App.userSignedIn = false;
 
             await GoToAsync("///Login");
         }

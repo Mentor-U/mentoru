@@ -27,11 +27,9 @@
                     Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                     HorizontalOptions="CenterAndExpand"
                     Scale="2"/>
-            <Label Text="Profile Picture" FontAttributes="Italic"
-                    HorizontalTextAlignment="Center" 
-                    VerticalTextAlignment="Center" 
-                    BackgroundColor="LightGray" 
-                    Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"/>
+            <Button Text="Add Profile Picture" Command="{Binding AddProfilePictureCommand}" FontAttributes="Italic"
+                       BackgroundColor="LightGray" 
+                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"/>
             <Editor Text="{Binding Name, Mode=TwoWay}" 
                     Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"
                     Placeholder="Name"/>

@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             x:Class="MentorU.Views.CreateAccountPage"
+             Shell.NavBarIsVisible="False">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackLayout Orientation="Vertical" Grid.Row="1" >
+                <Image Source="Logo" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
+                    HeightRequest="200"/>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" Grid.Row="2" >
+                <Label Text="Create a New Account" FontSize="Large" TextColor="Black" HorizontalOptions="Center" Margin="0,10,0,0" />
+                
+                <Entry x:Name="firstName"  Text="{Binding FirstName, Mode=TwoWay}" Placeholder="First Name" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
+                <Entry x:Name="lastName"  Text="{Binding LastName, Mode=TwoWay}" Placeholder="Last Name" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
+                <Entry x:Name="email" Text="{Binding Email, Mode=TwoWay}" Placeholder="Email" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
+                <Entry x:Name="password" Text="{Binding Password, Mode=TwoWay}" Placeholder="Password" TextColor="Black" PlaceholderColor="Black" IsPassword="True" Margin="0,5,0,0" />
+                <Entry x:Name="confirmPassword" Text="{Binding ConfirmPassword, Mode=TwoWay}" Placeholder="Confirm Password" TextColor="Black" PlaceholderColor="Black" IsPassword="True" Margin="0,5,0,0" />
+                <Entry x:Name="major" Text="{Binding Major, Mode=TwoWay}" Placeholder="Major" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
+                <Entry x:Name="bio"  Text="{Binding Bio, Mode=TwoWay}" Placeholder="Bio" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
+                <Entry x:Name="role"  Text="{Binding Role, Mode=TwoWay}" Placeholder="Role" TextColor="Black" PlaceholderColor="Black" Margin="0,5,0,0" />
+                <Button VerticalOptions="Center" Text="Create" Command="{Binding OnCreateAccountClicked}"/>
+            </StackLayout>
+
+            <!--<StackLayout Orientation="Vertical" Grid.Row="2">
+                <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+                     <Button VerticalOptions="Center" Text="Create" Command="{Binding CreateAccountCommand}"/>
+                </StackLayout>
+            </StackLayout>-->
+
+
+
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

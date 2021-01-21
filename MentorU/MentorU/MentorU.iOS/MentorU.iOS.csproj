@@ -132,8 +132,12 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\notification.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\notification.png.imageset\notification.png" />
+    <ImageAsset Include="Assets.xcassets\notification.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\notification.png.imageset\notification.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -58,7 +58,7 @@ namespace MentorU.ViewModels
                 Text = Text,
                 Description = Description,
                 Price = ItemPrice,
-                Owner = App.loggedUser.FirstName + " " + App.loggedUser.LastName
+                Owner = App.ActiveUser.FirstName + " " + App.ActiveUser.LastName
             };
 
             await App.client.GetTable<Items>().InsertAsync(newItem);

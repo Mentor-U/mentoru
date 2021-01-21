@@ -58,9 +58,9 @@ namespace MentorU.ViewModels
         public ProfileViewModel()
         {
 
-            Name = App.loggedUser.FirstName + " " + App.loggedUser.LastName;
-            Major = App.loggedUser.Major;
-            Bio = App.loggedUser.Bio;
+            Name = App.ActiveUser.FirstName + " " + App.ActiveUser.LastName;
+            Major = App.ActiveUser.Major;
+            Bio = App.ActiveUser.Bio;
 
             Title = "Profile";
 

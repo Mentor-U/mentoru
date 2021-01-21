@@ -32,7 +32,7 @@ namespace MentorU.ViewModels
             {
                 Chats.Clear();
                 List<Users> mentor_list;
-                if (App.loggedUser.Role == "1")
+                if (App.ActiveUser.Role == "1")
                     mentor_list = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
                 else
                     mentor_list = await App.client.GetTable<Users>().Where(user => user.Role == "1").ToListAsync();

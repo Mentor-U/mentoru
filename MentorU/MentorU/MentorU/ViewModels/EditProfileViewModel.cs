@@ -34,9 +34,9 @@ namespace MentorU.ViewModels
         public EditProfileViewModel(ProfileViewModel profileVM)
         {
             _parentVM = profileVM;
-            Name = App.loggedUser.FirstName;
-            Major = App.loggedUser.Major;
-            Bio = App.loggedUser.Bio;
+            Name = App.ActiveUser.FirstName;
+            Major = App.ActiveUser.Major;
+            Bio = App.ActiveUser.Bio;
             Classes = _parentVM.Classes;
 
             AddClassCommand = new Command(AddClass);
@@ -63,9 +63,9 @@ namespace MentorU.ViewModels
 
         private async void OnSave()
         {
-            App.loggedUser.FirstName = _parentVM.Name = Name;
-            App.loggedUser.Major = _parentVM.Major = Major;
-            App.loggedUser.Bio = _parentVM.Bio = Bio;
+            App.ActiveUser.FirstName = _parentVM.Name = Name;
+            App.ActiveUser.Major = _parentVM.Major = Major;
+            App.ActiveUser.Bio = _parentVM.Bio = Bio;
             _parentVM.Classes = Classes;
             await Shell.Current.Navigation.PopModalAsync();
         }

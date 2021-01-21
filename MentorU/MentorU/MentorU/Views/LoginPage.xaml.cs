@@ -1,9 +1,6 @@
-﻿using MentorU.ViewModels;
+﻿using MentorU.Services.Identity;
+using Splat;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,18 +9,28 @@ namespace MentorU.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
-        LoginViewModel _viewModel;
+
         public LoginPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new LoginViewModel();
+
+        }
+
+        /// <summary>
+        /// Sends request out to MSAL to login/sign up 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        async void OnLoginButtonClicked(object sender, EventArgs e)
+        {
+            await Locator.Current.GetService<IIdentityService>().VerifyRegistration();
         }
 
         protected override bool OnBackButtonPressed()
         {
             return true;
         }
-    }
 
-   
+
+    }
 }

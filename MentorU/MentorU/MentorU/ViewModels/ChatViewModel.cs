@@ -29,10 +29,10 @@ namespace MentorU.ViewModels
             Title = ChatRecipient.FirstName;
             _recipient = ChatRecipient;
 
-            if (int.Parse(_recipient.id) < int.Parse(App.loggedUser.id))
-                _groupName = _recipient.id + "-" + App.loggedUser.id;
+            if (int.Parse(_recipient.id) < int.Parse(App.ActiveUser.id))
+                _groupName = _recipient.id + "-" + App.ActiveUser.id;
             else
-                _groupName = App.loggedUser.id + "-" + _recipient.id;
+                _groupName = App.ActiveUser.id + "-" + _recipient.id;
 
             MessageList = new ObservableCollection<Message>();
             OnSendCommand = new Command(async () => await ExecuteSend());
@@ -65,7 +65,7 @@ namespace MentorU.ViewModels
                         if (userID == _recipient.id)
                             MessageList.Add(new Message() { UserID = _recipient.id, Mine = false, Theirs = true, Text = message });
                         else
-                            MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
+                            MessageList.Add(new Message() { UserID = App.ActiveUser.id, Mine = true, Theirs = false, Text = message });
                     }
                     catch(Exception ex)
                     {
@@ -123,11 +123,11 @@ namespace MentorU.ViewModels
                     await Connect();
                 }
                 
-                await hubConnection.InvokeAsync("SendMessage", _groupName, App.loggedUser.id, TextDraft);
+                await hubConnection.InvokeAsync("SendMessage", _groupName, App.ActiveUser.id, TextDraft);
                 Messages newMessage = new Messages
                 {
                     Text = TextDraft,
-                    UserID = App.loggedUser.id,
+                    UserID = App.ActiveUser.id,
                     GroupName = _groupName,
                     TimeStamp = DateTime.Now
                 };

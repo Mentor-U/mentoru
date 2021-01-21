@@ -8,6 +8,7 @@ namespace MentorU
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
+
         public AppShell()
         {
             InitializeComponent();
@@ -22,7 +23,14 @@ namespace MentorU
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
             Shell.Current.FlyoutIsPresented = false;   //close the menu 
-            await GoToAsync("Main/Login");
+
+            var accounts = await App.PCA.GetAccountsAsync();
+            foreach (var account in accounts)
+            {
+                await App.PCA.RemoveAsync(account);
+            }
+
+            await GoToAsync("///Login");
         }
     }
 }

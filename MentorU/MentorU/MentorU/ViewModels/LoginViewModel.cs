@@ -1,70 +1,27 @@
-﻿using MentorU.Models;
-using MentorU.Views;
-using System;
+﻿using MentorU.Services.Identity;
+using Splat;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
-    public class LoginViewModel : BaseViewModel
+    class LoginViewModel : BaseViewModel
     {
-        public Command LoginCommand { get; }
-        public Command CreateCommand { get; }
+        private IIdentityService _identityService;
 
-        private string _email;
-        private string _password;
-
-        public string Email
+        public LoginViewModel(IIdentityService identityService = null)
         {
-            get => _email;
-            set => SetProperty(ref _email, value);
+            _identityService = identityService ?? Locator.Current.GetService<IIdentityService>();
+            ExecuteLogin = new Command(async () => await LoginAsync());
         }
 
-        public string Password
+        public ICommand ExecuteLogin { get; set; }
+
+        private async Task LoginAsync()
         {
-            get => _password;
-            set => SetProperty(ref _password, value);
+            await _identityService.VerifyRegistration();
         }
 
-        public LoginViewModel()
-        {
-            LoginCommand = new Command(OnLoginClicked);
-            CreateCommand = new Command(OnCreateClicked);
-        }
-
-        private async void OnLoginClicked(object obj)
-        {
-            try
-            {
-                string email = Email;
-
-                var pwd = await App.client.GetTable<Users>().Where(e => e.Email == email)
-                    .Select(p => p.Password).ToListAsync();
-
-                if (pwd.Contains(Password))
-                {
-                    var userList = await App.client.GetTable<Users>().Where(user => user.Password == Password).ToListAsync();
-                    foreach(Users logged in userList)
-                    {
-                        App.loggedUser = logged;
-                    }
-
-                    Application.Current.MainPage = new AppShell();
-                    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-                }
-                else
-                {
-                    await Application.Current.MainPage.DisplayAlert("Failed", "Email or Password Incorrect!", "Ok");
-                }
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Failed", "Email or Password Incorrect!", "Ok");
-            }
-        }
-
-        private async void OnCreateClicked(object obj)
-        {
-            //await Application.Current.MainPage.Navigation.PushModalAsync(new CreateAccount());
-        }
     }
 }

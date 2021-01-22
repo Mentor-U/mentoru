@@ -45,21 +45,14 @@ namespace MentorU.ViewModels
         {
             try
             {
-                //string email = Email;
                 var user = await App.client.GetTable<Users>().Where(e => e.Email == Email).ToListAsync();
                 bool isPasswordMatched = false;
-                foreach (Users u in user)
-                {
-                    isPasswordMatched = VerifyPassword(Password, u.Hash, u.Salt);
-                }
+                isPasswordMatched = VerifyPassword(Password, user[0].Hash, user[0].Salt);
+                
 
                 if(isPasswordMatched)
                 {
-                    //var userList = await App.client.GetTable<Users>().Where(u => u.Password == Password).ToListAsync();
-                    foreach (Users logged in user)
-                    {
-                        App.loggedUser = logged;
-                    }
+                    App.loggedUser = user[0];
 
                     Application.Current.MainPage = new AppShell();
                     await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
@@ -68,25 +61,6 @@ namespace MentorU.ViewModels
                 {
                     await Application.Current.MainPage.DisplayAlert("Failed", "Email or Password Incorrect!", "Ok");
                 }
-
-                //var pwd = await App.client.GetTable<Users>().Where(e => e.Email == email)
-                //.Select(p => p.Password).ToListAsync();
-
-                //if (pwd.Contains(Password))
-                //{
-                //    var userList = await App.client.GetTable<Users>().Where(user => user.Password == Password).ToListAsync();
-                //    foreach(Users logged in userList)
-                //    {
-                //        App.loggedUser = logged;
-                //    }
-
-                //    Application.Current.MainPage = new AppShell();
-                //    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
-                //}
-                //else
-                //{
-                //    await Application.Current.MainPage.DisplayAlert("Failed", "Email or Password Incorrect!", "Ok");
-                //}
             }
             catch (Exception ex)
             {

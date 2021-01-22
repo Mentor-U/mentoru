@@ -34,8 +34,6 @@
 	<string>MentorU</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
-<<<<<<< HEAD
-=======
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -55,6 +53,5 @@
 			<string>Editor</string>
 		</dict>
 	</array>
->>>>>>> 2ccf17ea623296f30e23b1388c663e0c36b02053
 </dict>
 </plist>

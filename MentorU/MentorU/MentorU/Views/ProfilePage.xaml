@@ -55,8 +55,8 @@
                             Grid.Row="8" Grid.ColumnSpan="2" >
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
-                            <StackLayout Padding="10" x:DataType="model:Users" BackgroundColor="LightCoral">
-                                <Frame BackgroundColor="LightGray" HasShadow="True">
+                            <StackLayout Padding="10" x:DataType="model:Users" BackgroundColor="#e60000">
+                                <Frame BackgroundColor="LightGray" HasShadow="False">
                                     <Label LineBreakMode="NoWrap" 
                                             Style="{DynamicResource ListItemTextStyle}" 
                                             FontSize="16">

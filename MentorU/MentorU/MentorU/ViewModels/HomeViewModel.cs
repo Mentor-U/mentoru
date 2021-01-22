@@ -39,19 +39,18 @@ namespace MentorU.ViewModels
             IsBusy = true;
             try
             {
-                //TODO: pull mentor list data and market place data here
-
-                //REMOVE: once above task has be done
-                var mentors = await DataStore.GetMentorsAsync(true);
-                foreach(var m in mentors) // TODO: adding all? maybe limit to top three
+                Mentors.Clear();
+                var mentors = await App.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                foreach(var m in mentors) 
                 {
-                    Mentors.Add(m);
+                    var temp = await App.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                    Mentors.Add(temp[0]);
                 }
-                var items = await DataStore.GetItemsAsync(true);
-                foreach(var i in items) // TODO: adding all? maybe limit to top three
-                {
-                    MarketItems.Add(i);
-                }
+                //var items = await DataStore.GetItemsAsync(true);
+                //foreach(var i in items) // TODO: adding all? maybe limit to top three
+                //{
+                //    MarketItems.Add(i);
+                //}
                 
             }
             catch (Exception ex)

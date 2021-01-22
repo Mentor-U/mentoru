@@ -39,8 +39,16 @@ namespace MentorU.ViewModels
         public async void OnRequestMentor()
         {
             try {
-                await App.client.GetTable<Notification>().InsertAsync(new Notification() { MentorID = _user.id, MenteeID = App.loggedUser.id, Message = $"{App.loggedUser.FirstName} wants to connect!" });
-                await Application.Current.MainPage.DisplayAlert("You have sent a request to " + _user.FirstName, "We'll let you know if they accept your request!", "OK");
+                await App.client.GetTable<Notification>().InsertAsync(new Notification()
+                {
+                    MentorID = _user.id,
+                    MenteeID = App.loggedUser.id,
+                    Message = $"{App.loggedUser.FirstName} wants to connect!"
+                });
+                await Application.Current.MainPage.DisplayAlert(
+                    "You have sent a request to " + _user.FirstName,
+                    "We'll let you know if they accept your request!",
+                    "OK");
             }
             catch (Exception e)
             {
@@ -56,7 +64,8 @@ namespace MentorU.ViewModels
 
         async Task Accept()
         {
-            bool confirm = await Application.Current.MainPage.DisplayAlert("Confirm", $"Do you want to connect with {_user.FirstName}", "Accept", "Cancel");
+            bool confirm = await Application.Current.MainPage
+                .DisplayAlert("Confirm", $"Do you want to connect with {_user.FirstName}", "Accept", "Cancel");
             if (confirm)
             {
                 await App.client.GetTable<Connection>().InsertAsync(new Connection()
@@ -75,13 +84,15 @@ namespace MentorU.ViewModels
 
         async Task Decline()
         {
-            bool confirm = await Application.Current.MainPage.DisplayAlert("Confirm", $"Do you want to decline connection with {_user.FirstName}", "Accept", "Cancel");
+            bool confirm = await Application.Current.MainPage
+                .DisplayAlert("Confirm", $"Do you want to decline connection with {_user.FirstName}", "Accept", "Cancel");
             if (confirm)
             {
                 var notification = await App.client.GetTable<Notification>()
                     .Where(u => u.MentorID == App.loggedUser.id && u.MenteeID == _user.id).ToListAsync();
                 await App.client.GetTable<Notification>().DeleteAsync(notification[0]);
-                await App.Current.MainPage.DisplayAlert("Declining Connection.", $"You have declined the connection with {_user.FirstName}", "OK");
+                await App.Current.MainPage
+                    .DisplayAlert("Declining Connection.", $"You have declined the connection with {_user.FirstName}", "OK");
                 await App.Current.MainPage.Navigation.PopModalAsync();
             }
         }

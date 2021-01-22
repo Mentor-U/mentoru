@@ -17,21 +17,20 @@
         <ScrollView>
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="150"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="160"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="160"/>
                 </Grid.RowDefinitions>
-                <StackLayout BackgroundColor="{StaticResource Accent}" HeightRequest="150" HorizontalOptions="Fill" Grid.Row="0">
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
-                        <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
-                            <Image Source="Logo.png" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
-                               HeightRequest="150"/>
-                        </ContentView>
-                    </StackLayout>
-                </StackLayout>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                  <Image Source="Logo.png" MinimumWidthRequest="300"  
+                       Grid.Column="0" Grid.Row="0"
+                       HorizontalOptions="CenterAndExpand"
+                       Scale="2"/>
                 <Label Text="{Binding UsersName, StringFormat='Welcome {0:N}!'}" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Row="1" HorizontalOptions="Center"/>
                 <Label Text="Your Mentors:" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End"/>
                 <CollectionView x:Name="MentorListView"
@@ -40,8 +39,8 @@
                                 Grid.Row="3">
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
-                            <StackLayout Padding="10" x:DataType="model:Users" BackgroundColor="LightCoral">
-                                <Frame BackgroundColor="LightGray" HasShadow="True">
+                            <StackLayout Padding="10" x:DataType="model:Users" BackgroundColor="#e60000">
+                                <Frame BackgroundColor="LightGray" HasShadow="False" >
                                     <Label LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
                                                 FontSize="16">
@@ -72,7 +71,7 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
                             <StackLayout Padding="10" x:DataType="model:Items" BackgroundColor="LightBlue">
-                                <Frame BackgroundColor="LightGray" HasShadow="True">
+                                <Frame BackgroundColor="LightGray" HasShadow="False">
                                     <Label LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
                                                 FontSize="16">

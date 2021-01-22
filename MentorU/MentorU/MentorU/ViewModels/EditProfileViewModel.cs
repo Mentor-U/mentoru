@@ -12,6 +12,7 @@ namespace MentorU.ViewModels
         public Command CancelButtonCommand { get; set; }
         public Command AddClassCommand { get; set; }
         public Command RemoveClassCommand { get; set; }
+        public Command AddProfilePictureCommand { get; set; }
 
         public string NewClass
         {
@@ -43,6 +44,7 @@ namespace MentorU.ViewModels
             RemoveClassCommand = new Command(async () => await RemoveClass());
             SaveButtonCommand = new Command(OnSave);
             CancelButtonCommand = new Command(OnCancel);
+            AddProfilePictureCommand = new Command(AddPicture);
         }
 
         private void AddClass()
@@ -75,5 +77,9 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PopModalAsync();
         }
 
+        private async void AddPicture()
+        {
+            
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using MentorU.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
+using System.Text;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
@@ -79,10 +81,50 @@ namespace MentorU.ViewModels
             set => SetProperty(ref _role, value);
         }
 
+        //private static string getHash(string password)
+        //{
+        //    using (var sha256 = SHA256.Create())
+        //    {
+        //        var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+        //        return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+        //    }
+        //}
+
+        //private static string getSalt()
+        //{
+        //    byte[] bytes = new byte[128 / 8];
+        //    using (var keyGenerator = RandomNumberGenerator.Create())
+        //    {
+        //        keyGenerator.GetBytes(bytes);
+        //        return BitConverter.ToString(bytes).Replace("-", "").ToLower();
+        //    }
+        //}
+
+        public class HashSalt
+        {
+            public string Hash { get; set; }
+            public string Salt { get; set; }
+        }
+
+        public static HashSalt GenerateSaltedHash(int size, string password)
+        {
+            var saltBytes = new byte[size];
+            var provider = new RNGCryptoServiceProvider();
+            provider.GetNonZeroBytes(saltBytes);
+            var salt = Convert.ToBase64String(saltBytes);
+
+            var rfc2898DeriveBytes = new Rfc2898DeriveBytes(password, saltBytes, 10000);
+            var hashPassword = Convert.ToBase64String(rfc2898DeriveBytes.GetBytes(256));
+
+            HashSalt hashSalt = new HashSalt { Hash = hashPassword, Salt = salt };
+            return hashSalt;
+        }
+
         private async void CreateAccount()
         {
             if (Password == ConfirmPassword)
             {
+                HashSalt hashSalt = GenerateSaltedHash(64, Password);
                 Users newProfile = new Users()
                 {
                     FirstName = FirstName,
@@ -92,10 +134,12 @@ namespace MentorU.ViewModels
                     Major = Major,
                     Bio = Bio,
                     Role = Role,
+                    Hash = hashSalt.Hash,
+                    Salt = hashSalt.Salt
+                   
                 };
                 await App.client.GetTable<Users>().InsertAsync(newProfile);
                 await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
-
             }
             else
             {

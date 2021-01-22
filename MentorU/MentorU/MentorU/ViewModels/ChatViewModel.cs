@@ -1,11 +1,13 @@
 ﻿using MentorU.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Text;
 
 namespace MentorU.ViewModels
 {
@@ -29,10 +31,18 @@ namespace MentorU.ViewModels
             Title = ChatRecipient.FirstName;
             _recipient = ChatRecipient;
 
-            if (int.Parse(_recipient.id) < int.Parse(App.loggedUser.id))
-                _groupName = _recipient.id + "-" + App.loggedUser.id;
-            else
-                _groupName = App.loggedUser.id + "-" + _recipient.id;
+            byte[] them = Encoding.ASCII.GetBytes(_recipient.id);
+            byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
+            List<int> masked = new List<int>();
+            for (int i = 0; i < them.Length; i++)
+                masked.Add(them[i] & me[i]);
+
+            _groupName = string.Join("", masked);
+
+            //if (int.Parse(_recipient.id) < int.Parse(App.loggedUser.id))
+            //    _groupName = _recipient.id + "-" + App.loggedUser.id;
+            //else
+            //    _groupName = App.loggedUser.id + "-" + _recipient.id;
 
             MessageList = new ObservableCollection<Message>();
             OnSendCommand = new Command(async () => await ExecuteSend());

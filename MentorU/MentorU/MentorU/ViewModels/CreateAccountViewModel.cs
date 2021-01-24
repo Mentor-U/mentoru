@@ -141,6 +141,10 @@ namespace MentorU.ViewModels
                 await App.client.GetTable<Users>().InsertAsync(newProfile);
                 await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
             }
+            else if(Password != ConfirmPassword)
+            {
+                await Application.Current.MainPage.DisplayAlert("Failed", "Password and Confirm Password do not match", "Ok");
+            }
             else
             {
                 await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");

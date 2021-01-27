@@ -39,16 +39,21 @@
                        Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"/>
                 <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
-                <Label  Text="{Binding Major, StringFormat='Major: {0:N}'}" 
+                <Label  IsVisible="{Binding isMentee}" Text="{Binding Major, StringFormat='Major: {0:N}'}" 
                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
-                <Label Text ="Classes:" Grid.Column="1" Grid.Row="3"/>
-                <CollectionView ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
+                <Label  IsVisible="{Binding isMentor}" Text="{Binding Major, StringFormat='Field: {0:N}'}" 
+                        Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
+                <Label IsVisible="{Binding isMentee}" Text ="Classes:" Grid.Column="1" Grid.Row="3"/>
+                <Label IsVisible="{Binding isMentor}" Text ="Skills:" Grid.Column="1" Grid.Row="3"/>
+                <CollectionView IsVisible="{Binding isMentee}" ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
+                <CollectionView IsVisible="{Binding isMentor}" ItemsSource="{Binding Skills}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
                 <Label Text="Bio:" FontSize="Medium" 
                        Grid.Column="0" Grid.Row="5" 
                        FontAttributes="Bold"
                        TextDecorations="Underline"/>
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
-                <Label Text="Mentors:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
+                <Label IsVisible="{Binding isMentee}" Text="Mentors:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
+                <Label IsVisible="{Binding isMentor}" Text="Mentees:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
                 <CollectionView x:Name="MentorListView"
                             ItemsSource="{Binding Mentors}"
                             SelectionMode="None"

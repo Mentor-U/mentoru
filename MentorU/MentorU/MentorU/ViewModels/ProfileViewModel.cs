@@ -89,7 +89,7 @@ namespace MentorU.ViewModels
             //REMOVE: once database contains the classes information
             Classes.Add("CS 1410");
             Classes.Add("CS 3500");
-            Classes.Add("CS 2420");
+            //Classes.Add("CS 2420");
         }
 
         protected async Task ExecuteLoad() 

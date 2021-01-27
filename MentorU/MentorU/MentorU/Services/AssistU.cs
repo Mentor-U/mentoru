@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using MentorU.ViewModels;
 using System.Net.Http;
 using MentorU.Models;
+using System.Text;
 
 namespace MentorU.Services
 {
@@ -51,7 +52,13 @@ namespace MentorU.Services
             public AssistUChat()
             {
                 messages = new List<string>();
-                groupName = "0-" + App.loggedUser.id;
+
+                byte[] them = Encoding.ASCII.GetBytes("0");
+                byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
+                List<int> masked = new List<int>();
+                for (int i = 0; i < them.Length; i++)
+                    masked.Add(them[i] & me[i]);
+
                 hubConnection = new HubConnectionBuilder()
                     .WithUrl($"{App.SignalRBackendUrl}")
                     //,

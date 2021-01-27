@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace MentorU.ViewModels
 {
@@ -7,12 +8,26 @@ namespace MentorU.ViewModels
     {
         private ProfileViewModel _parentVM;
         private string _newClass;
-
+        private string _department;
+        private Dictionary<string, List<string>> _catalog;
+        private List<string> _allClasses;
         public Command SaveButtonCommand { get; set; }
         public Command CancelButtonCommand { get; set; }
         public Command AddClassCommand { get; set; }
         public Command RemoveClassCommand { get; set; }
         public Command AddProfilePictureCommand { get; set; }
+
+        public List<string> AllDepartments { get; set; }
+
+        public List<string> AllClasses
+        {
+            get => _allClasses; 
+            set
+            {
+                _allClasses = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string NewClass
         {
@@ -23,6 +38,18 @@ namespace MentorU.ViewModels
                 OnPropertyChanged();
             }
 
+        }
+
+        public string Department
+        {
+            get => _department;
+            set
+            {
+                _department = value;
+                OnPropertyChanged();
+                if(_department != "None")
+                    AllClasses = _catalog[_department];
+            }
         }
 
         public string OldClass { get; set; }
@@ -40,12 +67,23 @@ namespace MentorU.ViewModels
             Bio = App.loggedUser.Bio;
             Classes = _parentVM.Classes;
 
+            _catalog = new Dictionary<string, List<string>>()
+            {
+                { "CS", new List<string>() { "CS 1410", "CS 3500", "CS 4300" } },
+                {"CHEM", new List<string>() {"CHEM 1210", "CHEM 2420" } },
+                {"MATH", new List<string>() {"MATH 1210", "MATH 2420", "MATH 2700" } }
+            };
+
+            AllClasses = new List<string>();
+            AllDepartments = new List<string>() { "None","CS", "MATH", "CHEM" };
             AddClassCommand = new Command(AddClass);
             RemoveClassCommand = new Command(async () => await RemoveClass());
             SaveButtonCommand = new Command(OnSave);
             CancelButtonCommand = new Command(OnCancel);
             AddProfilePictureCommand = new Command(AddPicture);
+            Department = "None";
         }
+
 
         private void AddClass()
         {

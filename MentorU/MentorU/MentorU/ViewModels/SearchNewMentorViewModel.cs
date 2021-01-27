@@ -1,11 +1,13 @@
 ﻿using MentorU.Models;
 using MentorU.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using MentorU.Views.ChatViews;
+using System.Linq;
 
 namespace MentorU.ViewModels
 {
@@ -54,8 +56,12 @@ namespace MentorU.ViewModels
                 }
                 else
                 {
-                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
-                    foreach (Users element in temp)
+                    var connections = await App.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    var available = await App.client.GetTable<Users>().Where(u => u.Role == "0" ).ToListAsync();
+                    var excludedIDs = new HashSet<string>(connections.Select(u => u.MentorID));
+                    var result = available.Where(p => !excludedIDs.Contains(p.id));
+
+                    foreach (Users element in result)
                     {
                         Mentors.Add(element);
                     }

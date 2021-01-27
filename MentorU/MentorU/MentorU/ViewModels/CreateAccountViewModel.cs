@@ -130,7 +130,6 @@ namespace MentorU.ViewModels
                     FirstName = FirstName,
                     LastName = LastName,
                     Email = Email,
-                    Password = Password,
                     Major = Major,
                     Bio = Bio,
                     Role = Role,
@@ -140,6 +139,7 @@ namespace MentorU.ViewModels
                 };
                 await App.client.GetTable<Users>().InsertAsync(newProfile);
                 await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
+                await Application.Current.MainPage.Navigation.PopModalAsync();
             }
             else
             {

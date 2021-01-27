@@ -5,6 +5,10 @@ using Android.OS;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.Identity.Client;
 using Android.Content;
+using Xamarin.Forms;
+using MentorU.Services.LogOn;
+using MentorU.Android;
+using Plugin.CurrentActivity;
 
 namespace MentorU.Droid
 {
@@ -13,25 +17,22 @@ namespace MentorU.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+
+            CrossCurrentActivity.Current.Init(this, savedInstanceState);
+            DependencyService.Register<IParentWindowLocatorService, AndroidParentWindowLocatorService>();
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
+
+            
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             CurrentPlatform.Init();
             LoadApplication(new App());
-            App.UIParent = this;
-        }
-
-        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
-        {
-            Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
-            base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
-
         }
 
         /// <summary>

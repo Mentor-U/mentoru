@@ -1,4 +1,5 @@
 ﻿using MentorU.Models;
+using MentorU.Services.LogOn;
 using MentorU.ViewModels;
 using MentorU.Views;
 using System;
@@ -25,15 +26,9 @@ namespace MentorU
         {
             Shell.Current.FlyoutIsPresented = false;   //close the menu 
 
-            var accounts = await App.PCA.GetAccountsAsync();
-            foreach (var account in accounts)
-            {
-                await App.PCA.RemoveAsync(account);
-            }
-
-            App.ActiveUser = new Users();
-            App.userSignedIn = false;
-
+            var userContext = await B2CAuthenticationService.Instance.SignOutAsync();
+            App.AADUser = userContext;
+           
             await GoToAsync("///Login");
         }
     }

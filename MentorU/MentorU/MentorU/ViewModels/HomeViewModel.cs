@@ -5,7 +5,7 @@ using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using Microsoft.Identity.Client;
+using MentorU.Services.LogOn;
 
 namespace MentorU.ViewModels
 {
@@ -16,13 +16,13 @@ namespace MentorU.ViewModels
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
         public Command<Items> ItemTapped { get; }
-        private Users _user;
+        private UserContext _user;
         public String UsersName { get; set; }
       
         public HomeViewModel()
         {
-            _user = App.ActiveUser;
-            UsersName = _user.FirstName;
+            _user = App.AADUser;
+            UsersName = _user.GivenName;
             Title = "Home";
             Mentors = new ObservableCollection<Users>();
             MarketItems = new ObservableCollection<Items>();
@@ -83,8 +83,7 @@ namespace MentorU.ViewModels
 
         public void OnAppearing()
         {
-            _user = App.ActiveUser;
-            UsersName = _user.FirstName;
+            _user = App.AADUser;
 
             IsBusy = true;
 

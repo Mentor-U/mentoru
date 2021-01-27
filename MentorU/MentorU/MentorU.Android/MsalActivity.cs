@@ -9,7 +9,7 @@ namespace MentorU.Droid
     [IntentFilter(new[] { Intent.ActionView },
       Categories = new[] { Intent.CategoryBrowsable, Intent.CategoryDefault },
       DataHost = "auth",
-      DataScheme = "msal0ef84791-fdb9-4e97-ac12-32327cc42644")]
+      DataScheme = "msalcc58066e-8c24-4d48-967d-ae1183e382d4")]
     public class MsalActivity : BrowserTabActivity
     {
     }

@@ -1,9 +1,7 @@
 ﻿using MentorU.Services;
 using Microsoft.WindowsAzure.MobileServices;
 using Xamarin.Forms;
-using Microsoft.Identity.Client;
-using Splat;
-using MentorU.Services.Identity;
+using MentorU.Services.LogOn;
 using MentorU.Models;
 
 namespace MentorU
@@ -15,25 +13,17 @@ namespace MentorU
 
         // Hosted server for in app messaging
         public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
+
+        public static UserContext AADUser { get; internal set; }
+
+        public static Users ActiveUser { get; internal set; }
+
         // local host testing -> DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089" : "https://localhost:60089";
-
-
-        // For MS Authentication 
-        public static IPublicClientApplication PCA;
-        public static object UIParent { get; set; } = null;
-
-        // Keeps track of login status, helps know what pages to be displaying, etc.
-        public static bool userSignedIn;
-        public static Users ActiveUser;
-
 
         public App()
         {
             InitializeComponent();
             InitializeServices();
-
-            ActiveUser = new Users();
-            userSignedIn = false;
 
             MainPage = new AppShell();
         }
@@ -45,14 +35,7 @@ namespace MentorU
         /// </summary>
         private void InitializeServices()
         {
-            // Services
-            PCA = PublicClientApplicationBuilder.Create(Constants.ClientId)
-             .WithRedirectUri($"msal{Constants.ClientId}://auth")
-             .WithIosKeychainSecurityGroup("com.microsoft.adalcache")
-             .Build();
-
-            Locator.CurrentMutable.RegisterLazySingleton<IIdentityService>(() => new IdentityServiceStub());
-
+            DependencyService.Register<B2CAuthenticationService>();
             DependencyService.Register<MockDataStore>();
         }
 

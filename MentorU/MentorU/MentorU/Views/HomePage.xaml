@@ -32,7 +32,8 @@
                        HorizontalOptions="CenterAndExpand"
                        Scale="2"/>
                 <Label Text="{Binding UsersName, StringFormat='Welcome {0:N}!'}" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Row="1" HorizontalOptions="Center"/>
-                <Label Text="Your Mentors:" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End"/>
+                <Label IsVisible="{Binding isMentee}" Text="Your Mentors:" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End"/>
+                <Label IsVisible="{Binding isMentor}" Text="Your Mentees:" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End"/>
                 <CollectionView x:Name="MentorListView"
                                 ItemsSource="{Binding Mentors}"
                                 SelectionMode="None"

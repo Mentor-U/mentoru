@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using System.ComponentModel.DataAnnotations;
 
 namespace MentorU.Models
 {
@@ -23,10 +24,13 @@ namespace MentorU.Models
         public string Email { get; set; }
 
         //0 - mentor 1 - mentee 2 - mentor/mentee
+        [Required]
         public string Role { get; set; }
 
         // Move to profiles eventually
+        [Required]
         public string Major { get; set; }
+        [Required]
         public string Bio { get; set; }
 
     }

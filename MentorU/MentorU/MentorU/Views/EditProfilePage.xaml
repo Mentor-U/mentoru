@@ -27,11 +27,9 @@
                     Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                     HorizontalOptions="CenterAndExpand"
                     Scale="2"/>
-            <Label Text="Profile Picture" FontAttributes="Italic"
-                    HorizontalTextAlignment="Center" 
-                    VerticalTextAlignment="Center" 
-                    BackgroundColor="LightGray" 
-                    Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"/>
+            <Button Text="Add Profile Picture" Command="{Binding AddProfilePictureCommand}" FontAttributes="Italic"
+                       BackgroundColor="LightGray" 
+                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"/>
             <Editor Text="{Binding Name, Mode=TwoWay}" 
                     Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"
                     Placeholder="Name"/>
@@ -45,9 +43,17 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <Entry Text="{Binding NewClass}" Placeholder="Add Class" FontSize="Medium" VerticalOptions="Center"/>
-                <Button Text="Add" Command="{Binding AddClassCommand}" Grid.Column="1" FontSize="Small" BackgroundColor="LightCoral"/>
+                <Picker IsVisible="{Binding isMentee}" ItemsSource="{Binding AllClasses}" Grid.Column="0" SelectedItem="{Binding NewClass}" HorizontalTextAlignment="Center"/>
+                <Picker IsVisible="{Binding isMentee}" ItemsSource="{Binding AllDepartments}"
+                        SelectedItem="{Binding Department, Mode=TwoWay}"
+                        HorizontalTextAlignment="Center"
+                        FontSize="Micro"
+                        FontAttributes="Bold"
+                        Grid.Column="1"/>
+                <Editor IsVisible="{Binding isMentor}" Text="{Binding NewClass}" Grid.Column="0" Grid.ColumnSpan="2" />
+                <Button Text="Add" Command="{Binding AddClassCommand}" Grid.Column="2" FontSize="Micro" BackgroundColor="LightCoral"/>
             </Grid>
             <CollectionView ItemsSource="{Binding Classes}"
                             Grid.Column="1" Grid.Row="4"

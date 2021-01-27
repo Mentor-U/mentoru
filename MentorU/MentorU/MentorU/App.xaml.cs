@@ -24,6 +24,9 @@ namespace MentorU
 
         // local host testing -> DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089" : "https://localhost:60089";
 
+        // FIXME: Pull this lad from the DB
+        public static AssistU assistU = new AssistU();
+
         public App()
         {
             InitializeComponent();

@@ -27,6 +27,12 @@ namespace MentorU.Views
             {
                 var userContext = await B2CAuthenticationService.Instance.SignInAsync();
                 App.AADUser = userContext;
+                App.loggedUser = new Models.Users
+                {
+                    FirstName = userContext.GivenName,
+                    LastName = userContext.FamilyName,
+                    DisplayName = userContext.Name
+                };
                 await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 
             }

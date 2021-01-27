@@ -38,11 +38,19 @@ namespace MentorU.ViewModels
                     mentor_list = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
                 else
                     mentor_list = await App.client.GetTable<Users>().Where(user => user.Role == "1").ToListAsync();
-
                 foreach (Users m in mentor_list)
                 {
                     Chats.Add(m);
                 }
+                //if (App.loggedUser.Role == "0")
+                //{
+                //    List<Connection> cons = await App.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                //    foreach (Connection c in cons)
+                //    {
+                //        List<Users> temp = await App.client.GetTable<Users>().Where(u => u.id == c.MenteeID).ToListAsync();
+                //        Chats.Add(temp[0]);
+                //    }
+                //}
             }
             catch(Exception ex)
             {

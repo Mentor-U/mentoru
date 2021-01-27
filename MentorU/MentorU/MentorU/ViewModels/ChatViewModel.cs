@@ -1,11 +1,13 @@
 ﻿using MentorU.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Text;
 
 namespace MentorU.ViewModels
 {
@@ -23,7 +25,7 @@ namespace MentorU.ViewModels
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
         private string _groupName;
-
+        
         public ChatViewModel(Users ChatRecipient)
         {
             Title = ChatRecipient.FirstName;
@@ -57,9 +59,9 @@ namespace MentorU.ViewModels
                 //    opts.HttpMessageHandlerFactory = (message) =>
                 //    {
                 //        if (message is HttpClientHandler clientHandler)
-                //                
-                //                clientHandler.ServerCertificateCustomValidationCallback +=
-                //                (sender, certificate, chain, sslPolicyErrors) => { return true; };
+
+                //            clientHandler.ServerCertificateCustomValidationCallback +=
+                //            (sender, certificate, chain, sslPolicyErrors) => { return true; };
                 //        return message;
                 //    };
                 //})

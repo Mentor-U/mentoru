@@ -45,13 +45,14 @@
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition Width="50"/>
                 </Grid.ColumnDefinitions>
-                <Picker ItemsSource="{Binding AllClasses}" Grid.Column="0" SelectedItem="{Binding NewClass}" HorizontalTextAlignment="Center"/>
-                <Picker ItemsSource="{Binding AllDepartments}"
+                <Picker IsVisible="{Binding isMentee}" ItemsSource="{Binding AllClasses}" Grid.Column="0" SelectedItem="{Binding NewClass}" HorizontalTextAlignment="Center"/>
+                <Picker IsVisible="{Binding isMentee}" ItemsSource="{Binding AllDepartments}"
                         SelectedItem="{Binding Department, Mode=TwoWay}"
                         HorizontalTextAlignment="Center"
                         FontSize="Micro"
                         FontAttributes="Bold"
                         Grid.Column="1"/>
+                <Editor IsVisible="{Binding isMentor}" Text="{Binding NewClass}" Grid.Column="0" Grid.ColumnSpan="2" />
                 <Button Text="Add" Command="{Binding AddClassCommand}" Grid.Column="2" FontSize="Micro" BackgroundColor="LightCoral"/>
             </Grid>
             <CollectionView ItemsSource="{Binding Classes}"

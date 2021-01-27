@@ -46,7 +46,7 @@
                 <Label IsVisible="{Binding isMentee}" Text ="Classes:" Grid.Column="1" Grid.Row="3"/>
                 <Label IsVisible="{Binding isMentor}" Text ="Skills:" Grid.Column="1" Grid.Row="3"/>
                 <CollectionView IsVisible="{Binding isMentee}" ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
-                <CollectionView IsVisible="{Binding isMentor}" ItemsSource="{Binding Skills}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
+                <CollectionView IsVisible="{Binding isMentor}" ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
                 <Label Text="Bio:" FontSize="Medium" 
                        Grid.Column="0" Grid.Row="5" 
                        FontAttributes="Bold"

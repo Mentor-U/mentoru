@@ -21,7 +21,6 @@ namespace MentorU.ViewModels
 
         public ObservableCollection<string> Classes { get; set; }
         public ObservableCollection<Users> Mentors { get; set; }
-        public ObservableCollection<string> Skills { get; set; }
 
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
@@ -82,7 +81,6 @@ namespace MentorU.ViewModels
 
             Mentors = new ObservableCollection<Users>();
             Classes = new ObservableCollection<string>();
-            Skills = new ObservableCollection<string>();
 
             LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);

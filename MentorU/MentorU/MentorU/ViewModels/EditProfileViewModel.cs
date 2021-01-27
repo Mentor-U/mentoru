@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using MentorU.Models;
+using Newtonsoft.Json.Linq;
 
 namespace MentorU.ViewModels
 {
@@ -87,8 +89,11 @@ namespace MentorU.ViewModels
 
         private void AddClass()
         {
-            Classes.Add(NewClass);
-            NewClass = "";
+            if(!string.IsNullOrEmpty(NewClass))
+            {
+                Classes.Add(NewClass);
+                NewClass = "";
+            }
         }
 
         private async Task RemoveClass()
@@ -107,6 +112,14 @@ namespace MentorU.ViewModels
             App.loggedUser.Major = _parentVM.Major = Major;
             App.loggedUser.Bio = _parentVM.Bio = Bio;
             _parentVM.Classes = Classes;
+            JObject data = new JObject
+            {
+                {"id", App.loggedUser.id },
+                {"FirstName", Name },
+                {"Major", Major },
+                {"Bio", Bio }
+            };
+            await App.client.GetTable<Users>().UpdateAsync(data);
             await Shell.Current.Navigation.PopModalAsync();
         }
 

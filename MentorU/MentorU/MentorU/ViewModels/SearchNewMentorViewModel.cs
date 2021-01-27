@@ -1,10 +1,13 @@
 ﻿using MentorU.Models;
 using MentorU.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using MentorU.Views.ChatViews;
+using System.Linq;
 
 namespace MentorU.ViewModels
 {
@@ -14,8 +17,11 @@ namespace MentorU.ViewModels
         public Command FilterCommand { get; }
         public Command ClearFilters { get; }
         public Command<Users> MentorTapped { get; }
+        public Command OpenAssistU { get; }
+
         public ObservableCollection<Users> Mentors { get; }
         public ObservableCollection<string> Filters { get; }
+
         private string _filters;
         public string ShowFilters { get => _filters; set { _filters = value; OnPropertyChanged(); } }
 
@@ -24,10 +30,12 @@ namespace MentorU.ViewModels
             Title = "Find New Mentors";
             Mentors = new ObservableCollection<Users>();
             Filters = new ObservableCollection<string>();
+
             LoadMentorsCommand = new Command(async () => await ExecuteLoadMentors());
             FilterCommand = new Command(async () => await ExecuteFilterMentors());
             MentorTapped = new Command<Users>(OnMentorSelected);
             ClearFilters = new Command(async () => { Filters.Clear(); await ExecuteLoadMentors(); });
+            OpenAssistU = new Command(AssistUChat);
         }
 
         async Task ExecuteLoadMentors()
@@ -48,8 +56,12 @@ namespace MentorU.ViewModels
                 }
                 else
                 {
-                    var temp = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
-                    foreach (Users element in temp)
+                    var connections = await App.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    var available = await App.client.GetTable<Users>().Where(u => u.Role == "0" ).ToListAsync();
+                    var excludedIDs = new HashSet<string>(connections.Select(u => u.MentorID));
+                    var result = available.Where(p => !excludedIDs.Contains(p.id));
+
+                    foreach (Users element in result)
                     {
                         Mentors.Add(element);
                     }
@@ -85,9 +97,18 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, false));
         }
 
+
+        async void AssistUChat()
+        {
+            await Shell.Current.Navigation.PushAsync(new ChatPage(App.assistU));
+            App.assistU.StartChat();
+        }
+
+
         public void OnAppearing()
         {
             IsBusy = true;
         }
+
     }
 }

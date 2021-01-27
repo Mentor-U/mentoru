@@ -16,6 +16,7 @@ namespace MentorU
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(MainChatPage), typeof(MainChatPage));
             Routing.RegisterRoute(nameof(ViewOnlyProfilePage), typeof(ViewOnlyProfilePage));
+            Routing.RegisterRoute(nameof(NotificationPage), typeof(NotificationPage));
         }
 
         private async void OnLogoutButtonClicked(object sender, EventArgs e)

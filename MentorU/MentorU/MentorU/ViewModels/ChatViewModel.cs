@@ -1,11 +1,13 @@
 ﻿using MentorU.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Essentials;
 using Microsoft.AspNetCore.SignalR.Client;
+using System.Text;
 
 namespace MentorU.ViewModels
 {
@@ -23,16 +25,24 @@ namespace MentorU.ViewModels
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
         private string _groupName;
-
+        
         public ChatViewModel(Users ChatRecipient)
         {
             Title = ChatRecipient.FirstName;
             _recipient = ChatRecipient;
 
-            if (int.Parse(_recipient.id) < int.Parse(App.loggedUser.id))
-                _groupName = _recipient.id + "-" + App.loggedUser.id;
-            else
-                _groupName = App.loggedUser.id + "-" + _recipient.id;
+            byte[] them = Encoding.ASCII.GetBytes(_recipient.id);
+            byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
+            List<int> masked = new List<int>();
+            for (int i = 0; i < them.Length; i++)
+                masked.Add(them[i] & me[i]);
+
+            _groupName = string.Join("", masked);
+
+            //if (int.Parse(_recipient.id) < int.Parse(App.loggedUser.id))
+            //    _groupName = _recipient.id + "-" + App.loggedUser.id;
+            //else
+            //    _groupName = App.loggedUser.id + "-" + _recipient.id;
 
             MessageList = new ObservableCollection<Message>();
             OnSendCommand = new Command(async () => await ExecuteSend());
@@ -48,9 +58,9 @@ namespace MentorU.ViewModels
                 //    opts.HttpMessageHandlerFactory = (message) =>
                 //    {
                 //        if (message is HttpClientHandler clientHandler)
-                //                
-                //                clientHandler.ServerCertificateCustomValidationCallback +=
-                //                (sender, certificate, chain, sslPolicyErrors) => { return true; };
+
+                //            clientHandler.ServerCertificateCustomValidationCallback +=
+                //            (sender, certificate, chain, sslPolicyErrors) => { return true; };
                 //        return message;
                 //    };
                 //})

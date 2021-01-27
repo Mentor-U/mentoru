@@ -141,6 +141,10 @@ namespace MentorU.ViewModels
                 await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
                 await Application.Current.MainPage.Navigation.PopModalAsync();
             }
+            else if(Password != ConfirmPassword)
+            {
+                await Application.Current.MainPage.DisplayAlert("Failed", "Password and Confirm Password do not match", "Ok");
+            }
             else
             {
                 await Application.Current.MainPage.DisplayAlert("Failed", "Account NOT Created", "Ok");

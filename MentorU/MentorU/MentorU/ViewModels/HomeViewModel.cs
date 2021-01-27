@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using MentorU.Services.LogOn;
+using Microsoft.Identity.Client;
+using System.Collections.Generic;
 
 namespace MentorU.ViewModels
 {
@@ -19,6 +21,9 @@ namespace MentorU.ViewModels
         private UserContext _user;
         public String UsersName { get; set; }
       
+        public bool isMentor { get; set; }
+        public bool isMentee { get; set; }
+
         public HomeViewModel()
         {
             _user = App.AADUser;
@@ -36,9 +41,8 @@ namespace MentorU.ViewModels
             IsBusy = true;
             try
             {
-                
-                //TODO: pull mentor list data and market place data here
-
+                Mentors.Clear();
+                List<Connection> mentors;
                 //REMOVE: once above task has be done
                 var mentors = await DataStore.GetMentorsAsync(true);
                 foreach(var m in mentors) // TODO: adding all? maybe limit to top three

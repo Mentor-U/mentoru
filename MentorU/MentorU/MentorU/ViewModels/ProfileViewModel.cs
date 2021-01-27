@@ -58,9 +58,20 @@ namespace MentorU.ViewModels
         public ProfileViewModel()
         {
 
-            Name = App.ActiveUser.FirstName + " " + App.ActiveUser.LastName;
-            Major = App.ActiveUser.Major;
-            Bio = App.ActiveUser.Bio;
+            if(App.loggedUser.Role == "0")
+            {
+                isMentor = true;
+                isMentee = false;
+            }
+            else
+            {
+                isMentor = false;
+                isMentee = true;
+            }
+
+            Name = App.loggedUser.FirstName + " " + App.loggedUser.LastName;
+            Major = App.loggedUser.Major;
+            Bio = App.loggedUser.Bio;
 
             Title = "Profile";
 
@@ -74,7 +85,7 @@ namespace MentorU.ViewModels
             //REMOVE: once database contains the classes information
             Classes.Add("CS 1410");
             Classes.Add("CS 3500");
-            Classes.Add("CS 2420");
+            //Classes.Add("CS 2420");
         }
 
         protected async Task ExecuteLoad() 

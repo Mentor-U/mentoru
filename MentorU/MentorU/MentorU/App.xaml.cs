@@ -14,9 +14,13 @@ namespace MentorU
         // Hosted server for in app messaging
         public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
 
+        // local host testing:
+        // DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089/messages" : "https://localhost:60089/messages";
+
+
         public static UserContext AADUser { get; internal set; }
 
-        public static Users ActiveUser { get; internal set; }
+        public static Users loggedUser { get; internal set; }
 
         // local host testing -> DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089" : "https://localhost:60089";
 

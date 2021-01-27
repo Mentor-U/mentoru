@@ -1,13 +1,11 @@
 ﻿using Android.App;
 using Android.Content.PM;
-using Android.Runtime;
 using Android.OS;
 using Microsoft.WindowsAzure.MobileServices;
 using Microsoft.Identity.Client;
 using Android.Content;
 using Xamarin.Forms;
 using MentorU.Services.LogOn;
-using MentorU.Android;
 using Plugin.CurrentActivity;
 
 namespace MentorU.Droid

@@ -1,9 +1,6 @@
-﻿using MentorU.Models;
-using MentorU.Services.LogOn;
-using MentorU.ViewModels;
+﻿using MentorU.Services.LogOn;
 using MentorU.Views;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace MentorU

@@ -1,5 +1,8 @@
 ﻿namespace MentorU.Services.LogOn
 {
+    /// <summary>
+    /// Constants for our B2C and Azure Resources
+    /// </summary>
     public static class B2CConstants
     {
         // Azure AD B2C Coordinates

@@ -1,5 +1,8 @@
 ﻿namespace MentorU.Services.LogOn
 {
+    /// <summary>
+    /// These are the user fields we can get from AAD
+    /// </summary>
     public class UserContext
     {
         public string Name { get; internal set; }

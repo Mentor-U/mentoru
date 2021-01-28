@@ -10,18 +10,16 @@ using Xamarin.Forms;
 namespace MentorU.Services.LogOn
 {
     /// <summary>
-    ///  For simplicity, we'll have this as a singleton. 
+    /// Manages the AAD B2C Connections and MSAL Authentication
     /// </summary>
     public class B2CAuthenticationService
     {
         private readonly IPublicClientApplication _pca;
 
-
         private static readonly Lazy<B2CAuthenticationService> lazy = new Lazy<B2CAuthenticationService>
            (() => new B2CAuthenticationService());
 
         public static B2CAuthenticationService Instance { get { return lazy.Value; } }
-
 
         private B2CAuthenticationService()
         {
@@ -32,9 +30,9 @@ namespace MentorU.Services.LogOn
                 .WithIosKeychainSecurityGroup(B2CConstants.IOSKeyChainGroup)
                 .WithRedirectUri($"msal{B2CConstants.ClientID}://auth");
 
-            // Android implementation is based on https://github.com/jamesmontemagno/CurrentActivityPlugin
             // iOS implementation would require to expose the current ViewControler - not currently implemented as it is not required
             // UWP does not require this
+            // Android uses this
             var windowLocatorService = DependencyService.Get<IParentWindowLocatorService>();
 
             if (windowLocatorService != null)
@@ -142,6 +140,11 @@ namespace MentorU.Services.LogOn
             return decoded;
         }
 
+        /// <summary>
+        /// Retrieves the user information from the azure token
+        /// </summary>
+        /// <param name="ar"></param>
+        /// <returns></returns>
         public UserContext UpdateUserInfo(AuthenticationResult ar)
         {
             var newContext = new UserContext();
@@ -173,6 +176,11 @@ namespace MentorU.Services.LogOn
             return newContext;
         }
 
+        /// <summary>
+        /// Parses the AAD token
+        /// </summary>
+        /// <param name="idToken"></param>
+        /// <returns></returns>
         JObject ParseIdToken(string idToken)
         {
             // Get the piece with actual user info

@@ -40,7 +40,7 @@ namespace MentorU.ViewModels
             LoadPageDataCommand = new Command(async () => await ExecuteLoadPageData());
             MentorTapped = new Command<Users>(OnMentorSelected);
             ItemTapped = new Command<Items>(OnItemSelected);
-            UsersName = App.AADUser.GivenName;
+            UsersName = App.loggedUser.DisplayName;
 
             if (App.loggedUser.Role == "0")
             {

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MentorU.Models
+﻿namespace MentorU.Models
 {
     public class Connection
     {

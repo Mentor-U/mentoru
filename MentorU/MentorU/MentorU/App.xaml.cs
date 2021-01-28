@@ -3,14 +3,13 @@ using Microsoft.WindowsAzure.MobileServices;
 using Xamarin.Forms;
 using MentorU.Services.LogOn;
 using MentorU.Models;
+using MentorU.Services.DatabaseServices;
 
 namespace MentorU
 {
     public partial class App : Application
     {
-        // For Databases
-        public static MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
-
+        
         // Hosted server for in app messaging
         public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
 
@@ -44,6 +43,7 @@ namespace MentorU
         {
             DependencyService.Register<B2CAuthenticationService>();
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<DatabaseService>();
         }
 
         protected override void OnStart()

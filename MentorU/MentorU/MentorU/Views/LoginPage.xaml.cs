@@ -1,4 +1,6 @@
-﻿using MentorU.Services.LogOn;
+﻿using MentorU.Models;
+using MentorU.Services.DatabaseServices;
+using MentorU.Services.LogOn;
 using Microsoft.Identity.Client;
 using System;
 using Xamarin.Forms;
@@ -27,12 +29,28 @@ namespace MentorU.Views
             {
                 var userContext = await B2CAuthenticationService.Instance.SignInAsync();
                 App.AADUser = userContext;
-                App.loggedUser = new Models.Users
+
+                Users tempUser = new Users
                 {
+                    id = userContext.UserIdentifier,
                     FirstName = userContext.GivenName,
                     LastName = userContext.FamilyName,
-                    DisplayName = userContext.Name
+                    DisplayName = userContext.Name,
+                    Email = userContext.EmailAddress,
+                    Role = "1",
+                    Major = "CS",
+                    Bio = "test"
                 };
+
+                bool isNew = await DatabaseService.Instance.tryCreateAccount(tempUser);
+
+                if(isNew)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
+                    // create profile here
+                }
+             
+
                 await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
 
             }
@@ -49,6 +67,7 @@ namespace MentorU.Views
             }
 
         }
+
 
         private void OnPasswordReset()
         {

@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Essentials;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Text;
+using MentorU.Services.DatabaseServices;
 
 namespace MentorU.ViewModels
 {
@@ -102,7 +103,7 @@ namespace MentorU.ViewModels
             try
             {
                 // Load message history from database
-                var history = await App.client.GetTable<Messages>().OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
+                var history = await DatabaseService.client.GetTable<Messages>().OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
                 foreach (var m in history)
                 {
                     MessageList.Add(new Message()
@@ -143,7 +144,7 @@ namespace MentorU.ViewModels
                     TimeStamp = DateTime.Now
                 };
                 TextDraft = "";
-                await App.client.GetTable<Messages>().InsertAsync(newMessage);
+                await DatabaseService.client.GetTable<Messages>().InsertAsync(newMessage);
             }
             catch(Exception ex)
             {

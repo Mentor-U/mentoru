@@ -1,4 +1,5 @@
 ﻿using MentorU.Models;
+using MentorU.Services.DatabaseServices;
 using MentorU.Views;
 using System;
 using System.Collections.Generic;
@@ -105,19 +106,19 @@ namespace MentorU.ViewModels
 
                 if(isMentee)
                 {
-                    mentors = await App.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var men = await App.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                        var men = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
                         Mentors.Add(men[0]);
                     }
                 }
                 else
                 {
-                    mentors = await App.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var men = await App.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
+                        var men = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
                         Mentors.Add(men[0]);
                     }
                 }

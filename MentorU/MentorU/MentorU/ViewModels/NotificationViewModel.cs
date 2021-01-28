@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using MentorU.Views;
+using MentorU.Services.DatabaseServices;
 
 namespace MentorU.ViewModels
 {
@@ -30,7 +31,7 @@ namespace MentorU.ViewModels
         async Task LoadPage()
         {
             NotificationList.Clear();
-            var notifications = await App.client.GetTable<Notification>().Where(n => n.MentorID == App.loggedUser.id).ToListAsync();
+            var notifications = await DatabaseService.client.GetTable<Notification>().Where(n => n.MentorID == App.loggedUser.id).ToListAsync();
             foreach (Notification n in notifications)
             {
                 NotificationList.Add(n);
@@ -44,7 +45,7 @@ namespace MentorU.ViewModels
             {
                 if (Noty != null)
                 {
-                    List<Users> user = await App.client.GetTable<Users>().Where(u => u.id == Noty.MenteeID).ToListAsync();
+                    List<Users> user = await DatabaseService.client.GetTable<Users>().Where(u => u.id == Noty.MenteeID).ToListAsync();
                     if (user.Count != 0)
                         await App.Current.MainPage.Navigation.PushModalAsync(new ViewOnlyProfilePage(user[0], false, true));
                 }

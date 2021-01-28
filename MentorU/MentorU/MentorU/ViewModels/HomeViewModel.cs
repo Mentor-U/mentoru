@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections.Generic;
+using MentorU.Services.DatabaseServices;
+
 
 namespace MentorU.ViewModels
 {
@@ -62,19 +64,19 @@ namespace MentorU.ViewModels
 
                 if (isMentee)
                 {
-                    mentors = await App.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var temp = await App.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                        var temp = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
                         Mentors.Add(temp[0]);
                     }
                 }
                 else
                 {
-                    mentors = await App.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var temp = await App.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
+                        var temp = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
                         Mentors.Add(temp[0]);
                     }
                 }

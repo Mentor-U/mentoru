@@ -1,13 +1,13 @@
-﻿using MentorU.ViewModels;
+﻿using MentorU.Services.LogOn;
 using MentorU.Views;
 using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace MentorU
 {
     public partial class AppShell : Xamarin.Forms.Shell
     {
+
         public AppShell()
         {
             InitializeComponent();
@@ -16,13 +16,18 @@ namespace MentorU
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(MainChatPage), typeof(MainChatPage));
             Routing.RegisterRoute(nameof(ViewOnlyProfilePage), typeof(ViewOnlyProfilePage));
+            Routing.RegisterRoute("Main/Login", typeof(LoginPage));
             Routing.RegisterRoute(nameof(NotificationPage), typeof(NotificationPage));
         }
 
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-            await Xamarin.Essentials.SecureStorage.SetAsync("isLogged", "0");
-            Application.Current.MainPage = new NavigationPage(new LoginPage());
+            Shell.Current.FlyoutIsPresented = false;   //close the menu 
+
+            var userContext = await B2CAuthenticationService.Instance.SignOutAsync();
+            App.AADUser = userContext;
+           
+            await GoToAsync("///Login");
         }
     }
 }

@@ -1,34 +1,33 @@
 ﻿using SQLite;
-using System.ComponentModel.DataAnnotations;
 
 namespace MentorU.Models
 {
+    /// <summary>
+    /// Represents a user as far as our application/database is concerned
+    /// </summary>
     public class Users
     {
+        // Database primary key, we could use the "Useridentifier" from Azure
         [PrimaryKey]
         public string id { get; set; }
-        [Required, System.ComponentModel.DataAnnotations.MaxLength(20)]
+
+        // AAD "Given Name"
         public string FirstName { get; set; }
-        [Required, System.ComponentModel.DataAnnotations.MaxLength(20)]
+
+        // AAD "Surname"
         public string LastName { get; set; }
-        [Required, System.ComponentModel.DataAnnotations.MaxLength(20), EmailAddress]
+
+        // AAD "Display Name"
+        public string DisplayName { get; set; }
+
         public string Email { get; set; }
-        [Required]
-        public string Password { get; set; }
 
         //0 - mentor 1 - mentee 2 - mentor/mentee
-        [Required]
         public string Role { get; set; }
 
-        // Move to profiles eventually
-        [Required]
         public string Major { get; set; }
-        [Required]
+       
         public string Bio { get; set; }
 
-        //public List<string> Classes { get; set; }
-
-        public string Hash { get; set; }
-        public string Salt { get; set; }
     }
 }

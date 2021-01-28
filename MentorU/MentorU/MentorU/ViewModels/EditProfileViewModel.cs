@@ -3,6 +3,8 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using MentorU.Models;
 using Newtonsoft.Json.Linq;
+using MentorU.Services.DatabaseServices;
+
 
 namespace MentorU.ViewModels
 {
@@ -119,7 +121,7 @@ namespace MentorU.ViewModels
                 {"Major", Major },
                 {"Bio", Bio }
             };
-            await App.client.GetTable<Users>().UpdateAsync(data);
+            await DatabaseService.client.GetTable<Users>().UpdateAsync(data);
             await Shell.Current.Navigation.PopModalAsync();
         }
 

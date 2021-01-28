@@ -6,32 +6,7 @@
              mc:Ignorable="d"
              x:Class="MentorU.Views.LoginPage"
              Shell.NavBarIsVisible="False">
-    <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <StackLayout Orientation="Vertical" Grid.Row="1" >
-                <Image Source="Logo" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
-                        HeightRequest="200"/>
-            </StackLayout>
-            <StackLayout Padding="10,0,10,0" VerticalOptions="Center" Grid.Row="2">
-                <Frame BackgroundColor="#BF043055" HasShadow="False">
-                    <StackLayout Orientation="Vertical" Spacing="10">
-                        <Entry x:Name="email" Text="{Binding Email}" Placeholder="Email"   
-                           PlaceholderColor="White" HeightRequest="40"   
-                           Keyboard="Email"  
-                           TextColor="White"/>
-                        <Entry x:Name="password" Text="{Binding Password}" Placeholder="Password"   
-                           PlaceholderColor="White" HeightRequest="40"   
-                           IsPassword="True"  
-                           TextColor="White"/>
-                    </StackLayout>
-                </Frame>
-                <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
-                <Button VerticalOptions="Center" Text="Create" Command="{Binding CreateCommand}"/>
-            </StackLayout>
-        </Grid>
-    </ContentPage.Content>
+    <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+        <Button x:Name="loginButton" Text="Login" Clicked="OnLoginButtonClicked" />
+    </StackLayout>
 </ContentPage>

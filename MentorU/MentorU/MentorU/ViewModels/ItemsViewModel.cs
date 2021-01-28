@@ -1,4 +1,5 @@
 ﻿using MentorU.Models;
+using MentorU.Services.DatabaseServices;
 using MentorU.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -35,7 +36,7 @@ namespace MentorU.ViewModels
             try
             {
                 Items.Clear();
-                var items = await App.client.GetTable<Items>().ToListAsync();
+                var items = await DatabaseService.client.GetTable<Items>().ToListAsync();
  
                 foreach (var item in items)
                 {

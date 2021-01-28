@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using MentorU.Services.DatabaseServices;
 
 namespace MentorU.ViewModels
 {
@@ -31,11 +32,14 @@ namespace MentorU.ViewModels
             try
             {
                 Chats.Clear();
+
                 List<Users> mentor_list = new List<Users>();
+
                 if (App.loggedUser.Role == "1")
-                    mentor_list = await App.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
+                    mentor_list = await DatabaseService.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
                 else
-                    mentor_list = await App.client.GetTable<Users>().Where(user => user.Role == "1").ToListAsync();
+                    mentor_list = await DatabaseService.client.GetTable<Users>().Where(user => user.Role == "1").ToListAsync();
+
                 foreach (Users m in mentor_list)
                 {
                     Chats.Add(m);

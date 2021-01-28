@@ -5,9 +5,9 @@ using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using Microsoft.AppCenter.Crashes;
-using Microsoft.Identity.Client;
 using System.Collections.Generic;
+using MentorU.Services.DatabaseServices;
+
 
 namespace MentorU.ViewModels
 {
@@ -29,8 +29,6 @@ namespace MentorU.ViewModels
             }
         }
 
-        private AuthenticationResult authResult;
-
         public bool isMentor { get; set; }
         public bool isMentee { get; set; }
 
@@ -42,9 +40,9 @@ namespace MentorU.ViewModels
             LoadPageDataCommand = new Command(async () => await ExecuteLoadPageData());
             MentorTapped = new Command<Users>(OnMentorSelected);
             ItemTapped = new Command<Items>(OnItemSelected);
-            UsersName = App.loggedUser.FirstName;
+            UsersName = App.loggedUser.DisplayName;
 
-            if(App.loggedUser.Role == "0")
+            if (App.loggedUser.Role == "0")
             {
                 isMentor = true;
                 isMentee = false;
@@ -64,31 +62,31 @@ namespace MentorU.ViewModels
                 Mentors.Clear();
                 List<Connection> mentors;
 
-                if(isMentee)
+                if (isMentee)
                 {
-                    mentors = await App.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var temp = await App.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                        var temp = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
                         Mentors.Add(temp[0]);
                     }
                 }
                 else
                 {
-                    mentors = await App.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var temp = await App.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
+                        var temp = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
                         Mentors.Add(temp[0]);
                     }
                 }
-                
+
                 //var items = await DataStore.GetItemsAsync(true);
                 //foreach(var i in items) // TODO: adding all? maybe limit to top three
                 //{
                 //    MarketItems.Add(i);
                 //}
-                
+
             }
             catch (Exception ex)
             {

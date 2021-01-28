@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MentorU.Models;
+using MentorU.Services.DatabaseServices;
+using System;
 using System.Diagnostics;
 using Xamarin.Forms;
 
@@ -48,11 +50,11 @@ namespace MentorU.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.id;
-                Text = item.Text;
-                Description = item.Description;
-                ItemPrice = item.Price;
+                var item = await DatabaseService.client.GetTable<Items>().Where(u => u.id == itemId).ToListAsync();
+                Id = item[0].id;
+                Text = item[0].Text;
+                Description = item[0].Description;
+                ItemPrice = item[0].Price;
             }
             catch (Exception)
             {

@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Diagnostics;
-using Xamarin.Forms;
-using Xamarin.Essentials;
 using Microsoft.AspNetCore.SignalR.Client;
-using MentorU.ViewModels;
-using System.Net.Http;
 using MentorU.Models;
 using System.Text;
 

@@ -1,15 +1,12 @@
-﻿using MentorU.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Xamarin.Forms;
 
 namespace MentorU.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore DataStore => DependencyService.Get<IDataStore>();
 
         bool isBusy = false;
         public bool IsBusy

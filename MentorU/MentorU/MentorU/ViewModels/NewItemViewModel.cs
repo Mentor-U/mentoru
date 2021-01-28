@@ -1,4 +1,5 @@
 ﻿using MentorU.Models;
+using MentorU.Services.DatabaseServices;
 using System;
 using Xamarin.Forms;
 
@@ -61,7 +62,7 @@ namespace MentorU.ViewModels
                 Owner = App.loggedUser.FirstName + " " + App.loggedUser.LastName
             };
 
-            await App.client.GetTable<Items>().InsertAsync(newItem);
+            await DatabaseService.client.GetTable<Items>().InsertAsync(newItem);
 
             await Application.Current.MainPage.DisplayAlert("Success", "Item Added", "Ok");
 

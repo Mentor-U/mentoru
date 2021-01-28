@@ -42,6 +42,8 @@ namespace MentorU.Views
                     Bio = "test"
                 };
 
+                App.loggedUser = tempUser;
+
                 bool isNew = await DatabaseService.Instance.tryCreateAccount(tempUser);
 
                 if(isNew)

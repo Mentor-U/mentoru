@@ -27,10 +27,9 @@ namespace MentorU.Services.DatabaseServices
         }
 
         
-
         public async Task<bool> tryCreateAccount(Users user)
         {
-            var usersList = await client.GetTable<Users>().Where(u => u.id.Equals(user.id)).ToListAsync();
+            var usersList = await client.GetTable<Users>().Where(u => u.id == user.id).ToListAsync();
 
             if(usersList.Count > 0) 
             {
@@ -38,7 +37,6 @@ namespace MentorU.Services.DatabaseServices
             }
 
             await client.GetTable<Users>().InsertAsync(user);
-            App.loggedUser = user;
             return true;
             
         }

@@ -37,7 +37,7 @@ namespace MentorU.Views
                     LastName = userContext.FamilyName,
                     DisplayName = userContext.Name,
                     Email = userContext.EmailAddress,
-                    Role = "1",
+                    Role = "0",
                     Major = "CS",
                     Bio = "test"
                 };

@@ -90,7 +90,7 @@
                   ContentTemplate="{DataTemplate local:LoginPage}">
     </ShellContent>
 
-    <FlyoutItem Title="Home" Icon="icon_about.png">
+    <FlyoutItem Route="Home"  Title="Home" Icon="icon_about.png">
         <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
     </FlyoutItem>
     <FlyoutItem Title="Marketplace" Icon="icon_feed.png">

@@ -35,8 +35,8 @@
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="LightGray"/>
-                                            <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" VerticalTextAlignment="Center"/>
+                                            <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGray"/>
+                                            <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center"/>
                                         </Grid>
                                     </Grid>
                                      <!-- RHS messages -->
@@ -52,8 +52,8 @@
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="LightCyan"/>
-                                            <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" VerticalTextAlignment="Center"/>
+                                            <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="MediumBlue"/>
+                                            <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center"/>
                                         </Grid>
                                     </Grid>
                                 </Grid>

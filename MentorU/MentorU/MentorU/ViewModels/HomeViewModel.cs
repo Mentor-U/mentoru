@@ -81,6 +81,12 @@ namespace MentorU.ViewModels
                     }
                 }
 
+                if (Mentors.Count == 0)
+                {
+                    Mentors.Add(new Users() { FirstName = "No current connections", Major = "Click to browse  list", Role = "-1" });
+                }
+                
+
                 //var items = await DataStore.GetItemsAsync(true);
                 //foreach(var i in items) // TODO: adding all? maybe limit to top three
                 //{
@@ -103,7 +109,10 @@ namespace MentorU.ViewModels
         {
             if (mentor == null)
                 return;
-            await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
+            else if(mentor.Role == "-1")
+                await Shell.Current.Navigation.PushAsync(new SearchNewMentorPage());
+            else
+                await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
         }
 
 
@@ -112,7 +121,6 @@ namespace MentorU.ViewModels
         {
             if (item == null)
                 return;
-
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
         }

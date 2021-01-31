@@ -57,10 +57,11 @@
                 <CollectionView x:Name="MentorListView"
                             ItemsSource="{Binding Mentors}"
                             SelectionMode="None"
-                            Grid.Row="8" Grid.ColumnSpan="2" >
+                            Grid.Row="8" Grid.ColumnSpan="2"
+                            BackgroundColor="#e60000">
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
-                            <StackLayout Padding="10" x:DataType="model:Users" BackgroundColor="#e60000">
+                            <StackLayout Padding="10" x:DataType="model:Users">
                                 <Frame BackgroundColor="LightGray" HasShadow="False">
                                     <Label LineBreakMode="NoWrap" 
                                             Style="{DynamicResource ListItemTextStyle}" 

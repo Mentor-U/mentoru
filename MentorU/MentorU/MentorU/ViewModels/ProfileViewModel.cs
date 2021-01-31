@@ -123,9 +123,13 @@ namespace MentorU.ViewModels
                     }
                 }
 
-                
-               // var mentors = await DataStore.GetMentorsAsync(true); 
-                
+                if (Mentors.Count == 0)
+                {
+                    Mentors.Add(new Users() { FirstName = "No current connections", Major = "Click to browse  list", Role = "-1" });
+                }
+
+                // var mentors = await DataStore.GetMentorsAsync(true); 
+
 
                 // TODO: Add class loading here from data base or logged user. what ever we decide on
             }
@@ -148,7 +152,10 @@ namespace MentorU.ViewModels
         {
             if (mentor == null)
                 return;
-            await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
+            else if (mentor.Role == "-1")
+                await Shell.Current.Navigation.PushAsync(new SearchNewMentorPage());
+            else
+                await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
         }
 
         public void OnAppearing()

@@ -13,7 +13,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <RefreshView x:DataType="local:HomeViewModel" Command="{Binding LoadPageDataCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <RefreshView x:DataType="local:HomeViewModel" Command="{Binding LoadPageDataCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}" >
         <ScrollView>
             <Grid>
                 <Grid.RowDefinitions>

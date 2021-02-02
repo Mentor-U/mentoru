@@ -103,6 +103,7 @@ namespace MentorU.ViewModels
             try
             {
                 // Load message history from database
+                MessageList.Clear();
                 var history = await DatabaseService.client.GetTable<Messages>().OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
                 foreach (var m in history)
                 {

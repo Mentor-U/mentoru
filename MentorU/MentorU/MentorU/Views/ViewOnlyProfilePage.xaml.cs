@@ -27,6 +27,13 @@ namespace MentorU.Views
                     Text = "Chat",
                     Command = new Command(_vm.StartChat)
                 };
+                ToolbarItem options = new ToolbarItem
+                {
+                    Text = "Options",
+                    Command = new Command(_vm.OpenOptions)
+                };
+
+                ToolbarItems.Add(options);
                 ToolbarItems.Add(chatButton);
             }
             else

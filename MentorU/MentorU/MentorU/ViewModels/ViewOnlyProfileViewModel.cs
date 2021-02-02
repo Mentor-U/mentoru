@@ -37,6 +37,16 @@ namespace MentorU.ViewModels
             DeclineCommand = new Command(async () => await Decline());
         }
 
+
+        /** ------------------------------------------------------
+        * Below is the view for users that have not connected 
+        * and are looking to connect with them
+        * --------------------------------------------------------
+        */
+
+        ///<summary>
+        /// Sends a request to the mentor requesting a connection be made.
+        ///</summary>
         public async void OnRequestMentor()
         {
             try {
@@ -57,11 +67,46 @@ namespace MentorU.ViewModels
             }
          }
 
+
+
+        /** --------------------------------------------
+        * Below is the view for users that are connected 
+        * ----------------------------------------------
+        */
+
+
+        ///<summary>
+        /// Opens the chat window with the associated user.
+        ///</summary>
         public async void StartChat(object obj)
         {
             await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
             await Shell.Current.Navigation.PushAsync(new ChatPage(_user));
         }
+
+        /// <summary>
+        /// Options pane allows users to remove connections that they have.
+        /// </summary>
+        public async void OpenOptions()
+        {
+            bool remove = await App.Current.MainPage.DisplayAlert("Options", $"Remove {_user.DisplayName} from your connections?", "Yes", "No");
+            if (remove)
+            {
+                //TODO: need the connection table up again before this will work and then pull the connection instance
+                // and delete it from the database.
+                //await DatabaseService.client.GetTable<Connection>().DeleteAsync();
+            }
+
+        }
+
+
+
+        /** ------------------------------------------------------------------------------------
+         * Below is the view for users that have not connected and have received a request to
+         * from another user 
+         * -------------------------------------------------------------------------------------
+         */
+
 
         async Task Accept()
         {

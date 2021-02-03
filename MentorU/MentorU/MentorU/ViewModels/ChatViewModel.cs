@@ -26,6 +26,8 @@ namespace MentorU.ViewModels
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
         private string _groupName;
+
+        private int count;
         
         public ChatViewModel(Users ChatRecipient)
         {
@@ -85,6 +87,7 @@ namespace MentorU.ViewModels
                     }
                 });
             });
+            count = 0;
         }
 
 
@@ -102,9 +105,13 @@ namespace MentorU.ViewModels
             IsBusy = true;
             try
             {
+                // TODO: only load if database has recognized changes
+                // Determine callback scheme?
+
                 // Load message history from database
                 MessageList.Clear();
-                var history = await DatabaseService.client.GetTable<Messages>().OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
+                var history = await DatabaseService.client.GetTable<Messages>()
+                    .OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
                 foreach (var m in history)
                 {
                     MessageList.Add(new Message()

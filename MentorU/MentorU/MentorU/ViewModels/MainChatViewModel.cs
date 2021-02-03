@@ -35,24 +35,30 @@ namespace MentorU.ViewModels
 
                 List<Users> mentor_list = new List<Users>();
 
-                if (App.loggedUser.Role == "1")
-                    mentor_list = await DatabaseService.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
-                else
-                    mentor_list = await DatabaseService.client.GetTable<Users>().Where(user => user.Role == "1").ToListAsync();
-
-                foreach (Users m in mentor_list)
+                //Adds only mentors that you have connected with
+                if (App.loggedUser.Role == "0")
                 {
-                    Chats.Add(m);
+                    List<Connection> cons = await DatabaseService.client.GetTable<Connection>()
+                        .Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                    foreach (Connection c in cons)
+                    {
+                        List<Users> temp = await DatabaseService.client.GetTable<Users>()
+                            .Where(u => u.id == c.MenteeID).ToListAsync();
+                        Chats.Add(temp[0]);
+                    }
                 }
-                //if (App.loggedUser.Role == "0")
-                //{
-                //    List<Connection> cons = await App.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
-                //    foreach (Connection c in cons)
-                //    {
-                //        List<Users> temp = await App.client.GetTable<Users>().Where(u => u.id == c.MenteeID).ToListAsync();
-                //        Chats.Add(temp[0]);
-                //    }
-                //}
+                else
+                {
+                    List<Connection> cons = await DatabaseService.client.GetTable<Connection>()
+                        .Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    foreach (Connection c in cons)
+                    {
+                        List<Users> temp = await DatabaseService.client.GetTable<Users>()
+                            .Where(u => u.id == c.MentorID).ToListAsync();
+                        Chats.Add(temp[0]);
+                    }
+                }
+                
             }
             catch(Exception ex)
             {

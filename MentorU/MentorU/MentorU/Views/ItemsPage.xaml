@@ -5,7 +5,8 @@
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"  
              xmlns:model="clr-namespace:MentorU.Models"  
-             x:Name="MarketplaceItemsPage">
+             x:Name="MarketplaceItemsPage"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="List an Item" Command="{Binding AddItemCommand}" />

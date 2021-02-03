@@ -95,9 +95,6 @@
     <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\exit.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -113,9 +110,6 @@
     <ImageAsset Include="Assets.xcassets\icon_feed.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\icon_feed.png.imageset\icon_feed.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\Logo.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -125,18 +119,14 @@
     <ImageAsset Include="Assets.xcassets\search.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\search.png.imageset\search.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\notification.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\notification.png.imageset\notification.png">
-      <Visible>false</Visible>
-    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile-1.png" />
+    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile-2.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -4,7 +4,6 @@
       "idiom": "universal"
     },
     {
-      "filename": "chat.png",
       "scale": "1x",
       "idiom": "universal"
     },
@@ -96,6 +95,7 @@
       "idiom": "universal"
     },
     {
+      "filename": "chat.png",
       "appearances": [
         {
           "appearance": "luminosity",
@@ -313,6 +313,7 @@
       "idiom": "universal"
     },
     {
+      "filename": "chat-1.png",
       "appearances": [
         {
           "appearance": "luminosity",

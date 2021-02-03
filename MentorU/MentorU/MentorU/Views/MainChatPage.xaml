@@ -4,7 +4,8 @@
              x:Class="MentorU.Views.MainChatPage"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <ContentPage.Content>
         <RefreshView x:DataType="local:MainChatViewModel" Command="{Binding LoadChatsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <CollectionView x:Name="ItemsListView"
@@ -18,7 +19,8 @@
                                 FontAttributes="Bold"
                                 LineBreakMode="NoWrap" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
+                                FontSize="16"
+                                TextColor="Black"/>
                             </Frame>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer 

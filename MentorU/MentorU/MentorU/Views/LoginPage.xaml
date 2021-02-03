@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MentorU.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
         <Button x:Name="loginButton" Text="Login" Clicked="OnLoginButtonClicked" />
     </StackLayout>

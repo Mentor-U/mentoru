@@ -5,7 +5,8 @@
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
-             x:Name="profilePage">
+             x:Name="profilePage"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Edit Profile" Command="{Binding EditProfileCommand}"/>
@@ -65,7 +66,8 @@
                                 <Frame BackgroundColor="LightGray" HasShadow="False">
                                     <Label LineBreakMode="NoWrap" 
                                             Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="16">
+                                            FontSize="16"
+                                            TextColor="Black">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0}: {1}">
                                                 <Binding Path="FirstName"/>

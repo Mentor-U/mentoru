@@ -36,6 +36,9 @@ namespace MentorU.Services.DatabaseServices
 
             if(usersList.Count > 0) 
             {
+                // Add the user here to limit he calls to the data base on login in to one
+                // And prevent the user from being overwritten in the DB as it was before
+                App.loggedUser = usersList[0]; 
                 return false;
             }
 

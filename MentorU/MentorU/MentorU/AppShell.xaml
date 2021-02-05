@@ -60,7 +60,7 @@
                             </VisualState>
                             <VisualState x:Name="Selected">
                                 <VisualState.Setters>
-                                    <Setter Property="BackgroundColor" Value="#e60000" />
+                                    <Setter Property="BackgroundColor" Value="White" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -103,10 +103,10 @@
                   ContentTemplate="{DataTemplate local:LoginPage}">
     </ShellContent>
 
-    <FlyoutItem Route="Home"  Title="Home" Icon="icon_about.png">
+    <FlyoutItem Route="Home"  Title="Home" Icon="Home.png">
         <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Marketplace" Icon="icon_feed.png">
+    <FlyoutItem Title="Marketplace" Icon="marketplace.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Profile" Icon="blank_profile.png">

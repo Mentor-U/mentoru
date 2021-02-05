@@ -4,6 +4,7 @@
       "idiom": "universal"
     },
     {
+      "filename": "blank_profile-1.png",
       "scale": "1x",
       "idiom": "universal"
     },
@@ -95,7 +96,6 @@
       "idiom": "universal"
     },
     {
-      "filename": "blank_profile-1.png",
       "appearances": [
         {
           "appearance": "luminosity",
@@ -313,7 +313,6 @@
       "idiom": "universal"
     },
     {
-      "filename": "blank_profile-2.png",
       "appearances": [
         {
           "appearance": "luminosity",

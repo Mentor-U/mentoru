@@ -4,6 +4,7 @@
       "idiom": "universal"
     },
     {
+      "filename": "marketplace-1.png",
       "scale": "1x",
       "idiom": "universal"
     },
@@ -95,7 +96,6 @@
       "idiom": "universal"
     },
     {
-      "filename": "icon_about.png",
       "appearances": [
         {
           "appearance": "luminosity",
@@ -313,7 +313,6 @@
       "idiom": "universal"
     },
     {
-      "filename": "icon_about-1.png",
       "appearances": [
         {
           "appearance": "luminosity",

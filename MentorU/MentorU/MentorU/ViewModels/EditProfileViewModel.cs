@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using MentorU.Models;
 using Newtonsoft.Json.Linq;
 using MentorU.Services.DatabaseServices;
-
+using System.Text.RegularExpressions;
 
 namespace MentorU.ViewModels
 {
@@ -12,24 +12,21 @@ namespace MentorU.ViewModels
     {
         private ProfileViewModel _parentVM;
         private string _newClass;
-        private List<string> _allClasses;
+
+        private Regex _depRegex = new Regex(@"([A-Za-z]+\s*)+");
+        private Regex _courseRegex = new Regex(@"(\d+)");
+
+        private List<string> _addedClass;
+        private List<string> _removedClass;
+
+        private string _department;
+        public List<string> AllDepartments { get; set; }
 
         public Command SaveButtonCommand { get; set; }
         public Command CancelButtonCommand { get; set; }
         public Command AddClassCommand { get; set; }
         public Command RemoveClassCommand { get; set; }
         public Command AddProfilePictureCommand { get; set; }
-
-
-        public List<string> AllClasses
-        {
-            get => _allClasses; 
-            set
-            {
-                _allClasses = value;
-                OnPropertyChanged();
-            }
-        }
 
         public string NewClass
         {
@@ -42,8 +39,19 @@ namespace MentorU.ViewModels
 
         }
 
-      
+        public string Department
+        {
+            get => _department;
+            set
+            {
+                _department = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public string OldClass { get; set; }
+
 
         /***
          * Allows for changes to the users profile and inherits the state of
@@ -58,9 +66,12 @@ namespace MentorU.ViewModels
             Bio = App.loggedUser.Bio;
             Classes = _parentVM.Classes;
 
-           
+            AllDepartments = new List<string>(DatabaseService.ClassList.classList);
+            Department = AllDepartments[0];
 
-            AllClasses = new List<string>();
+            _addedClass = new List<string>();
+            _removedClass = new List<string>();
+
             AddClassCommand = new Command(AddClass);
             RemoveClassCommand = new Command(async () => await RemoveClass());
             SaveButtonCommand = new Command(OnSave);
@@ -73,8 +84,17 @@ namespace MentorU.ViewModels
         {
             if(!string.IsNullOrEmpty(NewClass))
             {
-                Classes.Add(NewClass);
-                NewClass = "";
+                if (Department == AllDepartments[0] && isMentee)
+                    Application.Current.MainPage.DisplayAlert("Attention", "Please select a department", "Ok");
+                else
+                {
+                    if(isMentee)
+                        NewClass = Department + " " + NewClass;
+                    _removedClass.Remove(NewClass);// ensure NewClass does not exist in the remove list
+                    Classes.Add(NewClass);
+                    _addedClass.Add(NewClass);
+                    NewClass = "";
+                }
             }
         }
 
@@ -83,8 +103,12 @@ namespace MentorU.ViewModels
             if(OldClass != null)
             {
                 bool confirmed = await Application.Current.MainPage.DisplayAlert("Confirmation",$"Do you want to remove {OldClass}","Yes","No");
-                if(confirmed)
+                if (confirmed)
+                {
+                    _addedClass.Remove(OldClass); // ensure OldClass does not exist in the add list
                     Classes.Remove(OldClass);
+                    _removedClass.Add(OldClass);
+                }
             }
         }
 
@@ -102,6 +126,30 @@ namespace MentorU.ViewModels
                 {"Bio", Bio }
             };
             await DatabaseService.client.GetTable<Users>().UpdateAsync(data);
+
+            foreach (var c in _removedClass)
+            {
+                var cl = await DatabaseService.client.GetTable<Classes>()
+                    .Where(u => u.UserId == App.loggedUser.id && u.ClassName == c).ToListAsync();
+                if(cl.Count > 0)
+                    await DatabaseService.client.GetTable<Classes>().DeleteAsync(cl[0]);
+
+            }
+
+            foreach (var c in _addedClass)
+            {
+                string dep = _depRegex.Match(c).Value;
+                string cou = _courseRegex.Match(c).Value;
+                if(isMentee)
+                    await DatabaseService.client.GetTable<Classes>()
+                       .InsertAsync(new Models.Classes() { UserId = App.loggedUser.id, Department = dep, Course = cou, ClassName = c });
+                else
+                {
+                    await DatabaseService.client.GetTable<Classes>()
+                        .InsertAsync(new Models.Classes() { UserId = App.loggedUser.id, ClassName = c });
+                }
+            }
+
             await Shell.Current.Navigation.PopModalAsync();
         }
 

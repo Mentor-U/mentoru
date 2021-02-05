@@ -15,7 +15,6 @@ namespace MentorU.ViewModels
         private string _name;
         private string _major;
         private string _bio;
-        private string _classes;
 
         public bool isMentor { get; set; }
         public bool isMentee { get; set; }
@@ -57,6 +56,7 @@ namespace MentorU.ViewModels
             }
         }
 
+
         /***
          * Constructor. Initialize bindings from view
          */
@@ -86,24 +86,26 @@ namespace MentorU.ViewModels
             LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
             MentorTapped = new Command<Users>(OnMentorSelected);
-
-            //REMOVE: once database contains the classes information
-            Classes.Add("CS 1410");
-            Classes.Add("CS 3500");
-            //Classes.Add("CS 2420");
         }
 
+        /// <summary>
+        /// Loads all the information to be displayed from the database
+        /// Executed everytime the page is view or refreshed.
+        /// </summary>
+        /// <returns></returns>
         protected async Task ExecuteLoad() 
         {
             IsBusy = true;
             try
             {
                 Mentors.Clear(); // mentor list
+                Classes.Clear();
+
                 //if mentor
                 //if(App.loggedUser.Role == 0) { return; }
 
+                // Load all connections
                 List<Connection> mentors;
-
                 if(isMentee)
                 {
                     mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
@@ -123,15 +125,19 @@ namespace MentorU.ViewModels
                     }
                 }
 
+                // Redirect option to browse for new mentors -1 role so clicked event can react appropriately
                 if (Mentors.Count == 0)
                 {
                     Mentors.Add(new Users() { FirstName = "No current connections", Major = "Click to browse  list", Role = "-1" });
                 }
 
-                // var mentors = await DataStore.GetMentorsAsync(true); 
+                //Load all classes
+                List<Classes> c = await DatabaseService.client.GetTable<Classes>().Where(u => u.UserId == App.loggedUser.id).ToListAsync();
+                foreach(Classes val in c)
+                {
+                    Classes.Add(val.ClassName);
+                }
 
-
-                // TODO: Add class loading here from data base or logged user. what ever we decide on
             }
             catch(Exception ex)
             {
@@ -148,6 +154,7 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PushModalAsync(new EditProfilePage(this));
         }
 
+
         async void OnMentorSelected(Users mentor)
         {
             if (mentor == null)
@@ -157,6 +164,7 @@ namespace MentorU.ViewModels
             else
                 await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
         }
+
 
         public void OnAppearing()
         {

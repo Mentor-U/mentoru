@@ -89,25 +89,10 @@
     <ImageAsset Include="Assets.xcassets\chat.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\exit.png.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\icon_about.png.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\icon_about.png.imageset\icon_about.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\icon_feed.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\Logo.png.imageset\Contents.json">
@@ -126,7 +111,14 @@
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile-1.png" />
-    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile-2.png" />
+    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png" />
+    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit-2.png" />
+    <ImageAsset Include="Assets.xcassets\notification.png.imageset\notification.png" />
+    <ImageAsset Include="Assets.xcassets\search.png.imageset\search-icon.png" />
+    <ImageAsset Include="Assets.xcassets\Home.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Home.png.imageset\Home.png" />
+    <ImageAsset Include="Assets.xcassets\marketplace.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\marketplace.png.imageset\marketplace-1.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -168,5 +160,7 @@
     <Folder Include="Assets.xcassets\Logo.png.imageset\" />
     <Folder Include="Assets.xcassets\notification.png.imageset\" />
     <Folder Include="Assets.xcassets\search.png.imageset\" />
+    <Folder Include="Assets.xcassets\Home.png.imageset\" />
+    <Folder Include="Assets.xcassets\marketplace.png.imageset\" />
   </ItemGroup>
 </Project>

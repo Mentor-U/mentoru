@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MentorU.Models;
 using Microsoft.WindowsAzure.MobileServices;
+using System.Diagnostics;
 
 
 namespace MentorU.Services.DatabaseServices
@@ -13,6 +14,7 @@ namespace MentorU.Services.DatabaseServices
     {
 
         public static MobileServiceClient client;
+        public static ClassList ClassList;
 
         private  static readonly Lazy<DatabaseService> lazy = new Lazy<DatabaseService>
          (() => new DatabaseService());
@@ -22,6 +24,7 @@ namespace MentorU.Services.DatabaseServices
         private DatabaseService()
         {
             client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
+            ClassList = new ClassList();
         }
 
         /// <summary>

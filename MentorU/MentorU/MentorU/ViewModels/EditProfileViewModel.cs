@@ -5,6 +5,9 @@ using MentorU.Models;
 using Newtonsoft.Json.Linq;
 using MentorU.Services.DatabaseServices;
 using System.Text.RegularExpressions;
+using System.IO;
+using MentorU.Services;
+using Azure.Storage.Blobs;
 
 namespace MentorU.ViewModels
 {
@@ -27,6 +30,10 @@ namespace MentorU.ViewModels
         public Command AddClassCommand { get; set; }
         public Command RemoveClassCommand { get; set; }
         public Command AddProfilePictureCommand { get; set; }
+
+        private Image profileImage;
+        private string profileImageFilePath;
+
 
         public string NewClass
         {
@@ -65,6 +72,10 @@ namespace MentorU.ViewModels
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
             Classes = _parentVM.Classes;
+
+            //should try link from app profile
+            ProfileImage = "placeholder.jpg";
+            
 
             AllDepartments = new List<string>(DatabaseService.ClassList.classList);
             Department = AllDepartments[0];
@@ -114,6 +125,17 @@ namespace MentorU.ViewModels
 
         private async void OnSave()
         {
+            _parentVM.ProfileImage = ProfileImage;
+            
+            string fileName = $"{App.loggedUser.id}--ProfileImage";
+            App.loggedUser.ProfileImageBlob = fileName;
+
+            // check if blob exists, if so delete
+            //var blob = _parentVM.client.GetBlobContainerClient("images").GetBlobClient(fileName);
+            //var blob = _parentVM.containerClient.GetBlobClient(fileName);
+            await _parentVM.containerClient.DeleteBlobIfExistsAsync(fileName);
+            await _parentVM.containerClient.UploadBlobAsync(fileName, File.OpenRead(profileImageFilePath));
+
             App.loggedUser.FirstName = _parentVM.Name = Name;
             App.loggedUser.Major = _parentVM.Major = Major;
             App.loggedUser.Bio = _parentVM.Bio = Bio;
@@ -160,7 +182,16 @@ namespace MentorU.ViewModels
 
         private async void AddPicture()
         {
-            
+
+            Stream profileImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+            if (profileImageStream != null)
+            {
+                string fileName = $"{App.loggedUser.id}--ProfileImage";
+                profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, profileImageStream);
+
+                ProfileImage = profileImageFilePath;
+            }
+
         }
     }
 }

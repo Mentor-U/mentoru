@@ -29,5 +29,7 @@ namespace MentorU.Models
        
         public string Bio { get; set; }
 
+        public string ProfileImageBlob { get; set; }
+
     }
 }

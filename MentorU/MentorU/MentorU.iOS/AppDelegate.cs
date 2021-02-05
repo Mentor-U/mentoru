@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using Foundation;
+﻿using Foundation;
 using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
@@ -32,6 +25,8 @@ namespace MentorU.iOS
             CurrentPlatform.Init();
 
             LoadApplication(new App());
+
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 
             //AppCenter.Start("fb0078a5-c257-43b7-b61d-735790293192",
             //       typeof(Analytics), typeof(Crashes));

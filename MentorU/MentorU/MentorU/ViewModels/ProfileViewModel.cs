@@ -1,4 +1,5 @@
-﻿using MentorU.Models;
+﻿using Azure.Storage.Blobs;
+using MentorU.Models;
 using MentorU.Services.DatabaseServices;
 using MentorU.Views;
 using System;
@@ -15,6 +16,7 @@ namespace MentorU.ViewModels
         private string _name;
         private string _major;
         private string _bio;
+        private ImageSource _profileImage;
 
         public bool isMentor { get; set; }
         public bool isMentee { get; set; }
@@ -22,11 +24,29 @@ namespace MentorU.ViewModels
         public ObservableCollection<string> Classes { get; set; }
         public ObservableCollection<Users> Mentors { get; set; }
 
+
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
 
+
+        private string storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=mentorustorage;AccountKey=gbaR9b3iwGtWfSjbWKW5mgC1mtEpU2UijjOrwrniFaAS8Kb0KLr/g4inZX6+aoNB07FoUUSR4hxYYP7ZTNbbfw==;EndpointSuffix=core.windows.net";
+        
+        public BlobServiceClient client;
+        public BlobContainerClient containerClient;
+        public BlobClient blobClient;
+
         /* Attributes from the user that are needed for dispaly */
+        public ImageSource ProfileImage
+    {
+            get => _profileImage;
+            set
+            {
+                _profileImage = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Name
         {
             get => _name;
@@ -79,6 +99,8 @@ namespace MentorU.ViewModels
             Bio = App.loggedUser.Bio;
 
             Title = "Profile";
+
+            ProfileImage = "placeholder.jpg";
 
             Mentors = new ObservableCollection<Users>();
             Classes = new ObservableCollection<string>();
@@ -169,6 +191,10 @@ namespace MentorU.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
+            string containerName = "images";
+
+            client = new BlobServiceClient(storageConnectionString);
+            containerClient = client.GetBlobContainerClient(containerName);
         }
     }
 }

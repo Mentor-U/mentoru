@@ -19,6 +19,11 @@ namespace MentorU.Droid.Services
 
             string filePath = Path.Combine(documentsPath, name);
 
+            if(File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
             byte[] bArray = new byte[data.Length];
             using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
             {

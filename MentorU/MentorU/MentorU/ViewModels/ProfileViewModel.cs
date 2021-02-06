@@ -1,4 +1,5 @@
 ﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
 using MentorU.Models;
 using MentorU.Services.DatabaseServices;
 using MentorU.Views;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -100,7 +102,7 @@ namespace MentorU.ViewModels
 
             Title = "Profile";
 
-            ProfileImage = "placeholder.jpg";
+            
 
             Mentors = new ObservableCollection<Users>();
             Classes = new ObservableCollection<string>();
@@ -108,7 +110,26 @@ namespace MentorU.ViewModels
             LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
             MentorTapped = new Command<Users>(OnMentorSelected);
+            
         }
+
+        private async Task GetProfileImage()
+        {
+            
+            BlobClient blob = containerClient.GetBlobClient(App.loggedUser.id);
+            
+            if(blob.Exists())
+            {
+                BlobDownloadInfo info = await blob.DownloadAsync();
+
+                ProfileImage = ImageSource.FromStream(() => info.Content);
+            }
+            else
+            {
+                ProfileImage = "placeholder.jpg";
+            }
+        }
+
 
         /// <summary>
         /// Loads all the information to be displayed from the database
@@ -188,13 +209,14 @@ namespace MentorU.ViewModels
         }
 
 
-        public void OnAppearing()
+        public async Task OnAppearing()
         {
             IsBusy = true;
-            string containerName = "images";
+            string containerName = "profile-images";
 
             client = new BlobServiceClient(storageConnectionString);
             containerClient = client.GetBlobContainerClient(containerName);
+            await GetProfileImage();
         }
     }
 }

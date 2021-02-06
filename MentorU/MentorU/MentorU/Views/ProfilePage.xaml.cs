@@ -19,10 +19,10 @@ namespace MentorU.Views
             BindingContext = _viewModel = new ProfileViewModel();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.OnAppearing();
+            await _viewModel.OnAppearing();
         }
 
     }

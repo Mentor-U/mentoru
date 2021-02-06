@@ -73,10 +73,6 @@ namespace MentorU.ViewModels
             Bio = App.loggedUser.Bio;
             Classes = _parentVM.Classes;
 
-            //should try link from app profile
-            ProfileImage = "placeholder.jpg";
-            
-
             AllDepartments = new List<string>(DatabaseService.ClassList.classList);
             Department = AllDepartments[0];
 
@@ -127,12 +123,9 @@ namespace MentorU.ViewModels
         {
             _parentVM.ProfileImage = ProfileImage;
             
-            string fileName = $"{App.loggedUser.id}--ProfileImage";
-            App.loggedUser.ProfileImageBlob = fileName;
+            string fileName = App.loggedUser.id;
 
             // check if blob exists, if so delete
-            //var blob = _parentVM.client.GetBlobContainerClient("images").GetBlobClient(fileName);
-            //var blob = _parentVM.containerClient.GetBlobClient(fileName);
             await _parentVM.containerClient.DeleteBlobIfExistsAsync(fileName);
             await _parentVM.containerClient.UploadBlobAsync(fileName, File.OpenRead(profileImageFilePath));
 

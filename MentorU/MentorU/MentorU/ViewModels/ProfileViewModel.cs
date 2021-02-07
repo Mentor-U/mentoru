@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using MentorU.Models;
+using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
 using MentorU.Views;
 using System;
@@ -32,11 +33,8 @@ namespace MentorU.ViewModels
         public Command<Users> MentorTapped { get; }
 
 
-        private string storageConnectionString = "DefaultEndpointsProtocol=https;AccountName=mentorustorage;AccountKey=gbaR9b3iwGtWfSjbWKW5mgC1mtEpU2UijjOrwrniFaAS8Kb0KLr/g4inZX6+aoNB07FoUUSR4hxYYP7ZTNbbfw==;EndpointSuffix=core.windows.net";
-        
-        public BlobServiceClient client;
+      
         public BlobContainerClient containerClient;
-        public BlobClient blobClient;
 
         /* Attributes from the user that are needed for dispaly */
         public ImageSource ProfileImage
@@ -151,19 +149,19 @@ namespace MentorU.ViewModels
                 List<Connection> mentors;
                 if(isMentee)
                 {
-                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var men = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                        var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
                         Mentors.Add(men[0]);
                     }
                 }
                 else
                 {
-                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var men = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
+                        var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
                         Mentors.Add(men[0]);
                     }
                 }
@@ -175,7 +173,7 @@ namespace MentorU.ViewModels
                 }
 
                 //Load all classes
-                List<Classes> c = await DatabaseService.client.GetTable<Classes>().Where(u => u.UserId == App.loggedUser.id).ToListAsync();
+                List<Classes> c = await DatabaseService.Instance.client.GetTable<Classes>().Where(u => u.UserId == App.loggedUser.id).ToListAsync();
                 foreach(Classes val in c)
                 {
                     Classes.Add(val.ClassName);
@@ -212,10 +210,7 @@ namespace MentorU.ViewModels
         public async Task OnAppearing()
         {
             IsBusy = true;
-            string containerName = "profile-images";
-
-            client = new BlobServiceClient(storageConnectionString);
-            containerClient = client.GetBlobContainerClient(containerName);
+            containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
             await GetProfileImage();
         }
     }

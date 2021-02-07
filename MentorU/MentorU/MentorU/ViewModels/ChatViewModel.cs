@@ -110,7 +110,7 @@ namespace MentorU.ViewModels
 
                 // Load message history from database
                 MessageList.Clear();
-                var history = await DatabaseService.client.GetTable<Messages>()
+                var history = await DatabaseService.Instance.client.GetTable<Messages>()
                     .OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
                 foreach (var m in history)
                 {
@@ -152,7 +152,7 @@ namespace MentorU.ViewModels
                     TimeStamp = DateTime.Now
                 };
                 TextDraft = "";
-                await DatabaseService.client.GetTable<Messages>().InsertAsync(newMessage);
+                await DatabaseService.Instance.client.GetTable<Messages>().InsertAsync(newMessage);
             }
             catch(Exception ex)
             {

@@ -36,7 +36,7 @@ namespace MentorU.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DatabaseService.client.GetTable<Items>().ToListAsync();
+                var items = await DatabaseService.Instance.client.GetTable<Items>().ToListAsync();
  
                 foreach (var item in items)
                 {

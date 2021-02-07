@@ -1,8 +1,10 @@
-﻿using MentorU.Services;
-using Xamarin.Forms;
-using MentorU.Services.LogOn;
+﻿using Azure.Storage.Blobs;
 using MentorU.Models;
+using MentorU.Services;
+using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
+using MentorU.Services.LogOn;
+using Xamarin.Forms;
 
 namespace MentorU
 {
@@ -49,6 +51,7 @@ namespace MentorU
         {
             DependencyService.Register<B2CAuthenticationService>();
             DependencyService.Register<DatabaseService>();
+            DependencyService.Register<BlobService>();
         }
 
         protected override void OnStart()

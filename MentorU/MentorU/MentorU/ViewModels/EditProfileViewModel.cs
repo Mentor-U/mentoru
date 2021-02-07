@@ -31,9 +31,7 @@ namespace MentorU.ViewModels
         public Command RemoveClassCommand { get; set; }
         public Command AddProfilePictureCommand { get; set; }
 
-        private Image profileImage;
         private string profileImageFilePath;
-
 
         public string NewClass
         {
@@ -73,7 +71,7 @@ namespace MentorU.ViewModels
             Bio = App.loggedUser.Bio;
             Classes = _parentVM.Classes;
 
-            AllDepartments = new List<string>(DatabaseService.ClassList.classList);
+            AllDepartments = new List<string>(DatabaseService.Instance.ClassList.classList);
             Department = AllDepartments[0];
 
             _addedClass = new List<string>();
@@ -140,14 +138,14 @@ namespace MentorU.ViewModels
                 {"Major", Major },
                 {"Bio", Bio }
             };
-            await DatabaseService.client.GetTable<Users>().UpdateAsync(data);
+            await DatabaseService.Instance.client.GetTable<Users>().UpdateAsync(data);
 
             foreach (var c in _removedClass)
             {
-                var cl = await DatabaseService.client.GetTable<Classes>()
+                var cl = await DatabaseService.Instance.client.GetTable<Classes>()
                     .Where(u => u.UserId == App.loggedUser.id && u.ClassName == c).ToListAsync();
                 if(cl.Count > 0)
-                    await DatabaseService.client.GetTable<Classes>().DeleteAsync(cl[0]);
+                    await DatabaseService.Instance.client.GetTable<Classes>().DeleteAsync(cl[0]);
 
             }
 
@@ -156,11 +154,11 @@ namespace MentorU.ViewModels
                 string dep = _depRegex.Match(c).Value;
                 string cou = _courseRegex.Match(c).Value;
                 if(isMentee)
-                    await DatabaseService.client.GetTable<Classes>()
+                    await DatabaseService.Instance.client.GetTable<Classes>()
                        .InsertAsync(new Models.Classes() { UserId = App.loggedUser.id, Department = dep, Course = cou, ClassName = c });
                 else
                 {
-                    await DatabaseService.client.GetTable<Classes>()
+                    await DatabaseService.Instance.client.GetTable<Classes>()
                         .InsertAsync(new Models.Classes() { UserId = App.loggedUser.id, ClassName = c });
                 }
             }

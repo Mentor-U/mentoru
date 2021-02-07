@@ -38,22 +38,22 @@ namespace MentorU.ViewModels
                 //Adds only mentors that you have connected with
                 if (App.loggedUser.Role == "0")
                 {
-                    List<Connection> cons = await DatabaseService.client.GetTable<Connection>()
+                    List<Connection> cons = await DatabaseService.Instance.client.GetTable<Connection>()
                         .Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (Connection c in cons)
                     {
-                        List<Users> temp = await DatabaseService.client.GetTable<Users>()
+                        List<Users> temp = await DatabaseService.Instance.client.GetTable<Users>()
                             .Where(u => u.id == c.MenteeID).ToListAsync();
                         Chats.Add(temp[0]);
                     }
                 }
                 else
                 {
-                    List<Connection> cons = await DatabaseService.client.GetTable<Connection>()
+                    List<Connection> cons = await DatabaseService.Instance.client.GetTable<Connection>()
                         .Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (Connection c in cons)
                     {
-                        List<Users> temp = await DatabaseService.client.GetTable<Users>()
+                        List<Users> temp = await DatabaseService.Instance.client.GetTable<Users>()
                             .Where(u => u.id == c.MentorID).ToListAsync();
                         Chats.Add(temp[0]);
                     }

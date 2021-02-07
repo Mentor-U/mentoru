@@ -50,7 +50,7 @@ namespace MentorU.ViewModels
         public async void OnRequestMentor()
         {
             try {
-                await DatabaseService.client.GetTable<Notification>().InsertAsync(new Notification()
+                await DatabaseService.Instance.client.GetTable<Notification>().InsertAsync(new Notification()
                 {
                     MentorID = _user.id,
                     MenteeID = App.loggedUser.id,
@@ -114,16 +114,16 @@ namespace MentorU.ViewModels
                 .DisplayAlert("Confirm", $"Do you want to connect with {_user.FirstName}", "Accept", "Cancel");
             if (confirm)
             {
-                await DatabaseService.client.GetTable<Connection>().InsertAsync(new Connection()
+                await DatabaseService.Instance.client.GetTable<Connection>().InsertAsync(new Connection()
                 {
                     MentorID = App.loggedUser.id,
                     MenteeID = _user.id
                 });
 
                 await App.Current.MainPage.DisplayAlert("Connected!", $"You have connected with {_user.FirstName}", "OK");
-                var notification = await DatabaseService.client.GetTable<Notification>()
+                var notification = await DatabaseService.Instance.client.GetTable<Notification>()
                     .Where(u => u.MentorID == App.loggedUser.id && u.MenteeID == _user.id).ToListAsync();
-                await DatabaseService.client.GetTable<Notification>().DeleteAsync(notification[0]);
+                await DatabaseService.Instance.client.GetTable<Notification>().DeleteAsync(notification[0]);
                 await App.Current.MainPage.Navigation.PopModalAsync();
             }
         }
@@ -134,9 +134,9 @@ namespace MentorU.ViewModels
                 .DisplayAlert("Confirm", $"Do you want to decline connection with {_user.FirstName}", "Accept", "Cancel");
             if (confirm)
             {
-                var notification = await DatabaseService.client.GetTable<Notification>()
+                var notification = await DatabaseService.Instance.client.GetTable<Notification>()
                     .Where(u => u.MentorID == App.loggedUser.id && u.MenteeID == _user.id).ToListAsync();
-                await DatabaseService.client.GetTable<Notification>().DeleteAsync(notification[0]);
+                await DatabaseService.Instance.client.GetTable<Notification>().DeleteAsync(notification[0]);
                 await App.Current.MainPage
                     .DisplayAlert("Declining Connection.", $"You have declined the connection with {_user.FirstName}", "OK");
                 await App.Current.MainPage.Navigation.PopModalAsync();

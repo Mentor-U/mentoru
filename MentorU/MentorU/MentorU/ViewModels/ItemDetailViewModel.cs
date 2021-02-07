@@ -1,4 +1,7 @@
-﻿using MentorU.Models;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using MentorU.Models;
+using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
 using System;
 using System.Diagnostics;
@@ -13,12 +16,23 @@ namespace MentorU.ViewModels
         private string text;
         private string description;
         private double itemPrice;
+        private ImageSource itemImageSource;
         public string Id { get; set; }
 
         public string Text
         {
             get => text;
             set => SetProperty(ref text, value);
+        }
+
+        public ImageSource ItemImageSource
+        {
+            get => itemImageSource;
+            set
+            {
+                itemImageSource = value;
+                OnPropertyChanged();
+            }
         }
 
         public double ItemPrice
@@ -50,11 +64,27 @@ namespace MentorU.ViewModels
         {
             try
             {
-                var item = await DatabaseService.client.GetTable<Items>().Where(u => u.id == itemId).ToListAsync();
+                var item = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.id == itemId).ToListAsync();
                 Id = item[0].id;
                 Text = item[0].Text;
                 Description = item[0].Description;
                 ItemPrice = item[0].Price;
+
+                BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient(Id);
+                BlobClient blob = containerClient.GetBlobClient("Image0");
+
+                if (blob.Exists())
+                {
+                    BlobDownloadInfo info = await blob.DownloadAsync();
+
+                    ItemImageSource = ImageSource.FromStream(() => info.Content);
+                }
+                else
+                {
+                    ItemImageSource = "placeholder.jpg";
+                }
+               
+
             }
             catch (Exception)
             {

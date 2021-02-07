@@ -2,6 +2,9 @@
 
 namespace MentorU.Models
 {
+    /// <summary>
+    /// Represents a Marketplace Item
+    /// </summary>
     public class Items
     {
         [PrimaryKey]

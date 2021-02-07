@@ -123,6 +123,8 @@ namespace MentorU.ViewModels
 
                 foreach (var m in messages)
                     await DatabaseService.client.GetTable<ChatViewModel.Messages>().DeleteAsync(m);
+
+                await App.Current.MainPage.Navigation.PopToRootAsync(); // after removal exit window
             }
         }
 

@@ -60,7 +60,7 @@ namespace MentorU.ViewModels
                     var connections = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     var available = await DatabaseService.client.GetTable<Users>().Where(u => u.Role == "0" ).ToListAsync();
                     var excludedIDs = new HashSet<string>(connections.Select(u => u.MentorID));
-                    var result = available.Where(p => !excludedIDs.Contains(p.id));
+                    var result = available.Where(p => !excludedIDs.Contains(p.id) && p.id != App.loggedUser.id);
 
                     foreach (Users element in result)
                     {

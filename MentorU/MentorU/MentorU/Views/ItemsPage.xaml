@@ -27,9 +27,9 @@
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" />
 
-                        <!--<Image Source="{Binding ItemFirstImage}" 
+                        <Image Source="{Binding itemImage}"
                             Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                            Aspect="AspectFill" HeightRequest="100"/>-->
+                            Aspect="AspectFill" HeightRequest="100"/>
 
                         <Label Text="{Binding Price, StringFormat='Item Price = {0:N} $'}" 
                             LineBreakMode="NoWrap" 

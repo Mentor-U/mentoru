@@ -1,4 +1,5 @@
 ﻿using MentorU.Models;
+using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
 using MentorU.Views;
 using System;
@@ -40,7 +41,10 @@ namespace MentorU.ViewModels
  
                 foreach (var item in items)
                 {
+                    item.itemImage = await BlobService.Instance.TryDownloadImage(item.id, "Image0");
+
                     Items.Add(item);
+
                 }
             }
             catch (Exception ex)

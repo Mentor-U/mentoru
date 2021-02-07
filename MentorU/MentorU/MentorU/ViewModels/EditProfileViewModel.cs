@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.IO;
 using MentorU.Services;
 using Azure.Storage.Blobs;
+using MentorU.Services.Blob;
 
 namespace MentorU.ViewModels
 {
@@ -31,7 +32,19 @@ namespace MentorU.ViewModels
         public Command RemoveClassCommand { get; set; }
         public Command AddProfilePictureCommand { get; set; }
 
+        
+        private ImageSource _profileImage;
         private string profileImageFilePath;
+
+        public ImageSource ProfileImage
+        {
+            get => _profileImage;
+            set
+            {
+                _profileImage = value;
+                OnPropertyChanged();
+            }
+        }
 
         public string NewClass
         {
@@ -71,6 +84,12 @@ namespace MentorU.ViewModels
             Bio = App.loggedUser.Bio;
             Classes = _parentVM.Classes;
 
+
+            //ProfileImage = new Task<ImageSource>(async () => {
+            //    await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
+            //    });
+
+            
             AllDepartments = new List<string>(DatabaseService.Instance.ClassList.classList);
             Department = AllDepartments[0];
 
@@ -183,6 +202,14 @@ namespace MentorU.ViewModels
                 ProfileImage = profileImageFilePath;
             }
 
+        }
+
+        public async Task OnAppearing()
+        {
+            IsBusy = true;
+            //containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient();
+            //await GetProfileImage();
+            ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
         }
     }
 }

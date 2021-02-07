@@ -70,20 +70,7 @@ namespace MentorU.ViewModels
                 Description = item[0].Description;
                 ItemPrice = item[0].Price;
 
-                BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient(Id);
-                BlobClient blob = containerClient.GetBlobClient("Image0");
-
-                if (blob.Exists())
-                {
-                    BlobDownloadInfo info = await blob.DownloadAsync();
-
-                    ItemImageSource = ImageSource.FromStream(() => info.Content);
-                }
-                else
-                {
-                    ItemImageSource = "placeholder.jpg";
-                }
-               
+                ItemImageSource = await BlobService.Instance.TryDownloadImage(Id, "Image0");
 
             }
             catch (Exception)

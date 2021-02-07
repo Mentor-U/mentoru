@@ -24,5 +24,11 @@ namespace MentorU.Views
         void ListView_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
         {
         }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _viewModel.OnAppearing();
+        }
     }
 }

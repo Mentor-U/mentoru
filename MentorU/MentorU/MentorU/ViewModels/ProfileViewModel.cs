@@ -111,22 +111,7 @@ namespace MentorU.ViewModels
             
         }
 
-        private async Task GetProfileImage()
-        {
-            
-            BlobClient blob = containerClient.GetBlobClient(App.loggedUser.id);
-            
-            if(blob.Exists())
-            {
-                BlobDownloadInfo info = await blob.DownloadAsync();
-
-                ProfileImage = ImageSource.FromStream(() => info.Content);
-            }
-            else
-            {
-                ProfileImage = "placeholder.jpg";
-            }
-        }
+      
 
 
         /// <summary>
@@ -210,8 +195,10 @@ namespace MentorU.ViewModels
         public async Task OnAppearing()
         {
             IsBusy = true;
-            containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
-            await GetProfileImage();
+            //containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient();
+            //await GetProfileImage();
+            ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
         }
+
     }
 }

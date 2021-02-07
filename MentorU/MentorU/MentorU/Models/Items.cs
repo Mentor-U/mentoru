@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using Xamarin.Forms;
 
 namespace MentorU.Models
 {
@@ -13,5 +14,8 @@ namespace MentorU.Models
         public string Description { get; set; }
         public double Price { get; set; }
         public string Owner { get; set; }
+
+        [Ignore]
+        public ImageSource itemImage { get; set; }
     }
 }

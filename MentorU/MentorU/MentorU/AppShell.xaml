@@ -58,11 +58,11 @@
                                     <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="#e60000" />
                                 </VisualState.Setters>
                             </VisualState>
-                            <VisualState x:Name="Selected">
+                            <!--<VisualState x:Name="Selected">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="White" />
                                 </VisualState.Setters>
-                            </VisualState>
+                            </VisualState>-->
                         </VisualStateGroup>
                     </VisualStateGroupList>
                 </Setter>

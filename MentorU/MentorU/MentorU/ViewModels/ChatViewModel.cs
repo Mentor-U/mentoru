@@ -34,7 +34,7 @@ namespace MentorU.ViewModels
             Title = ChatRecipient.FirstName;
             _recipient = ChatRecipient;
 
-
+            // Use bit mask of user id's to generate group name 
             byte[] them = Encoding.ASCII.GetBytes(_recipient.id);
             byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
             List<int> masked = new List<int>();
@@ -42,11 +42,6 @@ namespace MentorU.ViewModels
                 masked.Add(them[i] & me[i]);
 
             _groupName = string.Join("", masked);
-
-            //if (int.Parse(_recipient.id) < int.Parse(App.loggedUser.id))
-            //    _groupName = _recipient.id + "-" + App.loggedUser.id;
-            //else
-            //    _groupName = App.loggedUser.id + "-" + _recipient.id;
 
             MessageList = new ObservableCollection<Message>();
             OnSendCommand = new Command(async () => await ExecuteSend());
@@ -56,20 +51,9 @@ namespace MentorU.ViewModels
 
             hubConnection = new HubConnectionBuilder()
                 .WithUrl($"{App.SignalRBackendUrl}")
-                //, // This is a work around to avoid SSL errors when run on localhost
-                //(opts) =>
-                //{
-                //    opts.HttpMessageHandlerFactory = (message) =>
-                //    {
-                //        if (message is HttpClientHandler clientHandler)
-
-                //            clientHandler.ServerCertificateCustomValidationCallback +=
-                //            (sender, certificate, chain, sslPolicyErrors) => { return true; };
-                //        return message;
-                //    };
-                //})
                 .Build();
 
+            // Receiving messages callback
             hubConnection.On<string,string>("ReceiveMessage", (userID, message) =>
             {
                 MainThread.BeginInvokeOnMainThread(() =>
@@ -106,7 +90,7 @@ namespace MentorU.ViewModels
             try
             {
                 // TODO: only load if database has recognized changes
-                // Determine callback scheme?
+                // Determine caching scheme?
 
                 // Load message history from database
                 MessageList.Clear();
@@ -160,6 +144,7 @@ namespace MentorU.ViewModels
             }
         }
 
+        // Model for the database which excludes UI specific info
         public class Messages
         {
             public string id { get; set; }
@@ -168,6 +153,7 @@ namespace MentorU.ViewModels
             public string GroupName { get; set; }
             public DateTime TimeStamp { get; set; }
         }
+
 
         public void OnAppearing()
         {

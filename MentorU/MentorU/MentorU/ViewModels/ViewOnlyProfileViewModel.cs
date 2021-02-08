@@ -2,8 +2,9 @@
 using MentorU.Services.DatabaseServices;
 using MentorU.Views.ChatViews;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -15,7 +16,6 @@ namespace MentorU.ViewModels
         private string field;
         private string bio;
         private Users _user;
-        private bool _noty;
 
         public string Name { get => name; set => SetProperty(ref name, value); }
         public string Field { get => field; set => SetProperty(ref field, value); }
@@ -86,17 +86,46 @@ namespace MentorU.ViewModels
 
         /// <summary>
         /// Options pane allows users to remove connections that they have.
+        /// ~ Left as Options in case we want additional options and can do a selection alert ~
         /// </summary>
         public async void OpenOptions()
         {
             bool remove = await App.Current.MainPage.DisplayAlert("Options", $"Remove {_user.DisplayName} from your connections?", "Yes", "No");
             if (remove)
             {
-                //TODO: need the connection table up again before this will work and then pull the connection instance
-                // and delete it from the database.
-                //await DatabaseService.client.GetTable<Connection>().DeleteAsync();
-            }
+                // Mentor removes mentee
+                if (App.loggedUser.Role == "0") { 
+                    var con = await DatabaseService.client.GetTable<Connection>()
+                        .Where(u => u.MenteeID == _user.id && u.MentorID == App.loggedUser.id).ToListAsync();
+                    await DatabaseService.client.GetTable<Connection>().DeleteAsync(con[0]);
+                    
+                }
+                // Mentee removes mentor
+                else
+                {
+                    var con = await DatabaseService.client.GetTable<Connection>()
+                        .Where(u => u.MentorID == _user.id && u.MenteeID == App.loggedUser.id).ToListAsync();
+                    await DatabaseService.client.GetTable<Connection>().DeleteAsync(con[0]);
+                }
 
+                // Delete message history
+                byte[] them = Encoding.ASCII.GetBytes(_user.id);
+                byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
+                List<int> masked = new List<int>();
+
+                for (int i = 0; i < them.Length; i++)
+                    masked.Add(them[i] & me[i]);
+
+                var groupName = string.Join("", masked);
+
+                var messages = await DatabaseService.client.GetTable<ChatViewModel.Messages>()
+                    .Where(m => m.GroupName == groupName).ToListAsync();
+
+                foreach (var m in messages)
+                    await DatabaseService.client.GetTable<ChatViewModel.Messages>().DeleteAsync(m);
+
+                await App.Current.MainPage.Navigation.PopToRootAsync(); // after removal exit window
+            }
         }
 
 

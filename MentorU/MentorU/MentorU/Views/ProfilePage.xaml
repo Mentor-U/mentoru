@@ -59,8 +59,8 @@
                        FontAttributes="Bold"
                        TextDecorations="Underline"/>
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
-                <Label IsVisible="{Binding isMentee}" Text="Mentors:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
-                <Label IsVisible="{Binding isMentor}" Text="Mentees:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
+                <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
+                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
                 <CollectionView x:Name="MentorListView"
                             ItemsSource="{Binding Mentors}"
                             SelectionMode="None"
@@ -95,7 +95,7 @@
                 </CollectionView>
                 <ScrollView Grid.Row="9" Grid.ColumnSpan="2">
                     <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
-                        <Label Text="Recommended:" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
+                        <Label Text="Recommended" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
                         <!-- FIXME: Change to a collectionview template and add command bindings -->
                         <Button Text="Here is a Book"  
                                 BackgroundColor="LightCoral" 

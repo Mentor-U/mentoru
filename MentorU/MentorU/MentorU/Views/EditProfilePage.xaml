@@ -63,7 +63,7 @@
                         BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
                         IsVisible="{Binding isMentee}"/>
                 <Editor Text="{Binding NewClass}" TextColor="Black"
-                        PlaceholderColor="DarkGray" Placeholder="Course"
+                        PlaceholderColor="DarkGray" Placeholder="Skills"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"

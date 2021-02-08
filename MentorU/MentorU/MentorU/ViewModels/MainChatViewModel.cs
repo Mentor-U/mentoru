@@ -15,7 +15,17 @@ namespace MentorU.ViewModels
         public ObservableCollection<Users> Chats { get; }
         public Command LoadChatsCommand { get; }
         public Command<Users> UserTapped { get; }
+        private bool _noChats;
+        public bool NoChats
+        {
+            get => _noChats;
+            set
+            {
+                _noChats = value;
+                OnPropertyChanged();
+            }
 
+        }
 
         public MainChatViewModel()
         {
@@ -24,6 +34,7 @@ namespace MentorU.ViewModels
             Chats = new ObservableCollection<Users>();
             LoadChatsCommand = new Command(async () => await ExecuteLoadChats());
             UserTapped = new Command<Users>(OpenChat);
+            NoChats = true;
         }
 
         async Task ExecuteLoadChats()
@@ -58,7 +69,9 @@ namespace MentorU.ViewModels
                         Chats.Add(temp[0]);
                     }
                 }
-                
+
+                if (Chats.Count > 0)
+                    NoChats = false;
             }
             catch(Exception ex)
             {

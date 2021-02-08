@@ -32,10 +32,6 @@ namespace MentorU.ViewModels
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
 
-
-      
-        public BlobContainerClient containerClient;
-
         /* Attributes from the user that are needed for dispaly */
         public ImageSource ProfileImage
     {

@@ -143,8 +143,9 @@ namespace MentorU.ViewModels
             string fileName = App.loggedUser.id;
 
             // check if blob exists, if so delete
-            await _parentVM.containerClient.DeleteBlobIfExistsAsync(fileName);
-            await _parentVM.containerClient.UploadBlobAsync(fileName, File.OpenRead(profileImageFilePath));
+            BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
+
+            await BlobService.Instance.TryUploadImage(containerClient, fileName, profileImageFilePath);
 
             App.loggedUser.FirstName = _parentVM.Name = Name;
             App.loggedUser.Major = _parentVM.Major = Major;

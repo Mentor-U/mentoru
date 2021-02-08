@@ -2,6 +2,7 @@
 using Azure.Storage.Blobs.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -50,5 +51,36 @@ namespace MentorU.Services.Blob
 
         }
 
+        /// <summary>
+        /// Uploads an image to blob storage. Checks to see if image exists, and then replaces it if so. 
+        /// </summary>
+        /// <param name="containerClient"></param>
+        /// <param name="ImageName"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public async Task<bool> TryUploadImage(BlobContainerClient containerClient, string ImageName, string filePath)
+        {
+
+
+            BlobClient blob = containerClient.GetBlobClient(ImageName);
+
+            try
+            {
+                //deletes the file if it exists
+                await containerClient.DeleteBlobIfExistsAsync(ImageName);
+
+                //uploads the file
+                await containerClient.UploadBlobAsync(ImageName, File.OpenRead(filePath));
+
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
     }
 }

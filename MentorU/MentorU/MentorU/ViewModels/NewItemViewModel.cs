@@ -98,12 +98,17 @@ namespace MentorU.ViewModels
             await DatabaseService.Instance.client.GetTable<Items>().InsertAsync(newItem);
 
             string containeritemid = newItem.id;
+
+
             BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient(containeritemid);
             await containerClient.CreateIfNotExistsAsync();
 
             string fileName = "Image0";
-            await containerClient.DeleteBlobIfExistsAsync(fileName);
-            await containerClient.UploadBlobAsync(fileName, File.OpenRead(itemImageFilePath));
+
+            //deletes the blob file if it exists and uploads an image
+            await BlobService.Instance.TryUploadImage(containerClient, fileName, itemImageFilePath);
+
+
             File.Delete(itemImageFilePath);
 
             await Application.Current.MainPage.DisplayAlert("Success", "Item Added", "Ok");

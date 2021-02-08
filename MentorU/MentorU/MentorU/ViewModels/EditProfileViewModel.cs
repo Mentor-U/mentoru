@@ -14,7 +14,7 @@ namespace MentorU.ViewModels
         private string _newClass;
 
         private Regex _depRegex = new Regex(@"([A-Za-z]+\s*)+");
-        private Regex _courseRegex = new Regex(@"(\d+)");
+        private Regex _courseRegex = new Regex(@"[0-9]+");
 
         private List<string> _addedClass;
         private List<string> _removedClass;

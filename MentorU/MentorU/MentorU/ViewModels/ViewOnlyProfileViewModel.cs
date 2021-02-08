@@ -95,34 +95,34 @@ namespace MentorU.ViewModels
             {
                 // Mentor removes mentee
                 if (App.loggedUser.Role == "0") { 
-                    var con = await DatabaseService.client.GetTable<Connection>()
+                    var con = await DatabaseService.Instance.client.GetTable<Connection>()
                         .Where(u => u.MenteeID == _user.id && u.MentorID == App.loggedUser.id).ToListAsync();
-                    await DatabaseService.client.GetTable<Connection>().DeleteAsync(con[0]);
+                    await DatabaseService.Instance.client.GetTable<Connection>().DeleteAsync(con[0]);
                     
                 }
                 // Mentee removes mentor
                 else
                 {
-                    var con = await DatabaseService.client.GetTable<Connection>()
+                    var con = await DatabaseService.Instance.client.GetTable<Connection>()
                         .Where(u => u.MentorID == _user.id && u.MenteeID == App.loggedUser.id).ToListAsync();
-                    await DatabaseService.client.GetTable<Connection>().DeleteAsync(con[0]);
+                    await DatabaseService.Instance.client.GetTable<Connection>().DeleteAsync(con[0]);
                 }
 
-                // Delete message history
-                byte[] them = Encoding.ASCII.GetBytes(_user.id);
-                byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
-                List<int> masked = new List<int>();
+                //// Delete message history
+                //byte[] them = Encoding.ASCII.GetBytes(_user.id);
+                //byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
+                //List<int> masked = new List<int>();
 
-                for (int i = 0; i < them.Length; i++)
-                    masked.Add(them[i] & me[i]);
+                //for (int i = 0; i < them.Length; i++)
+                //    masked.Add(them[i] & me[i]);
 
-                var groupName = string.Join("", masked);
+                //var groupName = string.Join("", masked);
 
-                var messages = await DatabaseService.client.GetTable<ChatViewModel.Messages>()
-                    .Where(m => m.GroupName == groupName).ToListAsync();
+                //var messages = await DatabaseService.Instance.client.GetTable<ChatViewModel.Messages>()
+                //    .Where(m => m.GroupName == groupName).ToListAsync();
 
-                foreach (var m in messages)
-                    await DatabaseService.client.GetTable<ChatViewModel.Messages>().DeleteAsync(m);
+                //foreach (var m in messages)
+                //    await DatabaseService.Instance.client.GetTable<ChatViewModel.Messages>().DeleteAsync(m);
 
                 await App.Current.MainPage.Navigation.PopToRootAsync(); // after removal exit window
             }

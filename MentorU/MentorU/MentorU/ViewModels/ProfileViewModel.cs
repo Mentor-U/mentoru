@@ -1,10 +1,14 @@
-﻿using MentorU.Models;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using MentorU.Models;
+using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
 using MentorU.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -15,6 +19,7 @@ namespace MentorU.ViewModels
         private string _name;
         private string _major;
         private string _bio;
+        private ImageSource _profileImage;
 
         public bool isMentor { get; set; }
         public bool isMentee { get; set; }
@@ -22,11 +27,22 @@ namespace MentorU.ViewModels
         public ObservableCollection<string> Classes { get; set; }
         public ObservableCollection<Users> Mentors { get; set; }
 
+
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
 
         /* Attributes from the user that are needed for dispaly */
+        public ImageSource ProfileImage
+        {
+            get => _profileImage;
+            set
+            {
+                _profileImage = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string Name
         {
             get => _name;
@@ -80,13 +96,19 @@ namespace MentorU.ViewModels
 
             Title = "Profile";
 
+            
+
             Mentors = new ObservableCollection<Users>();
             Classes = new ObservableCollection<string>();
 
             LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
             MentorTapped = new Command<Users>(OnMentorSelected);
+            
         }
+
+      
+
 
         /// <summary>
         /// Loads all the information to be displayed from the database
@@ -108,19 +130,19 @@ namespace MentorU.ViewModels
                 List<Connection> mentors;
                 if(isMentee)
                 {
-                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var men = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                        var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
                         Mentors.Add(men[0]);
                     }
                 }
                 else
                 {
-                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var men = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
+                        var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
                         Mentors.Add(men[0]);
                     }
                 }
@@ -132,7 +154,7 @@ namespace MentorU.ViewModels
                 }
 
                 //Load all classes
-                List<Classes> c = await DatabaseService.client.GetTable<Classes>().Where(u => u.UserId == App.loggedUser.id).ToListAsync();
+                List<Classes> c = await DatabaseService.Instance.client.GetTable<Classes>().Where(u => u.UserId == App.loggedUser.id).ToListAsync();
                 foreach(Classes val in c)
                 {
                     Classes.Add(val.ClassName);
@@ -166,9 +188,13 @@ namespace MentorU.ViewModels
         }
 
 
-        public void OnAppearing()
+        public async Task OnAppearing()
         {
             IsBusy = true;
+            //containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient();
+            //await GetProfileImage();
+            ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
         }
+
     }
 }

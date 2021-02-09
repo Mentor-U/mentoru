@@ -1,4 +1,5 @@
 ﻿using MentorU.Models;
+using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
 using MentorU.Views;
 using System;
@@ -36,11 +37,14 @@ namespace MentorU.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DatabaseService.client.GetTable<Items>().ToListAsync();
+                var items = await DatabaseService.Instance.client.GetTable<Items>().ToListAsync();
  
                 foreach (var item in items)
                 {
+                    item.itemImage = await BlobService.Instance.TryDownloadImage(item.id, "Image0");
+
                     Items.Add(item);
+
                 }
             }
             catch (Exception ex)

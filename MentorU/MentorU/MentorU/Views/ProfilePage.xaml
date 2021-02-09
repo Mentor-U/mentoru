@@ -4,7 +4,7 @@
              x:Class="MentorU.Views.ProfilePage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
-             xmlns:model="clr-namespace:MentorU.Models"
+             xmlns:model="clr-namespace:MentorU.Models" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Name="profilePage"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
@@ -33,11 +33,17 @@
                        Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                        HorizontalOptions="CenterAndExpand"
                        Scale="2"/>
-                <Label Text="Profile Picture" FontAttributes="Italic"
-                       HorizontalTextAlignment="Center" 
-                       VerticalTextAlignment="Center" 
-                       BackgroundColor="LightGray" 
-                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"/>
+
+                <Image Source="{Binding ProfileImage}"
+                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+                       Aspect="AspectFill"/>
+
+                <!--<ffimageloading:CachedImage LoadingPlaceholder="placeholder.jpg" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+			        DownsampleToViewSize="true"
+			        Source = "{Binding ProfileImage}"
+                                             >   
+                </ffimageloading:CachedImage>-->
+
                 <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
                 <Label  IsVisible="{Binding isMentee}" Text="{Binding Major, StringFormat='Major: {0:N}'}" 
@@ -51,7 +57,8 @@
                 <Label Text="Bio:" FontSize="Medium" 
                        Grid.Column="0" Grid.Row="5" 
                        FontAttributes="Bold"
-                       TextDecorations="Underline"/>
+                       TextDecorations="Underline"
+                       LineBreakMode="WordWrap"/>
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
                 <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
                 <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>

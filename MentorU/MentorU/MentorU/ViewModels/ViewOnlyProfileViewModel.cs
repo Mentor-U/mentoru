@@ -50,7 +50,7 @@ namespace MentorU.ViewModels
         public async void OnRequestMentor()
         {
             try {
-                await DatabaseService.client.GetTable<Notification>().InsertAsync(new Notification()
+                await DatabaseService.Instance.client.GetTable<Notification>().InsertAsync(new Notification()
                 {
                     MentorID = _user.id,
                     MenteeID = App.loggedUser.id,
@@ -95,34 +95,34 @@ namespace MentorU.ViewModels
             {
                 // Mentor removes mentee
                 if (App.loggedUser.Role == "0") { 
-                    var con = await DatabaseService.client.GetTable<Connection>()
+                    var con = await DatabaseService.Instance.client.GetTable<Connection>()
                         .Where(u => u.MenteeID == _user.id && u.MentorID == App.loggedUser.id).ToListAsync();
-                    await DatabaseService.client.GetTable<Connection>().DeleteAsync(con[0]);
+                    await DatabaseService.Instance.client.GetTable<Connection>().DeleteAsync(con[0]);
                     
                 }
                 // Mentee removes mentor
                 else
                 {
-                    var con = await DatabaseService.client.GetTable<Connection>()
+                    var con = await DatabaseService.Instance.client.GetTable<Connection>()
                         .Where(u => u.MentorID == _user.id && u.MenteeID == App.loggedUser.id).ToListAsync();
-                    await DatabaseService.client.GetTable<Connection>().DeleteAsync(con[0]);
+                    await DatabaseService.Instance.client.GetTable<Connection>().DeleteAsync(con[0]);
                 }
 
-                // Delete message history
-                byte[] them = Encoding.ASCII.GetBytes(_user.id);
-                byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
-                List<int> masked = new List<int>();
+                //// Delete message history
+                //byte[] them = Encoding.ASCII.GetBytes(_user.id);
+                //byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
+                //List<int> masked = new List<int>();
 
-                for (int i = 0; i < them.Length; i++)
-                    masked.Add(them[i] & me[i]);
+                //for (int i = 0; i < them.Length; i++)
+                //    masked.Add(them[i] & me[i]);
 
-                var groupName = string.Join("", masked);
+                //var groupName = string.Join("", masked);
 
-                var messages = await DatabaseService.client.GetTable<ChatViewModel.Messages>()
-                    .Where(m => m.GroupName == groupName).ToListAsync();
+                //var messages = await DatabaseService.Instance.client.GetTable<ChatViewModel.Messages>()
+                //    .Where(m => m.GroupName == groupName).ToListAsync();
 
-                foreach (var m in messages)
-                    await DatabaseService.client.GetTable<ChatViewModel.Messages>().DeleteAsync(m);
+                //foreach (var m in messages)
+                //    await DatabaseService.Instance.client.GetTable<ChatViewModel.Messages>().DeleteAsync(m);
 
                 await App.Current.MainPage.Navigation.PopToRootAsync(); // after removal exit window
             }
@@ -143,16 +143,16 @@ namespace MentorU.ViewModels
                 .DisplayAlert("Confirm", $"Do you want to connect with {_user.FirstName}", "Accept", "Cancel");
             if (confirm)
             {
-                await DatabaseService.client.GetTable<Connection>().InsertAsync(new Connection()
+                await DatabaseService.Instance.client.GetTable<Connection>().InsertAsync(new Connection()
                 {
                     MentorID = App.loggedUser.id,
                     MenteeID = _user.id
                 });
 
                 await App.Current.MainPage.DisplayAlert("Connected!", $"You have connected with {_user.FirstName}", "OK");
-                var notification = await DatabaseService.client.GetTable<Notification>()
+                var notification = await DatabaseService.Instance.client.GetTable<Notification>()
                     .Where(u => u.MentorID == App.loggedUser.id && u.MenteeID == _user.id).ToListAsync();
-                await DatabaseService.client.GetTable<Notification>().DeleteAsync(notification[0]);
+                await DatabaseService.Instance.client.GetTable<Notification>().DeleteAsync(notification[0]);
                 await App.Current.MainPage.Navigation.PopModalAsync();
             }
         }
@@ -163,9 +163,9 @@ namespace MentorU.ViewModels
                 .DisplayAlert("Confirm", $"Do you want to decline connection with {_user.FirstName}", "Accept", "Cancel");
             if (confirm)
             {
-                var notification = await DatabaseService.client.GetTable<Notification>()
+                var notification = await DatabaseService.Instance.client.GetTable<Notification>()
                     .Where(u => u.MentorID == App.loggedUser.id && u.MenteeID == _user.id).ToListAsync();
-                await DatabaseService.client.GetTable<Notification>().DeleteAsync(notification[0]);
+                await DatabaseService.Instance.client.GetTable<Notification>().DeleteAsync(notification[0]);
                 await App.Current.MainPage
                     .DisplayAlert("Declining Connection.", $"You have declined the connection with {_user.FirstName}", "OK");
                 await App.Current.MainPage.Navigation.PopModalAsync();

@@ -18,7 +18,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -28,9 +28,11 @@
                     Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                     HorizontalOptions="CenterAndExpand"
                     Scale="2"/>
-            <Button Text="Add Profile Picture" Command="{Binding AddProfilePictureCommand}" FontAttributes="Italic"
-                       BackgroundColor="LightGray" 
-                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"/>
+            
+            <Image Source="{Binding ProfileImage}" 
+                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+                   Aspect="AspectFill"/>
+        
             <Editor Text="{Binding Name, Mode=TwoWay}" 
                     Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"
                     Placeholder="Name"/>
@@ -74,19 +76,23 @@
                             SelectionChangedCommand="{Binding RemoveClassCommand}"
                             SelectedItem="{Binding OldClass, Mode=TwoWay}">
             </CollectionView>
+
+            <Button Text="Add New Profile Picture From Gallery" Command="{Binding AddProfilePictureCommand}" FontAttributes="Italic"
+                       BackgroundColor="LightGray" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
+
             <Label Text="Bio:" FontSize="Medium" 
-                    Grid.Column="0" Grid.Row="5" 
+                    Grid.Column="0" Grid.Row="6"
                     TextDecorations="Underline"/>
             <Editor Text="{Binding Bio, Mode=TwoWay}"
                     MaxLength="200"
                     Keyboard="Chat"
-                    Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"
+                    Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
                     Placeholder="About me"/>
             <Button Text="Cancel" Command="{Binding CancelButtonCommand}"
-                    Grid.Column="0" Grid.Row="7" 
+                    Grid.Column="0" Grid.Row="8" 
                     BackgroundColor="Red"/>
             <Button Text="Save" Command="{Binding SaveButtonCommand}"
-                    Grid.Column="1" Grid.Row="7" 
+                    Grid.Column="1" Grid.Row="8"
                     BackgroundColor="Green"/>
         </Grid>
     </ContentPage.Content>

@@ -37,23 +37,20 @@ namespace MentorU.Views
                     LastName = userContext.FamilyName,
                     DisplayName = userContext.Name,
                     Email = userContext.EmailAddress,
-                    Role = "0",
-                    Major = "CS",
-                    Bio = "test"
                 };
 
                 App.loggedUser = tempUser;
 
                 bool isNew = await DatabaseService.Instance.tryCreateAccount(tempUser);
 
-                if(isNew)
+                if (isNew)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
-                    // create profile here
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new NewProfileView());
                 }
-             
-
-                await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                else
+                {
+                    await Shell.Current.GoToAsync("///Home");
+                }
 
             }
             catch (Exception ex)

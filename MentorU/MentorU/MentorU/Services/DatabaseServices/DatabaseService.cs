@@ -10,11 +10,11 @@ namespace MentorU.Services.DatabaseServices
     /// <summary>
     /// Manage the connection to the database
     /// </summary>
-    public  class DatabaseService
+    public class DatabaseService
     {
 
-        public static MobileServiceClient client;
-        public static ClassList ClassList;
+        public MobileServiceClient client;
+        public ClassList ClassList;
 
         private  static readonly Lazy<DatabaseService> lazy = new Lazy<DatabaseService>
          (() => new DatabaseService());
@@ -44,8 +44,6 @@ namespace MentorU.Services.DatabaseServices
                 App.loggedUser = usersList[0]; 
                 return false;
             }
-
-            await client.GetTable<Users>().InsertAsync(user);
             return true;
             
         }

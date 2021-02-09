@@ -11,13 +11,15 @@
         <StackLayout Spacing="3" Padding="15">
             <Label Text="Text" FontSize="Medium" />
             <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Item Picture" FontAttributes="Italic"
-                           HorizontalTextAlignment="Center" 
-                           VerticalTextAlignment="Center" 
-                           BackgroundColor="LightGray" 
-                           Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                           HeightRequest="100"
-                           />
+
+            <Image Source="{Binding ItemFirstImage}" 
+                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                    Aspect="AspectFill" HeightRequest="100"/>
+
+            <Button Text="Add An Item Picture From Gallery" Command="{Binding AddItemPictureCommand}" FontAttributes="Italic"
+                       BackgroundColor="LightGray" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+                       />
+
             <Label Text="Item Price in USD" FontSize="Medium" />
             <Entry Text="{Binding ItemPrice, Mode=TwoWay}" FontSize="Medium" />
             <Label Text="Description" FontSize="Medium" />

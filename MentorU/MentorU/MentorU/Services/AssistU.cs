@@ -18,11 +18,11 @@ namespace MentorU.Services
 
         public AssistU()
         {
-            id = "0";
+            id = "AssistU";
             FirstName = "AssistU";
 
             //MarketHistory = new Dictionary<Users, List<MarketplaceItem>>();
-            CourseHistory = new Dictionary<Users, List<string>>();
+            //CourseHistory = new Dictionary<Users, List<string>>();
         }
 
 
@@ -48,7 +48,7 @@ namespace MentorU.Services
             {
                 messages = new List<string>();
 
-                byte[] them = Encoding.ASCII.GetBytes("0");
+                byte[] them = Encoding.ASCII.GetBytes(App.assistU.id);
                 byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
                 List<int> masked = new List<int>();
                 for (int i = 0; i < them.Length; i++)
@@ -74,7 +74,7 @@ namespace MentorU.Services
                 {
                     try
                     {
-                        if (userID != "0")
+                        if (userID != App.assistU.id)
                             ReceiveNewMessage(message);
                     }
                     catch (Exception ex)
@@ -99,7 +99,7 @@ namespace MentorU.Services
 
             async Task SendMessage(string m)
             {
-                await hubConnection.InvokeAsync("SendMessage", groupName, "0", m);
+                await hubConnection.InvokeAsync("SendMessage", groupName, App.assistU.id, m);
             }
         }
     }

@@ -3,6 +3,7 @@ using Azure.Storage.Blobs.Models;
 using MentorU.Models;
 using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
+using MentorU.Views.ChatViews;
 using System;
 using System.Diagnostics;
 using Xamarin.Forms;
@@ -17,6 +18,13 @@ namespace MentorU.ViewModels
         private string description;
         private double itemPrice;
         private ImageSource itemImageSource;
+        private Items _item;
+
+        public ItemDetailViewModel(Items item)
+        {
+            _item = item;
+        }
+
         public string Id { get; set; }
 
         public string Text
@@ -77,6 +85,16 @@ namespace MentorU.ViewModels
             {
                 Debug.WriteLine("Failed to Load Item");
             }
+        }
+
+        ///<summary>
+        /// Opens the chat window with the associated user.
+        ///</summary>
+        public async void StartChat(object obj)
+        {
+            await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
+            var user = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == _item.Owner).ToListAsync();
+            await Shell.Current.Navigation.PushAsync(new ChatPage(user[0]));
         }
     }
 }

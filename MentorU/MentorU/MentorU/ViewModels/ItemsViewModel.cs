@@ -84,7 +84,8 @@ namespace MentorU.ViewModels
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
+            //await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
+            await Application.Current.MainPage.Navigation.PushAsync(new ItemDetailPage(item));
         }
     }
 }

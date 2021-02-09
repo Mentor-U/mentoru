@@ -18,6 +18,7 @@
                             FontSize="16" />
         <Label Text="Description:" FontSize="Medium" />
         <Label Text="{Binding Description}" FontSize="Small"/>
+        
     </StackLayout>
     
 </ContentPage>

@@ -26,11 +26,13 @@ namespace MentorU.ViewModels
 
         public ObservableCollection<string> Classes { get; set; }
         public ObservableCollection<Users> Mentors { get; set; }
+        public ObservableCollection<Items> Marketplace { get; set; }
 
 
         public Command EditProfileCommand { get; }
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
+        public Command<Items> ItemTapped { get; }
 
         /* Attributes from the user that are needed for dispaly */
         public ImageSource ProfileImage
@@ -100,10 +102,12 @@ namespace MentorU.ViewModels
 
             Mentors = new ObservableCollection<Users>();
             Classes = new ObservableCollection<string>();
+            Marketplace = new ObservableCollection<Items>();
 
             LoadPageDataCommand = new Command(async () => await ExecuteLoad()); // fetch all data 
             EditProfileCommand = new Command(EditProfile);
             MentorTapped = new Command<Users>(OnMentorSelected);
+            ItemTapped = new Command<Items>(OnItemSelected);
             
         }
 
@@ -122,6 +126,7 @@ namespace MentorU.ViewModels
             {
                 Mentors.Clear(); // mentor list
                 Classes.Clear();
+                Marketplace.Clear();
 
                 //if mentor
                 //if(App.loggedUser.Role == 0) { return; }
@@ -160,6 +165,13 @@ namespace MentorU.ViewModels
                     Classes.Add(val.ClassName);
                 }
 
+                //Load all marketplace items
+                List<Items> i = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                foreach(Items val in i)
+                {
+                    Marketplace.Add(val);
+                }
+
             }
             catch(Exception ex)
             {
@@ -185,6 +197,14 @@ namespace MentorU.ViewModels
                 await Shell.Current.Navigation.PushAsync(new SearchNewMentorPage());
             else
                 await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
+        }
+
+        async void OnItemSelected(Items item)
+        {
+            if (item == null)
+                return;
+            else
+                await Shell.Current.Navigation.PushAsync(new ItemDetailPage(item));
         }
 
 

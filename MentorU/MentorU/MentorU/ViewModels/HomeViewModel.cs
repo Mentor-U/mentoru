@@ -123,7 +123,9 @@ namespace MentorU.ViewModels
             if (item == null)
                 return;
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
+            //await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
+            else
+                await Shell.Current.Navigation.PushAsync(new ItemDetailPage(item));
         }
 
 

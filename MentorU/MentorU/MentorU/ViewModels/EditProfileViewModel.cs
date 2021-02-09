@@ -32,6 +32,7 @@ namespace MentorU.ViewModels
         public Command RemoveClassCommand { get; set; }
         public Command AddProfilePictureCommand { get; set; }
 
+        private bool _imageChanged { get; set; }
 
         private ImageSource _profileImage;
         private string profileImageFilePath;
@@ -73,7 +74,7 @@ namespace MentorU.ViewModels
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
             Classes = _parentVM.Classes;
-
+            _imageChanged = false;
             //ProfileImage = new Task<ImageSource>(async () => {
             //    await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
             //    });
@@ -129,7 +130,7 @@ namespace MentorU.ViewModels
         private async void OnSave()
         {
 
-            if (ProfileImage != _parentVM.ProfileImage)
+            if (_imageChanged)
             {
                 string fileName = App.loggedUser.id;
                 // check if blob exists, if so delete
@@ -192,6 +193,7 @@ namespace MentorU.ViewModels
                 profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, profileImageStream);
 
                 ProfileImage = profileImageFilePath;
+                _imageChanged = true;
             }
 
         }

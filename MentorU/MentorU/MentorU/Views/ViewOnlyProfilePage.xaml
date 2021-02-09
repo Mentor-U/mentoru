@@ -22,10 +22,15 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+           
             <Image Source="Logo" Grid.Row="0" Grid.ColumnSpan="2"
                    HorizontalOptions="CenterAndExpand"
                    Scale="2"/>
-            <Image Source="blank_profile" Grid.Column="0" Grid.Row="1" HorizontalOptions="Center"/>
+
+            <Image Source="{Binding ProfileImage}"
+                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+                       Aspect="AspectFill"/>
+            
             <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
                    Grid.Column="1" Grid.Row="1"/>
             <Label Text="{Binding Field, StringFormat='Field: {0:N}'}"

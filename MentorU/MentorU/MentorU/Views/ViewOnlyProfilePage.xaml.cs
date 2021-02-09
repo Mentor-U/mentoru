@@ -46,5 +46,11 @@ namespace MentorU.Views
                 ToolbarItems.Add(requestButton);
             }
         }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _vm.OnAppearing();
+        }
     }
 }

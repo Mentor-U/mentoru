@@ -1,4 +1,5 @@
 ﻿using MentorU.Models;
+using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
 using MentorU.Views.ChatViews;
 using System;
@@ -16,10 +17,22 @@ namespace MentorU.ViewModels
         private string field;
         private string bio;
         private Users _user;
+        private ImageSource _profileImage;
 
         public string Name { get => name; set => SetProperty(ref name, value); }
         public string Field { get => field; set => SetProperty(ref field, value); }
         public string Bio { get => bio; set => SetProperty(ref bio, value); }
+
+        public ImageSource ProfileImage
+        {
+            get => _profileImage;
+            set
+            {
+                _profileImage = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool FromNotification { get; set; }
 
         public Command AcceptCommand {get; set;}
@@ -170,6 +183,13 @@ namespace MentorU.ViewModels
                     .DisplayAlert("Declining Connection.", $"You have declined the connection with {_user.FirstName}", "OK");
                 await App.Current.MainPage.Navigation.PopModalAsync();
             }
+        }
+
+
+        public async Task OnAppearing()
+        {
+            IsBusy = true;
+            ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", _user.id);
         }
 
     }

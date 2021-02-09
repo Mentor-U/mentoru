@@ -85,13 +85,20 @@ namespace MentorU.ViewModels
                 {
                     Mentors.Add(new Users() { FirstName = "No current connections", Major = "Click to browse  list", Role = "-1" });
                 }
-                
+
 
                 //var items = await DataStore.GetItemsAsync(true);
                 //foreach(var i in items) // TODO: adding all? maybe limit to top three
                 //{
                 //    MarketItems.Add(i);
                 //}
+                
+                //Load marketplace items
+                List<Items> items = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                foreach(var i in items)
+                {
+                    MarketItems.Add(i);
+                }
 
             }
             catch (Exception ex)

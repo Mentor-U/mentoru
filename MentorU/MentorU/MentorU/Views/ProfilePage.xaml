@@ -112,7 +112,7 @@
                                                 <Label.Text>
                                                     <MultiBinding StringFormat="{}{0}: ${1}">
                                                         <Binding Path="Text"/>
-                                                        <Binding Path="ItemPrice"/>
+                                                        <Binding Path="Price"/>
                                                     </MultiBinding>
                                                 </Label.Text>
                                             </Label>

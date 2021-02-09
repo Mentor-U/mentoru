@@ -101,11 +101,12 @@ namespace MentorU.ViewModels
                     Application.Current.MainPage.DisplayAlert("Attention", "Please select a department", "Ok");
                 else
                 {
+                    string addClass = _newClass;
                     if(isMentee)
-                        NewClass = Department + " " + NewClass;
-                    _removedClass.Remove(NewClass);// ensure NewClass does not exist in the remove list
-                    Classes.Add(NewClass);
-                    _addedClass.Add(NewClass);
+                        addClass = (Department + " " + addClass);
+                    _removedClass.Remove(addClass);// ensure NewClass does not exist in the remove list
+                    Classes.Add(addClass);
+                    _addedClass.Add(addClass);
                     NewClass = "";
                 }
             }

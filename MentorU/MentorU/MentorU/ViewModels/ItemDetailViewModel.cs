@@ -23,6 +23,7 @@ namespace MentorU.ViewModels
         public ItemDetailViewModel(Items item)
         {
             _item = item;
+            _ = loadItemAsync(item);
         }
 
         public string Id { get; set; }
@@ -64,27 +65,38 @@ namespace MentorU.ViewModels
             set
             {
                 itemId = value;
-                LoadItemId(value);
+                //LoadItemId(value);
             }
         }
 
-        public async void LoadItemId(string itemId)
+        //public async void LoadItemId(string itemId)
+        //{
+        //    try
+        //    {
+        //        var item = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.id == _item.id).ToListAsync();
+        //        Id = item[0].id;
+        //        Text = item[0].Text;
+        //        Description = item[0].Description;
+        //        ItemPrice = item[0].Price;
+
+        //        ItemImageSource = await BlobService.Instance.TryDownloadImage(Id, "Image0");
+
+        //    }
+        //    catch (Exception)
+        //    {
+        //        Debug.WriteLine("Failed to Load Item");
+        //    }
+        //}
+
+        async System.Threading.Tasks.Task loadItemAsync(Items item)
         {
-            try
-            {
-                var item = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.id == _item.id).ToListAsync();
-                Id = item[0].id;
-                Text = item[0].Text;
-                Description = item[0].Description;
-                ItemPrice = item[0].Price;
+            Id = item.id;
+            Text = item.Text;
+            Description = item.Description;
+            ItemPrice = item.Price;
 
-                ItemImageSource = await BlobService.Instance.TryDownloadImage(Id, "Image0");
+            ItemImageSource = await BlobService.Instance.TryDownloadImage(Id, "Image0");
 
-            }
-            catch (Exception)
-            {
-                Debug.WriteLine("Failed to Load Item");
-            }
         }
 
         ///<summary>

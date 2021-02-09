@@ -29,7 +29,7 @@ namespace MentorU.ViewModels
 
         public string Text
         {
-            get => text;
+            get => _item.Text;
             set => SetProperty(ref text, value);
         }
 
@@ -45,13 +45,13 @@ namespace MentorU.ViewModels
 
         public double ItemPrice
         {
-            get => itemPrice;
+            get => _item.Price;
             set => SetProperty(ref itemPrice, value);
         }
 
         public string Description
         {
-            get => description;
+            get => _item.Description;
             set => SetProperty(ref description, value);
         }
 
@@ -59,7 +59,7 @@ namespace MentorU.ViewModels
         {
             get
             {
-                return itemId;
+                return _item.id;
             }
             set
             {
@@ -72,7 +72,7 @@ namespace MentorU.ViewModels
         {
             try
             {
-                var item = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.id == itemId).ToListAsync();
+                var item = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.id == _item.id).ToListAsync();
                 Id = item[0].id;
                 Text = item[0].Text;
                 Description = item[0].Description;

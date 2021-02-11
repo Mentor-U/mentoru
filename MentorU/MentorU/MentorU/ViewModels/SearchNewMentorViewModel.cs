@@ -47,7 +47,7 @@ namespace MentorU.ViewModels
                 Mentors.Clear();
                 if (Filters.Count != 0)
                 {
-                    var temp = await DatabaseService.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
+                    var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
                     foreach (Users m in temp)
                     {
                         if (Filters.Contains(m.Major))
@@ -57,10 +57,10 @@ namespace MentorU.ViewModels
                 }
                 else
                 {
-                    var connections = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
-                    var available = await DatabaseService.client.GetTable<Users>().Where(u => u.Role == "0" ).ToListAsync();
+                    var connections = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    var available = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.Role == "0" ).ToListAsync();
                     var excludedIDs = new HashSet<string>(connections.Select(u => u.MentorID));
-                    var result = available.Where(p => !excludedIDs.Contains(p.id));
+                    var result = available.Where(p => !excludedIDs.Contains(p.id) && p.id != App.loggedUser.id);
 
                     foreach (Users element in result)
                     {

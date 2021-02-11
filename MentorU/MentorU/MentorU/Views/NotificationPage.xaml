@@ -4,7 +4,8 @@
              x:Class="MentorU.Views.NotificationPage"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
-             Title="Notifications">
+             Title="Notifications"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
     <ContentPage.Content>
          <RefreshView x:DataType="local:NotificationViewModel" Command="{Binding LoadPageData}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">

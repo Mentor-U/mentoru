@@ -6,7 +6,8 @@
              mc:Ignorable="d"
              Shell.NavBarIsVisible="False"
              x:Class="MentorU.Views.LoadingPage"
-              Title="{Binding Title}">
+              Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
             <ActivityIndicator Color="Black"

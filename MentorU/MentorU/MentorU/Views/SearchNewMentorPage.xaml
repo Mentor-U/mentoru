@@ -4,7 +4,8 @@
              x:Class="MentorU.Views.SearchNewMentorPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
-             xmlns:model="clr-namespace:MentorU.Models">
+             xmlns:model="clr-namespace:MentorU.Models"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="AssistantU" Command="{Binding OpenAssistU}"/>
@@ -25,7 +26,7 @@
                             <TapGestureRecognizer Command="{Binding FilterCommand}" NumberOfTapsRequired="1"/>
                         </Label.GestureRecognizers>
                     </Label>
-                    <Button Text="Clear" Command="{Binding ClearFilters}" Grid.Column="1" FontSize="Small" BackgroundColor="LightCoral"/>
+                    <Button Text="Clear" Command="{Binding ClearFilters}" Grid.Column="1" TextColor="Black" FontSize="Small" BackgroundColor="LightCoral"/>
                 </Grid>
                 <CollectionView x:Name="MentorList" 
                             ItemsSource="{Binding Mentors}"
@@ -36,7 +37,8 @@
                             <Frame BackgroundColor="LightGray" HasShadow="True">
                                 <Label LineBreakMode="NoWrap" 
                                             Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="16">
+                                            FontSize="16"
+                                            TextColor="Black">
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0}: {1}"> <!-- MAYBE: add profile pic in bindings?-->
                                             <Binding Path="FirstName"/>

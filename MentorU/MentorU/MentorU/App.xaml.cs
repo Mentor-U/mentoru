@@ -1,8 +1,10 @@
-﻿using MentorU.Services;
-using Xamarin.Forms;
-using MentorU.Services.LogOn;
+﻿using Azure.Storage.Blobs;
 using MentorU.Models;
+using MentorU.Services;
+using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
+using MentorU.Services.LogOn;
+using Xamarin.Forms;
 
 namespace MentorU
 {
@@ -18,7 +20,6 @@ namespace MentorU
 
         public static Users loggedUser { get; internal set; }
 
-        // local host testing -> DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089" : "https://localhost:60089";
 
         // FIXME: Pull this lad from the DB
         public static AssistU assistU = new AssistU();
@@ -27,6 +28,14 @@ namespace MentorU
         {
             InitializeComponent();
             InitializeServices();
+
+            Current.UserAppTheme = Current.RequestedTheme;
+
+            // Callback if theme is changed during use of application
+            Current.RequestedThemeChanged += (s, a) =>
+            {
+                Current.UserAppTheme = Current.RequestedTheme;
+            };
 
             MainPage = new AppShell();
         }
@@ -40,6 +49,7 @@ namespace MentorU
         {
             DependencyService.Register<B2CAuthenticationService>();
             DependencyService.Register<DatabaseService>();
+            DependencyService.Register<BlobService>();
         }
 
         protected override void OnStart()

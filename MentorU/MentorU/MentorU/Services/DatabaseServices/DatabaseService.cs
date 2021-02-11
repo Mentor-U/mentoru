@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using MentorU.Models;
 using Microsoft.WindowsAzure.MobileServices;
+using System.Diagnostics;
 
 
 namespace MentorU.Services.DatabaseServices
@@ -9,10 +10,11 @@ namespace MentorU.Services.DatabaseServices
     /// <summary>
     /// Manage the connection to the database
     /// </summary>
-    public  class DatabaseService
+    public class DatabaseService
     {
 
-        public static MobileServiceClient client;
+        public MobileServiceClient client;
+        public ClassList ClassList;
 
         private  static readonly Lazy<DatabaseService> lazy = new Lazy<DatabaseService>
          (() => new DatabaseService());
@@ -22,6 +24,7 @@ namespace MentorU.Services.DatabaseServices
         private DatabaseService()
         {
             client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
+            ClassList = new ClassList();
         }
 
         /// <summary>
@@ -36,10 +39,11 @@ namespace MentorU.Services.DatabaseServices
 
             if(usersList.Count > 0) 
             {
+                // Add the user here to limit he calls to the data base on login in to one
+                // And prevent the user from being overwritten in the DB as it was before
+                App.loggedUser = usersList[0]; 
                 return false;
             }
-
-            await client.GetTable<Users>().InsertAsync(user);
             return true;
             
         }

@@ -15,10 +15,10 @@ namespace MentorU.Views
     public partial class ViewOnlyProfilePage : ContentPage
     {
         ViewOnlyProfileViewModel _vm;
-        public ViewOnlyProfilePage(Users u, bool isConnected)
+        public ViewOnlyProfilePage(Users u, bool isConnected, bool fromNotification=false)
         {
             InitializeComponent();
-            BindingContext = _vm =  new ViewOnlyProfileViewModel(u);
+            BindingContext = _vm =  new ViewOnlyProfileViewModel(u, fromNotification);
             if (isConnected) // Toggles the interactions available to the mentee depending on if they are connected
             {
 
@@ -27,6 +27,13 @@ namespace MentorU.Views
                     Text = "Chat",
                     Command = new Command(_vm.StartChat)
                 };
+                ToolbarItem options = new ToolbarItem
+                {
+                    Text = "Options",
+                    Command = new Command(_vm.OpenOptions)
+                };
+
+                ToolbarItems.Add(options);
                 ToolbarItems.Add(chatButton);
             }
             else
@@ -38,6 +45,12 @@ namespace MentorU.Views
                 };
                 ToolbarItems.Add(requestButton);
             }
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _vm.OnAppearing();
         }
     }
 }

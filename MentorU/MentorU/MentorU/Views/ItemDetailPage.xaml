@@ -2,23 +2,23 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MentorU.Views.ItemDetailPage"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
     <StackLayout Spacing="20" Padding="15">
         <Label Text="{Binding Text}" FontSize="Large"/>
-        <Label Text="Item Picture" FontAttributes="Italic"
-                           HorizontalTextAlignment="Center" 
-                           VerticalTextAlignment="Center" 
-                           BackgroundColor="LightGray" 
-                           Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                           HeightRequest="100"
-                           />
+
+        <Image Source="{Binding ItemImageSource}" 
+                            Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                            Aspect="AspectFit" HeightRequest="300"/>
+        
         <Label Text="{Binding ItemPrice, StringFormat='Item Price = {0:N} $'}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" />
         <Label Text="Description:" FontSize="Medium" />
         <Label Text="{Binding Description}" FontSize="Small"/>
+        
     </StackLayout>
     
 </ContentPage>

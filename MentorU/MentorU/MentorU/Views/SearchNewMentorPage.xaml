@@ -4,14 +4,30 @@
              x:Class="MentorU.Views.SearchNewMentorPage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
-             xmlns:model="clr-namespace:MentorU.Models">
+             xmlns:model="clr-namespace:MentorU.Models"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Filter" Command="{Binding FilterCommand}"/>
+        <ToolbarItem Text="AssistantU" Command="{Binding OpenAssistU}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <RefreshView x:DataType="local:SearchNewMentorViewModel" Command="{Binding LoadMentorsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="70"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Binding ShowFilters, StringFormat='Filters: {0:N}'}" FontAttributes="Bold" FontSize="Medium" VerticalOptions="Center">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding FilterCommand}" NumberOfTapsRequired="1"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                    <Button Text="Clear" Command="{Binding ClearFilters}" Grid.Column="1" TextColor="Black" FontSize="Small" BackgroundColor="LightCoral"/>
+                </Grid>
                 <CollectionView x:Name="MentorList" 
                             ItemsSource="{Binding Mentors}"
                             SelectionMode="None">
@@ -21,7 +37,8 @@
                             <Frame BackgroundColor="LightGray" HasShadow="True">
                                 <Label LineBreakMode="NoWrap" 
                                             Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="16">
+                                            FontSize="16"
+                                            TextColor="Black">
                                     <Label.Text>
                                         <MultiBinding StringFormat="{}{0}: {1}"> <!-- MAYBE: add profile pic in bindings?-->
                                             <Binding Path="FirstName"/>

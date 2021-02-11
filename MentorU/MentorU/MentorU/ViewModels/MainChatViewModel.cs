@@ -1,24 +1,40 @@
 ﻿using MentorU.Models;
-using MentorU.Views;
+using MentorU.Views.ChatViews;
 using System;
 using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using MentorU.Services.DatabaseServices;
 
 namespace MentorU.ViewModels
 {
     public class MainChatViewModel : BaseViewModel
     {
-        //private Users _user;
         public ObservableCollection<Users> Chats { get; }
         public Command LoadChatsCommand { get; }
+        public Command<Users> UserTapped { get; }
+        private bool _noChats;
+        public bool NoChats
+        {
+            get => _noChats;
+            set
+            {
+                _noChats = value;
+                OnPropertyChanged();
+            }
+
+        }
+
         public MainChatViewModel()
         {
             Title = "Chats";
             //_user.FirstName = "Wallace";
             Chats = new ObservableCollection<Users>();
             LoadChatsCommand = new Command(async () => await ExecuteLoadChats());
+            UserTapped = new Command<Users>(OpenChat);
+            NoChats = true;
         }
 
         async Task ExecuteLoadChats()
@@ -27,10 +43,35 @@ namespace MentorU.ViewModels
             try
             {
                 Chats.Clear();
-                Users u1 = new Users { FirstName = "George" };
-                Users u2 = new Users { FirstName = "Steve" };
-                Chats.Add(u1);
-                Chats.Add(u2);
+
+                List<Users> mentor_list = new List<Users>();
+
+                //Adds only mentors that you have connected with
+                if (App.loggedUser.Role == "0")
+                {
+                    List<Connection> cons = await DatabaseService.Instance.client.GetTable<Connection>()
+                        .Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                    foreach (Connection c in cons)
+                    {
+                        List<Users> temp = await DatabaseService.Instance.client.GetTable<Users>()
+                            .Where(u => u.id == c.MenteeID).ToListAsync();
+                        Chats.Add(temp[0]);
+                    }
+                }
+                else
+                {
+                    List<Connection> cons = await DatabaseService.Instance.client.GetTable<Connection>()
+                        .Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    foreach (Connection c in cons)
+                    {
+                        List<Users> temp = await DatabaseService.Instance.client.GetTable<Users>()
+                            .Where(u => u.id == c.MentorID).ToListAsync();
+                        Chats.Add(temp[0]);
+                    }
+                }
+
+                if (Chats.Count > 0)
+                    NoChats = false;
             }
             catch(Exception ex)
             {
@@ -41,6 +82,13 @@ namespace MentorU.ViewModels
                 IsBusy = false;
             }
         }
+
+
+        async void OpenChat(Users ChatRecipient)
+        {
+            await Shell.Current.Navigation.PushAsync(new ChatPage(ChatRecipient));
+        }
+
 
         public void OnAppearing()
         {

@@ -1,39 +1,55 @@
-﻿using MentorU.Services;
-using MentorU.Views;
-using Microsoft.Identity.Client;
-using Microsoft.WindowsAzure.MobileServices;
-using System;
-using System.IO;
+﻿using Azure.Storage.Blobs;
+using MentorU.Models;
+using MentorU.Services;
+using MentorU.Services.Blob;
+using MentorU.Services.DatabaseServices;
+using MentorU.Services.LogOn;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-
 
 namespace MentorU
 {
     public partial class App : Application
     {
+        // Hosted server for in app messaging
+        public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
 
-        public static MobileServiceClient client = new MobileServiceClient("https://mentoruapp.azurewebsites.net");
+        // local host testing:
+        // DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089/messages" : "https://localhost:60089/messages";
 
-        // MSAL Auth with AAD items
-        public static IPublicClientApplication AuthenticationClient { get; private set; }
-        public static object UIParent { get; set; } = null;
+        public static UserContext AADUser { get; internal set; }
+
+        public static Users loggedUser { get; internal set; }
+
+
+        // FIXME: Pull this lad from the DB
+        public static AssistU assistU = new AssistU();
 
         public App()
         {
             InitializeComponent();
+            InitializeServices();
 
-            DependencyService.Register<MockDataStore>();
+            Current.UserAppTheme = Current.RequestedTheme;
 
-            // Set up the auth client for MSAL
-            AuthenticationClient = PublicClientApplicationBuilder.Create(Constants.ClientId)
-                .WithIosKeychainSecurityGroup(Constants.IosKeychainSecurityGroups)
-                .WithB2CAuthority(Constants.AuthoritySignin)
-                .WithRedirectUri($"msal{Constants.ClientId}://auth")
-                .Build();
+            // Callback if theme is changed during use of application
+            Current.RequestedThemeChanged += (s, a) =>
+            {
+                Current.UserAppTheme = Current.RequestedTheme;
+            };
 
-            // Send the user to the login page
-            MainPage = new NavigationPage(new LoginPage());
+            MainPage = new AppShell();
+        }
+
+        /// <summary>
+        ///   Initializes our Identity and Shell Routing services.
+        ///   This is to have a consistant reference across the app to the same service.
+        ///   Its a very similar pattern to the orinigal IDataStore Interface that uses the MockDataStore.cs
+        /// </summary>
+        private void InitializeServices()
+        {
+            DependencyService.Register<B2CAuthenticationService>();
+            DependencyService.Register<DatabaseService>();
+            DependencyService.Register<BlobService>();
         }
 
         protected override void OnStart()

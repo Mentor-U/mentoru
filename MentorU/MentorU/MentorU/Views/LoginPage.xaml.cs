@@ -1,10 +1,8 @@
-﻿using MentorU.ViewModels;
+﻿using MentorU.Models;
+using MentorU.Services.DatabaseServices;
+using MentorU.Services.LogOn;
 using Microsoft.Identity.Client;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,35 +11,11 @@ namespace MentorU.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoginPage : ContentPage
     {
+
         public LoginPage()
         {
             InitializeComponent();
-        }
 
-        protected override async void OnAppearing()
-        {
-            try
-            {
-                // Look for existing account
-                IEnumerable<IAccount> accounts = await App.AuthenticationClient.GetAccountsAsync();
-
-                AuthenticationResult result = await App.AuthenticationClient
-                    .AcquireTokenSilent(Constants.Scopes, accounts.FirstOrDefault())
-                    .ExecuteAsync();
-                if (result != null)
-                {
-                    if (result.Account.Username != "unknown")
-                    {
-                         Application.Current.MainPage = new AppShell(result);
-                    }
-                }
-                       
-            }
-            catch
-            {
-                // Do nothing - the user isn't logged in
-            }
-            base.OnAppearing();
         }
 
         /// <summary>
@@ -51,59 +25,68 @@ namespace MentorU.Views
         /// <param name="e"></param>
         async void OnLoginButtonClicked(object sender, EventArgs e)
         {
-            AuthenticationResult result;
             try
             {
-                // prompt the user to log in or sign up
-                result = await App.AuthenticationClient
-                    .AcquireTokenInteractive(Constants.Scopes)
-                    .WithPrompt(Prompt.SelectAccount)
-                    .WithParentActivityOrWindow(App.UIParent)
-                    .ExecuteAsync();
+                var userContext = await B2CAuthenticationService.Instance.SignInAsync();
+                App.AADUser = userContext;
 
-                if (result != null)
+                Users tempUser = new Users
                 {
-                    if (result.Account.Username != "unknown")
-                    {
-                        // user is authenticated, their informations stored in result and passed to the app shell for general availability
-                        Application.Current.MainPage = new AppShell(result);
-                    }
+                    id = userContext.UserIdentifier,
+                    FirstName = userContext.GivenName,
+                    LastName = userContext.FamilyName,
+                    DisplayName = userContext.Name,
+                    Email = userContext.EmailAddress,
+                };
+
+                App.loggedUser = tempUser;
+
+                bool isNew = await DatabaseService.Instance.tryCreateAccount(tempUser);
+
+                if (isNew)
+                {
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new NewProfileView());
                 }
+                else
+                {
+                    await Shell.Current.GoToAsync("///Home");
+                }
+
             }
-            catch (MsalException ex)
+            catch (Exception ex)
             {
-                if (ex.Message != null && ex.Message.Contains("AADB2C90118"))
-                {
-                    result = await OnForgotPassword();
-                    await Navigation.PushAsync(new LogoutPage(result));
-                }
-                else if (ex.ErrorCode != "authentication_canceled")
-                {
-                    await DisplayAlert("An error has occurred", "Exception message: " + ex.Message, "Dismiss");
-                }
+                // Checking the exception message 
+                // should ONLY be done for B2C
+                // reset and not any other error.
+                if (ex.Message.Contains("AADB2C90118"))
+                    OnPasswordReset();
+                // Alert if any exception excluding user canceling sign-in dialog
+                else if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
+                    await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
             }
+
         }
 
-        /// <summary>
-        /// Sends request out to MSAL to reset password
-        /// </summary>
-        /// <returns></returns>
-        async Task<AuthenticationResult> OnForgotPassword()
+
+        private void OnPasswordReset()
         {
-            try
-            {
-                return await App.AuthenticationClient
-                    .AcquireTokenInteractive(Constants.Scopes)
-                    .WithPrompt(Prompt.SelectAccount)
-                    .WithParentActivityOrWindow(App.UIParent)
-                    .WithB2CAuthority(Constants.AuthorityPasswordReset)
-                    .ExecuteAsync();
-            }
-            catch (MsalException)
-            {
-                // Do nothing - ErrorCode will be displayed in OnLoginButtonClicked
-                return null;
-            }
+            throw new NotImplementedException();
+
+            //try
+            //{
+            //    var userContext = await B2CAuthenticationService.Instance.ResetPasswordAsync();
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Alert if any exception excluding user canceling sign-in dialog
+            //    if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
+            //        await DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
+            //}
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            return true;
         }
     }
 }

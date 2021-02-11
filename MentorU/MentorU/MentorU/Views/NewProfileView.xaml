@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.NewProfileView"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+    <ContentPage.Content>
+        <RefreshView Command="{Binding LoadPageCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <ScrollView>
+                <StackLayout Margin="20" Spacing="20">
+                    <Label Text="Lets Get Started" TextDecorations="Underline" HorizontalTextAlignment="Center" FontSize="Title"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Text="Mentee" Command="{Binding isMentee}" BackgroundColor="{Binding SelectedMentee}" Grid.Column="0" MinimumWidthRequest="100" HorizontalOptions="EndAndExpand"/>
+                        <Button Text="Mentor" Command="{Binding isMentor}" BackgroundColor="{Binding SelectedMentor}" Grid.Column="1" MinimumWidthRequest="100" HorizontalOptions="StartAndExpand"/>
+                    </Grid>
+                    <Editor Text="{Binding Name, Mode=TwoWay}"  Placeholder="Name"/>
+                    <Editor  Text="{Binding Major, Mode=TwoWay}"  Placeholder="Major/Field"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+                        <Picker ItemsSource="{Binding AllDepartments}"
+                                SelectedItem="{Binding Department, Mode=TwoWay}"
+                                HorizontalTextAlignment="Center"
+                                FontSize="Micro"
+                                FontAttributes="Bold"
+                                Grid.Column="0"
+                                TextColor="Black"
+                                BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                                IsVisible="{Binding MenteeView, Mode=TwoWay}"/>
+                        <Editor Text="{Binding NewClass}" TextColor="Black"
+                                PlaceholderColor="DarkGray" Placeholder="Course"
+                                MaxLength="4" Grid.Column="1"
+                                BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                                IsVisible="{Binding MenteeView, Mode=TwoWay}"/>
+                        <Editor Text="{Binding NewClass}" TextColor="Black"
+                                PlaceholderColor="DarkGray" Placeholder="Skills"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                                IsVisible="{Binding MentorView, Mode=TwoWay}"/>
+                        <Button Text="Add" Command="{Binding AddClassCommand}" Grid.Column="2" FontSize="Micro" BackgroundColor="LightCoral"/>
+                    </Grid>
+                    <ScrollView HeightRequest="100">
+                        <CollectionView ItemsSource="{Binding Classes}"
+                                    SelectionMode="Single"
+                                    SelectionChangedCommand="{Binding RemoveClassCommand}"
+                                    SelectedItem="{Binding OldClass, Mode=TwoWay}"/>
+                    </ScrollView>
+                    <Label Text="Bio:" FontSize="Medium" 
+                        TextDecorations="Underline"/>
+                    <Editor Text="{Binding Bio, Mode=TwoWay}"
+                        MaxLength="200"
+                        Keyboard="Chat"
+                        TextColor="Black"
+                        BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                        Placeholder="About me"
+                        PlaceholderColor="Gray"
+                        VerticalOptions="FillAndExpand"/>
+                    <Button Text="Add New Profile Picture From Gallery"
+                       Command="{Binding AddProfilePictureCommand}"
+                       TextColor="Black"
+                       FontAttributes="Italic"
+                       BackgroundColor="LightGray"/>
+                    <Button Text="Done" Command="{Binding DoneCommand}" BackgroundColor="Green"/>
+                </StackLayout>
+            </ScrollView>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>
+

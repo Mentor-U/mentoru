@@ -1,28 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using SQLite;
+﻿using SQLite;
 
 namespace MentorU.Models
 {
+    /// <summary>
+    /// Represents a user as far as our application/database is concerned
+    /// </summary>
     public class Users
     {
+        // Database primary key, we could use the "Useridentifier" from Azure
         [PrimaryKey]
         public string id { get; set; }
+
+        // AAD "Given Name"
         public string FirstName { get; set; }
+
+        // AAD "Surname"
         public string LastName { get; set; }
+
+        // AAD "Display Name"
+        public string DisplayName { get; set; }
+
         public string Email { get; set; }
-        public string Password { get; set; }
 
         //0 - mentor 1 - mentee 2 - mentor/mentee
-        public int Role { get; set; }
+        public string Role { get; set; }
 
-        // Move to profiles eventually
         public string Major { get; set; }
+       
         public string Bio { get; set; }
-
-        //public List<string> Classes { get; set; }
 
     }
 }

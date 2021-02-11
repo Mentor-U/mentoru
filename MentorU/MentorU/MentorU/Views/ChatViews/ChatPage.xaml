@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.ChatViews.ChatPage"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             xmlns:model="clr-namespace:MentorU.Models"
+             Title="{Binding Title}">
+
+    <ContentPage.Content>
+        <RefreshView x:DataType="local:ChatViewModel" Command="{Binding LoadPageData}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding MessageList}" FlowDirection="LeftToRight" VerticalOptions="End" HasUnevenRows="True" SeparatorVisibility="None">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Grid>
+                                            <!-- LHS messages -->
+                                            <Grid x:DataType="model:Message" IsVisible="{Binding Theirs}" HorizontalOptions="Start">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="0" x:DataType="model:Message">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGray"/>
+                                                    <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center"/>
+                                                </Grid>
+                                            </Grid>
+                                             <!-- RHS messages -->
+                                            <Grid x:DataType="model:Message" IsVisible="{Binding Mine}" HorizontalOptions="End">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid Grid.Column="1" x:DataType="model:Message" >
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto"/>
+                                                    </Grid.RowDefinitions>
+                                                    <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="MediumBlue"/>
+                                                    <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center"/>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                </ScrollView>
+                <Editor Placeholder="Message" Grid.Row="1" Keyboard="Chat" Grid.Column="0" Text="{Binding TextDraft}" AutoSize="TextChanges"/>
+                <Button Text="Send" Grid.Row="1" Grid.Column="1" WidthRequest="70" Command="{Binding OnSendCommand}"/>
+            </Grid>
+        </RefreshView>
+    </ContentPage.Content>
+</ContentPage>

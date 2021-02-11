@@ -1,8 +1,10 @@
-﻿using MentorU.Models;
+﻿using Azure.Storage.Blobs;
+using MentorU.Models;
+using MentorU.Services;
+using MentorU.Services.Blob;
+using MentorU.Services.DatabaseServices;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
+using System.IO;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
@@ -13,12 +15,41 @@ namespace MentorU.ViewModels
         private string description;
         private Double itemPrice;
 
+        public Command AddItemPictureCommand { get; set; }
+        private string itemImageFilePath;
+        private ImageSource _firstItemImage;
+
         public NewItemViewModel()
         {
+            AddItemPictureCommand = new Command(AddPicture);
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
+        }
+
+        public ImageSource ItemFirstImage
+        {
+            get => _firstItemImage;
+            set
+            {
+                _firstItemImage = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private async void AddPicture()
+        {
+
+            Stream itemImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+            if (itemImageStream != null)
+            {
+                string fileName = "temp-market-image";
+                itemImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, itemImageStream);
+
+                ItemFirstImage = itemImageFilePath;
+            }
+
         }
 
         private bool ValidateSave()
@@ -56,15 +87,31 @@ namespace MentorU.ViewModels
 
         private async void OnSave()
         {
-            MarketplaceItem newItem = new MarketplaceItem()
+            Items newItem = new Items()
             {
-                Id = Guid.NewGuid().ToString(),
                 Text = Text,
                 Description = Description,
-                ItemPrice = ItemPrice
+                Price = ItemPrice,
+                Owner = App.loggedUser.id
             };
 
-            await DataStore.AddItemAsync(newItem);
+            await DatabaseService.Instance.client.GetTable<Items>().InsertAsync(newItem);
+
+            string containeritemid = newItem.id;
+
+
+            BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient(containeritemid);
+            await containerClient.CreateIfNotExistsAsync();
+
+            string fileName = "Image0";
+
+            //deletes the blob file if it exists and uploads an image
+            await BlobService.Instance.TryUploadImage(containerClient, fileName, itemImageFilePath);
+
+
+            File.Delete(itemImageFilePath);
+
+            await Application.Current.MainPage.DisplayAlert("Success", "Item Added", "Ok");
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

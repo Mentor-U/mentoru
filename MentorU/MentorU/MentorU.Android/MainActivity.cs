@@ -29,7 +29,7 @@ namespace MentorU.Droid
 
             base.OnCreate(savedInstanceState);
 
-            
+            Rg.Plugins.Popup.Popup.Init(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
@@ -73,6 +73,21 @@ namespace MentorU.Droid
             {
                 AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(requestCode, resultCode, data);
             }
+        }
+
+
+        /// <summary>
+        /// Overriding the back button on Android to handle the custom popup
+        /// interactions correctly.
+        /// </summary>
+        public override void OnBackPressed()
+        {
+            if (Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed))
+            {
+                Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAllAsync();
+            }
+            else
+                App.Current.MainPage.Navigation.PopToRootAsync();
         }
     }
 }

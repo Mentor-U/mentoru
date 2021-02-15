@@ -26,6 +26,8 @@ namespace MentorU.iOS
 
             LoadApplication(new App());
 
+            Rg.Plugins.Popup.Popup.Init();
+
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 
             //AppCenter.Start("fb0078a5-c257-43b7-b61d-735790293192",
@@ -49,4 +51,6 @@ namespace MentorU.iOS
         }
 
     }
+
+
 }

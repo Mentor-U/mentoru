@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using MentorU.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Microsoft.Extensions.Caching.Memory;
+using System.Diagnostics;
 
 namespace MentorU.Views
 {
@@ -17,6 +19,7 @@ namespace MentorU.Views
         {
             InitializeComponent();
             BindingContext = _viewModel = new ProfileViewModel();
+
         }
 
         protected override async void OnAppearing()

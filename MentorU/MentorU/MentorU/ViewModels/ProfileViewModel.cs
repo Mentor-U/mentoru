@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MentorU.ViewModels
 {
@@ -80,7 +81,7 @@ namespace MentorU.ViewModels
          */
         public ProfileViewModel()
         {
-
+            IsBusy = true;
             if(App.loggedUser.Role == "0")
             {
                 isMentor = true;
@@ -121,7 +122,6 @@ namespace MentorU.ViewModels
         /// <returns></returns>
         protected async Task ExecuteLoad() 
         {
-            IsBusy = true;
             try
             {
                 Mentors.Clear(); // mentor list
@@ -210,7 +210,6 @@ namespace MentorU.ViewModels
 
         public async Task OnAppearing()
         {
-            IsBusy = true;
             //containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient();
             //await GetProfileImage();
             ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);

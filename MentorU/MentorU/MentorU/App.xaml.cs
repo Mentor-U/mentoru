@@ -5,6 +5,7 @@ using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
 using MentorU.Services.LogOn;
 using Xamarin.Forms;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MentorU
 {
@@ -24,6 +25,8 @@ namespace MentorU
         // FIXME: Pull this lad from the DB
         public static AssistU assistU = new AssistU();
 
+        public static IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions() { });
+        
         public App()
         {
             InitializeComponent();

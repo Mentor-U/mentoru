@@ -20,5 +20,11 @@ namespace MentorU.Views.ChatViews
             base.OnAppearing();
             _vm.OnAppearing();
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _ = _vm.Disconnect();
+        }
     }
 }

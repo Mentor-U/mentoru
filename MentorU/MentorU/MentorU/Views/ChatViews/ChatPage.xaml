@@ -5,7 +5,9 @@
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
              Title="{Binding Title}">
-
+    <!--<Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding DisconnectChat}"/>
+    </Shell.BackButtonBehavior>-->
     <ContentPage.Content>
         <RefreshView x:DataType="local:ChatViewModel" Command="{Binding LoadPageData}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <Grid>
@@ -17,7 +19,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
+                <ScrollView Grid.Row="0" Grid.ColumnSpan="2" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>

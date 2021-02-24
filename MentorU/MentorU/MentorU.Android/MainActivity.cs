@@ -9,7 +9,6 @@ using MentorU.Services.LogOn;
 using Plugin.CurrentActivity;
 using System.Threading.Tasks;
 using System.IO;
-using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace MentorU.Droid
 {
@@ -34,13 +33,10 @@ namespace MentorU.Droid
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             Forms.Init(this, savedInstanceState);
-     
+
             CurrentPlatform.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
             LoadApplication(new App());
-
-            // Keyboard visibility adjustment
-            App.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
         }
 
         // Field, property, and method for Picture Picker

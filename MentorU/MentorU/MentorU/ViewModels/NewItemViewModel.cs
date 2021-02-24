@@ -6,6 +6,7 @@ using MentorU.Services.DatabaseServices;
 using System;
 using System.IO;
 using Xamarin.Forms;
+using System.Collections.Generic;
 
 namespace MentorU.ViewModels
 {
@@ -26,6 +27,8 @@ namespace MentorU.ViewModels
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
+            AllDepartments = new List<string>(DatabaseService.Instance.ClassList.classList);
+            Department = AllDepartments[0];
         }
 
         public ImageSource ItemFirstImage
@@ -76,6 +79,32 @@ namespace MentorU.ViewModels
             set => SetProperty(ref description, value);
         }
 
+
+        public List<string> AllDepartments { get; set; }
+
+        private string _department;
+        public string Department
+        {
+            get => _department;
+            set
+            {
+                _department = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _classNumber;
+        public string ClassNumber
+        {
+            get => _classNumber;
+            set
+            {
+                _classNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
 
@@ -94,6 +123,7 @@ namespace MentorU.ViewModels
                 Price = ItemPrice,
                 Owner = App.loggedUser.id
             };
+            //TODO: added the class it was used for here
 
             await DatabaseService.Instance.client.GetTable<Items>().InsertAsync(newItem);
 

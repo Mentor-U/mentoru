@@ -78,7 +78,8 @@
                                 <Frame BackgroundColor="LightGray" HasShadow="False">
                                     <Label LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
-                                                FontSize="16">
+                                                FontSize="16"
+                                                TextColor="Black">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0}: ${1}">
                                                 <Binding Path="Text"/>

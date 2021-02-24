@@ -2,6 +2,7 @@
 using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
+using Xamarin;
 
 namespace MentorU.iOS
 {
@@ -22,7 +23,11 @@ namespace MentorU.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
+           
             CurrentPlatform.Init();
+
+            // Shifts UI elements to make room for the keyboard
+            IQKeyboardManager.SharedManager.Enable = true;
 
             LoadApplication(new App());
 

@@ -6,6 +6,7 @@ using MentorU.Services.DatabaseServices;
 using MentorU.Services.LogOn;
 using Xamarin.Forms;
 using Microsoft.Extensions.Caching.Memory;
+using Xamarin.Essentials;
 
 namespace MentorU
 {
@@ -15,7 +16,8 @@ namespace MentorU
         public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
 
         // local host testing:
-        // DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089/messages" : "https://localhost:60089/messages";
+        //public static string SignalRBackendUrl =
+        //    DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089/messages" : "https://localhost:60089/messages";
 
         public static UserContext AADUser { get; internal set; }
 

@@ -98,12 +98,7 @@ namespace MentorU.ViewModels
         {
             //IsBusy = true;
             try
-            {
-                // TODO: only load if database has recognized changes
-                // Determine caching scheme?
-
-                // Load message history from database
-                
+            {   
                 object his;
                 List<Messages> history;
                 if (App._cache.TryGetValue(_groupName, out his))
@@ -126,12 +121,7 @@ namespace MentorU.ViewModels
                             Theirs = m.UserID == _recipient.id ? true : false
                         });
                     }
-                    //var entry = App._cache.CreateEntry(_groupName);
-                    //entry.Value = history;
                     App._cache.Set(_groupName, MessageList, new TimeSpan(0,2,0));
-                    //entry.AbsoluteExpirationRelativeToNow = new TimeSpan(0, 0, 10, 0, 0);
-                    Debug.WriteLine(App._cache.TryGetValue(_groupName, out his));
-                    Debug.WriteLine("Put into cache");
                 }
                 
             }

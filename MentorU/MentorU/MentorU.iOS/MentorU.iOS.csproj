@@ -193,4 +193,9 @@
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpg" />
   </ItemGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties TriggeredFromHotReload="False" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

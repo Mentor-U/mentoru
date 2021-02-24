@@ -106,14 +106,14 @@
     <FlyoutItem Route="Home"  Title="Home" Icon="Home.png">
         <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Marketplace" Icon="marketplace.png">
-        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
-    </FlyoutItem>
     <FlyoutItem Title="Profile" Icon="blank_profile.png">
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}"/>
     </FlyoutItem>
     <FlyoutItem Title="Chat" Icon="chat.png">
         <ShellContent Route="MainChatPage" ContentTemplate="{DataTemplate local:MainChatPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Marketplace" Icon="marketplace.png">
+        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Find New Mentors" Icon="search.png">
         <ShellContent Route="SearchNewMentorsPage" ContentTemplate="{DataTemplate local:SearchNewMentorPage}"/>

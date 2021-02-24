@@ -7,41 +7,44 @@
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     
     <ContentPage.Content>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
            
-            <Image Source="Logo" Grid.Row="0" Grid.ColumnSpan="2"
-                   HorizontalOptions="CenterAndExpand"
-                   Scale="2"/>
+                <Image Source="Logo.png" Grid.Row="0" Grid.ColumnSpan="2"
+                       HorizontalOptions="CenterAndExpand"
+                       Scale="2"/>
 
-            <Image Source="{Binding ProfileImage}"
-                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
-                       Aspect="AspectFill"/>
+                <Image Source="{Binding ProfileImage}"
+                           Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
+                           Aspect="AspectFill"/>
             
-            <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
-                   Grid.Column="1" Grid.Row="1"/>
-            <Label Text="{Binding Field, StringFormat='Field: {0:N}'}"
-                   Grid.Column="1" Grid.Row="2"/>
-            <Label Text="Skills:" 
-                   Grid.Column="1" Grid.Row="3"/>
-            <Label Text="Bio:" FontAttributes="Bold" TextDecorations="Underline"
-                   Grid.Column="0" Grid.Row="4"/>
-            <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
-            <Button Text="Decline" Command="{Binding DeclineCommand}" BackgroundColor="Red" IsVisible="{Binding FromNotification}" Grid.Column="0" Grid.Row="6"/>
-            <Button Text="Accept" Command="{Binding AcceptCommand}" BackgroundColor="Green" IsVisible="{Binding FromNotification}" Grid.Column="1" Grid.Row="6"/>
-        </Grid>
+                <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
+                       Grid.Column="1" Grid.Row="1"/>
+                <Label Text="{Binding Field, StringFormat='Field: {0:N}'}"
+                       Grid.Column="1" Grid.Row="2"/>
+                <Label Text="{Binding Role}" 
+                       Grid.Column="1" Grid.Row="3"/>
+                <CollectionView ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
+                <Label Text="Bio:" FontAttributes="Bold" TextDecorations="Underline"
+                       Grid.Column="0" Grid.Row="5"/>
+                <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
+                <Button Text="Decline" Command="{Binding DeclineCommand}" BackgroundColor="Red" IsVisible="{Binding FromNotification}" Grid.Column="0" Grid.Row="6"/>
+                <Button Text="Accept" Command="{Binding AcceptCommand}" BackgroundColor="Green" IsVisible="{Binding FromNotification}" Grid.Column="1" Grid.Row="6"/>
+            </Grid>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Collections.ObjectModel;
 
 namespace MentorU.ViewModels
 {
@@ -33,6 +34,9 @@ namespace MentorU.ViewModels
             }
         }
 
+        public ObservableCollection<string> Classes { get; set; }
+        public string Role { get; set; }
+
         public bool FromNotification { get; set; }
 
         public Command AcceptCommand {get; set;}
@@ -45,11 +49,26 @@ namespace MentorU.ViewModels
             Field = _user.Major;
             Bio = _user.Bio;
             FromNotification = fromNotification;
+            Role = _user.Role == "0" ? "Skills:" : "Classes:";
+
+            Classes = new ObservableCollection<string>();
+            LoadData();
 
             AcceptCommand = new Command(async () => await Accept());
             DeclineCommand = new Command(async () => await Decline());
         }
 
+        async void LoadData()
+        {
+            List<Classes> c = await DatabaseService.Instance.client.GetTable<Classes>()
+                .Where(u => u.UserId == _user.id)
+                .ToListAsync();
+
+            foreach (Classes val in c)
+            {
+                Classes.Add("\t"+val.ClassName);
+            }
+        }
 
         /** ------------------------------------------------------
         * Below is the view for users that have not connected 

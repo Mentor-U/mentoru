@@ -93,7 +93,7 @@ namespace MentorU.ViewModels
                 isMentee = true;
             }
 
-            Name = App.loggedUser.FirstName + " " + App.loggedUser.LastName;
+            Name = App.loggedUser.FirstName;
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
 
@@ -162,7 +162,7 @@ namespace MentorU.ViewModels
                 List<Classes> c = await DatabaseService.Instance.client.GetTable<Classes>().Where(u => u.UserId == App.loggedUser.id).ToListAsync();
                 foreach(Classes val in c)
                 {
-                    Classes.Add(val.ClassName);
+                    Classes.Add("\t" + val.ClassName);
                 }
 
                 //Load all marketplace items

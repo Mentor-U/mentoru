@@ -10,6 +10,7 @@ using Plugin.CurrentActivity;
 using System.Threading.Tasks;
 using System.IO;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+using ImageCircle.Forms.Plugin.Droid;
 
 namespace MentorU.Droid
 {
@@ -37,6 +38,9 @@ namespace MentorU.Droid
      
             CurrentPlatform.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer: true);
+
+            ImageCircleRenderer.Init();
+
             LoadApplication(new App());
 
             // Keyboard visibility adjustment

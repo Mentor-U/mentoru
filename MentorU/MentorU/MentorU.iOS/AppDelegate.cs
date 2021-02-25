@@ -1,4 +1,5 @@
 ﻿using Foundation;
+using ImageCircle.Forms.Plugin.iOS;
 using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
@@ -32,7 +33,7 @@ namespace MentorU.iOS
             LoadApplication(new App());
 
             Rg.Plugins.Popup.Popup.Init();
-
+            ImageCircleRenderer.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 
             //AppCenter.Start("fb0078a5-c257-43b7-b61d-735790293192",

@@ -13,7 +13,7 @@ namespace MentorU
     public partial class App : Application
     {
         // Hosted server for in app messaging
-        public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
+        public static string SignalRBackendUrl = "https://mentorusignalrserver.azurewebsites.net/messages";
 
         // local host testing:
         //public static string SignalRBackendUrl =

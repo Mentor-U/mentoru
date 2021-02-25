@@ -4,7 +4,9 @@
              x:Class="MentorU.Views.ProfilePage"
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
-             xmlns:model="clr-namespace:MentorU.Models" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:model="clr-namespace:MentorU.Models"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Name="profilePage"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
@@ -34,9 +36,8 @@
                        HorizontalOptions="CenterAndExpand"
                        Scale="2"/>
 
-                <Image Source="{Binding ProfileImage}"
-                       Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
-                       Aspect="AspectFill"/>
+                <abstractions:CircleImage Source="{Binding ProfileImage}"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Aspect="AspectFill"/>
+                
 
                 <!--<ffimageloading:CachedImage LoadingPlaceholder="placeholder.jpg" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
 			        DownsampleToViewSize="true"
@@ -44,7 +45,7 @@
                                              >   
                 </ffimageloading:CachedImage>-->
 
-                <Label Text="{Binding Name, StringFormat='Name: {0:N}'}" 
+                <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Large"
                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
                 <Label  IsVisible="{Binding isMentee}" Text="{Binding Major, StringFormat='Major: {0:N}'}" 
                         Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
@@ -54,12 +55,12 @@
                 <Label IsVisible="{Binding isMentor}" Text ="Skills:" Grid.Column="1" Grid.Row="3"/>
                 <CollectionView IsVisible="{Binding isMentee}" ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
                 <CollectionView IsVisible="{Binding isMentor}" ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
-                <Label Text="Bio:" FontSize="Medium" 
+                <Label Text="About Me" FontSize="Medium" 
                        Grid.Column="0" Grid.Row="5" 
                        FontAttributes="Bold"
                        TextDecorations="Underline"
                        LineBreakMode="WordWrap"/>
-                <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"/>
+                <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="10"/>
                 <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
                 <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
                 <CollectionView x:Name="MentorListView"

@@ -162,7 +162,7 @@ namespace MentorU.ViewModels
                 List<Classes> c = await DatabaseService.Instance.client.GetTable<Classes>().Where(u => u.UserId == App.loggedUser.id).ToListAsync();
                 foreach(Classes val in c)
                 {
-                    Classes.Add("\t" + val.ClassName);
+                    Classes.Add(val.ClassName);
                 }
 
                 //Load all marketplace items

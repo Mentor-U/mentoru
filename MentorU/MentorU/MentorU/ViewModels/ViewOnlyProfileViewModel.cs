@@ -66,7 +66,7 @@ namespace MentorU.ViewModels
 
             foreach (Classes val in c)
             {
-                Classes.Add("\t"+val.ClassName);
+                Classes.Add(val.ClassName);
             }
         }
 

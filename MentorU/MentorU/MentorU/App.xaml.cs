@@ -12,7 +12,7 @@ namespace MentorU
     public partial class App : Application
     {
         // Hosted server for in app messaging
-        public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
+        public static string SignalRBackendUrl = "https://mentorusignalrserver.azurewebsites.net/messages";
 
         // local host testing:
         // DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089/messages" : "https://localhost:60089/messages";

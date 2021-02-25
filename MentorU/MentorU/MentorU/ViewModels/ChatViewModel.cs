@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿using MentorU.Models;
 using System;
 using System.Collections.ObjectModel;
@@ -28,6 +29,39 @@ namespace MentorU.ViewModels
 
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
+=======
+﻿using MentorU.Models;
+using System;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+using Xamarin.Essentials;
+using Microsoft.AspNetCore.SignalR.Client;
+using System.Text;
+using MentorU.Services.DatabaseServices;
+using Microsoft.Extensions.Caching.Memory;
+using System.Net.Http;
+
+namespace MentorU.ViewModels
+{
+    public class ChatViewModel : BaseViewModel
+    {
+        private string _textDraft;
+        private Users _recipient;
+        private ObservableCollection<Message> _messageList;
+        
+        public ObservableCollection<Message> MessageList { get => _messageList; set { _messageList = value; OnPropertyChanged(); } }
+        public string TextDraft { get => _textDraft; set { _textDraft = value; OnPropertyChanged(); } }
+        public Command OnSendCommand { get; set; }
+        public Command LoadPageData { get; set; }
+        public Command ConnectChat { get; set; }
+        public Command DisconnectChat { get; set; }
+
+        private HubConnection hubConnection;
+        private bool hubIsConnected = false;
+>>>>>>> Stashed changes
         private string _groupName;
 
         public ChatViewModel(Users ChatRecipient)
@@ -91,6 +125,7 @@ namespace MentorU.ViewModels
         {
             await hubConnection.InvokeAsync("RemoveFromGroup", _groupName);
             hubIsConnected = false;
+<<<<<<< Updated upstream
         }
 
 
@@ -106,6 +141,18 @@ namespace MentorU.ViewModels
                 
                 object his;
                 List<Messages> history;
+=======
+        }
+
+
+        async Task ExecuteLoadPageData()
+        {
+            //IsBusy = true;
+            try
+            {   
+                object his;
+                List<Messages> history;
+>>>>>>> Stashed changes
                 if (App._cache.TryGetValue(_groupName, out his))
                 {
                     MessageList = (ObservableCollection<Message>)his;
@@ -129,9 +176,33 @@ namespace MentorU.ViewModels
                     //var entry = App._cache.CreateEntry(_groupName);
                     //entry.Value = history;
                     App._cache.Set(_groupName, MessageList, new TimeSpan(0,2,0));
+<<<<<<< Updated upstream
                     //entry.AbsoluteExpirationRelativeToNow = new TimeSpan(0, 0, 10, 0, 0);
                     Debug.WriteLine(App._cache.TryGetValue(_groupName, out his));
                     Debug.WriteLine("Put into cache");
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+
+        async Task ExecuteSend()
+        {
+            try
+            {
+                if (!hubIsConnected)
+                {
+                    await Connect();
+=======
+>>>>>>> Stashed changes
                 }
                 
             }

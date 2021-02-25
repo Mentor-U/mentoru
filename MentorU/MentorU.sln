@@ -7,9 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentorU.Android", "MentorU\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentorU.iOS", "MentorU\MentorU.iOS\MentorU.iOS.csproj", "{8B3196EB-B786-4AEB-AD9E-F3722CF00937}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MentorU", "MentorU\MentorU\MentorU.csproj", "{A30CB97D-C844-438F-8FCE-B0403D318999}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MentorU", "MentorU\MentorU\MentorU.csproj", "{A30CB97D-C844-438F-8FCE-B0403D318999}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRServer", "SignalRServer\SignalRServer.csproj", "{0B0D67A3-A4F3-4332-A6F1-1CD8E425B800}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SignalRServer", "SignalRServer\SignalRServer.csproj", "{0B0D67A3-A4F3-4332-A6F1-1CD8E425B800}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreBot", "..\..\..\..\Desktop\AssistU\CoreBot.csproj", "{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,18 @@ Global
 		{0B0D67A3-A4F3-4332-A6F1-1CD8E425B800}.Release|iPhone.Build.0 = Release|Any CPU
 		{0B0D67A3-A4F3-4332-A6F1-1CD8E425B800}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{0B0D67A3-A4F3-4332-A6F1-1CD8E425B800}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Release|iPhone.Build.0 = Release|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{3852D4F2-A8FD-4931-B0D8-33E5419BC5C3}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

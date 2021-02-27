@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              Shell.NavBarIsVisible="False"
-             x:Class="MentorU.Views.LoadingPage"
+             x:Class="MentorU.Views.ActivityWaitPage"
               Title="{Binding Title}"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <ContentPage.Content>
@@ -13,7 +13,7 @@
             <ActivityIndicator Color="Gray"
                                IsRunning="True"
                                IsVisible="True" />
-            <Label Text="Loading ..." />
+            <Label Text="Working on it..." />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

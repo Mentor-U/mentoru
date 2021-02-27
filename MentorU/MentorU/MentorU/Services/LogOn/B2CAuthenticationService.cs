@@ -97,11 +97,13 @@ namespace MentorU.Services.LogOn
 
         public async Task<UserContext> SignInInteractively()
         {
+         
             AuthenticationResult authResult = await _pca.AcquireTokenInteractive(B2CConstants.Scopes)
-                .ExecuteAsync();
+            .ExecuteAsync();
 
             var newContext = UpdateUserInfo(authResult);
             return newContext;
+          
         }
 
         public async Task<UserContext> SignOutAsync()

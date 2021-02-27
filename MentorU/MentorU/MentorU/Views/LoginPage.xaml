@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="MentorU.Views.LoginPage"
              Shell.NavBarIsVisible="False"
+             NavigationPage.HasBackButton="False"
               Title="{Binding Title}"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">

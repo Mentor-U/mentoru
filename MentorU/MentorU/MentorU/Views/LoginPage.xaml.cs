@@ -15,9 +15,9 @@ namespace MentorU.Views
         LoginViewModel _viewModel;
         public LoginPage()
         {
+            NavigationPage.SetHasBackButton(this, false);
             InitializeComponent();
             BindingContext = _viewModel = new LoginViewModel();
-
         }
 
         protected override bool OnBackButtonPressed()

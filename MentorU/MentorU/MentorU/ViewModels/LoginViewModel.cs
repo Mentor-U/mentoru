@@ -23,6 +23,7 @@ namespace MentorU.ViewModels
         /// <param name="e"></param>
         public async Task<bool> OnLoginButtonClicked()
         {
+            await Shell.Current.GoToAsync("ActivityWaitPage");
             try
             {
                 var userContext = await B2CAuthenticationService.Instance.SignInInteractively();
@@ -64,7 +65,16 @@ namespace MentorU.ViewModels
                     //OnPasswordReset();
                 // Alert if any exception excluding user canceling sign-in dialog
                 else if (((ex as MsalException)?.ErrorCode != "authentication_canceled"))
-                    await AppShell.Current.DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
+                {
+                    await Shell.Current.DisplayAlert($"Exception:", ex.ToString(), "Dismiss");
+                   
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync("///Login");
+                }
+              
+
             }
             return false;
 

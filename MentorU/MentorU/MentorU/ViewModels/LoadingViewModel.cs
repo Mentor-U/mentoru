@@ -13,6 +13,7 @@ namespace MentorU.ViewModels
 
         public LoadingViewModel()
         {
+
         }
 
         // Called by the views OnAppearing method

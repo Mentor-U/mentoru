@@ -98,10 +98,14 @@
         <ShellContent ContentTemplate="{DataTemplate local:LoadingPage}" />
     </ShellItem>
 
-    <!-- Login and Registration Page -->
+    <ShellItem Route="ActivityWaitPage">
+        <ShellContent ContentTemplate="{DataTemplate local:ActivityWaitPage}" />
+    </ShellItem>
+
     <ShellContent Route="Login"
                   ContentTemplate="{DataTemplate local:LoginPage}">
     </ShellContent>
+
 
     <FlyoutItem Route="Home"  Title="Home" Icon="Home.png">
         <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
@@ -137,6 +141,7 @@
     <!--<TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>-->
+
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.

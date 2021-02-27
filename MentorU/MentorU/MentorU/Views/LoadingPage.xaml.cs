@@ -12,7 +12,7 @@ namespace MentorU.Views
         public LoadingPage()
         {
             InitializeComponent();
-            _viewModel = new LoadingViewModel();
+            BindingContext =_viewModel = new LoadingViewModel();
         }
 
         protected override async void OnAppearing()

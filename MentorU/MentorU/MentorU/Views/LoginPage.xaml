@@ -6,8 +6,9 @@
              mc:Ignorable="d"
              x:Class="MentorU.Views.LoginPage"
              Shell.NavBarIsVisible="False"
+              Title="{Binding Title}"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-        <Button x:Name="loginButton" Text="Login" Clicked="OnLoginButtonClicked" />
+        <Button x:Name="loginButton" Text="Login" Clicked="loginButton_Clicked" />
     </StackLayout>
 </ContentPage>

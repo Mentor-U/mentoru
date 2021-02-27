@@ -58,25 +58,25 @@ namespace MentorU.ViewModels
 
             // Receiving messages callback
             hubConnection.On<string, string>("ReceiveMessage", (userID, message) =>
-             {
-                 MainThread.BeginInvokeOnMainThread(() =>
-                 {
-                     try
-                     {
-                         
-                         if (userID == _recipient.id)
-                             MessageList.Add(new Message() { UserID = _recipient.id, Mine = false, Theirs = true, Text = message });
-                         else
-                             MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
-                         App._cache.Set(_groupName, MessageList, new TimeSpan(0,2,0));
+            {
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    try
+                    {
 
-                     }
-                     catch (Exception ex)
-                     {
-                         Debug.WriteLine(ex);
-                     }
-                 });
-             });
+                        if (userID == _recipient.id)
+                            MessageList.Add(new Message() { UserID = _recipient.id, Mine = false, Theirs = true, Text = message });
+                        else
+                            MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
+                        App._cache.Set(_groupName, MessageList, new TimeSpan(0, 2, 0));
+
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex);
+                    }
+                });
+            });
         }
 
 

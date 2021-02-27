@@ -27,7 +27,7 @@ namespace MentorU.Views
         {
             try
             {
-                var userContext = await B2CAuthenticationService.Instance.SignInAsync();
+                var userContext = await B2CAuthenticationService.Instance.SignInInteractively();
                 App.AADUser = userContext;
 
                 Users tempUser = new Users

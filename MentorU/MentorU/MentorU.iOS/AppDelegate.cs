@@ -47,7 +47,7 @@ namespace MentorU.iOS
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
             AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
-            return base.OpenUrl(app, url, options);
+            return true;
         }
 
     }

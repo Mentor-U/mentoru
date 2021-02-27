@@ -3,6 +3,7 @@ using MentorU.Services.DatabaseServices;
 using MentorU.Services.LogOn;
 using MentorU.Views;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
@@ -15,7 +16,7 @@ namespace MentorU.ViewModels
         }
 
         // Called by the views OnAppearing method
-        public async void Init()
+        public async Task TrySignIn()
         {
             try
             {

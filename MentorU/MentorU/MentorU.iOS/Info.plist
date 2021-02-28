@@ -47,5 +47,7 @@
 			<string>Editor</string>
 		</dict>
 	</array>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Picture Picker uses photo library</string>
 </dict>
 </plist>

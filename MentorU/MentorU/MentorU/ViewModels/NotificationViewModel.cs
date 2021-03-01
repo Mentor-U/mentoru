@@ -1,5 +1,4 @@
 ﻿using MentorU.Models;
-using MentorU.Views.ChatViews;
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
@@ -21,6 +20,7 @@ namespace MentorU.ViewModels
         public Command LoadPageData { get; }
         public Command SelectedCommand { get; }
 
+
         public NotificationViewModel()
         {
             NotificationList = new ObservableCollection<Notification>();
@@ -36,7 +36,12 @@ namespace MentorU.ViewModels
             {
                 NotificationList.Add(n);
             }
+            if (NotificationList.Count == 0)
+            {
+                NotificationList.Add(new Notification() { Message = "No Notifications", Seen = true });
+            }
             IsBusy = false;
+            
         }
 
         async Task Select()
@@ -45,9 +50,12 @@ namespace MentorU.ViewModels
             {
                 if (Noty != null)
                 {
+                    Noty.Seen = true;
+                    Noty.Unseen = false;
+                    await DatabaseService.Instance.client.GetTable<Notification>().UpdateAsync(Noty);
                     List<Users> user = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == Noty.MenteeID).ToListAsync();
                     if (user.Count != 0)
-                        await App.Current.MainPage.Navigation.PushModalAsync(new ViewOnlyProfilePage(user[0], false, true));
+                        await App.Current.MainPage.Navigation.PushAsync(new ViewOnlyProfilePage(user[0], false, true));
                 }
             }   
             catch(Exception e)

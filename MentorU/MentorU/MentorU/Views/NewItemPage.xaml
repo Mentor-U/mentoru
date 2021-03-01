@@ -41,6 +41,11 @@
                         BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
                         TextColor="Black"/>
             </StackLayout>
+            <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                    TextColor="Black"
+                    ItemsSource="{Binding AllConditions}"
+                    SelectedItem="{Binding condition}"
+                    WidthRequest="100" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

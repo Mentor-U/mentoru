@@ -86,7 +86,9 @@ namespace MentorU.ViewModels
                 {
                     MentorID = _user.id,
                     MenteeID = App.loggedUser.id,
-                    Message = $"{App.loggedUser.FirstName} wants to connect!"
+                    Message = $"{App.loggedUser.FirstName} wants to connect!",
+                    Seen = false,
+                    Unseen = true
                 });
                 await Application.Current.MainPage.DisplayAlert(
                     "You have sent a request to " + _user.FirstName,
@@ -185,7 +187,7 @@ namespace MentorU.ViewModels
                 var notification = await DatabaseService.Instance.client.GetTable<Notification>()
                     .Where(u => u.MentorID == App.loggedUser.id && u.MenteeID == _user.id).ToListAsync();
                 await DatabaseService.Instance.client.GetTable<Notification>().DeleteAsync(notification[0]);
-                await App.Current.MainPage.Navigation.PopModalAsync();
+                await App.Current.MainPage.Navigation.PopAsync();
             }
         }
 
@@ -200,7 +202,7 @@ namespace MentorU.ViewModels
                 await DatabaseService.Instance.client.GetTable<Notification>().DeleteAsync(notification[0]);
                 await App.Current.MainPage
                     .DisplayAlert("Declining Connection.", $"You have declined the connection with {_user.FirstName}", "OK");
-                await App.Current.MainPage.Navigation.PopModalAsync();
+                await App.Current.MainPage.Navigation.PopAsync();
             }
         }
 

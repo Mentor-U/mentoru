@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MentorU.ViewModels
 {
@@ -29,6 +30,14 @@ namespace MentorU.ViewModels
                 (_, __) => SaveCommand.ChangeCanExecute();
             AllDepartments = new List<string>(DatabaseService.Instance.ClassList.classList);
             Department = AllDepartments[0];
+
+            AllConditions = new ObservableCollection<string>()
+            {
+                "New",
+                "Like New",
+                "Good",
+                "Decent"
+            };
         }
 
         public ImageSource ItemFirstImage
@@ -104,6 +113,18 @@ namespace MentorU.ViewModels
             }
         }
 
+        public ObservableCollection<string> AllConditions { get; set; }
+
+        private string _conditions;
+        public string condition
+        {
+            get => _conditions;
+            set
+            {
+                _conditions = value;
+                OnPropertyChanged();
+            }
+        }
 
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
@@ -121,9 +142,10 @@ namespace MentorU.ViewModels
                 Text = Text,
                 Description = Description,
                 Price = ItemPrice,
-                Owner = App.loggedUser.id
+                Owner = App.loggedUser.id,
+                ClassUsed = Department + " " + ClassNumber,
+                Condition = condition
             };
-            //TODO: added the class it was used for here
 
             await DatabaseService.Instance.client.GetTable<Items>().InsertAsync(newItem);
 

@@ -19,6 +19,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -43,8 +44,8 @@
                 <Label Text="About Me" FontAttributes="Bold" TextDecorations="Underline"
                        Grid.Column="0" Grid.Row="5"/>
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="10"/>
-                <Button Text="Decline" Command="{Binding DeclineCommand}" BackgroundColor="Red" IsVisible="{Binding FromNotification}" Grid.Column="0" Grid.Row="6"/>
-                <Button Text="Accept" Command="{Binding AcceptCommand}" BackgroundColor="Green" IsVisible="{Binding FromNotification}" Grid.Column="1" Grid.Row="6"/>
+                <Button Text="Decline" Command="{Binding DeclineCommand}" BackgroundColor="Red" IsVisible="{Binding FromNotification}" Grid.Column="0" Grid.Row="7"/>
+                <Button Text="Accept" Command="{Binding AcceptCommand}" BackgroundColor="Green" IsVisible="{Binding FromNotification}" Grid.Column="1" Grid.Row="7"/>
             </Grid>
         </ScrollView>
     </ContentPage.Content>

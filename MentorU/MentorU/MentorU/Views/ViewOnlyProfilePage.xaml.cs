@@ -36,7 +36,7 @@ namespace MentorU.Views
                 ToolbarItems.Add(options);
                 ToolbarItems.Add(chatButton);
             }
-            else
+            else if(!fromNotification)
             {
                 ToolbarItem requestButton = new ToolbarItem
                 {

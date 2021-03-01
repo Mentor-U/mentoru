@@ -16,6 +16,7 @@ namespace MentorU.Models
         public string Owner { get; set; }
 
         public string ClassUsed { get; set; }
+        public string Condition { get; set; }
 
         [Ignore]
         public ImageSource itemImage { get; set; }

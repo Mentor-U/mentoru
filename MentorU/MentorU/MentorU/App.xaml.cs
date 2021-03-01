@@ -7,6 +7,7 @@ using MentorU.Services.LogOn;
 using Xamarin.Forms;
 using Microsoft.Extensions.Caching.Memory;
 using Xamarin.Essentials;
+using MentorU.Services.Bot;
 
 namespace MentorU
 {

@@ -13,6 +13,7 @@ namespace MentorU.Views.ChatViews
         {
             InitializeComponent();
             BindingContext = _vm = new ChatViewModel(ChatRecipient);
+            WebView browser = null;
         }
 
         protected override void OnAppearing()

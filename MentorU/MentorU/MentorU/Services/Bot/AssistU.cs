@@ -8,7 +8,7 @@ using MentorU.Models;
 using System.Text;
 using System.Linq;
 
-namespace MentorU.Services
+namespace MentorU.Services.Bot
 {
     public class AssistU : Users
     {

@@ -5,7 +5,6 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'BasicBot' " />
   <ItemGroup>
     <Content Remove="Cards\welcomeCard.json" />
   </ItemGroup>

@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Services\FileService.cs" />
     <Compile Include="Services\PhotoPickerService.cs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
@@ -164,6 +165,9 @@
     </PackageReference>
     <PackageReference Include="sqlite-net-pcl">
       <Version>1.7.335</Version>
+    </PackageReference>
+    <PackageReference Include="Xam.Plugin.Media">
+      <Version>5.0.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
       <Version>2.4.11.982</Version>

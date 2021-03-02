@@ -9,6 +9,8 @@ using System.IO;
 using MentorU.Services;
 using Azure.Storage.Blobs;
 using MentorU.Services.Blob;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 
 namespace MentorU.ViewModels
 {
@@ -34,7 +36,7 @@ namespace MentorU.ViewModels
 
         private bool _imageChanged { get; set; }
 
-        private ImageSource _profileImage;
+        private ImageSource _profileImageSource;
         private string profileImageFilePath;
 
         public string NewClass
@@ -186,16 +188,41 @@ namespace MentorU.ViewModels
 
         private async void AddPicture()
         {
-            Stream profileImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
-            if (profileImageStream != null)
-            {
-                string fileName = $"{App.loggedUser.id}--ProfileImage";
-                profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, profileImageStream);
+            //Stream profileImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+            //if (profileImageStream != null)
+            //{
+            //    
+            
 
-                ProfileImage = profileImageFilePath;
-                _imageChanged = true;
+            //    ProfileImage = profileImageFilePath;
+            //    _imageChanged = true;
+            //}
+
+            await CrossMedia.Current.Initialize();
+            if(!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                await AppShell.Current.DisplayAlert("Not supported", "Your device does not currently support this functionality", "Ok");
+                return;
             }
 
+            var mediaOption = new PickMediaOptions()
+            {
+                PhotoSize = PhotoSize.Medium
+            };
+
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
+
+            if(selectedImageFile == null)
+            {
+                await AppShell.Current.DisplayAlert("Error", "Could not get the image, please try again.", "Ok");
+                return;
+            }
+
+            string fileName = $"{App.loggedUser.id}--ProfileImage";
+            profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
+            //_profileImageSource = profileImageFilePath;
+            ProfileImage = profileImageFilePath;
+            _imageChanged = true;
         }
 
         public async Task OnAppearing()

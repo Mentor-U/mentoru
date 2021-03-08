@@ -32,9 +32,15 @@ namespace MentorU.Views
                     Text = "Options",
                     Command = new Command(_vm.OpenOptions)
                 };
+                ToolbarItem Schedule = new ToolbarItem
+                {
+                    Text = "Schedule",
+                    Command = new Command(_vm.ScheduleMeeting)
+                };
 
                 ToolbarItems.Add(options);
                 ToolbarItems.Add(chatButton);
+                ToolbarItems.Add(Schedule);
             }
             else if(!fromNotification)
             {

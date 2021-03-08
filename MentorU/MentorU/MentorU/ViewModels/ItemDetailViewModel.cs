@@ -56,6 +56,9 @@ namespace MentorU.ViewModels
             set => SetProperty(ref description, value);
         }
 
+        public string ClassUsed { get; set; }
+        public string Condition { get; set; }
+
         public string ItemId
         {
             get
@@ -94,6 +97,8 @@ namespace MentorU.ViewModels
             Text = item.Text;
             Description = item.Description;
             ItemPrice = item.Price;
+            ClassUsed = item.ClassUsed;
+            Condition = item.Condition;
 
             ItemImageSource = await BlobService.Instance.TryDownloadImage(Id, "Image0");
 

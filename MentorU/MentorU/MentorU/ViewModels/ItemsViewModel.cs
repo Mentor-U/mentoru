@@ -16,6 +16,10 @@ namespace MentorU.ViewModels
     public class ItemsViewModel : BaseViewModel
     {
         private Items _selectedItem;
+        public ObservableCollection<string> AllConditions { get; set; }
+        private string _condition;
+        private string _classUsed;
+
 
         public ObservableCollection<Items> Items { get; }
         public Command LoadItemsCommand { get; }
@@ -38,13 +42,13 @@ namespace MentorU.ViewModels
             }
         }
 
-        private string _filterYear;
-        public string FilterYear
+        private string _filterClassUsed;
+        public string FilterClassUsed
         {
-            get => _filterYear;
+            get => _filterClassUsed;
             set
             {
-                _filterYear = value;
+                _filterClassUsed = value;
                 OnPropertyChanged();
             }
         }
@@ -60,11 +64,39 @@ namespace MentorU.ViewModels
             }
         }
 
+        public string condition
+        {
+            get => _condition;
+            set
+            {
+                _condition = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string ClassUsed
+        {
+            get => _classUsed;
+            set
+            {
+                _classUsed = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ItemsViewModel()
         {
             Title = "Marketplace";
             Items = new ObservableCollection<Items>();
             Filters = new ObservableCollection<string>();
+
+            AllConditions = new ObservableCollection<string>()
+            {
+                "New",
+                "Like New",
+                "Good",
+                "Decent"
+            };
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -84,14 +116,49 @@ namespace MentorU.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DatabaseService.Instance.client.GetTable<Items>().ToListAsync();
- 
-                foreach (var item in items)
+                if (Filters.Count != 0)
                 {
-                    item.itemImage = await BlobService.Instance.TryDownloadImage(item.id, "Image0");
+                    var items = await DatabaseService.Instance.client.GetTable<Items>().ToListAsync();
 
-                    Items.Add(item);
+                    //List<Items> its = new List<Items>();
+                    // TODO: will need to implement multiple filters.
+                    foreach (var item in items)
+                    {
+                        if(Filters.Contains(item.Condition) && Filters.Contains(item.ClassUsed))
+                        {
+                            Items.Add(item);
+                        }
+                        else if (Filters.Contains(item.Condition) && Filters.Count == 1)
+                        {
+                            Items.Add(item);
+                        }
+                        else if (Filters.Contains(item.ClassUsed) && Filters.Count == 1)
+                        {
+                            Items.Add(item);
+                        }
+                    }
 
+                    //foreach (var i in its)
+                    //{
+                    //    if(Filters.Contains(i.Condition))
+                    //    {
+                    //        Items.Add(i);
+                    //    }
+                    //}
+
+                    ShowFilters = String.Join(", ", Filters);
+                }
+                else
+                {
+                    var items = await DatabaseService.Instance.client.GetTable<Items>().ToListAsync();
+
+                    foreach (var item in items)
+                    {
+                        item.itemImage = await BlobService.Instance.TryDownloadImage(item.id, "Image0");
+
+                        Items.Add(item);
+                    }
+                    ShowFilters = "";
                 }
             }
             catch (Exception ex)
@@ -142,18 +209,17 @@ namespace MentorU.ViewModels
 
         async Task ClosePopUpWindow()
         {
-            if (!string.IsNullOrEmpty(FilterCondition))
+            if (!string.IsNullOrEmpty(condition))
             {
-                Filters.Add(FilterCondition); //FIXME: Make filters a dictionary mapping values to query
-                FilterYear = "";
-                //TODO: change to only execute on changes once users have been updated to have this information
-                IsBusy = true;
+                Filters.Add(condition);
+                condition = "";
             }
-            if (!string.IsNullOrEmpty(FilterYear))
+            if (!string.IsNullOrEmpty(FilterClassUsed))
             {
-                Filters.Add(FilterYear);
-                FilterYear = "";
+                Filters.Add(FilterClassUsed);
+                FilterClassUsed = "";
             }
+            IsBusy = true;
             await PopupNavigation.Instance.PopAllAsync();
         }
     }

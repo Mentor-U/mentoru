@@ -8,10 +8,14 @@
     <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="0" Margin="0">
         <Frame WidthRequest="270" HeightRequest="400" Padding="15">
             <StackLayout>
-                <Label Text ="Condition" />
-                <Entry Text="{Binding FilterCondition}" Placeholder="Ex: Like-new"/>
-                <Label Text ="Years Of Used" />
-                <Entry Text="{Binding FilterYear}" Placeholder="Ex: 5" />
+                <Label Text ="Condition:" />
+                <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                    TextColor="Black"
+                    ItemsSource="{Binding AllConditions}"
+                    SelectedItem="{Binding condition}"
+                    WidthRequest="100" />
+                <Label Text ="Class Used:" />
+                <Entry Text="{Binding FilterClassUsed}" Placeholder="Ex: CS 1410" />
                 <Button Text="Ok" BackgroundColor="Green" HeightRequest="35" TextColor="White" Command="{Binding ClosePopUp}"/>
             </StackLayout>
         </Frame>

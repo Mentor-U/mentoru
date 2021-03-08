@@ -57,6 +57,10 @@ namespace MentorU.ViewModels
         public Command DeclineCommand { get; set; }
         public Command CancelClicked { get; set; }
         public Command ConfirmClicked { get; set; }
+        public Command ChatCommand { get; set; }
+        public Command ScheduleCommand { get; set; }
+
+        public bool Standardview { get; set; }
 
         public ViewOnlyProfileViewModel(Users user, bool fromNotification=false)
         {
@@ -67,6 +71,8 @@ namespace MentorU.ViewModels
             FromNotification = fromNotification;
             Role = _user.Role == "0" ? "Skills:" : "Classes:";
 
+            Standardview = !fromNotification;
+
             Classes = new ObservableCollection<string>();
             LoadData();
 
@@ -74,7 +80,11 @@ namespace MentorU.ViewModels
             DeclineCommand = new Command(async () => await Decline());
             CancelClicked = new Command(async() => await OnCancel());
             ConfirmClicked = new Command(async () => await OnConfirm());
+
+            ChatCommand = new Command(StartChat);
+            ScheduleCommand = new Command(ScheduleMeeting);
         }
+
 
         async void LoadData()
         {

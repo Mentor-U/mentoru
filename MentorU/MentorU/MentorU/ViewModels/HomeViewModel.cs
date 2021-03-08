@@ -88,7 +88,8 @@ namespace MentorU.ViewModels
 
                 //Load marketplace items
                 MarketItems.Clear();
-                List<Items> items = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                // List<Items> items = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                List<Items> items = await App.assistU.GetRecommendations();
                 foreach(var i in items)
                 {
                     MarketItems.Add(i);

@@ -34,10 +34,10 @@ namespace MentorU.Services.Bot
             chat = new AssistUChat();
         }
 
-        public List<Items> GetRecommendations()
+        public async Task<List<Items>> GetRecommendations()
         {
             recomendations = new RecommendationGenerator();
-            return recomendations.GetRecommendations().Result;
+            return await recomendations.GetRecommendations();
         }
 
         /**
@@ -123,17 +123,20 @@ namespace MentorU.Services.Bot
             List<string> _classes;
             public RecommendationGenerator()
             {
-                _classes = (List<string>)DatabaseService.Instance.client.GetTable<Classes>()
-                    .Where(u => u.UserId == App.loggedUser.id).ToListAsync().Result
-                    .Select(u => u.ClassName);
+
             }
 
             public async Task<List<Items>> GetRecommendations()
             {
+                var t = await DatabaseService.Instance.client.GetTable<Classes>()
+                        .Where(u => u.UserId == App.loggedUser.id).ToListAsync();
+                var h = new HashSet<string>(t.Select(u => u.ClassName));
+                _classes = h.ToList<string>();
+
                 var items = await DatabaseService.Instance.client.GetTable<Items>()
                     .Where(u => u.id != App.loggedUser.id && _classes.Contains(u.ClassUsed)).ToListAsync();
-                //FIXME: Items model on DB does notnot contain field ClassUsed yet
-                return items.GetRange(0, 5); // return only the top five recommendations
+                var maxLen = 5 < items.Count ? 5 : items.Count;
+                return items.GetRange(0, maxLen); // return only the top five recommendations
                 //TODO: come up with a more clever scheme, maybe one per class/cheapest
             }
         }

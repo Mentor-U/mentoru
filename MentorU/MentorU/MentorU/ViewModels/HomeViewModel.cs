@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MentorU.Models;
 using MentorU.Views;
 using Xamarin.Forms;

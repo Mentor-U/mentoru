@@ -124,6 +124,7 @@ namespace MentorU.ViewModels
         {
             try
             {
+                ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
                 Mentors.Clear(); // mentor list
                 Classes.Clear();
                 Marketplace.Clear();

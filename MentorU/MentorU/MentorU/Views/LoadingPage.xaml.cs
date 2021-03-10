@@ -12,13 +12,13 @@ namespace MentorU.Views
         public LoadingPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel = new LoadingViewModel();
+            BindingContext =_viewModel = new LoadingViewModel();
         }
 
-        protected override void OnAppearing()
+        protected override async void OnAppearing()
         {
             base.OnAppearing();
-            _viewModel.Init();
+            await _viewModel.TrySignIn();
 		}
     }
 }

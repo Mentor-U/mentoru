@@ -36,7 +36,6 @@ namespace MentorU.ViewModels
 
         private bool _imageChanged { get; set; }
 
-        private ImageSource _profileImageSource;
         private string profileImageFilePath;
 
         public string NewClass
@@ -188,18 +187,9 @@ namespace MentorU.ViewModels
 
         private async void AddPicture()
         {
-            //Stream profileImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
-            //if (profileImageStream != null)
-            //{
-            //    
-            
-
-            //    ProfileImage = profileImageFilePath;
-            //    _imageChanged = true;
-            //}
 
             await CrossMedia.Current.Initialize();
-            if(!CrossMedia.Current.IsPickPhotoSupported)
+            if (!CrossMedia.Current.IsPickPhotoSupported)
             {
                 await AppShell.Current.DisplayAlert("Not supported", "Your device does not currently support this functionality", "Ok");
                 return;
@@ -212,17 +202,48 @@ namespace MentorU.ViewModels
 
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
 
-            if(selectedImageFile == null)
+            //Stream profileImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+            using(Stream profileImageStream = selectedImageFile.GetStream())
             {
-                await AppShell.Current.DisplayAlert("Error", "Could not get the image, please try again.", "Ok");
-                return;
-            }
+                if (profileImageStream != null)
+                {
 
-            string fileName = $"{App.loggedUser.id}--ProfileImage";
-            profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
-            //_profileImageSource = profileImageFilePath;
-            ProfileImage = profileImageFilePath;
-            _imageChanged = true;
+                    string fileName = $"{App.loggedUser.id}--ProfileImage";
+
+                    profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, profileImageStream);
+
+                    ProfileImage = profileImageFilePath;
+                    _imageChanged = true;
+
+                }
+            }
+            
+
+            //await CrossMedia.Current.Initialize();
+            //if(!CrossMedia.Current.IsPickPhotoSupported)
+            //{
+            //    await AppShell.Current.DisplayAlert("Not supported", "Your device does not currently support this functionality", "Ok");
+            //    return;
+            //}
+
+            //var mediaOption = new PickMediaOptions()
+            //{
+            //    PhotoSize = PhotoSize.Medium
+            //};
+
+            //var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
+
+            //if(selectedImageFile == null)
+            //{
+            //    await AppShell.Current.DisplayAlert("Error", "Could not get the image, please try again.", "Ok");
+            //    return;
+            //}
+
+            //string fileName = $"{App.loggedUser.id}--ProfileImage";
+            //profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
+            ////_profileImageSource = profileImageFilePath;
+            //ProfileImage = profileImageFilePath;
+            //_imageChanged = true;
         }
 
         public async Task OnAppearing()

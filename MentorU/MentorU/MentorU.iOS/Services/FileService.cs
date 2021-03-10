@@ -11,7 +11,7 @@ namespace MentorU.iOS.Services
     {
         public string SavePicture(string name, Stream data, string location = "temp")
         {
-            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             documentsPath = Path.Combine(documentsPath, "Orders", location);
             Directory.CreateDirectory(documentsPath);
 

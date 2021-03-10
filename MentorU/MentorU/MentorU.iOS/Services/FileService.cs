@@ -11,6 +11,7 @@ namespace MentorU.iOS.Services
     {
         public string SavePicture(string name, Stream data, string location = "temp")
         {
+
             var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             documentsPath = Path.Combine(documentsPath, "Orders", location);
             Directory.CreateDirectory(documentsPath);
@@ -18,15 +19,17 @@ namespace MentorU.iOS.Services
             string filePath = Path.Combine(documentsPath, name);
 
             byte[] bArray = new byte[data.Length];
-            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
-            {
-                using (data)
+                using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
                 {
-                    data.Read(bArray, 0, (int)data.Length);
+                    using (data)
+                    {
+                        data.Read(bArray, 0, (int)data.Length);
+                    }
+                    int length = bArray.Length;
+                    fs.Write(bArray, 0, length);
                 }
-                int length = bArray.Length;
-                fs.Write(bArray, 0, length);
-            }
+            
+           
             return filePath;
         }
     }

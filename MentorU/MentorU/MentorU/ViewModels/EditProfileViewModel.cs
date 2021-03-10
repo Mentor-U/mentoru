@@ -133,12 +133,33 @@ namespace MentorU.ViewModels
 
             if (_imageChanged)
             {
+                string tempFileName = $"{App.loggedUser.id}--ProfileImage-tmp";
                 string fileName = App.loggedUser.id;
-                // check if blob exists, if so delete
-                BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
 
-                await BlobService.Instance.TryUploadImage(containerClient, fileName, profileImageFilePath);
-                _parentVM.ProfileImage = ProfileImage;
+                BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
+                BlobClient blobTempProf = containerClient.GetBlobClient(tempFileName);
+
+                // Download new/temp profile image to a stream, re upload it as the users profile image (deletes the tmp tag)
+                using( var ms = new MemoryStream())
+                {
+                    if (blobTempProf.Exists())
+                    {
+                        await blobTempProf.DownloadToAsync(ms);
+                    }
+
+                    // Reset strem pos since its at the end after downloading
+                    ms.Position = 0;
+                    // Re upload the temp image as the profile image now
+                    if(await BlobService.Instance.TryUploadImageStream(containerClient, fileName, ms))
+                    {
+                        _parentVM.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", fileName);
+                    }
+
+                }
+
+                // Set the profile image away from the temp blob and delete the temp
+                await containerClient.DeleteBlobIfExistsAsync(tempFileName);
+                _imageChanged = false;
             }
 
             App.loggedUser.FirstName = _parentVM.Name = Name;
@@ -200,50 +221,19 @@ namespace MentorU.ViewModels
                 PhotoSize = PhotoSize.Medium
             };
 
+            string fileName = $"{App.loggedUser.id}--ProfileImage-tmp";
+
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
 
-            //Stream profileImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
-            using(Stream profileImageStream = selectedImageFile.GetStream())
-            {
-                if (profileImageStream != null)
-                {
+            BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
 
-                    string fileName = $"{App.loggedUser.id}--ProfileImage";
+            await BlobService.Instance.TryUploadImageStream(containerClient, fileName, selectedImageFile.GetStream());
 
-                    profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, profileImageStream);
-
-                    ProfileImage = profileImageFilePath;
-                    _imageChanged = true;
-
-                }
-            }
-            
-
-            //await CrossMedia.Current.Initialize();
-            //if(!CrossMedia.Current.IsPickPhotoSupported)
-            //{
-            //    await AppShell.Current.DisplayAlert("Not supported", "Your device does not currently support this functionality", "Ok");
-            //    return;
-            //}
-
-            //var mediaOption = new PickMediaOptions()
-            //{
-            //    PhotoSize = PhotoSize.Medium
-            //};
-
-            //var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
-
-            //if(selectedImageFile == null)
-            //{
-            //    await AppShell.Current.DisplayAlert("Error", "Could not get the image, please try again.", "Ok");
-            //    return;
-            //}
-
-            //string fileName = $"{App.loggedUser.id}--ProfileImage";
             //profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
-            ////_profileImageSource = profileImageFilePath;
-            //ProfileImage = profileImageFilePath;
-            //_imageChanged = true;
+
+            ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", fileName);
+            _imageChanged = true;
+
         }
 
         public async Task OnAppearing()

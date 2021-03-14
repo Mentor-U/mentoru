@@ -8,7 +8,7 @@
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="AssistantU" Command="{Binding OpenAssistU}"/>
+        <ToolbarItem Text="AssistU" Command="{Binding OpenAssistU}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <RefreshView x:DataType="local:SearchNewMentorViewModel" Command="{Binding LoadMentorsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">

@@ -9,11 +9,15 @@ using Xamarin.Forms;
 
 namespace MentorU.Services.LogOn
 {
+
+    
     /// <summary>
     /// Manages the AAD B2C Connections and MSAL Authentication
     /// </summary>
     public class B2CAuthenticationService
     {
+        bool triedAsync = false;
+
         private readonly IPublicClientApplication _pca;
 
         private static readonly Lazy<B2CAuthenticationService> lazy = new Lazy<B2CAuthenticationService>
@@ -46,16 +50,10 @@ namespace MentorU.Services.LogOn
         public async Task<UserContext> SignInAsync()
         {
             UserContext newContext;
-            try
-            {
-                // acquire token silent
-                newContext = await AcquireTokenSilent();
-            }
-            catch (MsalUiRequiredException)
-            {
-                // acquire token interactive
-                newContext = await SignInInteractively();
-            }
+
+            // acquire token silent
+
+            newContext = await AcquireTokenSilent();
             return newContext;
         }
 
@@ -97,13 +95,15 @@ namespace MentorU.Services.LogOn
             return userContext;
         }
 
-        private async Task<UserContext> SignInInteractively()
+        public async Task<UserContext> SignInInteractively()
         {
+         
             AuthenticationResult authResult = await _pca.AcquireTokenInteractive(B2CConstants.Scopes)
-                .ExecuteAsync();
+            .ExecuteAsync();
 
             var newContext = UpdateUserInfo(authResult);
             return newContext;
+          
         }
 
         public async Task<UserContext> SignOutAsync()

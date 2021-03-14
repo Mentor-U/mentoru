@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MentorU.Models;
 using MentorU.Views;
 using Xamarin.Forms;
@@ -64,19 +64,19 @@ namespace MentorU.ViewModels
 
                 if (isMentee)
                 {
-                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var temp = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                        var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
                         Mentors.Add(temp[0]);
                     }
                 }
                 else
                 {
-                    mentors = await DatabaseService.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
-                        var temp = await DatabaseService.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
+                        var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
                         Mentors.Add(temp[0]);
                     }
                 }
@@ -85,13 +85,15 @@ namespace MentorU.ViewModels
                 {
                     Mentors.Add(new Users() { FirstName = "No current connections", Major = "Click to browse  list", Role = "-1" });
                 }
-                
 
-                //var items = await DataStore.GetItemsAsync(true);
-                //foreach(var i in items) // TODO: adding all? maybe limit to top three
-                //{
-                //    MarketItems.Add(i);
-                //}
+                //Load marketplace items
+                MarketItems.Clear();
+                // List<Items> items = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                List<Items> items = await App.assistU.GetRecommendations();
+                foreach(var i in items)
+                {
+                    MarketItems.Add(i);
+                }
 
             }
             catch (Exception ex)
@@ -122,7 +124,9 @@ namespace MentorU.ViewModels
             if (item == null)
                 return;
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
+            //await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
+            else
+                await Shell.Current.Navigation.PushAsync(new ItemDetailPage(item));
         }
 
 

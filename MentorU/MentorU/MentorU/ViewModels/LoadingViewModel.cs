@@ -1,7 +1,9 @@
 ﻿using MentorU.Models;
 using MentorU.Services.DatabaseServices;
 using MentorU.Services.LogOn;
+using MentorU.Views;
 using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MentorU.ViewModels
@@ -11,10 +13,11 @@ namespace MentorU.ViewModels
 
         public LoadingViewModel()
         {
+
         }
 
         // Called by the views OnAppearing method
-        public async void Init()
+        public async Task TrySignIn()
         {
             try
             {
@@ -27,25 +30,20 @@ namespace MentorU.ViewModels
                     FirstName = userContext.GivenName,
                     LastName = userContext.FamilyName,
                     DisplayName = userContext.Name,
-                    Email = userContext.EmailAddress,
-                    Role = "1",
-                    Major = "CS",
-                    Bio = "test"
+                    Email = userContext.EmailAddress
                 };
 
                 App.loggedUser = tempUser;
 
                 bool isNew = await DatabaseService.Instance.tryCreateAccount(tempUser);
-
                 if (isNew)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Success", "Account Created", "Ok");
-                    // create profile here
+                    await Application.Current.MainPage.Navigation.PushModalAsync(new NewProfileView());
                 }
-
-
-
-                await Shell.Current.GoToAsync("///Home");
+                else
+                {
+                    await Shell.Current.GoToAsync("///Home");
+                }
 
             }
             catch (Exception ex)

@@ -8,31 +8,34 @@
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <ContentPage.Content>
         <RefreshView x:DataType="local:MainChatViewModel" Command="{Binding LoadChatsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding Chats}"
-                SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout Padding="10" x:DataType="model:Users" Spacing="10.0">
-                            <Frame BackgroundColor="LightGray" HasShadow="True">
-                                <Label Text="{Binding FirstName}"
-                                FontAttributes="Bold"
-                                LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16"
-                                TextColor="Black"/>
-                            </Frame>
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainChatViewModel}}, Path=UserTapped}"		
-                                CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <StackLayout>
+                <Label Text="You have no chats at this time." IsVisible="{Binding NoChats}"  VerticalTextAlignment="End" HorizontalTextAlignment="Center"/>
+                <CollectionView x:Name="ItemsListView"
+                    ItemsSource="{Binding Chats}"
+                    SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Padding="10" x:DataType="model:Users" Spacing="10.0">
+                                <Frame BackgroundColor="LightGray" HasShadow="True">
+                                    <Label Text="{Binding FirstName}"
+                                    FontAttributes="Bold"
+                                    LineBreakMode="NoWrap" 
+                                    Style="{DynamicResource ListItemTextStyle}" 
+                                    FontSize="16"
+                                    TextColor="Black"/>
+                                </Frame>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainChatViewModel}}, Path=UserTapped}"		
+                                    CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+           </StackLayout>
         </RefreshView>
     </ContentPage.Content>
 </ContentPage>

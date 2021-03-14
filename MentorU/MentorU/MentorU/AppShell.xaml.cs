@@ -16,20 +16,26 @@ namespace MentorU
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(MainChatPage), typeof(MainChatPage));
             Routing.RegisterRoute(nameof(ViewOnlyProfilePage), typeof(ViewOnlyProfilePage));
-            Routing.RegisterRoute("Main/Login", typeof(LoginPage));
+            //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(NotificationPage), typeof(NotificationPage));
-            Routing.RegisterRoute(nameof(ContactUsPage), typeof(ContactUsPage));
-            Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
+            Routing.RegisterRoute(nameof(ActivityWaitPage), typeof(ActivityWaitPage));
+            Routing.RegisterRoute("Main/Login", typeof(LoginPage));
         }
 
         private async void OnLogoutButtonClicked(object sender, EventArgs e)
         {
-            Shell.Current.FlyoutIsPresented = false;   //close the menu 
+            AppShell.Current.FlyoutIsPresented = false;   //close the menu 
 
             var userContext = await B2CAuthenticationService.Instance.SignOutAsync();
             App.AADUser = userContext;
-           
-            await GoToAsync("///Login");
+
+            //await Shell.Current.Navigation.PopToRootAsync();
+
+            //await GoToAsync("///Login");
+
+            App.Current.MainPage = new AppShell();
+
+
         }
     }
 }

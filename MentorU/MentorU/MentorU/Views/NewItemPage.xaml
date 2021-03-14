@@ -8,20 +8,44 @@
              ios:Page.UseSafeArea="true"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
+        <StackLayout Spacing="10" Padding="15">
             <Label Text="Text" FontSize="Medium" />
-            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium" />
-            <Label Text="Item Picture" FontAttributes="Italic"
-                           HorizontalTextAlignment="Center" 
-                           VerticalTextAlignment="Center" 
-                           BackgroundColor="LightGray" 
-                           Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                           HeightRequest="100"
-                           />
+            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium"
+                   BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
+
+            <Image Source="{Binding ItemFirstImage}" 
+                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                    Aspect="AspectFill" HeightRequest="100"/>
+
+            <Button Text="Add An Item Picture From Gallery" Command="{Binding AddItemPictureCommand}" FontAttributes="Italic"
+                       BackgroundColor="LightGray" TextColor="black" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+                       />
+
             <Label Text="Item Price in USD" FontSize="Medium" />
-            <Entry Text="{Binding ItemPrice, Mode=TwoWay}" FontSize="Medium" />
+            <Entry Text="{Binding ItemPrice, Mode=TwoWay}" FontSize="Medium"
+                   BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
             <Label Text="Description" FontSize="Medium" />
-            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0"
+                    BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black" HeightRequest="100"/>
+            <Label Text="What Class Was This Used For" />
+            <StackLayout Orientation="Horizontal">
+                <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                        TextColor="Black"
+                        ItemsSource="{Binding AllDepartments}"
+                        SelectedItem="{Binding Department}"
+                        WidthRequest="100" />
+                <Editor Placeholder="Class Number"
+                        PlaceholderColor="DarkGray"
+                        Text="{Binding ClassNumber}"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                        TextColor="Black"/>
+            </StackLayout>
+            <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                    TextColor="Black"
+                    ItemsSource="{Binding AllConditions}"
+                    SelectedItem="{Binding condition}"
+                    WidthRequest="100" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

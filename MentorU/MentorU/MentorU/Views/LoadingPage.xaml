@@ -10,7 +10,7 @@
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-            <ActivityIndicator Color="Black"
+            <ActivityIndicator Color="Gray"
                                IsRunning="True"
                                IsVisible="True" />
             <Label Text="Loading ..." />

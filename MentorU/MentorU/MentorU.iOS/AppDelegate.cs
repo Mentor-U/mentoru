@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
-using Foundation;
+﻿using Foundation;
+using ImageCircle.Forms.Plugin.iOS;
 using Microsoft.Identity.Client;
 using Microsoft.WindowsAzure.MobileServices;
 using UIKit;
+using Xamarin;
 
 namespace MentorU.iOS
 {
@@ -18,6 +13,7 @@ namespace MentorU.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -27,11 +23,22 @@ namespace MentorU.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            //// create a new window instance based on the screen size
+            //window = new UIWindow(UIScreen.MainScreen.Bounds);
+
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
             global::Xamarin.Forms.Forms.Init();
+           
             CurrentPlatform.Init();
 
+            // Shifts UI elements to make room for the keyboard
+            IQKeyboardManager.SharedManager.Enable = true;
+
             LoadApplication(new App());
+
+            Rg.Plugins.Popup.Popup.Init();
+            ImageCircleRenderer.Init();
+            FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
 
             //AppCenter.Start("fb0078a5-c257-43b7-b61d-735790293192",
             //       typeof(Analytics), typeof(Crashes));
@@ -50,8 +57,10 @@ namespace MentorU.iOS
         public override bool OpenUrl(UIApplication app, NSUrl url, NSDictionary options)
         {
             AuthenticationContinuationHelper.SetAuthenticationContinuationEventArgs(url);
-            return base.OpenUrl(app, url, options);
+            return true;
         }
 
     }
+
+
 }

@@ -5,6 +5,12 @@ using MentorU.Models;
 using Newtonsoft.Json.Linq;
 using MentorU.Services.DatabaseServices;
 using System.Text.RegularExpressions;
+using System.IO;
+using MentorU.Services;
+using Azure.Storage.Blobs;
+using MentorU.Services.Blob;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 
 namespace MentorU.ViewModels
 {
@@ -14,7 +20,7 @@ namespace MentorU.ViewModels
         private string _newClass;
 
         private Regex _depRegex = new Regex(@"([A-Za-z]+\s*)+");
-        private Regex _courseRegex = new Regex(@"(\d+)");
+        private Regex _courseRegex = new Regex(@"[0-9]+");
 
         private List<string> _addedClass;
         private List<string> _removedClass;
@@ -27,6 +33,10 @@ namespace MentorU.ViewModels
         public Command AddClassCommand { get; set; }
         public Command RemoveClassCommand { get; set; }
         public Command AddProfilePictureCommand { get; set; }
+
+        private bool _imageChanged { get; set; }
+
+        private string profileImageFilePath;
 
         public string NewClass
         {
@@ -65,8 +75,13 @@ namespace MentorU.ViewModels
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
             Classes = _parentVM.Classes;
+            _imageChanged = false;
+            //ProfileImage = new Task<ImageSource>(async () => {
+            //    await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
+            //    });
 
-            AllDepartments = new List<string>(DatabaseService.ClassList.classList);
+            
+            AllDepartments = new List<string>(DatabaseService.Instance.ClassList.classList);
             Department = AllDepartments[0];
 
             _addedClass = new List<string>();
@@ -88,11 +103,12 @@ namespace MentorU.ViewModels
                     Application.Current.MainPage.DisplayAlert("Attention", "Please select a department", "Ok");
                 else
                 {
+                    string addClass = _newClass;
                     if(isMentee)
-                        NewClass = Department + " " + NewClass;
-                    _removedClass.Remove(NewClass);// ensure NewClass does not exist in the remove list
-                    Classes.Add(NewClass);
-                    _addedClass.Add(NewClass);
+                        addClass = (Department + " " + addClass);
+                    _removedClass.Remove(addClass);// ensure NewClass does not exist in the remove list
+                    Classes.Add(addClass);
+                    _addedClass.Add(addClass);
                     NewClass = "";
                 }
             }
@@ -114,6 +130,38 @@ namespace MentorU.ViewModels
 
         private async void OnSave()
         {
+
+            if (_imageChanged)
+            {
+                string tempFileName = $"{App.loggedUser.id}--ProfileImage-tmp";
+                string fileName = App.loggedUser.id;
+
+                BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
+                BlobClient blobTempProf = containerClient.GetBlobClient(tempFileName);
+
+                // Download new/temp profile image to a stream, re upload it as the users profile image (deletes the tmp tag)
+                using( var ms = new MemoryStream())
+                {
+                    if (blobTempProf.Exists())
+                    {
+                        await blobTempProf.DownloadToAsync(ms);
+                    }
+
+                    // Reset strem pos since its at the end after downloading
+                    ms.Position = 0;
+                    // Re upload the temp image as the profile image now
+                    if(await BlobService.Instance.TryUploadImageStream(containerClient, fileName, ms))
+                    {
+                        _parentVM.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", fileName);
+                    }
+
+                }
+
+                // Set the profile image away from the temp blob and delete the temp
+                await containerClient.DeleteBlobIfExistsAsync(tempFileName);
+                _imageChanged = false;
+            }
+
             App.loggedUser.FirstName = _parentVM.Name = Name;
             App.loggedUser.Major = _parentVM.Major = Major;
             App.loggedUser.Bio = _parentVM.Bio = Bio;
@@ -125,14 +173,14 @@ namespace MentorU.ViewModels
                 {"Major", Major },
                 {"Bio", Bio }
             };
-            await DatabaseService.client.GetTable<Users>().UpdateAsync(data);
+            await DatabaseService.Instance.client.GetTable<Users>().UpdateAsync(data);
 
             foreach (var c in _removedClass)
             {
-                var cl = await DatabaseService.client.GetTable<Classes>()
+                var cl = await DatabaseService.Instance.client.GetTable<Classes>()
                     .Where(u => u.UserId == App.loggedUser.id && u.ClassName == c).ToListAsync();
                 if(cl.Count > 0)
-                    await DatabaseService.client.GetTable<Classes>().DeleteAsync(cl[0]);
+                    await DatabaseService.Instance.client.GetTable<Classes>().DeleteAsync(cl[0]);
 
             }
 
@@ -141,11 +189,11 @@ namespace MentorU.ViewModels
                 string dep = _depRegex.Match(c).Value;
                 string cou = _courseRegex.Match(c).Value;
                 if(isMentee)
-                    await DatabaseService.client.GetTable<Classes>()
+                    await DatabaseService.Instance.client.GetTable<Classes>()
                        .InsertAsync(new Models.Classes() { UserId = App.loggedUser.id, Department = dep, Course = cou, ClassName = c });
                 else
                 {
-                    await DatabaseService.client.GetTable<Classes>()
+                    await DatabaseService.Instance.client.GetTable<Classes>()
                         .InsertAsync(new Models.Classes() { UserId = App.loggedUser.id, ClassName = c });
                 }
             }
@@ -160,7 +208,40 @@ namespace MentorU.ViewModels
 
         private async void AddPicture()
         {
-            
+
+            await CrossMedia.Current.Initialize();
+            if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                await AppShell.Current.DisplayAlert("Not supported", "Your device does not currently support this functionality", "Ok");
+                return;
+            }
+
+            var mediaOption = new PickMediaOptions()
+            {
+                PhotoSize = PhotoSize.Medium
+            };
+
+            string fileName = $"{App.loggedUser.id}--ProfileImage-tmp";
+
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
+
+            BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
+
+            await BlobService.Instance.TryUploadImageStream(containerClient, fileName, selectedImageFile.GetStream());
+
+            //profileImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
+
+            ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", fileName);
+            _imageChanged = true;
+
+        }
+
+        public async Task OnAppearing()
+        {
+            IsBusy = true;
+            //containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient();
+            //await GetProfileImage();
+            ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
         }
     }
 }

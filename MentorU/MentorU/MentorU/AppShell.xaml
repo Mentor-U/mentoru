@@ -121,6 +121,12 @@
     <FlyoutItem Title="Notifications" Icon="notification.png">
         <ShellContent Route="NotificationPage" ContentTemplate="{DataTemplate local:NotificationPage}"/>
     </FlyoutItem>
+    <FlyoutItem Title="Contact Us" Icon="contact.png">
+        <ShellContent Route="ContactUsPage" ContentTemplate="{DataTemplate local:ContactUsPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Settings" Icon="settings.png">
+        <ShellContent Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}"/>
+    </FlyoutItem>
 
 
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->

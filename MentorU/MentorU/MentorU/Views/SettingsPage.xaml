@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.SettingsPage"
+             Title="Settings"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text = "Display email publically on profile."
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Switch IsToggled="{Binding emailSwitch}" OnColor="Red"></Switch>
+            <Button Text="Save" Command="{Binding SaveSettingsCommand}"
+                    BackgroundColor="Green"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

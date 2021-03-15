@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.ContactUsPage"
+             Title="Contact Us"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Image Source="Logo.png" WidthRequest="200" HeightRequest="200"></Image>
+            </StackLayout>
+            <StackLayout 
+             VerticalOptions="FillAndExpand" 
+             HorizontalOptions="FillAndExpand"
+             BackgroundColor="Khaki">
+                <Label Text="Email"></Label>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer 
+               Tapped="EmailClicked"
+               NumberOfTapsRequired="1">
+                    </TapGestureRecognizer>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+            <StackLayout 
+             VerticalOptions="FillAndExpand" 
+             HorizontalOptions="FillAndExpand"
+             BackgroundColor="Khaki">
+                <Label Text="Phone"></Label>
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer 
+               Tapped="PhoneClicked"
+               NumberOfTapsRequired="1">
+                    </TapGestureRecognizer>
+                </StackLayout.GestureRecognizers>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

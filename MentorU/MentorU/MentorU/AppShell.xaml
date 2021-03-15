@@ -98,16 +98,17 @@
         <ShellContent ContentTemplate="{DataTemplate local:LoadingPage}" />
     </ShellItem>
 
-    <!-- Login and Registration Page -->
+    <ShellItem Route="ActivityWaitPage">
+        <ShellContent ContentTemplate="{DataTemplate local:ActivityWaitPage}" />
+    </ShellItem>
+
     <ShellContent Route="Login"
                   ContentTemplate="{DataTemplate local:LoginPage}">
     </ShellContent>
 
+
     <FlyoutItem Route="Home"  Title="Home" Icon="Home.png">
         <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Marketplace" Icon="marketplace.png">
-        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Profile" Icon="blank_profile.png">
         <ShellContent Route="ProfilePage" ContentTemplate="{DataTemplate local:ProfilePage}"/>
@@ -115,11 +116,20 @@
     <FlyoutItem Title="Chat" Icon="chat.png">
         <ShellContent Route="MainChatPage" ContentTemplate="{DataTemplate local:MainChatPage}"/>
     </FlyoutItem>
+    <FlyoutItem Title="Marketplace" Icon="marketplace.png">
+        <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
+    </FlyoutItem>
     <FlyoutItem Title="Find New Mentors" Icon="search.png">
         <ShellContent Route="SearchNewMentorsPage" ContentTemplate="{DataTemplate local:SearchNewMentorPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="Notifications" Icon="notification.png">
         <ShellContent Route="NotificationPage" ContentTemplate="{DataTemplate local:NotificationPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Contact Us" Icon="contact.png">
+        <ShellContent Route="ContactUsPage" ContentTemplate="{DataTemplate local:ContactUsPage}"/>
+    </FlyoutItem>
+    <FlyoutItem Title="Settings" Icon="settings.png">
+        <ShellContent Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}"/>
     </FlyoutItem>
 
 
@@ -137,6 +147,7 @@
     <!--<TabBar>
         <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
     </TabBar>-->
+
 
     <!-- Optional Templates 
     // These may be provided inline as below or as separate classes.

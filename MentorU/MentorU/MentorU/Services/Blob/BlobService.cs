@@ -82,5 +82,39 @@ namespace MentorU.Services.Blob
             return true;
 
         }
+
+
+        /// <summary>
+        /// Uploads an image to blob storage. Checks to see if image exists, and then replaces it if so. 
+        /// </summary>
+        /// <param name="containerClient"></param>
+        /// <param name="ImageName"></param>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public async Task<bool> TryUploadImageStream(BlobContainerClient containerClient, string ImageName, Stream fileStream)
+        {
+
+
+            BlobClient blob = containerClient.GetBlobClient(ImageName);
+
+            try
+            {
+                //deletes the file if it exists
+                await containerClient.DeleteBlobIfExistsAsync(ImageName);
+
+                //uploads the file
+                await containerClient.UploadBlobAsync(ImageName, fileStream);
+
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
+
     }
 }

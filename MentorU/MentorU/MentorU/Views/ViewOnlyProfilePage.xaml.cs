@@ -22,21 +22,27 @@ namespace MentorU.Views
             if (isConnected) // Toggles the interactions available to the mentee depending on if they are connected
             {
 
-                ToolbarItem chatButton = new ToolbarItem
-                {
-                    Text = "Chat",
-                    Command = new Command(_vm.StartChat)
-                };
+                //ToolbarItem chatButton = new ToolbarItem
+                //{
+                //    Text = "Chat",
+                //    Command = new Command(_vm.StartChat)
+                //};
                 ToolbarItem options = new ToolbarItem
                 {
-                    Text = "Options",
+                    Text = "Remove",
                     Command = new Command(_vm.OpenOptions)
                 };
+                //ToolbarItem Schedule = new ToolbarItem
+                //{
+                //    Text = "Schedule",
+                //    Command = new Command(_vm.ScheduleMeeting)
+                //};
 
                 ToolbarItems.Add(options);
-                ToolbarItems.Add(chatButton);
+                //ToolbarItems.Add(chatButton);
+                //ToolbarItems.Add(Schedule);
             }
-            else
+            else if(!fromNotification)
             {
                 ToolbarItem requestButton = new ToolbarItem
                 {

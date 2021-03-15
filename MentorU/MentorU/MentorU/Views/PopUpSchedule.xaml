@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:vm="clr-namespace:MentorU.ViewModels"
+             x:Class="MentorU.Views.PopUpSchedule">
+
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="0" Margin="0">
+        <Frame WidthRequest="270" HeightRequest="400" Padding="15">
+            <StackLayout>
+                <DatePicker x:Name="DatePicker" MinimumDate="1/1/2021" MaximumDate="12/31/2031"
+                    DateSelected="DatePicker_DateSelected"/>
+                <Label x:Name="ScheduleDate" Text="{Binding Date, StringFormat='I want to schedule a meeting on {0:N}'}" FontSize="Medium"/>
+                <TimePicker x:Name="TimePicker" Time="{Binding SelectedTime}"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Cancel" BackgroundColor="Red" Command="{Binding CancelClicked}"/>
+                    <Button Text="Confirm" Background="Green" Command="{Binding ConfirmClicked}" />
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</popup:PopupPage>

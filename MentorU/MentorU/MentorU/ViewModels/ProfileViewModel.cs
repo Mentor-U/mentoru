@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace MentorU.ViewModels
 {
@@ -80,7 +81,7 @@ namespace MentorU.ViewModels
          */
         public ProfileViewModel()
         {
-
+            IsBusy = true;
             if(App.loggedUser.Role == "0")
             {
                 isMentor = true;
@@ -92,7 +93,7 @@ namespace MentorU.ViewModels
                 isMentee = true;
             }
 
-            Name = App.loggedUser.FirstName + " " + App.loggedUser.LastName;
+            Name = App.loggedUser.FirstName;
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
 
@@ -121,9 +122,9 @@ namespace MentorU.ViewModels
         /// <returns></returns>
         protected async Task ExecuteLoad() 
         {
-            IsBusy = true;
             try
             {
+                ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);
                 Mentors.Clear(); // mentor list
                 Classes.Clear();
                 Marketplace.Clear();
@@ -165,8 +166,8 @@ namespace MentorU.ViewModels
                     Classes.Add(val.ClassName);
                 }
 
-                //Load all marketplace items
-                List<Items> i = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                //Load all marketplace items this user has listed
+                List<Items> i = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner == App.loggedUser.id).ToListAsync();
                 foreach(Items val in i)
                 {
                     Marketplace.Add(val);
@@ -210,7 +211,6 @@ namespace MentorU.ViewModels
 
         public async Task OnAppearing()
         {
-            IsBusy = true;
             //containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient();
             //await GetProfileImage();
             ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", App.loggedUser.id);

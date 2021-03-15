@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using MentorU.Services.DatabaseServices;
 using Microsoft.AspNetCore.SignalR.Client;
 using MentorU.Models;
 using System.Text;
+using System.Linq;
 
-namespace MentorU.Services
+namespace MentorU.Services.Bot
 {
     public class AssistU : Users
     {
@@ -14,7 +16,7 @@ namespace MentorU.Services
         public Dictionary<Users,List<string>> CourseHistory;
 
         private AssistUChat chat;
-
+        private RecommendationGenerator recomendations;
 
         public AssistU()
         {
@@ -28,9 +30,15 @@ namespace MentorU.Services
 
         public void StartChat()
         {
+
             chat = new AssistUChat();
         }
 
+        public async Task<List<Items>> GetRecommendations()
+        {
+            recomendations = new RecommendationGenerator();
+            return await recomendations.GetRecommendations();
+        }
 
         /**
          * Internal class definition for the automated chatting.
@@ -53,6 +61,7 @@ namespace MentorU.Services
                 List<int> masked = new List<int>();
                 for (int i = 0; i < them.Length; i++)
                     masked.Add(them[i] & me[i]);
+                groupName = string.Join("", masked);
 
                 hubConnection = new HubConnectionBuilder()
                     .WithUrl($"{App.SignalRBackendUrl}")
@@ -100,6 +109,44 @@ namespace MentorU.Services
             async Task SendMessage(string m)
             {
                 await hubConnection.InvokeAsync("SendMessage", groupName, App.assistU.id, m);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Recommendations for marketplace based off of the classes the
+        /// user is currently taking.
+        /// </summary>
+        class RecommendationGenerator
+        {
+            List<string> _classes;
+            public RecommendationGenerator()
+            {
+
+            }
+
+            public async Task<List<Items>> GetRecommendations()
+            {
+                if (App.loggedUser.Role == "0")
+                {
+                    var allItems = await DatabaseService.Instance.client.GetTable<Items>().ToListAsync();
+                    int count = allItems.Count < 5 ? allItems.Count : 5;
+                    return allItems.GetRange(0, count);
+                }
+
+                var t = await DatabaseService.Instance.client.GetTable<Classes>()
+                        .Where(u => u.UserId == App.loggedUser.id).ToListAsync();
+                var h = new HashSet<string>(t.Select(u => u.ClassName));
+                _classes = h.ToList();
+
+                
+
+                var items = await DatabaseService.Instance.client.GetTable<Items>()
+                    .Where(u => u.id != App.loggedUser.id && _classes.Contains(u.ClassUsed)).ToListAsync();
+                var maxLen = 5 < items.Count ? 5 : items.Count;
+                return items.GetRange(0, maxLen); // return only the top five recommendations
+                //TODO: come up with a more clever scheme, maybe one per class/cheapest
             }
         }
     }

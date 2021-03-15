@@ -14,10 +14,16 @@ namespace MentorU.ViewModels
         {
             SaveSettingsCommand = new Command(OnSave);
         }
-        public bool EmailSwitch
+        public bool emailSwitch
         {
-            get{ return EmailSwitch; }
-            set{ EmailSwitch = value; }
+            get{ return emailSwitch; }
+            set{ emailSwitch = value; }
+        }
+
+        public bool phoneSwitch
+        {
+            get { return phoneSwitch; }
+            set { phoneSwitch = value; }
         }
 
         private async void OnSave()

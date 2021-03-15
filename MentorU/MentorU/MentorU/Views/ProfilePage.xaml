@@ -97,7 +97,7 @@
                 </CollectionView>
                 <ScrollView Grid.Row="9" Grid.ColumnSpan="2">
                     <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
-                        <Label Text="Recommended" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
+                        <Label Text="My Marketplace Listings" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
 
                         <CollectionView x:Name="MarketplaceListView"
                                 ItemsSource="{Binding Marketplace}"

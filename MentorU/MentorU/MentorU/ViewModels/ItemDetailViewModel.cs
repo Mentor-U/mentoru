@@ -113,5 +113,15 @@ namespace MentorU.ViewModels
             var user = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == _item.Owner).ToListAsync();
             await Shell.Current.Navigation.PushAsync(new ChatPage(user[0]));
         }
+
+
+        ///<summary>
+        /// Delete the item from DB
+        ///</summary>
+        public async void DeleteItem(object obj)
+        {
+            await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
+            await DatabaseService.Instance.client.GetTable<Items>().DeleteAsync(_item);
+        }
     }
 }

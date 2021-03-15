@@ -15,12 +15,26 @@ namespace MentorU.Views
             InitializeComponent();
             BindingContext = _vm = new ItemDetailViewModel(i);
 
-            ToolbarItem chatButton = new ToolbarItem
+            ToolbarItem interactButton;
+
+            if (i.Owner.Equals(App.loggedUser.id))
             {
-                Text = "Chat",
-                Command = new Command(_vm.StartChat)
-            };
-            ToolbarItems.Add(chatButton);
+                interactButton = new ToolbarItem
+                {
+                    Text = "Delete",
+                    Command = new Command(_vm.DeleteItem)
+                };
+            }
+            else
+            {
+                interactButton = new ToolbarItem
+                {
+                    Text = "Chat",
+                    Command = new Command(_vm.StartChat)
+                };
+            }
+
+            ToolbarItems.Add(interactButton);
         }
     }
 }

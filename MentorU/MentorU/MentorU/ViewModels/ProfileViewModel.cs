@@ -166,8 +166,8 @@ namespace MentorU.ViewModels
                     Classes.Add(val.ClassName);
                 }
 
-                //Load all marketplace items
-                List<Items> i = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                //Load all marketplace items this user has listed
+                List<Items> i = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner == App.loggedUser.id).ToListAsync();
                 foreach(Items val in i)
                 {
                     Marketplace.Add(val);

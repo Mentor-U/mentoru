@@ -17,7 +17,7 @@ namespace MentorU.Services.DatabaseServices
                 string line;
                 while((line=reader.ReadLine())!= null)
                 { 
-                    classList.Add(reader.ReadLine());
+                    classList.Add(line);
                 }
 
             }

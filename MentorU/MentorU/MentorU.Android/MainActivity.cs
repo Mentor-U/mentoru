@@ -59,6 +59,7 @@ namespace MentorU.Droid
 
             Bootstrap.Begin(() => new DeviceInstallationService());
 
+            // ignore warning, don't even bother.
             if (DeviceInstallationService.NotificationsSupported)
             {
                 FirebaseInstanceId.GetInstance(Firebase.FirebaseApp.Instance)

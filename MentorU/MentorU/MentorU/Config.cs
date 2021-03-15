@@ -2,6 +2,6 @@
 {
     public static partial class Config
     {
-        public static string BackendServiceEndpoint = "BACKEND_SERVICE_ENDPOINT";
+        public static string BackendServiceEndpoint = "https://mentorupushnotification.azurewebsites.net/";
     }
 }

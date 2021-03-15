@@ -9,6 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Xamarin.Essentials;
 using MentorU.Services.Bot;
 
+
 namespace MentorU
 {
     public partial class App : Application
@@ -43,6 +44,9 @@ namespace MentorU
                 Current.UserAppTheme = Current.RequestedTheme;
             };
 
+            ServiceContainer.Resolve<IPushNotificationActionService>()
+                .ActionTriggered += NotificationActionTriggered;
+
             MainPage = new AppShell();
         }
 
@@ -57,6 +61,14 @@ namespace MentorU
             DependencyService.Register<DatabaseService>();
             DependencyService.Register<BlobService>();
         }
+
+        void NotificationActionTriggered(object sender, PushAction e)
+            => ShowActionAlert(e);
+
+        void ShowActionAlert(PushAction action)
+            => MainThread.BeginInvokeOnMainThread(()
+                => MainPage?.DisplayAlert("PushDemo", $"{action} action received", "OK")
+                    .ContinueWith((task) => { if (task.IsFaulted) throw task.Exception; }));
 
         protected override void OnStart()
         {

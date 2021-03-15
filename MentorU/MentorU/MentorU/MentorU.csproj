@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Services\DatabaseServices\dep_abvs.csv" />
+    <EmbeddedResource Include="Services\DatabaseServices\dep_abvs.txt" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Views\EditProfilePage.xaml">

@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MentorU.ViewModels;
+using MentorU.Services;
 
 namespace MentorU.Views
 {
@@ -10,9 +11,14 @@ namespace MentorU.Views
     public partial class HomePage : ContentPage
     {
         HomeViewModel _vm;
+        readonly INotificationRegistrationService _notificationRegistrationService;
+
         public HomePage()
         {
             InitializeComponent();
+            _notificationRegistrationService =
+                ServiceContainer.Resolve<INotificationRegistrationService>();
+            _notificationRegistrationService.RegisterDeviceAsync();
             BindingContext = _vm = new HomeViewModel();
         }
 
@@ -21,5 +27,6 @@ namespace MentorU.Views
             base.OnAppearing();
             _vm.OnAppearing();
         }
+            
     }
 }

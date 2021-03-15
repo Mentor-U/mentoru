@@ -120,8 +120,13 @@ namespace MentorU.ViewModels
         ///</summary>
         public async void DeleteItem(object obj)
         {
-            await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
-            await DatabaseService.Instance.client.GetTable<Items>().DeleteAsync(_item);
+            bool confirm = await Application.Current.MainPage.DisplayAlert("Confirm Delete", "Are you sure you want to remove this listing from the marketplace?", "Accept", "Cancel");
+            if(confirm)
+            {
+                await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
+                await DatabaseService.Instance.client.GetTable<Items>().DeleteAsync(_item);
+            }
+           
         }
     }
 }

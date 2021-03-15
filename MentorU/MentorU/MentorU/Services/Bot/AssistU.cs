@@ -128,10 +128,19 @@ namespace MentorU.Services.Bot
 
             public async Task<List<Items>> GetRecommendations()
             {
+                if (App.loggedUser.Role == "0")
+                {
+                    var allItems = await DatabaseService.Instance.client.GetTable<Items>().ToListAsync();
+                    int count = allItems.Count < 5 ? allItems.Count : 5;
+                    return allItems.GetRange(0, count);
+                }
+
                 var t = await DatabaseService.Instance.client.GetTable<Classes>()
                         .Where(u => u.UserId == App.loggedUser.id).ToListAsync();
                 var h = new HashSet<string>(t.Select(u => u.ClassName));
-                _classes = h.ToList<string>();
+                _classes = h.ToList();
+
+                
 
                 var items = await DatabaseService.Instance.client.GetTable<Items>()
                     .Where(u => u.id != App.loggedUser.id && _classes.Contains(u.ClassUsed)).ToListAsync();

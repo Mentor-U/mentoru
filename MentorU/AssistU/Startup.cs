@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Integration.AspNet.Core;
 using Microsoft.BotBuilderSamples.Bots;
-using Microsoft.BotBuilderSamples.Dialogs;
+using CoreBot.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Microsoft.BotBuilderSamples
+namespace CoreBot
 {
     public class Startup
     {
@@ -36,6 +36,8 @@ namespace Microsoft.BotBuilderSamples
 
             // Register the BookingDialog.
             services.AddSingleton<BookingDialog>();
+
+            
 
             // The MainDialog that will be run by the bot.
             services.AddSingleton<MainDialog>();

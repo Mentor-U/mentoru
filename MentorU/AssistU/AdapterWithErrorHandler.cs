@@ -9,7 +9,7 @@ using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.BotBuilderSamples
+namespace CoreBot
 {
     public class AdapterWithErrorHandler : BotFrameworkHttpAdapter
     {

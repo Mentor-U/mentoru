@@ -125,7 +125,7 @@
     <FlyoutItem Title="Notifications" Icon="notification.png">
         <ShellContent Route="NotificationPage" ContentTemplate="{DataTemplate local:NotificationPage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Contact Us" Icon="contact.png">
+    <FlyoutItem Title="Contact Us" Icon="contactus.png">
         <ShellContent Route="ContactUsPage" ContentTemplate="{DataTemplate local:ContactUsPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="Settings" Icon="settings.png">

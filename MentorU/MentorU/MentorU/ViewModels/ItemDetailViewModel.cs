@@ -123,8 +123,19 @@ namespace MentorU.ViewModels
             bool confirm = await Application.Current.MainPage.DisplayAlert("Confirm Delete", "Are you sure you want to remove this listing from the marketplace?", "Accept", "Cancel");
             if (confirm)
             {
+                try
+                {
+                    _item.itemImage = null;
+                    await DatabaseService.Instance.client.GetTable<Items>().DeleteAsync(_item);
+                    await BlobService.Instance.BlobServiceClient.DeleteBlobContainerAsync(_item.id);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    // Deletion error... Must have already been deleted or somehow never existed
+                }
                 await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
-                await DatabaseService.Instance.client.GetTable<Items>().DeleteAsync(_item);
+
             }
             else return;
            

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MentorU.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,9 @@ namespace MentorU.Views
         public ContactUsPage()
         {
             InitializeComponent();
+            BindingContext = new ContactUsViewModel();
         }
+
 
         public async void EmailClicked(object sender, EventArgs args)
         {
@@ -26,7 +29,6 @@ namespace MentorU.Views
         {
             await Launcher.OpenAsync("tel:18000000000");
         }
-
 
     }
 }

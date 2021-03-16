@@ -4,19 +4,16 @@ using System.Linq;
 using System.Text;
 
 using Xamarin.Forms;
+using Xamarin.Essentials;
+
 
 namespace MentorU.ViewModels
 {
-    public class ContactUsViewModel : ContentView
+    public class ContactUsViewModel : BaseViewModel
     {
         public ContactUsViewModel()
         {
-            Content = new StackLayout
-            {
-                Children = {
-                    new Label { Text = "Welcome to Xamarin.Forms!" }
-                }
-            };
+
         }
     }
 }

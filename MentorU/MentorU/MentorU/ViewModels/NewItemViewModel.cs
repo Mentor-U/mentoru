@@ -8,6 +8,8 @@ using System.IO;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
 
 namespace MentorU.ViewModels
 {
@@ -53,14 +55,36 @@ namespace MentorU.ViewModels
         private async void AddPicture()
         {
 
-            Stream itemImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
-            if (itemImageStream != null)
-            {
-                string fileName = "temp-market-image";
-                itemImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, itemImageStream);
+            //Stream itemImageStream = await DependencyService.Get<IPhotoPickerService>().GetImageStreamAsync();
+            //if (itemImageStream != null)
+            //{
+            //    string fileName =
+            //    itemImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, itemImageStream);
 
-                ItemFirstImage = itemImageFilePath;
+            //    ItemFirstImage = itemImageFilePath;
+            //}
+
+
+
+            await CrossMedia.Current.Initialize();
+            if (!CrossMedia.Current.IsPickPhotoSupported)
+            {
+                await AppShell.Current.DisplayAlert("Not supported", "Your device does not currently support this functionality", "Ok");
+                return;
             }
+
+            var mediaOption = new PickMediaOptions()
+            {
+                PhotoSize = PhotoSize.Medium
+            };
+
+            string fileName = "temp-market-image";
+
+            var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
+
+            itemImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
+
+            ItemFirstImage = itemImageFilePath;
 
         }
 

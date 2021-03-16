@@ -186,6 +186,9 @@
   <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\error.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

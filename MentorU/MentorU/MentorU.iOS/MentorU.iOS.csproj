@@ -209,9 +209,12 @@
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\error.jpg" />
+  </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarMentorUiOSHideInfoBar="True" TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadWrongLinkerErrorInfoBarMentorUiOSHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

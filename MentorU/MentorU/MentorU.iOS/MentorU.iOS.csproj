@@ -29,7 +29,7 @@
     <MtouchDebug>true</MtouchDebug>
     <CodesignKey>Apple Development: mentoru.utah@gmail.com (6W7CU9N5Z8)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>VS: com.MentorU Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -39,7 +39,7 @@
     <WarningLevel>4</WarningLevel>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>x86_64</MtouchArch>
-    <CodesignKey>Apple Development: Brayden Muir (6W7CU9N5Z8)</CodesignKey>
+    <CodesignKey>Apple Development: mentoru.utah@gmail.com (6W7CU9N5Z8)</CodesignKey>
     <CodesignProvision>VS: com.MentorU Development</CodesignProvision>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
@@ -53,7 +53,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: Brayden Muir (6W7CU9N5Z8)</CodesignKey>
+    <CodesignKey>Apple Development: mentoru.utah@gmail.com (6W7CU9N5Z8)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>None</MtouchLink>
@@ -71,7 +71,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>SdkOnly</MtouchLink>
     <MtouchUseLlvm>true</MtouchUseLlvm>
-    <CodesignProvision>VS: WildCard Development</CodesignProvision>
+    <CodesignProvision>VS: com.MentorU Development</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />

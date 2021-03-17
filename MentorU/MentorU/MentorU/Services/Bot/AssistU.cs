@@ -140,8 +140,6 @@ namespace MentorU.Services.Bot
                 var h = new HashSet<string>(t.Select(u => u.ClassName));
                 _classes = h.ToList();
 
-                
-
                 var items = await DatabaseService.Instance.client.GetTable<Items>()
                     .Where(u => u.id != App.loggedUser.id && _classes.Contains(u.ClassUsed)).ToListAsync();
                 var maxLen = 5 < items.Count ? 5 : items.Count;

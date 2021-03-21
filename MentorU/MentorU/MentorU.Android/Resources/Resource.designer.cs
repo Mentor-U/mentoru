@@ -14967,16 +14967,19 @@ namespace MentorU.Droid
 			public const int search = 2131165356;
 			
 			// aapt resource value: 0x7F0700AD
-			public const int test_custom_background = 2131165357;
+			public const int settings = 2131165357;
 			
 			// aapt resource value: 0x7F0700AE
-			public const int tooltip_frame_dark = 2131165358;
+			public const int test_custom_background = 2131165358;
 			
 			// aapt resource value: 0x7F0700AF
-			public const int tooltip_frame_light = 2131165359;
+			public const int tooltip_frame_dark = 2131165359;
 			
 			// aapt resource value: 0x7F0700B0
-			public const int xamarin_logo = 2131165360;
+			public const int tooltip_frame_light = 2131165360;
+			
+			// aapt resource value: 0x7F0700B1
+			public const int xamarin_logo = 2131165361;
 			
 			static Drawable()
 			{

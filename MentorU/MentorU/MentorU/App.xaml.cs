@@ -25,6 +25,7 @@ namespace MentorU
 
         public static Users loggedUser { get; internal set; }
 
+        public static INotificationRegistrationService notificationService { get; internal set; }
 
         // FIXME: Pull this lad from the DB
         public static AssistU assistU = new AssistU();
@@ -43,6 +44,10 @@ namespace MentorU
             {
                 Current.UserAppTheme = Current.RequestedTheme;
             };
+
+            notificationService =
+                ServiceContainer.Resolve<INotificationRegistrationService>();
+            notificationService.RegisterDeviceAsync();
 
             ServiceContainer.Resolve<IPushNotificationActionService>()
                 .ActionTriggered += NotificationActionTriggered;

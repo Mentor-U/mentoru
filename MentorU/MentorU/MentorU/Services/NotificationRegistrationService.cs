@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using MentorU.Models;
 using Xamarin.Essentials;
+using System.Collections.Generic;
 
 namespace MentorU.Services
 {
@@ -63,6 +64,26 @@ namespace MentorU.Services
             await SecureStorage.SetAsync(CachedTagsKey, JsonConvert.SerializeObject(tags));
         }
 
+        public async Task UpdateTags(string tag)
+        {
+            var serializedTags = await SecureStorage.GetAsync(CachedTagsKey)
+                .ConfigureAwait(false);
+
+            if (serializedTags == null)
+            {
+                await RegisterDeviceAsync(new string[] { tag });
+                return;
+            }
+
+            var oldTags = JsonConvert.DeserializeObject<string[]>(serializedTags);
+            List<string> temp = new List<string>(oldTags);
+            if (!temp.Contains(tag))
+            {
+                temp.Add(tag);
+                await RegisterDeviceAsync(temp.ToArray());
+            }
+        }
+
         public async Task RefreshRegistrationAsync()
         {
             var cachedToken = await SecureStorage.GetAsync(CachedDeviceTokenKey)
@@ -82,7 +103,7 @@ namespace MentorU.Services
             await RegisterDeviceAsync(tags);
         }
 
-        async Task SendAsync<T>(HttpMethod requestType, string requestUri, T obj)
+        public async Task SendAsync<T>(HttpMethod requestType, string requestUri, T obj)
         {
             string serializedContent = null;
 

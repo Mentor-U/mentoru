@@ -11,14 +11,10 @@ namespace MentorU.Views
     public partial class HomePage : ContentPage
     {
         HomeViewModel _vm;
-        readonly INotificationRegistrationService _notificationRegistrationService;
-
         public HomePage()
         {
             InitializeComponent();
-            _notificationRegistrationService =
-                ServiceContainer.Resolve<INotificationRegistrationService>();
-            _notificationRegistrationService.RegisterDeviceAsync();
+
             BindingContext = _vm = new HomeViewModel();
         }
 

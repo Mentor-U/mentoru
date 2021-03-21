@@ -161,6 +161,10 @@
       <Generator>
       </Generator>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\contactus.png">
+      <SubType></SubType>
+      <Generator></Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\settings.png">
       <SubType></SubType>
       <Generator></Generator>

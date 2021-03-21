@@ -12,6 +12,7 @@ using MentorU.Services.DatabaseServices;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http;
 
+
 namespace MentorU.ViewModels
 {
     public class ChatViewModel : BaseViewModel
@@ -26,15 +27,20 @@ namespace MentorU.ViewModels
         public Command LoadPageData { get; set; }
         public Command ConnectChat { get; set; }
         public Command DisconnectChat { get; set; }
+        public Command RefreshChatCommand { get; set; }
 
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
         private string _groupName;
+        private bool _useCache;
+
+        public Message lastMessage { get; set; }
 
         public ChatViewModel(Users ChatRecipient)
         {
             Title = ChatRecipient.FirstName;
             _recipient = ChatRecipient;
+            _useCache = true;
 
             // Use bit mask of user id's to generate group name 
             byte[] them = Encoding.ASCII.GetBytes(_recipient.id);
@@ -50,7 +56,7 @@ namespace MentorU.ViewModels
             LoadPageData = new Command(async () => { await ExecuteLoadPageData(); await Connect(); });
             ConnectChat = new Command(async () => await Connect());
             DisconnectChat = new Command(async () => await Disconnect());
-
+            RefreshChatCommand = new Command(() => { _useCache = false; IsBusy = true; });
 
             hubConnection = new HubConnectionBuilder()
                 .WithUrl($"{App.SignalRBackendUrl}")
@@ -68,7 +74,7 @@ namespace MentorU.ViewModels
                             MessageList.Add(new Message() { UserID = _recipient.id, Mine = false, Theirs = true, Text = message });
                         else
                             MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
-                        App._cache.Set(_groupName, MessageList, new TimeSpan(0, 2, 0));
+                        App._cache.Set(_groupName, MessageList, new TimeSpan(24, 0, 0));
 
                     }
                     catch (Exception ex)
@@ -102,10 +108,9 @@ namespace MentorU.ViewModels
             {   
                 object his;
                 List<Messages> history;
-                if (App._cache.TryGetValue(_groupName, out his))
+                if (_useCache && App._cache.TryGetValue(_groupName, out his))
                 {
                     MessageList = (ObservableCollection<Message>)his;
-                    Debug.WriteLine("Pull from cache");
                 }
                 else
                 {
@@ -122,9 +127,10 @@ namespace MentorU.ViewModels
                             Theirs = m.UserID == _recipient.id ? true : false
                         });
                     }
-                    App._cache.Set(_groupName, MessageList, new TimeSpan(0,2,0));
+                    App._cache.Set(_groupName, MessageList, new TimeSpan(24,0,0));
+                    _useCache = true;
                 }
-                
+                lastMessage = MessageList[MessageList.Count - 1];
             }
             catch (Exception ex)
             {
@@ -135,7 +141,6 @@ namespace MentorU.ViewModels
                 IsBusy = false;
             }
         }
-
 
         async Task ExecuteSend()
         {

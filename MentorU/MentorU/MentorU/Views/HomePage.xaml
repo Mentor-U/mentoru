@@ -14,6 +14,11 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
+    <!--<ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="blank_profile.png" Command="{Binding OpenProfileCommand}"/>
+        <ToolbarItem Text="Notifications" Command="{Binding OpenNotificationsCommand}"/>
+    </ContentPage.ToolbarItems>-->
+
     <RefreshView x:DataType="local:HomeViewModel" Command="{Binding LoadPageDataCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}" BackgroundColor="{AppThemeBinding Light=White, Dark=Black}" >
         <ScrollView>
             <Grid>

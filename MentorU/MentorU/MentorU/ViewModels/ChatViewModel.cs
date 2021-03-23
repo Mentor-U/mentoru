@@ -92,7 +92,7 @@ namespace MentorU.ViewModels
                 await hubConnection.StartAsync();
             await hubConnection.InvokeAsync("AddToGroup", _groupName);
             hubIsConnected = true;
-            await App.notificationService.UpdateTags(_groupName);
+            //await App.notificationService.UpdateTags(_groupName);
         }
 
         public async Task Disconnect()

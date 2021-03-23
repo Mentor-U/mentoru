@@ -7,34 +7,17 @@
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
     <ContentPage.Content>
-        <StackLayout>
-            <StackLayout>
-                <Image Source="Logo.png" WidthRequest="200" HeightRequest="200"></Image>
-            </StackLayout>
-            <StackLayout 
-             VerticalOptions="FillAndExpand" 
-             HorizontalOptions="FillAndExpand"
-             BackgroundColor="Khaki">
-                <Label Text="Email"></Label>
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer 
-               Tapped="EmailClicked"
-               NumberOfTapsRequired="1">
-                    </TapGestureRecognizer>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-            <StackLayout 
-             VerticalOptions="FillAndExpand" 
-             HorizontalOptions="FillAndExpand"
-             BackgroundColor="Khaki">
-                <Label Text="Phone"></Label>
-                <StackLayout.GestureRecognizers>
-                    <TapGestureRecognizer 
-               Tapped="PhoneClicked"
-               NumberOfTapsRequired="1">
-                    </TapGestureRecognizer>
-                </StackLayout.GestureRecognizers>
-            </StackLayout>
-        </StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Image Source="Logo.png" Grid.RowSpan="2" ></Image>
+
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Text="Email" Clicked="EmailClicked"
+                    BackgroundColor="Khaki"/>
+            <Button Grid.Row="4" Grid.ColumnSpan="2" Text="Phone" Clicked="PhoneClicked"
+                    BackgroundColor="Khaki"/>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

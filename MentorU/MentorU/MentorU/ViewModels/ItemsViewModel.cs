@@ -126,14 +126,17 @@ namespace MentorU.ViewModels
                     {
                         if(Filters.Contains(item.Condition) && Filters.Contains(item.ClassUsed))
                         {
+                            item.itemImage = await BlobService.Instance.TryDownloadImage(item.id, "Image0");
                             Items.Add(item);
                         }
                         else if (Filters.Contains(item.Condition) && Filters.Count == 1)
                         {
+                            item.itemImage = await BlobService.Instance.TryDownloadImage(item.id, "Image0");
                             Items.Add(item);
                         }
                         else if (Filters.Contains(item.ClassUsed) && Filters.Count == 1)
                         {
+                            item.itemImage = await BlobService.Instance.TryDownloadImage(item.id, "Image0");
                             Items.Add(item);
                         }
                     }

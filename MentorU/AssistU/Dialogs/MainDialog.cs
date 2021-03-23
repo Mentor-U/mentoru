@@ -11,8 +11,9 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Logging;
 using Microsoft.Recognizers.Text.DataTypes.TimexExpression;
+using CoreBot.CognitiveModels;
 
-namespace Microsoft.BotBuilderSamples.Dialogs
+namespace CoreBot.Dialogs
 {
     public class MainDialog : ComponentDialog
     {
@@ -28,6 +29,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(bookingDialog);
+            AddDialog(new FindMentorDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
@@ -50,8 +52,7 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             }
 
             // Use the text provided in FinalStepAsync or the default if it is the first time.
-            var weekLaterDate = DateTime.Now.AddDays(7).ToString("MMMM d, yyyy");
-            var messageText = stepContext.Options?.ToString() ?? $"What can I help you with today?\nSay something like \"Book a flight from Paris to Berlin on {weekLaterDate}\"";
+            var messageText = "I can help you find a mentor.";
             var promptMessage = MessageFactory.Text(messageText, messageText, InputHints.ExpectingInput);
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
         }
@@ -65,25 +66,34 @@ namespace Microsoft.BotBuilderSamples.Dialogs
             }
 
             // Call LUIS and gather any potential booking details. (Note the TurnContext has the response to the prompt.)
-            var luisResult = await _luisRecognizer.RecognizeAsync<FlightBooking>(stepContext.Context, cancellationToken);
+            var luisResult = await _luisRecognizer.RecognizeAsync<MentorFinder>(stepContext.Context, cancellationToken);
             switch (luisResult.TopIntent().intent)
             {
-                case FlightBooking.Intent.BookFlight:
-                    await ShowWarningForUnsupportedCities(stepContext.Context, luisResult, cancellationToken);
+                case MentorFinder.Intent.BookFlight:
+                    //await ShowWarningForUnsupportedCities(stepContext.Context, luisResult, cancellationToken);
 
                     // Initialize BookingDetails with any entities we may have found in the response.
                     var bookingDetails = new BookingDetails()
                     {
                         // Get destination and origin from the composite entities arrays.
-                        Destination = luisResult.ToEntities.Airport,
-                        Origin = luisResult.FromEntities.Airport,
-                        TravelDate = luisResult.TravelDate,
+                        //Destination = luisResult.ToEntities.Airport,
+                        //Origin = luisResult.FromEntities.Airport,
+                        //TravelDate = luisResult.TravelDate,
                     };
 
                     // Run the BookingDialog giving it whatever details we have from the LUIS call, it will fill out the remainder.
                     return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
 
-                case FlightBooking.Intent.GetWeather:
+                case MentorFinder.Intent.FindMentor:
+
+                    //var mentorDesire = new MentorDesire()
+                    //{
+                    //    Field = luisResult.ExtractField,
+                    //    Skills = luisResult.ExtractSkill
+                    //};
+                    return await stepContext.BeginDialogAsync(nameof(FindMentorDialog), new MentorDesire(), cancellationToken);
+
+                case MentorFinder.Intent.GetWeather:
                     // We haven't implemented the GetWeatherDialog so we just display a TODO message.
                     var getWeatherMessageText = "TODO: get weather flow here";
                     var getWeatherMessage = MessageFactory.Text(getWeatherMessageText, getWeatherMessageText, InputHints.IgnoringInput);
@@ -142,6 +152,13 @@ namespace Microsoft.BotBuilderSamples.Dialogs
                 var travelDateMsg = timeProperty.ToNaturalLanguage(DateTime.Now);
                 var messageText = $"I have you booked to {result.Destination} from {result.Origin} on {travelDateMsg}";
                 var message = MessageFactory.Text(messageText, messageText, InputHints.IgnoringInput);
+                await stepContext.Context.SendActivityAsync(message, cancellationToken);
+            }
+
+            if (stepContext.Result is MentorDesire mentor)
+            {
+                var text = $"Alright, I will find a mentor working in {mentor.Field} and skilled in {mentor.Skills}";
+                var message = MessageFactory.Text(text, text, InputHints.IgnoringInput);
                 await stepContext.Context.SendActivityAsync(message, cancellationToken);
             }
 

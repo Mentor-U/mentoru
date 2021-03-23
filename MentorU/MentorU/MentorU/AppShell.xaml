@@ -10,18 +10,12 @@
     
         https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
     -->
-    <!--<Shell.FlyoutHeader>
+    <Shell.FlyoutHeader>
         <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             HeightRequest="75">
-    <Grid BackgroundColor="Black">
-        <Image Aspect="AspectFill"
-               Source="Logo.png"
-               Scale="1"
-               HorizontalOptions="Start"/>
-    </Grid>
-</ContentView>
-    </Shell.FlyoutHeader>-->
+             HeightRequest="10">
+        </ContentView>
+    </Shell.FlyoutHeader>
 
     <Shell.Resources>
         <ResourceDictionary>
@@ -94,15 +88,15 @@
     -->
 
     <!-- Loading/Start Page -->
-    <ShellItem Route="Loading">
+    <ShellItem Route="Loading" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate local:LoadingPage}" />
     </ShellItem>
 
-    <ShellItem Route="ActivityWaitPage">
+    <ShellItem Route="ActivityWaitPage" FlyoutItemIsVisible="False">
         <ShellContent ContentTemplate="{DataTemplate local:ActivityWaitPage}" />
     </ShellItem>
 
-    <ShellContent Route="Login"
+    <ShellContent Route="Login" FlyoutItemIsVisible="False"
                   ContentTemplate="{DataTemplate local:LoginPage}">
     </ShellContent>
 
@@ -125,7 +119,7 @@
     <FlyoutItem Title="Notifications" Icon="notification.png">
         <ShellContent Route="NotificationPage" ContentTemplate="{DataTemplate local:NotificationPage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Contact Us" Icon="contact.png">
+    <FlyoutItem Title="Contact Us" Icon="contactus.png">
         <ShellContent Route="ContactUsPage" ContentTemplate="{DataTemplate local:ContactUsPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="Settings" Icon="settings.png">

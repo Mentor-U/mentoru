@@ -5,6 +5,7 @@
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"  
              xmlns:model="clr-namespace:MentorU.Models"  
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Name="MarketplaceItemsPage"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
@@ -46,9 +47,17 @@
 
 
 
-                            <Image Source="{Binding itemImage}"
+                            <ffimageloading:CachedImage 
+                            Source="{Binding itemImage}"
+                            ErrorPlaceholder= "error.jpg"
+                            CacheDuration= "50"
+                            RetryCount= "3"
+                            RetryDelay= "600"
+                            DownsampleToViewSize = "true"
                             Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                            Aspect="AspectFill" HeightRequest="100"/>
+                            Aspect="AspectFit" HeightRequest="150" WidthRequest="150"
+                            />  
+
 
                             <Label Text="{Binding Price, StringFormat='Item Price = {0:N} $'}" 
                             LineBreakMode="NoWrap" 

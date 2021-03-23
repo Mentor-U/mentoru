@@ -61,8 +61,9 @@ namespace MentorU.ViewModels
         public Command ScheduleCommand { get; set; }
 
         public bool Standardview { get; set; }
+        public bool IsConnected { get; set; }
 
-        public ViewOnlyProfileViewModel(Users user, bool fromNotification=false)
+        public ViewOnlyProfileViewModel(Users user, bool isConnected=false, bool fromNotification=false)
         {
             _user = user;
             Name = _user.FirstName;
@@ -72,6 +73,7 @@ namespace MentorU.ViewModels
             Role = _user.Role == "0" ? "Skills:" : "Classes:";
 
             Standardview = !fromNotification;
+            IsConnected = isConnected;
 
             Classes = new ObservableCollection<string>();
             LoadData();

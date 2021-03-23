@@ -17,7 +17,7 @@ namespace CoreBot.CognitiveModels
         {
             get
             {
-                return Entities?._instance?.Field?.FirstOrDefault()?.Text;
+                return Entities?._instance?.Skill?.FirstOrDefault()?.Text;
             }
         }
     }

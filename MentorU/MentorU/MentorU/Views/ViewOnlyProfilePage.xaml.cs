@@ -18,7 +18,7 @@ namespace MentorU.Views
         public ViewOnlyProfilePage(Users u, bool isConnected, bool fromNotification=false)
         {
             InitializeComponent();
-            BindingContext = _vm =  new ViewOnlyProfileViewModel(u, fromNotification);
+            BindingContext = _vm =  new ViewOnlyProfileViewModel(u, isConnected, fromNotification);
             if (isConnected) // Toggles the interactions available to the mentee depending on if they are connected
             {
 

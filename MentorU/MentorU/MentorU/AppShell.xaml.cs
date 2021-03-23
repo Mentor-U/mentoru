@@ -19,6 +19,7 @@ namespace MentorU
             //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(NotificationPage), typeof(NotificationPage));
             Routing.RegisterRoute(nameof(ActivityWaitPage), typeof(ActivityWaitPage));
+            Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
             Routing.RegisterRoute("Main/Login", typeof(LoginPage));
         }
 

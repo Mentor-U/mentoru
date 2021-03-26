@@ -16,7 +16,7 @@ namespace MentorU.ViewModels
     public class JobBoardViewModel : BaseViewModel
     {
         private Jobs _selectedJob;
-        public ObservableCollection<string> AllLevel { get; set; }
+        public ObservableCollection<string> AllLevels { get; set; }
         private string _level;
         private string _jobType;
 
@@ -39,6 +39,132 @@ namespace MentorU.ViewModels
                 _filters = value;
                 OnPropertyChanged();
             }
+        }
+
+        private string _filterJobType;
+        public string FilterJobType
+        {
+            get => _filterJobType;
+            set
+            {
+                _filterJobType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _filterLevel;
+        public string FilterLevel
+        {
+            get => _filterLevel;
+            set
+            {
+                _filterLevel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string Level
+        {
+            get => _level;
+            set
+            {
+                _level = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string JobType
+        {
+            get => _jobType;
+            set
+            {
+                _jobType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public JobBoardViewModel()
+        {
+            Title = "Job Board";
+            Jobs = new ObservableCollection<Jobs>();
+            Filters = new ObservableCollection<string>();
+
+            AllLevels = new ObservableCollection<string>()
+            {
+                "Associate",
+                "Entry Level",
+                "Mid-Senior level",
+                "Executive",
+                "Director",
+                "Internship"
+            };
+
+            LoadJobsCommand = new Command(async () => await ExecuteLoadJobsCommand());
+
+            JobTapped = new Command<Jobs>(OnJobSelected);
+
+            AddJobCommand = new Command(OnAddJob);
+
+            FilterCommand = new Command(async () => await ExecuteFilterItems());
+            ClearFilters = new Command(async () => { Filters.Clear(); await ExecuteLoadJobsCommand(); });
+            ClosePopUp = new Command(async () => await ClosePopUpWindow());
+        }
+
+        async Task ExecuteLoadJobsCommand()
+        {
+
+        }
+
+        public void OnAppearing()
+        {
+            IsBusy = true;
+            SelectedJob = null;
+        }
+
+        public Jobs SelectedJob
+        {
+            get => _selectedJob;
+            set
+            {
+                SetProperty(ref _selectedJob, value);
+                OnJobSelected(value);
+            }
+        }
+
+        private async void OnAddJob(object obj)
+        {
+            await Shell.Current.GoToAsync(nameof(NewJobPage));
+        }
+
+        async void OnJobSelected(Jobs job)
+        {
+            if (job == null)
+                return;
+
+            // This will push the ItemDetailPage onto the navigation stack
+            //await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
+            await Application.Current.MainPage.Navigation.PushAsync(new JobDetailPage(job));
+        }
+
+        async Task ExecuteFilterItems()
+        {
+            await PopupNavigation.Instance.PushAsync(new PopUpJobs(this));
+        }
+
+        async Task ClosePopUpWindow()
+        {
+            if (!string.IsNullOrEmpty(Level))
+            {
+                Filters.Add(Level);
+                Level = "";
+            }
+            if (!string.IsNullOrEmpty(FilterJobType))
+            {
+                Filters.Add(FilterJobType);
+                FilterJobType = "";
+            }
+            IsBusy = true;
+            await PopupNavigation.Instance.PopAllAsync();
         }
     }
 }

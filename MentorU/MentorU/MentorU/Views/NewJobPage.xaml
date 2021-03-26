@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.NewJobPage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="New Job"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+    
+    <ScrollView>
+        <StackLayout Spacing="10" Padding="15">
+            <Label Text="Title" FontSize="Medium" />
+            <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium"
+                   BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
+
+            <Image Source="{Binding CompanyLogo}" 
+                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                    Aspect="AspectFill" HeightRequest="100"/>
+
+            <Button Text="Add A Company Logo Picture From Gallery" Command="{Binding AddLogoPictureCommand}" FontAttributes="Italic"
+                       BackgroundColor="LightGray" TextColor="black" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+                       />
+
+            <Label Text="Description" FontSize="Medium" />
+            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0"
+                    BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black" HeightRequest="100"/>
+            
+            <Label Text="Responsibilities" FontSize="Medium" />
+            <Editor Text="{Binding Responsibilities, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0"
+                    BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black" HeightRequest="100"/>
+            
+            <Label Text="Qualifications" FontSize="Medium" />
+            <Editor Text="{Binding Qualifications, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0"
+                    BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black" HeightRequest="100"/>
+            
+            <Label Text="Location" FontSize="Medium" />
+            <Entry Text="{Binding ItemPrice, Mode=TwoWay}" FontSize="Medium"
+                   BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
+
+            <Label Text="Seniority Level" />
+            <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                    TextColor="Black"
+                    ItemsSource="{Binding AllLevels}"
+                    SelectedItem="{Binding Level}"
+                    WidthRequest="100" />
+
+            <Label Text="Employment Type" />
+            <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                    TextColor="Black"
+                    ItemsSource="{Binding AllJobTypes}"
+                    SelectedItem="{Binding JobType}"
+                    WidthRequest="100" />
+
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

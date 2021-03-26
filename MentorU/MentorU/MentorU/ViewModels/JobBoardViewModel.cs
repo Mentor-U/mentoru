@@ -17,6 +17,7 @@ namespace MentorU.ViewModels
     {
         private Jobs _selectedJob;
         public ObservableCollection<string> AllLevels { get; set; }
+        public ObservableCollection<string> AllJobTypes { get; set; }
         private string _level;
         private string _jobType;
 
@@ -97,6 +98,15 @@ namespace MentorU.ViewModels
                 "Executive",
                 "Director",
                 "Internship"
+            };
+
+            AllJobTypes = new ObservableCollection<string>()
+            {
+                "Full-time",
+                "Part-time",
+                "Internship",
+                "Contract",
+                "Other"
             };
 
             LoadJobsCommand = new Command(async () => await ExecuteLoadJobsCommand());

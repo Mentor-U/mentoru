@@ -1,20 +1,21 @@
-﻿using System;
+﻿using MentorU.Models;
+using MentorU.ViewModels;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MentorU.Views
 {
-    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class NewJobPage : ContentPage
     {
+        public Jobs Job { get; set; }
+
         public NewJobPage()
         {
             InitializeComponent();
+            BindingContext = new NewJobViewModel();
         }
     }
 }

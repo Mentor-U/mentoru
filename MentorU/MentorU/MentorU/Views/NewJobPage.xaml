@@ -35,7 +35,7 @@
                     BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black" HeightRequest="100"/>
             
             <Label Text="Location" FontSize="Medium" />
-            <Entry Text="{Binding ItemPrice, Mode=TwoWay}" FontSize="Medium"
+            <Entry Text="{Binding Location, Mode=TwoWay}" FontSize="Medium"
                    BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
 
             <Label Text="Seniority Level" />

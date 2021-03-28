@@ -22,7 +22,7 @@ namespace MentorU.Views
                 interactButton = new ToolbarItem
                 {
                     Text = "Delete",
-                    Command = new Command(_vm.DeleteItem)
+                    Command = new Command(_vm.DeleteJob)
                 };
             }
             else

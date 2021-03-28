@@ -12,6 +12,8 @@ namespace MentorU.Models
         public string id { get; set; }
         public string Text { get; set; }
         public string Description { get; set; }
+        public string Responsibilities { get; set; }
+        public string Qualifications { get; set; }
         public string Location { get; set; }
         public string Owner { get; set; }
 

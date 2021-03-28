@@ -107,6 +107,18 @@ namespace MentorU.ViewModels
             set => SetProperty(ref description, value);
         }
 
+        public string Responsibilities
+        {
+            get => responsibilities;
+            set => SetProperty(ref responsibilities, value);
+        }
+
+        public string Qualifications
+        {
+            get => qualifications;
+            set => SetProperty(ref qualifications, value);
+        }
+
         public string Location
         {
             get => location;
@@ -150,6 +162,8 @@ namespace MentorU.ViewModels
             {
                 Text = Text,
                 Description = Description,
+                Responsibilities = Responsibilities,
+                Qualifications = Qualifications,
                 Location = Location,
                 Owner = App.loggedUser.id,
                 JobType = JobType,

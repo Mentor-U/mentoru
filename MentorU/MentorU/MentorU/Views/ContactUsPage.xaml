@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.ContactUsPage"
+             Title="Contact Us"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Image Source="Logo.png" Grid.RowSpan="2" ></Image>
+
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Text="Email" Clicked="EmailClicked"
+                    BackgroundColor="Khaki"/>
+            <Button Grid.Row="4" Grid.ColumnSpan="2" Text="Phone" Clicked="PhoneClicked"
+                    BackgroundColor="Khaki"/>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

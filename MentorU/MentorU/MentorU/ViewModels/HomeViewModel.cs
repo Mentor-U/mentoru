@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using MentorU.Models;
 using MentorU.Views;
 using Xamarin.Forms;
@@ -18,6 +18,8 @@ namespace MentorU.ViewModels
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
         public Command<Items> ItemTapped { get; }
+        public Command OpenProfileCommand { get; }
+        public Command OpenNotificationsCommand { get; }
         private string _usersName;
         public string UsersName
         {
@@ -40,6 +42,8 @@ namespace MentorU.ViewModels
             LoadPageDataCommand = new Command(async () => await ExecuteLoadPageData());
             MentorTapped = new Command<Users>(OnMentorSelected);
             ItemTapped = new Command<Items>(OnItemSelected);
+            OpenProfileCommand = new Command(OpenProfile);
+            OpenNotificationsCommand = new Command(OpenNotifications);
             UsersName = App.loggedUser.DisplayName;
 
             if (App.loggedUser.Role == "0")
@@ -88,7 +92,8 @@ namespace MentorU.ViewModels
 
                 //Load marketplace items
                 MarketItems.Clear();
-                List<Items> items = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                // List<Items> items = await DatabaseService.Instance.client.GetTable<Items>().Where(u => u.Owner != App.loggedUser.id).ToListAsync();
+                List<Items> items = await App.assistU.GetRecommendations();
                 foreach(var i in items)
                 {
                     MarketItems.Add(i);
@@ -128,6 +133,15 @@ namespace MentorU.ViewModels
                 await Shell.Current.Navigation.PushAsync(new ItemDetailPage(item));
         }
 
+        async void OpenProfile()
+        {
+            await Shell.Current.Navigation.PushAsync(new ProfilePage());
+        }
+
+        async void OpenNotifications()
+        {
+            await Shell.Current.Navigation.PushAsync(new NotificationPage());
+        }
 
         public void OnAppearing()
         {

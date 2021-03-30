@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -11,13 +12,13 @@ namespace MentorU.Services.DatabaseServices
         {
             classList = new List<string>();
             var assembly = IntrospectionExtensions.GetTypeInfo(typeof(LoadResourceText)).Assembly;
-            Stream stream = assembly.GetManifestResourceStream("MentorU.Services.DatabaseServices.dep_abvs.csv");
+            Stream stream = assembly.GetManifestResourceStream("MentorU.Services.DatabaseServices.dep_abvs.txt");
             using (var reader = new StreamReader(stream))
             {
                 string line;
                 while((line=reader.ReadLine())!= null)
                 { 
-                    classList.Add(reader.ReadLine());
+                    classList.Add(line);
                 }
 
             }

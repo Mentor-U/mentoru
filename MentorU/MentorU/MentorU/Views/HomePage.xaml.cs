@@ -3,6 +3,7 @@ using System.ComponentModel;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MentorU.ViewModels;
+using MentorU.Services;
 
 namespace MentorU.Views
 {
@@ -13,6 +14,7 @@ namespace MentorU.Views
         public HomePage()
         {
             InitializeComponent();
+
             BindingContext = _vm = new HomeViewModel();
         }
 
@@ -21,5 +23,6 @@ namespace MentorU.Views
             base.OnAppearing();
             _vm.OnAppearing();
         }
+            
     }
 }

@@ -5,25 +5,33 @@ using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
 using MentorU.Services.LogOn;
 using Xamarin.Forms;
+using Microsoft.Extensions.Caching.Memory;
+using Xamarin.Essentials;
+using MentorU.Services.Bot;
+
 
 namespace MentorU
 {
     public partial class App : Application
     {
         // Hosted server for in app messaging
-        public static string SignalRBackendUrl = "https://mentoruchat.azurewebsites.net/messages";
+        public static string SignalRBackendUrl = "https://mentorusignalrserver.azurewebsites.net/messages";
 
         // local host testing:
-        // DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089/messages" : "https://localhost:60089/messages";
+        //public static string SignalRBackendUrl =
+        //    DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:60089/messages" : "https://localhost:60089/messages";
 
         public static UserContext AADUser { get; internal set; }
 
         public static Users loggedUser { get; internal set; }
 
+        public static INotificationRegistrationService notificationService { get; internal set; }
 
         // FIXME: Pull this lad from the DB
         public static AssistU assistU = new AssistU();
 
+        public static IMemoryCache _cache = new MemoryCache(new MemoryCacheOptions() { });
+        
         public App()
         {
             InitializeComponent();
@@ -36,6 +44,13 @@ namespace MentorU
             {
                 Current.UserAppTheme = Current.RequestedTheme;
             };
+
+            notificationService =
+                ServiceContainer.Resolve<INotificationRegistrationService>();
+            notificationService.RegisterDeviceAsync();
+
+            ServiceContainer.Resolve<IPushNotificationActionService>()
+                .ActionTriggered += NotificationActionTriggered;
 
             MainPage = new AppShell();
         }
@@ -51,6 +66,14 @@ namespace MentorU
             DependencyService.Register<DatabaseService>();
             DependencyService.Register<BlobService>();
         }
+
+        void NotificationActionTriggered(object sender, PushAction e)
+            => ShowActionAlert(e);
+
+        void ShowActionAlert(PushAction action)
+            => MainThread.BeginInvokeOnMainThread(()
+                => MainPage?.DisplayAlert("PushDemo", $"{action} action received", "OK")
+                    .ContinueWith((task) => { if (task.IsFaulted) throw task.Exception; }));
 
         protected override void OnStart()
         {

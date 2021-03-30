@@ -56,6 +56,9 @@ namespace MentorU.ViewModels
             set => SetProperty(ref description, value);
         }
 
+        public string ClassUsed { get; set; }
+        public string Condition { get; set; }
+
         public string ItemId
         {
             get
@@ -94,6 +97,8 @@ namespace MentorU.ViewModels
             Text = item.Text;
             Description = item.Description;
             ItemPrice = item.Price;
+            ClassUsed = item.ClassUsed;
+            Condition = item.Condition;
 
             ItemImageSource = await BlobService.Instance.TryDownloadImage(Id, "Image0");
 
@@ -107,6 +112,33 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
             var user = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == _item.Owner).ToListAsync();
             await Shell.Current.Navigation.PushAsync(new ChatPage(user[0]));
+        }
+
+
+        ///<summary>
+        /// Delete the item from DB
+        ///</summary>
+        public async void DeleteItem(object obj)
+        {
+            bool confirm = await Application.Current.MainPage.DisplayAlert("Confirm Delete", "Are you sure you want to remove this listing from the marketplace?", "Accept", "Cancel");
+            if (confirm)
+            {
+                try
+                {
+                    _item.itemImage = null;
+                    await DatabaseService.Instance.client.GetTable<Items>().DeleteAsync(_item);
+                    await BlobService.Instance.BlobServiceClient.DeleteBlobContainerAsync(_item.id);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    // Deletion error... Must have already been deleted or somehow never existed
+                }
+                await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
+
+            }
+            else return;
+           
         }
     }
 }

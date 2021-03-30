@@ -13,12 +13,27 @@ namespace MentorU.Views.ChatViews
         {
             InitializeComponent();
             BindingContext = _vm = new ChatViewModel(ChatRecipient);
+
+            ToolbarItems.Add(new ToolbarItem()
+            {
+                Text = "Refresh",
+                Command = _vm.RefreshChatCommand
+            });
+
+            WebView browser = null;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             _vm.OnAppearing();
+
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+            _ = _vm.Disconnect();
         }
     }
 }

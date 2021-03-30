@@ -5,7 +5,9 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              ios:Page.UseSafeArea="true"
              xmlns:local="clr-namespace:MentorU.ViewModels"
-             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}"
+             Title="Edit Profile">
              
     <ContentPage.Content>
         <Grid>
@@ -24,21 +26,25 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Image Source="Logo" MinimumWidthRequest="300"  
+            <Image Source="Logo.png" MinimumWidthRequest="300"  
                     Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"
                     HorizontalOptions="CenterAndExpand"
                     Scale="2"/>
             
-            <Image Source="{Binding ProfileImage}" 
+            <abstractions:CircleImage Source="{Binding ProfileImage}" 
                        Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
                    Aspect="AspectFill"/>
         
             <Editor Text="{Binding Name, Mode=TwoWay}" 
                     Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"
-                    Placeholder="Name"/>
+                    Placeholder="Name"
+                    TextColor="Black"
+                    BackgroundColor="WhiteSmoke"/>
             <Editor  Text="{Binding Major, Mode=TwoWay}" 
                     Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" 
-                    Placeholder="Major"/>
+                    Placeholder="Major"
+                    TextColor="Black"
+                    BackgroundColor="WhiteSmoke"/>
             <Grid Grid.Column="1" Grid.Row="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -55,18 +61,18 @@
                         FontAttributes="Bold"
                         Grid.Column="0"
                         TextColor="Black"
-                        BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                        BackgroundColor="WhiteSmoke"
                         IsVisible="{Binding isMentee}"/>
                 <Editor Text="{Binding NewClass}" TextColor="Black"
                         PlaceholderColor="DarkGray" Placeholder="Course"
                         MaxLength="4" Grid.Column="1"
-                        BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                        BackgroundColor="WhiteSmoke"
                         IsVisible="{Binding isMentee}"/>
                 <Editor Text="{Binding NewClass}" TextColor="Black"
                         PlaceholderColor="DarkGray" Placeholder="Skills"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                        BackgroundColor="WhiteSmoke"
                         IsVisible="{Binding isMentor}"/>
                 <Button Text="Add" Command="{Binding AddClassCommand}" Grid.Column="2" FontSize="Micro" BackgroundColor="LightCoral"/>
             </Grid>
@@ -77,17 +83,19 @@
                             SelectedItem="{Binding OldClass, Mode=TwoWay}">
             </CollectionView>
 
-            <Button Text="Add New Profile Picture From Gallery" Command="{Binding AddProfilePictureCommand}" FontAttributes="Italic"
+            <Button Text="Add New Profile Picture From Gallery" TextColor="Black" Command="{Binding AddProfilePictureCommand}" FontAttributes="Italic"
                        BackgroundColor="LightGray" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"/>
 
-            <Label Text="Bio:" FontSize="Medium" 
+            <Label Text="About Me" FontSize="Medium" 
                     Grid.Column="0" Grid.Row="6"
                     TextDecorations="Underline"/>
             <Editor Text="{Binding Bio, Mode=TwoWay}"
+                    TextColor="Black"
                     MaxLength="200"
                     Keyboard="Chat"
                     Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
-                    Placeholder="About me"/>
+                    Placeholder="About me"
+                    BackgroundColor="WhiteSmoke"/>
             <Button Text="Cancel" Command="{Binding CancelButtonCommand}"
                     Grid.Column="0" Grid.Row="8" 
                     BackgroundColor="Red"/>

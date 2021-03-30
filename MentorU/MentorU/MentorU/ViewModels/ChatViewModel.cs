@@ -9,6 +9,9 @@ using Xamarin.Essentials;
 using Microsoft.AspNetCore.SignalR.Client;
 using System.Text;
 using MentorU.Services.DatabaseServices;
+using Microsoft.Extensions.Caching.Memory;
+using System.Net.Http;
+
 
 namespace MentorU.ViewModels
 {
@@ -16,23 +19,28 @@ namespace MentorU.ViewModels
     {
         private string _textDraft;
         private Users _recipient;
-
-        public ObservableCollection<Message> MessageList { get; }
+        private ObservableCollection<Message> _messageList;
+        
+        public ObservableCollection<Message> MessageList { get => _messageList; set { _messageList = value; OnPropertyChanged(); } }
         public string TextDraft { get => _textDraft; set { _textDraft = value; OnPropertyChanged(); } }
         public Command OnSendCommand { get; set; }
         public Command LoadPageData { get; set; }
         public Command ConnectChat { get; set; }
+        public Command DisconnectChat { get; set; }
+        public Command RefreshChatCommand { get; set; }
 
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
         private string _groupName;
+        private bool _useCache;
 
-        private int count;
-        
+        public Message lastMessage { get; set; }
+
         public ChatViewModel(Users ChatRecipient)
         {
             Title = ChatRecipient.FirstName;
             _recipient = ChatRecipient;
+            _useCache = true;
 
             // Use bit mask of user id's to generate group name 
             byte[] them = Encoding.ASCII.GetBytes(_recipient.id);
@@ -47,31 +55,34 @@ namespace MentorU.ViewModels
             OnSendCommand = new Command(async () => await ExecuteSend());
             LoadPageData = new Command(async () => { await ExecuteLoadPageData(); await Connect(); });
             ConnectChat = new Command(async () => await Connect());
-
+            DisconnectChat = new Command(async () => await Disconnect());
+            RefreshChatCommand = new Command(() => { _useCache = false; IsBusy = true; });
 
             hubConnection = new HubConnectionBuilder()
                 .WithUrl($"{App.SignalRBackendUrl}")
                 .Build();
 
             // Receiving messages callback
-            hubConnection.On<string,string>("ReceiveMessage", (userID, message) =>
+            hubConnection.On<string, string>("ReceiveMessage", (userID, message) =>
             {
                 MainThread.BeginInvokeOnMainThread(() =>
                 {
                     try
                     {
+
                         if (userID == _recipient.id)
                             MessageList.Add(new Message() { UserID = _recipient.id, Mine = false, Theirs = true, Text = message });
                         else
                             MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
+                        App._cache.Set(_groupName, MessageList, new TimeSpan(24, 0, 0));
+
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Debug.WriteLine(ex);
                     }
                 });
             });
-            count = 0;
         }
 
 
@@ -81,33 +92,48 @@ namespace MentorU.ViewModels
                 await hubConnection.StartAsync();
             await hubConnection.InvokeAsync("AddToGroup", _groupName);
             hubIsConnected = true;
+            //await App.notificationService.UpdateTags(_groupName);
+        }
+
+        public async Task Disconnect()
+        {
+            await hubConnection.InvokeAsync("RemoveFromGroup", _groupName);
+            hubIsConnected = false;
         }
 
 
         async Task ExecuteLoadPageData()
         {
-            IsBusy = true;
+            //IsBusy = true;
             try
-            {
-                // TODO: only load if database has recognized changes
-                // Determine caching scheme?
-
-                // Load message history from database
-                MessageList.Clear();
-                var history = await DatabaseService.Instance.client.GetTable<Messages>()
-                    .OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
-                foreach (var m in history)
+            {   
+                object his;
+                List<Messages> history;
+                if (_useCache && App._cache.TryGetValue(_groupName, out his))
                 {
-                    MessageList.Add(new Message()
-                    {
-                        Text = m.Text,
-                        UserID = m.UserID,
-                        Mine = m.UserID == _recipient.id ? false : true,
-                        Theirs = m.UserID == _recipient.id ? true : false
-                    });
+                    MessageList = (ObservableCollection<Message>)his;
                 }
+                else
+                {
+                    MessageList.Clear();
+                    history = await DatabaseService.Instance.client.GetTable<Messages>()
+                    .OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
+                    foreach (var m in history)
+                    {
+                        MessageList.Add(new Message()
+                        {
+                            Text = m.Text,
+                            UserID = m.UserID,
+                            Mine = m.UserID == _recipient.id ? false : true,
+                            Theirs = m.UserID == _recipient.id ? true : false
+                        });
+                    }
+                    App._cache.Set(_groupName, MessageList, new TimeSpan(24,0,0));
+                    _useCache = true;
+                }
+                lastMessage = MessageList[MessageList.Count - 1];
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
@@ -117,7 +143,6 @@ namespace MentorU.ViewModels
             }
         }
 
-
         async Task ExecuteSend()
         {
             try
@@ -126,7 +151,7 @@ namespace MentorU.ViewModels
                 {
                     await Connect();
                 }
-                
+
                 await hubConnection.InvokeAsync("SendMessage", _groupName, App.loggedUser.id, TextDraft);
                 Messages newMessage = new Messages
                 {
@@ -137,8 +162,9 @@ namespace MentorU.ViewModels
                 };
                 TextDraft = "";
                 await DatabaseService.Instance.client.GetTable<Messages>().InsertAsync(newMessage);
+                await App.notificationService.SendAsync(HttpMethod.Put, Config.BackendServiceEndpoint, newMessage);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }

@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
              x:Class="MentorU.Views.ChatViews.ChatPage"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
@@ -17,8 +20,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ScrollView Grid.Row="0" Grid.ColumnSpan="2">
-                    <Grid>
+                    <Grid Grid.Row="0" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="Auto"/>
@@ -27,7 +29,13 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <ListView Grid.Row="0" Grid.ColumnSpan="2" ItemsSource="{Binding MessageList}" FlowDirection="LeftToRight" VerticalOptions="End" HasUnevenRows="True" SeparatorVisibility="None">
+                        <ListView Grid.Row="0" Grid.ColumnSpan="2"
+                                  ItemsSource="{Binding MessageList}"
+                                  FlowDirection="LeftToRight"
+                                  VerticalOptions="End"
+                                  HasUnevenRows="True"
+                                  SeparatorVisibility="None"
+                                  x:Name="MessageListView">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
@@ -72,7 +80,6 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </Grid>
-                </ScrollView>
                 <Editor Placeholder="Message" Grid.Row="1" Keyboard="Chat" Grid.Column="0" Text="{Binding TextDraft}" AutoSize="TextChanges"/>
                 <Button Text="Send" Grid.Row="1" Grid.Column="1" WidthRequest="70" Command="{Binding OnSendCommand}"/>
             </Grid>

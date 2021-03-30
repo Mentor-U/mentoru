@@ -1,24 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="MentorU.Views.ItemDetailPage"
              Title="{Binding Title}"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
-    <StackLayout Spacing="20" Padding="15">
-        <Label Text="{Binding Text}" FontSize="Large"/>
+    <ScrollView>
+        <StackLayout Spacing="20" Padding="15">
+            <Label Text="{Binding Text}" FontSize="Large"/>
 
-        <Image Source="{Binding ItemImageSource}" 
+
+
+            <ffimageloading:CachedImage 
+                            Source="{Binding ItemImageSource}"
+                            ErrorPlaceholder= "error.jpg"
+                            CacheDuration= "50"
+                            RetryCount= "3"
+                            RetryDelay= "600"
+                            DownsampleToViewSize = "true"
                             Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                            Aspect="AspectFit" HeightRequest="300"/>
-        
-        <Label Text="{Binding ItemPrice, StringFormat='Item Price = {0:N} $'}" 
+                            Aspect="AspectFit" HeightRequest="300" WidthRequest="300"
+                            />
+
+            <Label Text="{Binding ItemPrice, StringFormat='Item Price = {0:N} $'}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" />
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
-        
-    </StackLayout>
+            <Label Text="Description:" FontSize="Medium" />
+            <Label Text="{Binding Description}" FontSize="Small"/>
+            <Label Text="Class Used:" FontSize="Medium" />
+            <Label Text="{Binding ClassUsed}" FontSize="Small"/>
+            <Label Text="Physical Condition:" FontSize="Medium" />
+            <Label Text="{Binding Condition}" FontSize="Small"/>
+
+        </StackLayout>
+    </ScrollView>
     
 </ContentPage>

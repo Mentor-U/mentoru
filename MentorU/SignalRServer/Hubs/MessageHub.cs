@@ -10,7 +10,6 @@ namespace SignalRServer.Hubs
         public async Task AddToGroup(string groupName)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
-            Console.WriteLine(groupName);
         }
 
         public async Task RemoveFromGroup(string groupName)

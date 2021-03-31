@@ -68,20 +68,35 @@ namespace MentorU.Services
         {
             var serializedTags = await SecureStorage.GetAsync(CachedTagsKey)
                 .ConfigureAwait(false);
-
-            if (serializedTags == null)
+            //if (serializedTags == null)
+            //{
+            //    await RegisterDeviceAsync(new string[] { tag });
+            //    return;
+            //}
+            var installation = _deviceInstallationService?.GetDeviceInstallation(serializedTags?.Split());
+            List<string> newtags = new List<string>() { tag };
+            foreach (var t in installation.Tags)
             {
-                await RegisterDeviceAsync(new string[] { tag });
-                return;
+                newtags.Add(t);
             }
 
-            var oldTags = JsonConvert.DeserializeObject<string[]>(serializedTags);
-            List<string> temp = new List<string>(oldTags);
-            if (!temp.Contains(tag))
-            {
-                temp.Add(tag);
-                await RegisterDeviceAsync(temp.ToArray());
-            }
+            installation.Tags = newtags;
+
+            await SendAsync<DeviceInstallation>(HttpMethod.Put, RequestUrl, installation)
+                .ConfigureAwait(false);
+
+            await SecureStorage.SetAsync(CachedDeviceTokenKey, installation.PushChannel)
+                .ConfigureAwait(false);
+
+            await SecureStorage.SetAsync(CachedTagsKey, JsonConvert.SerializeObject(newtags.ToArray()));
+
+            //var oldTags = JsonConvert.DeserializeObject<string[]>(serializedTags);
+            //List<string> temp = new List<string>(oldTags);
+            //if (!temp.Contains(tag))
+            //{
+            //    temp.Add(tag);
+            //    await RegisterDeviceAsync(temp.ToArray());
+            //}
         }
 
         public async Task RefreshRegistrationAsync()

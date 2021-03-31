@@ -12,7 +12,6 @@ using MentorU.Services.DatabaseServices;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http;
 
-
 namespace MentorU.ViewModels
 {
     public class ChatViewModel : BaseViewModel
@@ -20,7 +19,7 @@ namespace MentorU.ViewModels
         private string _textDraft;
         private Users _recipient;
         private ObservableCollection<Message> _messageList;
-        
+
         public ObservableCollection<Message> MessageList { get => _messageList; set { _messageList = value; OnPropertyChanged(); } }
         public string TextDraft { get => _textDraft; set { _textDraft = value; OnPropertyChanged(); } }
         public Command OnSendCommand { get; set; }
@@ -83,6 +82,7 @@ namespace MentorU.ViewModels
                     }
                 });
             });
+
         }
 
 
@@ -92,6 +92,7 @@ namespace MentorU.ViewModels
                 await hubConnection.StartAsync();
             await hubConnection.InvokeAsync("AddToGroup", _groupName);
             hubIsConnected = true;
+            //await App.notificationService.UpdateTags(_groupName);
             //await App.notificationService.UpdateTags(_groupName);
         }
 

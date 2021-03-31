@@ -225,6 +225,8 @@ namespace MentorU.ViewModels
 
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
 
+            if (selectedImageFile == null) return;
+
             BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
 
             await BlobService.Instance.TryUploadImageStream(containerClient, fileName, selectedImageFile.GetStream());
@@ -236,7 +238,7 @@ namespace MentorU.ViewModels
 
         }
 
-        public async Task OnAppearing()
+        public new async Task OnAppearing()
         {
             IsBusy = true;
             //containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient();

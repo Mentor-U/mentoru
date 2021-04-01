@@ -7,31 +7,30 @@ using Microsoft.AspNetCore.SignalR.Client;
 using MentorU.Models;
 using System.Text;
 using System.Linq;
+using Xamarin.Forms;
+using System.Collections.ObjectModel;
+using MentorU.ViewModels;
+using MentorU.Services.Bot;
+using System.Threading;
 
 namespace MentorU.Services.Bot
 {
     public class AssistU : Users
     {
-        //public Dictionary<Users,List<MarketplaceItem>> MarketHistory;
-        public Dictionary<Users,List<string>> CourseHistory;
-
-        private AssistUChat chat;
         private RecommendationGenerator recomendations;
-
+        public ObservableCollection<Message> _chatHistory;
         public AssistU()
         {
             id = "AssistU";
             FirstName = "AssistU";
-
-            //MarketHistory = new Dictionary<Users, List<MarketplaceItem>>();
-            //CourseHistory = new Dictionary<Users, List<string>>();
+            _chatHistory = new ObservableCollection<Message>();
         }
 
 
-        public void StartChat()
+        public AssistUChatViewModel StartChat()
         {
-
-            chat = new AssistUChat();
+            //chat = new AssistUChat();
+            return new AssistUChatViewModel();
         }
 
         public async Task<List<Items>> GetRecommendations()
@@ -97,7 +96,6 @@ namespace MentorU.Services.Bot
                 _ = SendMessage(WelcomeMessage);
             }
 
-
             async void ReceiveNewMessage(string m)
             {
                 messages.Add(m);
@@ -111,6 +109,68 @@ namespace MentorU.Services.Bot
                 await hubConnection.InvokeAsync("SendMessage", groupName, App.assistU.id, m);
             }
         }
+
+
+        //-------------------------------------
+        //        new and improved
+        //------------------------------------
+        public class AssistUChatViewModel : ChatViewModel
+        { 
+            BotService _botService;
+            Task ReceiveTask;
+
+            public AssistUChatViewModel() : base(App.assistU)
+            {
+                _botService = new BotService();
+                _botService.BotMessageReceived += OnBotMessageReceived;
+                LoadPageData = new Command(async () => await ExecuteLoadPageData());
+                OnSendCommand = new Command(async () => await ExecuteSend());
+            }
+
+
+            public override Task ExecuteLoadPageData()
+            {
+                var t = new Task(() => { MessageList = App.assistU._chatHistory; });
+                IsBusy = false;
+                return t;
+            }
+
+            void OnBotMessageReceived(List<BotMessage> msgs)
+            {
+                ReceiveTask = new Task(() =>
+                {
+                    Thread.Sleep(1000);
+                    foreach (var msg in msgs)
+                    {
+                        Device.BeginInvokeOnMainThread(() =>
+                        {
+                            var m = new Message() { Mine = false, Theirs = true, Text = msg.Content };
+                            MessageList.Add(m);
+                            App.assistU._chatHistory.Add(m);
+                        });
+                    }
+                });
+                ReceiveTask.Start();
+            }
+
+            public override async Task ExecuteSend()
+            {
+                try
+                {
+                    await _botService.SetUpAsync();
+                    var msg = new Message() { Mine = true, Theirs = false, Text = TextDraft };
+                    TextDraft = string.Empty;
+                    MessageList.Add(msg);
+                    await _botService.SendMessageAsync(msg.Text);
+                    App.assistU._chatHistory.Add(msg);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine($"Unable to send message. Exception => {e}");
+                }
+            }
+        }
+
 
 
 

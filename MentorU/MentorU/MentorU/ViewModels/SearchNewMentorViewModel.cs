@@ -189,9 +189,9 @@ namespace MentorU.ViewModels
 
         async void AssistUChat()
         {
-            //await Shell.Current.Navigation.PushAsync(new ChatPage(App.assistU));
-            await Shell.Current.Navigation.PushAsync(new Services.Bot.AssisUWebPage());
-            //App.assistU.StartChat();
+            await Shell.Current.Navigation.PushAsync(new ChatPage());
+            //await Shell.Current.Navigation.PushAsync(new Services.Bot.AssisUWebPage());
+
         }
 
 

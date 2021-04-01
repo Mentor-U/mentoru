@@ -17,7 +17,7 @@ namespace MentorU.ViewModels
     public class ChatViewModel : BaseViewModel
     {
         private string _textDraft;
-        private Users _recipient;
+        public Users _recipient;
         private ObservableCollection<Message> _messageList;
 
         public ObservableCollection<Message> MessageList { get => _messageList; set { _messageList = value; OnPropertyChanged(); } }
@@ -37,8 +37,8 @@ namespace MentorU.ViewModels
 
         public ChatViewModel(Users ChatRecipient)
         {
-            Title = ChatRecipient.FirstName;
             _recipient = ChatRecipient;
+            Title = _recipient.FirstName;
             _useCache = true;
 
             // Use bit mask of user id's to generate group name 
@@ -93,7 +93,6 @@ namespace MentorU.ViewModels
             await hubConnection.InvokeAsync("AddToGroup", _groupName);
             hubIsConnected = true;
             //await App.notificationService.UpdateTags(_groupName);
-            //await App.notificationService.UpdateTags(_groupName);
         }
 
         public async Task Disconnect()
@@ -103,7 +102,7 @@ namespace MentorU.ViewModels
         }
 
 
-        async Task ExecuteLoadPageData()
+        public virtual async Task ExecuteLoadPageData()
         {
             //IsBusy = true;
             try
@@ -144,7 +143,7 @@ namespace MentorU.ViewModels
             }
         }
 
-        async Task ExecuteSend()
+        public virtual async Task ExecuteSend()
         {
             try
             {

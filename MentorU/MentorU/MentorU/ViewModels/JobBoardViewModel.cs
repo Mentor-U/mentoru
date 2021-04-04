@@ -122,7 +122,56 @@ namespace MentorU.ViewModels
 
         async Task ExecuteLoadJobsCommand()
         {
+            IsBusy = true;
 
+            try
+            {
+                Jobs.Clear();
+                if(Filters.Count != 0)
+                {
+                    var jobs = await DatabaseService.Instance.client.GetTable<Jobs>().ToListAsync();
+
+                    // TODO: will need to implement multiple filters
+                    foreach(var job in jobs)
+                    {
+                        if(Filters.Contains(job.Level) && Filters.Contains(job.JobType))
+                        {
+                            job.jobImage = await BlobService.Instance.TryDownloadImage(job.id, "Image0");
+                            Jobs.Add(job);
+                        }
+                        else if(Filters.Contains(job.Level) && Filters.Count == 1)
+                        {
+                            job.jobImage = await BlobService.Instance.TryDownloadImage(job.id, "Image0");
+                            Jobs.Add(job);
+                        }
+                        else if(Filters.Contains(job.JobType) && Filters.Count == 1)
+                        {
+                            job.jobImage = await BlobService.Instance.TryDownloadImage(job.id, "Image0");
+                            Jobs.Add(job);
+                        }
+                    }
+
+                    ShowFilters = String.Join(", ", Filters);
+                }
+                else
+                {
+                    var jobs = await DatabaseService.Instance.client.GetTable<Jobs>().ToListAsync();
+                    foreach(var job in jobs)
+                    {
+                        job.jobImage = await BlobService.Instance.TryDownloadImage(job.id, "Image0");
+                        Jobs.Add(job);
+                    }
+                    ShowFilters = "";
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         public void OnAppearing()

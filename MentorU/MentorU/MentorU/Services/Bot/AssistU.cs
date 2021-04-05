@@ -39,81 +39,11 @@ namespace MentorU.Services.Bot
             return await recomendations.GetRecommendations();
         }
 
-        /**
-         * Internal class definition for the automated chatting.
-         */
-        class AssistUChat
-        {
-            string groupName;
-            HubConnection hubConnection;
-            List<string> messages;
 
-            const string WelcomeMessage = "Hello, I am AssistU. I can help you find mentors that " +
-               "fit your needs. What type of topics would you like your mentor to be knowledgable on?";
-
-            public AssistUChat()
-            {
-                messages = new List<string>();
-
-                byte[] them = Encoding.ASCII.GetBytes(App.assistU.id);
-                byte[] me = Encoding.ASCII.GetBytes(App.loggedUser.id);
-                List<int> masked = new List<int>();
-                for (int i = 0; i < them.Length; i++)
-                    masked.Add(them[i] & me[i]);
-                groupName = string.Join("", masked);
-
-                hubConnection = new HubConnectionBuilder()
-                    .WithUrl($"{App.SignalRBackendUrl}")
-                    //,
-                    //(opts) =>
-                    //{
-                    //    opts.HttpMessageHandlerFactory = (message) =>
-                    //    {
-                    //        if (message is HttpClientHandler clientHandler)
-
-                    //            clientHandler.ServerCertificateCustomValidationCallback +=
-                    //            (sender, certificate, chain, sslPolicyErrors) => { return true; };
-                    //        return message;
-                    //    };
-                    //})
-                    .Build();
-
-                hubConnection.On<string, string>("ReceiveMessage", (userID, message) =>
-                {
-                    try
-                    {
-                        if (userID != App.assistU.id)
-                            ReceiveNewMessage(message);
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                    }
-                });
-
-                _ = hubConnection.StartAsync();
-                _ = hubConnection.InvokeAsync("AddToGroup", groupName);
-                _ = SendMessage(WelcomeMessage);
-            }
-
-            async void ReceiveNewMessage(string m)
-            {
-                messages.Add(m);
-                // Do NLP on m to know what to qualities to look for
-
-                await SendMessage("Okay! Let me see what I can find.");
-            }
-
-            async Task SendMessage(string m)
-            {
-                await hubConnection.InvokeAsync("SendMessage", groupName, App.assistU.id, m);
-            }
-        }
-
-
-        //-------------------------------------
-        //        new and improved
-        //------------------------------------
+        /// <summary>
+        /// Bot chat viewmodel that interfaces with the bot service
+        /// to handle all NLP.
+        /// </summary>
         public class AssistUChatViewModel : ChatViewModel
         { 
             BotService _botService;

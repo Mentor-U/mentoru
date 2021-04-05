@@ -64,7 +64,7 @@ namespace CoreBot.Dialogs
 
 
         /// <summary>
-        /// Closing dialog to confirm the request and pull from the DB TODO: Still need DB access
+        /// Closing dialog to confirm the request and pull from the DB
         /// </summary>
         /// <param name="stepContext"></param>
         /// <param name="cancellationToken"></param>
@@ -74,7 +74,7 @@ namespace CoreBot.Dialogs
             var mentorDesire = (MentorDesire)stepContext.Options;
             mentorDesire.Skills = (string)stepContext.Result;
 
-            string finalMsg = string.Format("You want {0}, and {1}. \n I would recommend Steve as your mentor", mentorDesire.Field, mentorDesire.Skills);
+            string finalMsg = $"You want {mentorDesire.Field}, and {mentorDesire.Skills}. \n I would recommend Steve as your mentor";
             var promptMessage = MessageFactory.Text(finalMsg, finalMsg, InputHints.IgnoringInput);
             await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
 

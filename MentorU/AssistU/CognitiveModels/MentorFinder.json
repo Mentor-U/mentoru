@@ -347,6 +347,11 @@
       ]
     },
     {
+      "text": "i need a mentor",
+      "intent": "FindMentor",
+      "entities": []
+    },
+    {
       "text": "i need help with math and specifically calculus",
       "intent": "FindMentor",
       "entities": [
@@ -363,6 +368,11 @@
           "children": []
         }
       ]
+    },
+    {
+      "text": "i want help finding a mentor",
+      "intent": "FindMentor",
+      "entities": []
     },
     {
       "text": "i want to do research in biology and specifically protein folding",
@@ -453,6 +463,11 @@
       ]
     },
     {
+      "text": "mentor",
+      "intent": "FindMentor",
+      "entities": []
+    },
+    {
       "text": "travel from new york to paris",
       "intent": "BookFlight",
       "entities": [
@@ -521,7 +536,7 @@
     }
   ],
   "versionId": "0.1",
-  "name": "AssistU-b11b",
+  "name": "AssistU",
   "desc": "Luis Model for CoreBot",
   "culture": "en-us",
   "tokenizerVersion": "1.0.0",

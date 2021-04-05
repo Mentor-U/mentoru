@@ -13,12 +13,19 @@ namespace MentorU.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SettingsPage : ContentPage
     {
+        SettingsViewModel _viewModel;
         public SettingsPage()
         {
             InitializeComponent();
-            BindingContext = new SettingsViewModel();
+            BindingContext = _viewModel = new SettingsViewModel();
             
            
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await _viewModel.OnAppearing();
         }
     }
 }

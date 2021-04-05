@@ -23,6 +23,8 @@ namespace MentorU.ViewModels
         private Users _user;
         public string _scheduleMessage;
         private ImageSource _profileImage;
+        private string _email;
+        private bool _showEmail;
 
         public string Name { get => name; set => SetProperty(ref name, value); }
         public string Field { get => field; set => SetProperty(ref field, value); }
@@ -45,6 +47,25 @@ namespace MentorU.ViewModels
             {
                 _profileImage = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool showEmail
+        {
+            get => _showEmail;
+            set
+            {
+                _showEmail = value; OnPropertyChanged();
             }
         }
 

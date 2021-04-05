@@ -17,6 +17,8 @@ namespace MentorU.Views
         {
             InitializeComponent();
             BindingContext = new SettingsViewModel();
+            
+           
         }
     }
 }

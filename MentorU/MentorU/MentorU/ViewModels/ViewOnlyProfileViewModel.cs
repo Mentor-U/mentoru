@@ -119,6 +119,13 @@ namespace MentorU.ViewModels
             {
                 Classes.Add(val.ClassName);
             }
+
+
+            var settingsList = await DatabaseService.Instance.client.GetTable<Settings>().Where(u => u.UserID == _user.id).ToListAsync();
+            Email = settingsList.Count > 0 ? _user.Email : "";
+
+            showEmail = settingsList.Count > 0 ? settingsList[0].EmailSettings : false;
+
         }
 
         /** ------------------------------------------------------

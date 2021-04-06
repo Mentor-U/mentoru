@@ -73,7 +73,7 @@ namespace CoreBot.Dialogs
         {
             var mentorDesire = (MentorDesire)stepContext.Options;
             mentorDesire.Skills = (string)stepContext.Result;
-
+            //string dbMsg = $"<QUERY> {mentorDesire.Field} {mentorDesire.Skills}";
             string finalMsg = $"You want {mentorDesire.Field}, and {mentorDesire.Skills}. \n I would recommend Steve as your mentor";
             var promptMessage = MessageFactory.Text(finalMsg, finalMsg, InputHints.IgnoringInput);
             await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);

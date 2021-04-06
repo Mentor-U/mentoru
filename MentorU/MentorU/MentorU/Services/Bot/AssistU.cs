@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using MentorU.Services.DatabaseServices;
-using Microsoft.AspNetCore.SignalR.Client;
 using MentorU.Models;
-using System.Text;
 using System.Linq;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using MentorU.ViewModels;
-using MentorU.Services.Bot;
 using System.Threading;
+using System.Text.RegularExpressions;
+
 
 namespace MentorU.Services.Bot
 {
@@ -48,10 +47,14 @@ namespace MentorU.Services.Bot
         { 
             BotService _botService;
             Task ReceiveTask;
+            Regex _query;
+            string _foundMentor = "I found {0} who is knowledgable with {1} and skilled at {2}. Would you like to connect?";
+            string _notFound = "I wasn't able to find a mentor who works in {0} and is skilled at {1}.";
 
             public AssistUChatViewModel() : base(App.assistU)
             {
                 _botService = new BotService();
+                _query = new Regex(@"<QUERY> [a-zA-Z0-9]+");
                 _botService.BotMessageReceived += OnBotMessageReceived;
                 LoadPageData = new Command(async () => await ExecuteLoadPageData());
                 OnSendCommand = new Command(async () => await ExecuteSend());
@@ -65,6 +68,7 @@ namespace MentorU.Services.Bot
                 return t;
             }
 
+
             void OnBotMessageReceived(List<BotMessage> msgs)
             {
                 ReceiveTask = new Task(() =>
@@ -75,12 +79,46 @@ namespace MentorU.Services.Bot
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             var m = new Message() { Mine = false, Theirs = true, Text = msg.Content };
-                            MessageList.Add(m);
-                            App.assistU._chatHistory.Add(m);
+                            if (_query.IsMatch(m.Text))
+                            {
+                                DBQuery(m);
+                            }
+                            else
+                            {
+                                MessageList.Add(m);
+                                App.assistU._chatHistory.Add(m);
+                            }
                         });
                     }
                 });
                 ReceiveTask.Start();
+            }
+
+            private async void DBQuery(Message m)
+            {
+                string[] entities = m.Text.Split();
+                if (entities.Length >= 3) // requires all entities to be none null. TODO add robustness
+                {
+                    var mentors = await DatabaseService.Instance.client
+                        .GetTable<Users>()
+                        .Where(u => u.Role == "0" && u.Major.ToLower() == entities[1])
+                        .ToListAsync();
+                    var skills = await DatabaseService.Instance.client
+                        .GetTable<Classes>()
+                        .Where(s => s.ClassName == entities[2])
+                        .ToListAsync();
+                    var mSet = new HashSet<string>(mentors.Select(m => m.id));
+                    var sSet = new HashSet<string>(skills.Select(s => s.UserId));
+                    var available = mSet.Intersect(sSet);
+                    List<Users> choices = new List<Users>((IEnumerable<Users>)mentors.Select(m => available.Contains(m.id)));
+                    var msg = new Message(){Mine = false,Theirs = true,};
+                    if (choices.Count > 0)
+                        msg.Text = string.Format(_foundMentor, choices[0].DisplayName, entities[1], entities[2]);
+                    else
+                        msg.Text = string.Format(_notFound, entities[1], entities[2]);
+                    MessageList.Add(msg); // TODO: add click response to direct to view only profile page
+                    App.assistU._chatHistory.Add(m);
+                }
             }
 
             public override async Task ExecuteSend()

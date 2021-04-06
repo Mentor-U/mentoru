@@ -79,7 +79,7 @@ namespace MentorU.Services.Bot
                         Device.BeginInvokeOnMainThread(() =>
                         {
                             var m = new Message() { Mine = false, Theirs = true, Text = msg.Content };
-                            if (_query.IsMatch(m.Text))
+                            if (m.Text != null && _query.IsMatch(m.Text))
                             {
                                 DBQuery(m);
                             }
@@ -107,10 +107,10 @@ namespace MentorU.Services.Bot
                         .GetTable<Classes>()
                         .Where(s => s.ClassName == entities[2])
                         .ToListAsync();
-                    var mSet = new HashSet<string>(mentors.Select(m => m.id));
+                    var mSet = new HashSet<string>(mentors.Select(mntr => mntr.id));
                     var sSet = new HashSet<string>(skills.Select(s => s.UserId));
                     var available = mSet.Intersect(sSet);
-                    List<Users> choices = new List<Users>((IEnumerable<Users>)mentors.Select(m => available.Contains(m.id)));
+                    List<Users> choices = new List<Users>((IEnumerable<Users>)mentors.Select(mntr => available.Contains(mntr.id)));
                     var msg = new Message(){Mine = false,Theirs = true,};
                     if (choices.Count > 0)
                         msg.Text = string.Format(_foundMentor, choices[0].DisplayName, entities[1], entities[2]);

@@ -32,7 +32,7 @@ namespace CoreBot
             services.AddSingleton<ConversationState>();
 
             // Register LUIS recognizer
-            services.AddSingleton<FlightBookingRecognizer>();
+            services.AddSingleton<EntityRecognizer>();
 
             // Register the BookingDialog.
             services.AddSingleton<BookingDialog>();

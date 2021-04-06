@@ -3,7 +3,6 @@ using Microsoft.Bot.Connector.DirectLine;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using MentorU.Models;
-using System.Threading;
 
 
 namespace MentorU.Services.Bot

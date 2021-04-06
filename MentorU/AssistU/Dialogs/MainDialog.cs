@@ -17,11 +17,11 @@ namespace CoreBot.Dialogs
 {
     public class MainDialog : ComponentDialog
     {
-        private readonly FlightBookingRecognizer _luisRecognizer;
+        private readonly EntityRecognizer _luisRecognizer;
         protected readonly ILogger Logger;
 
         // Dependency injection uses this constructor to instantiate MainDialog
-        public MainDialog(FlightBookingRecognizer luisRecognizer, BookingDialog bookingDialog, ILogger<MainDialog> logger)
+        public MainDialog(EntityRecognizer luisRecognizer, BookingDialog bookingDialog, ILogger<MainDialog> logger)
             : base(nameof(MainDialog))
         {
             _luisRecognizer = luisRecognizer;
@@ -85,13 +85,12 @@ namespace CoreBot.Dialogs
                     return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
 
                 case MentorFinder.Intent.FindMentor:
-
-                    //var mentorDesire = new MentorDesire()
-                    //{
-                    //    Field = luisResult.ExtractField,
-                    //    Skills = luisResult.ExtractSkill
-                    //};
-                    return await stepContext.BeginDialogAsync(nameof(FindMentorDialog), new MentorDesire(), cancellationToken);
+                    var mentorDesire = new MentorDesire()
+                    {
+                        Field = luisResult.ExtractField,
+                        Skills = luisResult.ExtractSkill
+                    };
+                    return await stepContext.BeginDialogAsync(nameof(FindMentorDialog), mentorDesire, cancellationToken);
 
                 case MentorFinder.Intent.GetWeather:
                     // We haven't implemented the GetWeatherDialog so we just display a TODO message.

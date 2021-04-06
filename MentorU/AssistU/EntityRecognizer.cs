@@ -9,11 +9,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace CoreBot
 {
-    public class FlightBookingRecognizer : IRecognizer
+    public class EntityRecognizer : IRecognizer
     {
         private readonly LuisRecognizer _recognizer;
 
-        public FlightBookingRecognizer(IConfiguration configuration)
+        public EntityRecognizer(IConfiguration configuration)
         {
             var luisIsConfigured = !string.IsNullOrEmpty(configuration["LuisAppId"]) && !string.IsNullOrEmpty(configuration["LuisAPIKey"]) && !string.IsNullOrEmpty(configuration["LuisAPIHostName"]);
             if (luisIsConfigured)

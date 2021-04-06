@@ -64,11 +64,15 @@ namespace MentorU.Services.Bot
             public override Task ExecuteLoadPageData()
             {
                 var t = new Task(() => { MessageList = App.assistU._chatHistory; });
+                //t.Start();
                 IsBusy = false;
                 return t;
             }
 
-
+            /// <summary>
+            /// Handler for receiving messages from the bot
+            /// </summary>
+            /// <param name="msgs"></param>
             void OnBotMessageReceived(List<BotMessage> msgs)
             {
                 ReceiveTask = new Task(() =>
@@ -94,6 +98,11 @@ namespace MentorU.Services.Bot
                 ReceiveTask.Start();
             }
 
+            /// <summary>
+            /// Entities should have been extracted by the model and
+            /// the database can be queried for relevant mentors.
+            /// </summary>
+            /// <param name="m"></param>
             private async void DBQuery(Message m)
             {
                 string[] entities = m.Text.Split();
@@ -111,6 +120,7 @@ namespace MentorU.Services.Bot
                     var sSet = new HashSet<string>(skills.Select(s => s.UserId));
                     var available = mSet.Intersect(sSet);
                     List<Users> choices = new List<Users>((IEnumerable<Users>)mentors.Select(mntr => available.Contains(mntr.id)));
+
                     var msg = new Message(){Mine = false,Theirs = true,};
                     if (choices.Count > 0)
                         msg.Text = string.Format(_foundMentor, choices[0].DisplayName, entities[1], entities[2]);
@@ -121,6 +131,10 @@ namespace MentorU.Services.Bot
                 }
             }
 
+            /// <summary>
+            /// Sends the message to the bot and updates the UI
+            /// </summary>
+            /// <returns></returns>
             public override async Task ExecuteSend()
             {
                 try

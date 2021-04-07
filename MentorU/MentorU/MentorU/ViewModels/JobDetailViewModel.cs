@@ -18,6 +18,7 @@ namespace MentorU.ViewModels
         private string companyName;
         private string description;
         private string location;
+        private string date;
         private ImageSource companyLogoSource;
         private Jobs _job;
 
@@ -54,6 +55,12 @@ namespace MentorU.ViewModels
         {
             get => _job.Location;
             set => SetProperty(ref location, value);
+        }
+
+        public string Date
+        {
+            get => _job.Date;
+            set => SetProperty(ref date, value);
         }
 
         public ImageSource CompanyLogoSource

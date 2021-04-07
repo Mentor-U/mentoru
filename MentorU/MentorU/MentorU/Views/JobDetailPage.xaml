@@ -27,7 +27,7 @@
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="Small" TextColor="DarkGray" FontAttributes="Italic"/>
-            <Label Text="04/06/2021" FontSize="Small" TextColor="Green"/>
+            <Label Text="{Binding Date}" FontSize="Small" TextColor="Green"/>
 
             <Label Text="------------------------------------------------------------------------------------------" />
             <Label Text="Job description" FontSize="Medium" FontAttributes="Bold"/>

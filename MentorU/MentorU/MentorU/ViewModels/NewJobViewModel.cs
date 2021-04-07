@@ -18,8 +18,6 @@ namespace MentorU.ViewModels
         private string companyName;
         private string text;
         private string description;
-        private string responsibilities;
-        private string qualifications;
         private string location;
 
         public Command AddLogoPictureCommand { get; set; }
@@ -114,18 +112,6 @@ namespace MentorU.ViewModels
             set => SetProperty(ref description, value);
         }
 
-        public string Responsibilities
-        {
-            get => responsibilities;
-            set => SetProperty(ref responsibilities, value);
-        }
-
-        public string Qualifications
-        {
-            get => qualifications;
-            set => SetProperty(ref qualifications, value);
-        }
-
         public string Location
         {
             get => location;
@@ -165,12 +151,14 @@ namespace MentorU.ViewModels
 
         private async void OnSave()
         {
+
             Jobs newJob = new Jobs()
             {
                 CompanyName = CompanyName,
                 Text = Text,
                 Description = Description,
                 Location = Location,
+                Date = DateTime.Now.ToShortDateString(),
                 Owner = App.loggedUser.id,
                 JobType = JobType,
                 Level = Level

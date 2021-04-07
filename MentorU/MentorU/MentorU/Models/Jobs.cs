@@ -16,7 +16,7 @@ namespace MentorU.Models
         public string Description { get; set; }
         public string Location { get; set; }
         public string Owner { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         public string JobType { get; set; }
         public string Level { get; set; }

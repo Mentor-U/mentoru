@@ -370,6 +370,48 @@
       ]
     },
     {
+      "text": "i need someone to help me with math",
+      "intent": "FindMentor",
+      "entities": [
+        {
+          "entity": "Field",
+          "startPos": 31,
+          "endPos": 34,
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "i need someone who is good with math",
+      "intent": "FindMentor",
+      "entities": [
+        {
+          "entity": "Field",
+          "startPos": 32,
+          "endPos": 35,
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "i need someone who works in sculpting and uses clay",
+      "intent": "FindMentor",
+      "entities": [
+        {
+          "entity": "Field",
+          "startPos": 28,
+          "endPos": 36,
+          "children": []
+        },
+        {
+          "entity": "Skill",
+          "startPos": 47,
+          "endPos": 50,
+          "children": []
+        }
+      ]
+    },
+    {
       "text": "i want help finding a mentor",
       "intent": "FindMentor",
       "entities": []
@@ -424,6 +466,18 @@
           "entity": "Skill",
           "startPos": 52,
           "endPos": 67,
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "i would like them to work in finance",
+      "intent": "FindMentor",
+      "entities": [
+        {
+          "entity": "Field",
+          "startPos": 29,
+          "endPos": 35,
           "children": []
         }
       ]

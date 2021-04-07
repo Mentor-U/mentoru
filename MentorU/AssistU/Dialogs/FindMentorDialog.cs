@@ -60,7 +60,11 @@ namespace CoreBot.Dialogs
 
             var luisResult = await _luisRecognizer.RecognizeAsync<MentorFinder>(stepContext.Context, cancellationToken);
             mentorDesire.Field = luisResult.ExtractField;
-            //mentorDesire.Field = (string)stepContext.Result;
+
+            if (string.IsNullOrEmpty(mentorDesire.Field) && !string.IsNullOrEmpty((string)stepContext.Result))
+            {
+                mentorDesire.Field = (string)stepContext.Result;
+            }
 
             if (mentorDesire.Skills == null)
             {
@@ -84,11 +88,17 @@ namespace CoreBot.Dialogs
             var luisResult = await _luisRecognizer.RecognizeAsync<MentorFinder>(stepContext.Context, cancellationToken);
             mentorDesire.Skills = luisResult.ExtractSkill;
 
+            if (string.IsNullOrEmpty(mentorDesire.Skills) && !string.IsNullOrEmpty((string)stepContext.Result))
+            {
+                mentorDesire.Skills = (string)stepContext.Result;
+            }
+
             //mentorDesire.Skills = (string)stepContext.Result;
             string dbMsg = $"<QUERY> {mentorDesire.Field} {mentorDesire.Skills}";
             //string finalMsg = $"You want {mentorDesire.Field}, and {mentorDesire.Skills}. \n I would recommend Steve as your mentor";
             var promptMessage = MessageFactory.Text(dbMsg, dbMsg, InputHints.IgnoringInput);
-            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+            await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+            return await stepContext.EndDialogAsync(mentorDesire, cancellationToken);
         }
 
 

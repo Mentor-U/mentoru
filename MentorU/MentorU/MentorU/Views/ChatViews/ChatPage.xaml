@@ -52,9 +52,14 @@
                                                 <Grid Grid.Column="0" x:DataType="model:Message">
                                                     <Grid.RowDefinitions>
                                                         <RowDefinition Height="Auto"/>
+                                                        <RowDefinition Height="Auto"/>
                                                     </Grid.RowDefinitions>
                                                     <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGray"/>
                                                     <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center"/>
+                                                    <Button Text="View Their Profile" Grid.Row="1"
+                                                            IsVisible="{Binding MentorSearch}" IsEnabled="{Binding MentorSearch}" 
+                                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ChatViewModel}}, Path=ViewProfileCommand}"
+                                                            BackgroundColor="Red" TextColor="Black"/>
                                                 </Grid>
                                             </Grid>
                                              <!-- RHS messages -->

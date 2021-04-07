@@ -30,7 +30,7 @@ namespace Microsoft.BotBuilderSamples.Bots
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
                     //var welcomeCard = CreateAdaptiveCardAttachment();
-                    var response = MessageFactory.Text("Welcome to AssistU");
+                    var response = MessageFactory.Text("Welcome to AssistU!");
                     await turnContext.SendActivityAsync(response, cancellationToken);
                     await Dialog.RunAsync(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
                 }

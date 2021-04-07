@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using MentorU.ViewModels;
 using System.Threading;
 using System.Text.RegularExpressions;
-
+using MentorU.Views;
 
 namespace MentorU.Services.Bot
 {
@@ -28,7 +28,6 @@ namespace MentorU.Services.Bot
 
         public AssistUChatViewModel StartChat()
         {
-            //chat = new AssistUChat();
             return new AssistUChatViewModel();
         }
 
@@ -48,16 +47,18 @@ namespace MentorU.Services.Bot
             BotService _botService;
             Task ReceiveTask;
             Regex _query;
-            string _foundMentor = "I found {0} who is knowledgable with {1} and skilled at {2}. Would you like to connect?";
+            string _foundMentor = "I found {0} who is knowledgable with {1} and skilled at {2}!";
             string _notFound = "I wasn't able to find a mentor who works in {0} and is skilled at {1}.";
+            Users FoundUser;
 
             public AssistUChatViewModel() : base(App.assistU)
             {
                 _botService = new BotService();
-                _query = new Regex(@"<QUERY> [a-zA-Z0-9]+");
+                _query = new Regex(@"<QUERY>.*");
                 _botService.BotMessageReceived += OnBotMessageReceived;
-                LoadPageData = new Command(async () => await ExecuteLoadPageData());
+                LoadPageData = new Command(() => { IsBusy = false; });
                 OnSendCommand = new Command(async () => await ExecuteSend());
+                ViewProfileCommand = new Command(ViewProfile);
             }
 
 
@@ -106,7 +107,7 @@ namespace MentorU.Services.Bot
             private async void DBQuery(string query)
             {
                 string[] entities = query.Split(':');
-                if (entities.Length >= 3) // requires all entities to be none null. TODO add robustness
+                if (entities.Length >= 3) // gaurunteed unless blank message? TODO: test bot's edge cases
                 {
                     var mentors = await DatabaseService.Instance.client
                         .GetTable<Users>()
@@ -119,15 +120,38 @@ namespace MentorU.Services.Bot
                     var mSet = new HashSet<string>(mentors.Select(mntr => mntr.id));
                     var sSet = new HashSet<string>(skills.Select(s => s.UserId));
                     var available = mSet.Intersect(sSet);
-                    List<Users> choices = new List<Users>((IEnumerable<Users>)mentors.Select(mntr => available.Contains(mntr.id)));
-
+                    var choices = mentors.Where(mntr => available.Contains(mntr.id)).ToList();
+                    
                     var msg = new Message(){Mine = false,Theirs = true,};
                     if (choices.Count > 0)
-                        msg.Text = string.Format(_foundMentor, choices[0].DisplayName, entities[1], entities[2]);
+                    {
+                        FoundUser = choices[0];
+                        msg.Text = string.Format(_foundMentor, FoundUser.DisplayName, entities[1], entities[2]);
+                        msg.MentorSearch = true;
+                    }
+                    else if (mSet.Count > 0)
+                    {
+                        FoundUser = mentors.Where(userID => userID.id == mSet.ToList()[0]).ToList()[0];
+                        msg.Text = $"I was able to find {FoundUser.DisplayName}, who is works in {entities[1]}.";
+                        msg.MentorSearch = true;
+                    }
+                    else if (sSet.Count > 0)
+                    {
+                        string usrID = skills.ToList()[0].UserId;
+                        var uList = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == usrID).ToListAsync();
+                        FoundUser = uList[0];
+                        msg.Text = $"I was able to find {FoundUser.DisplayName}, who is skilled with {entities[2]}.";
+                        msg.MentorSearch = true;
+                    }
                     else
+                    {
                         msg.Text = string.Format(_notFound, entities[1], entities[2]);
-                    MessageList.Add(msg); // TODO: add click response to direct to view only profile page
+                    }
+
+                    MessageList.Add(msg);
                     App.assistU._chatHistory.Add(msg);
+
+                    await _botService.SendMessageAsync(""); // Signal continuation of dialog
                 }
             }
 
@@ -150,6 +174,12 @@ namespace MentorU.Services.Bot
                 {
                     Debug.WriteLine($"Unable to send message. Exception => {e}");
                 }
+            }
+
+            async void ViewProfile()
+            {
+                if (FoundUser != null)
+                    await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(FoundUser, false));
             }
         }
 

@@ -27,6 +27,7 @@ namespace MentorU.ViewModels
         public Command ConnectChat { get; set; }
         public Command DisconnectChat { get; set; }
         public Command RefreshChatCommand { get; set; }
+        public Command ViewProfileCommand { get; set; }
 
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
@@ -56,6 +57,7 @@ namespace MentorU.ViewModels
             ConnectChat = new Command(async () => await Connect());
             DisconnectChat = new Command(async () => await Disconnect());
             RefreshChatCommand = new Command(() => { _useCache = false; IsBusy = true; });
+            ViewProfileCommand = null; // used by assistU
 
             hubConnection = new HubConnectionBuilder()
                 .WithUrl($"{App.SignalRBackendUrl}")

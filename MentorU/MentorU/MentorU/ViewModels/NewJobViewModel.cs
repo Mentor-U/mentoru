@@ -15,6 +15,7 @@ namespace MentorU.ViewModels
 {
     public class NewJobViewModel : BaseViewModel
     {
+        private string companyName;
         private string text;
         private string description;
         private string responsibilities;
@@ -95,6 +96,12 @@ namespace MentorU.ViewModels
                 && !String.IsNullOrWhiteSpace(description);
         }
 
+        public string CompanyName
+        {
+            get => companyName;
+            set => SetProperty(ref companyName, value);
+        }
+
         public string Text
         {
             get => text;
@@ -160,10 +167,9 @@ namespace MentorU.ViewModels
         {
             Jobs newJob = new Jobs()
             {
+                CompanyName = CompanyName,
                 Text = Text,
                 Description = Description,
-                Responsibilities = Responsibilities,
-                Qualifications = Qualifications,
                 Location = Location,
                 Owner = App.loggedUser.id,
                 JobType = JobType,

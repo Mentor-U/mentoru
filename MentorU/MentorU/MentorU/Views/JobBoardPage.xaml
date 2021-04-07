@@ -17,14 +17,16 @@
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
     <RefreshView x:DataType="local:JobBoardViewModel" Command="{Binding LoadJobsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <Grid>
+        <Grid ColumnSpacing="0" 
+                RowSpacing="0" 
+                Padding="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Label Text="{Binding ShowFilters, StringFormat='Filters: {0:N}'}" FontAttributes="Bold" FontSize="Medium" VerticalOptions="Center" Grid.Row="0">
                 <Label.GestureRecognizers>
@@ -39,13 +41,63 @@
                             Grid.Row="1" Grid.ColumnSpan="2">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10" x:DataType="model:Jobs" Spacing="10.0">
+
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="4"
+                                    Margin="5,0"
+                                     x:DataType="model:Jobs">
+                            <ffimageloading:CachedImage 
+                            Source="{Binding jobImage}"
+                            ErrorPlaceholder= "error.jpg"
+                            CacheDuration= "50"
+                            RetryCount= "3"
+                            RetryDelay= "600"
+                            DownsampleToViewSize = "true"
+                            Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                            Aspect="AspectFit" HeightRequest="70" WidthRequest="70"
+                            />
+                            <StackLayout Orientation="Vertical"
+                                         Spacing="0"
+                                         Margin="5,0"
+                                         x:DataType="model:Jobs">
+                                <Label Text=""/>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="16" Text="{Binding Text}" FontAttributes="Bold" TextColor="Black">
+                                </Label>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="16" Text="{Binding CompanyName}" TextColor="Black">
+                                </Label>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="16" Text="{Binding Location}" FontAttributes="Italic" TextColor="Gray">
+                                </Label>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="16" Text="-------------" FontAttributes="Italic" TextColor="LightGray">
+                                </Label>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="Small" Text="04/06/2021" TextColor="Green" FontAttributes="Bold">
+                                </Label>
+                                
+                            </StackLayout>
+                            
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:JobBoardViewModel}}, Path=JobTapped}"		
+                                CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+
+                        <!--<StackLayout Padding="10" x:DataType="model:Jobs" Spacing="10.0">
                             <Label Text="{Binding Text}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListJobTextStyle}" 
                             FontSize="16" />
-
-
 
                             <ffimageloading:CachedImage 
                             Source="{Binding jobImage}"
@@ -58,8 +110,7 @@
                             Aspect="AspectFit" HeightRequest="150" WidthRequest="150"
                             />
 
-                            
-                            <Label Text="{Binding Description}" 
+                            <Label Text="{Binding CompanyName}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
                             FontSize="13" />
@@ -67,6 +118,7 @@
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListJobDetailTextStyle}"
                             FontSize="17" />
+                            
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
@@ -74,7 +126,7 @@
                                 CommandParameter="{Binding .}">
                                 </TapGestureRecognizer>
                             </StackLayout.GestureRecognizers>
-                        </StackLayout>
+                        </StackLayout>-->
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

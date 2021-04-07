@@ -15,9 +15,8 @@ namespace MentorU.ViewModels
     {
         private string jobId;
         private string text;
+        private string companyName;
         private string description;
-        private string responsibilities;
-        private string qualifications;
         private string location;
         private ImageSource companyLogoSource;
         private Jobs _job;
@@ -39,22 +38,16 @@ namespace MentorU.ViewModels
             set => SetProperty(ref text, value);
         }
 
+        public string CompanyName
+        {
+            get => _job.CompanyName;
+            set => SetProperty(ref companyName, value);
+        }
+
         public string Description
         {
             get => _job.Description;
             set => SetProperty(ref description, value);
-        }
-
-        public string Responsibilities
-        {
-            get => _job.Responsibilities;
-            set => SetProperty(ref responsibilities, value);
-        }
-
-        public string Qualifications
-        {
-            get => _job.Qualifications;
-            set => SetProperty(ref qualifications, value);
         }
 
         public string Location
@@ -84,8 +77,6 @@ namespace MentorU.ViewModels
             Id = job.id;
             Text = job.Text;
             Description = job.Description;
-            Responsibilities = job.Responsibilities;
-            Qualifications = job.Qualifications;
             Location = job.Location;
             JobType = job.JobType;
             Level = job.Level;

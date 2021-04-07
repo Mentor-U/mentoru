@@ -7,9 +7,7 @@
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     
     <ScrollView>
-        <StackLayout Spacing="20" Padding="15">
-            <Label Text="{Binding Text}" FontSize="Large"/>
-
+        <StackLayout Spacing="5" Padding="15">
             <ffimageloading:CachedImage 
                             Source="{Binding CompanyLogoSource}"
                             ErrorPlaceholder= "error.jpg"
@@ -18,19 +16,34 @@
                             RetryDelay= "600"
                             DownsampleToViewSize = "true"
                             Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                            Aspect="AspectFit" HeightRequest="300" WidthRequest="300"
+                            Aspect="AspectFit" HeightRequest="100" WidthRequest="100"
                             />
 
-            <Label Text="{Binding Location, StringFormat='Item Price = {0:N} $'}" 
+            <Label Text="{Binding Text}" FontSize="Large" TextColor="Black"/>
+
+            <Label Text="{Binding CompanyName}" FontAttributes="Bold" FontSize="Medium" TextColor="Black"/>
+
+            <Label Text="{Binding Location, StringFormat='{0:N}'}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-            <Label Text="Description:" FontSize="Medium" />
+                            FontSize="Small" TextColor="DarkGray" FontAttributes="Italic"/>
+            <Label Text="04/06/2021" FontSize="Small" TextColor="Green"/>
+
+            <Label Text="------------------------------------------------------------------------------------------" />
+            <Label Text="Job description" FontSize="Medium" FontAttributes="Bold"/>
+            <Label Text=""/>
             <Label Text="{Binding Description}" FontSize="Small"/>
-            <Label Text="Responsibilities:" FontSize="Medium" />
-            <Label Text="{Binding Responsibilities}" FontSize="Small"/>
-            <Label Text="Qualifications:" FontSize="Medium" />
-            <Label Text="{Binding Qualifications}" FontSize="Small"/>
+
+            <Label Text="------------------------------------------------------------------------------------------" />
+            <Label Text="Job details" FontAttributes="Bold" FontSize="Medium" TextColor="Black"/>
+            <Label Text=""/>
+            
+            <Label Text="Employment" FontSize="12"/>
+            <Label Text="{Binding JobType}" FontSize="12" TextColor="DarkGray"/>
+
+            <Label Text=""/>
+            <Label Text="Level" FontSize="12"/>
+            <Label Text="{Binding Level}" FontSize="12" TextColor="DarkGray"/>
 
         </StackLayout>
     </ScrollView>

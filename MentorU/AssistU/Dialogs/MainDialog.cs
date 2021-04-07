@@ -29,7 +29,7 @@ namespace CoreBot.Dialogs
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(bookingDialog);
-            AddDialog(new FindMentorDialog());
+            AddDialog(new FindMentorDialog(_luisRecognizer));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
@@ -52,7 +52,7 @@ namespace CoreBot.Dialogs
             }
 
             // Use the text provided in FinalStepAsync or the default if it is the first time.
-            var messageText = "I can help you find a mentor.";
+            var messageText = "I am your assistant and can help you find mentors. What can I do for you today?";
             var promptMessage = MessageFactory.Text(messageText, messageText, InputHints.ExpectingInput);
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
         }

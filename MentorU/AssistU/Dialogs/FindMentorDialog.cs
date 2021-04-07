@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using CoreBot.CognitiveModels;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
@@ -11,9 +12,12 @@ namespace CoreBot.Dialogs
     {
         private const string FieldMsgText = "What type career would you like your mentor to have?";
         private const string SkillsMsgText = "What would you like your mentor to be skilled at?";
+        private readonly EntityRecognizer _luisRecognizer;
 
-        public FindMentorDialog() : base(nameof(FindMentorDialog))
+        public FindMentorDialog(EntityRecognizer luisRecognizer) : base(nameof(FindMentorDialog))
         {
+            _luisRecognizer = luisRecognizer;
+
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
@@ -21,6 +25,7 @@ namespace CoreBot.Dialogs
                 FieldStepAsync,
                 SkillsStepAsync,
                 PresentMentor,
+                FinalStep,
             }));
 
             InitialDialogId = nameof(WaterfallDialog);
@@ -52,7 +57,10 @@ namespace CoreBot.Dialogs
         private async Task<DialogTurnResult> SkillsStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var mentorDesire = (MentorDesire)stepContext.Options;
-            mentorDesire.Field = (string)stepContext.Result;
+
+            var luisResult = await _luisRecognizer.RecognizeAsync<MentorFinder>(stepContext.Context, cancellationToken);
+            mentorDesire.Field = luisResult.ExtractField;
+            //mentorDesire.Field = (string)stepContext.Result;
 
             if (mentorDesire.Skills == null)
             {
@@ -72,12 +80,26 @@ namespace CoreBot.Dialogs
         private async Task<DialogTurnResult> PresentMentor(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var mentorDesire = (MentorDesire)stepContext.Options;
-            mentorDesire.Skills = (string)stepContext.Result;
-            //string dbMsg = $"<QUERY> {mentorDesire.Field} {mentorDesire.Skills}";
-            string finalMsg = $"You want {mentorDesire.Field}, and {mentorDesire.Skills}. \n I would recommend Steve as your mentor";
-            var promptMessage = MessageFactory.Text(finalMsg, finalMsg, InputHints.IgnoringInput);
-            await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
 
+            var luisResult = await _luisRecognizer.RecognizeAsync<MentorFinder>(stepContext.Context, cancellationToken);
+            mentorDesire.Skills = luisResult.ExtractSkill;
+
+            //mentorDesire.Skills = (string)stepContext.Result;
+            string dbMsg = $"<QUERY> {mentorDesire.Field} {mentorDesire.Skills}";
+            //string finalMsg = $"You want {mentorDesire.Field}, and {mentorDesire.Skills}. \n I would recommend Steve as your mentor";
+            var promptMessage = MessageFactory.Text(dbMsg, dbMsg, InputHints.IgnoringInput);
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
+        }
+
+
+        /// <summary>
+        /// Return to the main dialog
+        /// </summary>
+        /// <param name="stepContext"></param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        private async Task<DialogTurnResult> FinalStep(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        {
             return await stepContext.EndDialogAsync(null, cancellationToken);
         }
     }

@@ -24,7 +24,7 @@ namespace CoreBot.Dialogs
             {
                 FieldStepAsync,
                 SkillsStepAsync,
-                PresentMentor,
+                StateMentorSearch,
                 FinalStep,
             }));
 
@@ -81,7 +81,7 @@ namespace CoreBot.Dialogs
         /// <param name="stepContext"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        private async Task<DialogTurnResult> PresentMentor(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> StateMentorSearch(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             var mentorDesire = (MentorDesire)stepContext.Options;
 
@@ -93,12 +93,9 @@ namespace CoreBot.Dialogs
                 mentorDesire.Skills = (string)stepContext.Result;
             }
 
-            //mentorDesire.Skills = (string)stepContext.Result;
-            string dbMsg = $"<QUERY> {mentorDesire.Field} {mentorDesire.Skills}";
-            //string finalMsg = $"You want {mentorDesire.Field}, and {mentorDesire.Skills}. \n I would recommend Steve as your mentor";
-            var promptMessage = MessageFactory.Text(dbMsg, dbMsg, InputHints.IgnoringInput);
-            await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
-            return await stepContext.EndDialogAsync(mentorDesire, cancellationToken);
+            string dbMsg = $"<QUERY>:{mentorDesire.Field}:{mentorDesire.Skills}#Alright, I will find a mentor working in {mentorDesire.Field} and skilled in {mentorDesire.Skills}";
+            var promptMessage = MessageFactory.Text(dbMsg, dbMsg, InputHints.ExpectingInput);
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
         }
 
 

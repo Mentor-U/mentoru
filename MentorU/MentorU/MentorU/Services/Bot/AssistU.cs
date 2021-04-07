@@ -77,21 +77,21 @@ namespace MentorU.Services.Bot
             {
                 ReceiveTask = new Task(() =>
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(500);
                     foreach (var msg in msgs)
                     {
                         Device.BeginInvokeOnMainThread(() =>
                         {
-                            var m = new Message() { Mine = false, Theirs = true, Text = msg.Content };
-                            if (m.Text != null && _query.IsMatch(m.Text))
+                            string message = msg.Content;
+                            if (message != null && _query.IsMatch(message))
                             {
-                                DBQuery(m);
+                                var queryMsg = message.Split('#');
+                                message = queryMsg[1];
+                                DBQuery(queryMsg[0]); // if concurrency issues, create task
                             }
-                            else
-                            {
-                                MessageList.Add(m);
-                                App.assistU._chatHistory.Add(m);
-                            }
+                            var finalMsg = new Message() { Mine = false, Theirs = true, Text = message };
+                            MessageList.Add(finalMsg);
+                            App.assistU._chatHistory.Add(finalMsg);
                         });
                     }
                 });
@@ -103,9 +103,9 @@ namespace MentorU.Services.Bot
             /// the database can be queried for relevant mentors.
             /// </summary>
             /// <param name="m"></param>
-            private async void DBQuery(Message m)
+            private async void DBQuery(string query)
             {
-                string[] entities = m.Text.Split();
+                string[] entities = query.Split(':');
                 if (entities.Length >= 3) // requires all entities to be none null. TODO add robustness
                 {
                     var mentors = await DatabaseService.Instance.client
@@ -127,7 +127,7 @@ namespace MentorU.Services.Bot
                     else
                         msg.Text = string.Format(_notFound, entities[1], entities[2]);
                     MessageList.Add(msg); // TODO: add click response to direct to view only profile page
-                    App.assistU._chatHistory.Add(m);
+                    App.assistU._chatHistory.Add(msg);
                 }
             }
 

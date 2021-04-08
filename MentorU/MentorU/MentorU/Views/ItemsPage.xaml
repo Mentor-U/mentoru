@@ -40,12 +40,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Padding="10" x:DataType="model:Items" Spacing="10.0">
-                            <Label Text="{Binding Text}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-
-
+                           
 
                             <ffimageloading:CachedImage 
                             Source="{Binding itemImage}"
@@ -56,7 +51,12 @@
                             DownsampleToViewSize = "true"
                             Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                             Aspect="AspectFit" HeightRequest="150" WidthRequest="150"
-                            />  
+                            />
+
+                            <Label Text="{Binding Text}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="20" />
 
 
                             <Label Text="{Binding Price, StringFormat='Item Price = {0:N} $'}" 

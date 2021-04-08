@@ -15039,7 +15039,7 @@ namespace MentorU.Droid
 			public const int common_google_signin_btn_text_light_normal_background = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int contactus = 2131165307;
+			public const int contactUs = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
 			public const int design_bottom_navigation_item_background = 2131165308;
@@ -15195,7 +15195,7 @@ namespace MentorU.Droid
 			public const int search = 2131165358;
 			
 			// aapt resource value: 0x7F0700AF
-			public const int settings = 2131165359;
+			public const int Settings = 2131165359;
 			
 			// aapt resource value: 0x7F0700B0
 			public const int test_custom_background = 2131165360;

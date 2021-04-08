@@ -138,7 +138,29 @@ namespace MentorU.ViewModels
             var settingsList = await DatabaseService.Instance.client.GetTable<Settings>().Where(u => u.UserID == _user.id).ToListAsync();
             Email = settingsList.Count > 0 ? _user.Email : "";
 
-            showEmail = settingsList.Count > 0 ? settingsList[0].AllEmailSettings : false;
+            if (settingsList.Count > 0)
+            {
+                if (settingsList[0].AllEmailSettings == true )
+                {
+                    showEmail = true;
+                }
+                if (settingsList[0].ConnectionEmailSettings == true)
+                {
+                    var connectionsList1 = await DatabaseService.Instance.client.GetTable<Connection>().Where((u => u.MenteeID == _user.id && u.MentorID == App.loggedUser.id)).ToListAsync();
+                    var connectionsList2 = await DatabaseService.Instance.client.GetTable<Connection>().Where((u => u.MentorID == _user.id && u.MenteeID == App.loggedUser.id)).ToListAsync();
+
+                    if(connectionsList1.Count > 0 || connectionsList2.Count > 0)
+                    {
+                        showEmail = true;
+                    }
+
+                }
+
+            }
+            else
+            {
+                showEmail = false;
+            }
 
         }
 

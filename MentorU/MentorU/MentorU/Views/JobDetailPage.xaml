@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Class="MentorU.Views.JobDetailPage"
+             Title="{Binding Title}"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+    
+    <ScrollView>
+        <StackLayout Spacing="5" Padding="15">
+            <ffimageloading:CachedImage 
+                            Source="{Binding CompanyLogoSource}"
+                            ErrorPlaceholder= "error.jpg"
+                            CacheDuration= "50"
+                            RetryCount= "3"
+                            RetryDelay= "600"
+                            DownsampleToViewSize = "true"
+                            Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                            Aspect="AspectFit" HeightRequest="100" WidthRequest="100"
+                            />
+
+            <Label Text="{Binding Text}" FontSize="Large" TextColor="Black"/>
+
+            <Label Text="{Binding CompanyName}" FontAttributes="Bold" FontSize="Medium" TextColor="Black"/>
+
+            <Label Text="{Binding Location, StringFormat='{0:N}'}" 
+                            LineBreakMode="NoWrap" 
+                            Style="{DynamicResource ListItemTextStyle}" 
+                            FontSize="Small" TextColor="DarkGray" FontAttributes="Italic"/>
+            <Label Text="{Binding Date}" FontSize="Small" TextColor="Green"/>
+
+            <Label Text="------------------------------------------------------------------------------------------" />
+            <Label Text="Job description" FontSize="Medium" FontAttributes="Bold"/>
+            <Label Text=""/>
+            <Label Text="{Binding Description}" FontSize="Small"/>
+
+            <Label Text="------------------------------------------------------------------------------------------" />
+            <Label Text="Job details" FontAttributes="Bold" FontSize="Medium" TextColor="Black"/>
+            <Label Text=""/>
+            
+            <Label Text="Employment" FontSize="12"/>
+            <Label Text="{Binding JobType}" FontSize="12" TextColor="DarkGray"/>
+
+            <Label Text=""/>
+            <Label Text="Level" FontSize="12"/>
+            <Label Text="{Binding Level}" FontSize="12" TextColor="DarkGray"/>
+
+        </StackLayout>
+    </ScrollView>
+    
+</ContentPage>

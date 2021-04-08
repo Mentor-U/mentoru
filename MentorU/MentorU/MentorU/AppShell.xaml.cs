@@ -13,6 +13,7 @@ namespace MentorU
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(NewJobPage), typeof(NewJobPage));
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(MainChatPage), typeof(MainChatPage));
             Routing.RegisterRoute(nameof(ViewOnlyProfilePage), typeof(ViewOnlyProfilePage));

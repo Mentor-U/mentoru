@@ -160,9 +160,6 @@
     <ImageAsset Include="Assets.xcassets\Home.png.imageset\Home-2.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit.png">
       <Visible>false</Visible>
     </ImageAsset>
@@ -175,25 +172,16 @@
     <ImageAsset Include="Assets.xcassets\search.png.imageset\search.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\search.png.imageset\search-icon.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\notification.png.imageset\notification_2.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\marketplace.png.imageset\marketplace-icon.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit-2.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat-2.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactus.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactus-1.png">
@@ -208,6 +196,13 @@
     <ImageAsset Include="Assets.xcassets\Settings.png.imageset\settings-2.png">
       <Visible>false</Visible>
     </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactus-2.png" />
+    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactUs-3.png" />
+    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png" />
+    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\settings-3.png" />
+    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\Settings-4.png" />
+    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit-3.png" />
+    <ImageAsset Include="Assets.xcassets\search.png.imageset\search-3.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

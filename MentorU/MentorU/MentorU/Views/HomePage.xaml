@@ -2,9 +2,10 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MentorU.Views.HomePage"
-             xmlns:vm="clr-namespace:MentorU.ViewModels"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              Title="{Binding Title}"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
 
@@ -25,10 +26,10 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="150"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="160"/>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="160"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="350"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="350"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -37,29 +38,36 @@
                        Grid.Column="0" Grid.Row="0"
                        HorizontalOptions="CenterAndExpand"
                        Scale="2"/>
-                <Label Text="{Binding UsersName, StringFormat='Welcome {0:N}!'}" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Row="1" HorizontalOptions="Center"/>
-                <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End"/>
-                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End"/>
+                <Label Text="{Binding UsersName, StringFormat='Welcome {0:N}!'}" FontSize="Large" FontAttributes="Bold" Grid.Row="1" HorizontalOptions="Center"/>
+                <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End" Padding="10"/>
+                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.Row="2" VerticalTextAlignment="End" Padding="10"/>
                 <CollectionView x:Name="MentorListView"
                                 ItemsSource="{Binding Mentors}"
                                 SelectionMode="None"
                                 Grid.Row="3"
-                                BackgroundColor="#e60000">
+                                VerticalScrollBarVisibility="Always">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate >
+                        <DataTemplate>
                             <StackLayout Padding="10" x:DataType="model:Users">
-                                <Frame BackgroundColor="LightGray" HasShadow="False" >
-                                    <Label LineBreakMode="NoWrap" 
-                                                Style="{DynamicResource ListItemTextStyle}" 
-                                                FontSize="16"
-                                                TextColor="Black">
-                                        <Label.Text>
-                                            <MultiBinding StringFormat="{}{0}: {1}">
-                                                <Binding Path="FirstName"/>
-                                                <Binding Path="Major"/>
-                                            </MultiBinding>
-                                        </Label.Text>
-                                    </Label>
+                                <Frame BorderColor="Red" HasShadow="False" >
+                                    <StackLayout Orientation="Horizontal">
+                                        <ffimageloading:CachedImage 
+                                                Source="{Binding ProfileImage}"
+                                                ErrorPlaceholder= "error.jpg"
+                                                CacheDuration= "50"
+                                                RetryCount= "3"
+                                                RetryDelay= "600"
+                                                DownsampleToViewSize = "true"
+                                                HeightRequest="50" WidthRequest="50">
+                                            <ffimageloading:CachedImage.Transformations>
+                                                <fftransformations:CircleTransformation/>
+                                            </ffimageloading:CachedImage.Transformations>
+                                        </ffimageloading:CachedImage>
+                                       <StackLayout Orientation="Vertical">
+                                            <Label Text="{Binding DisplayName}" FontSize="Large" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Major}"  FontSize="Small" FontAttributes="Italic"/>
+                                        </StackLayout>
+                                    </StackLayout>
                                 </Frame>
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer 
@@ -72,19 +80,19 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Label Text="Recommended Purchases" FontAttributes="Bold" FontSize="Medium" TextDecorations="Underline" Grid.Row="4" VerticalTextAlignment="End"/>
+                <Label Text="Recommended Purchases" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.Row="4" VerticalTextAlignment="End" Padding="10"/>
                 <CollectionView x:Name="MarketListView"
                                 ItemsSource="{Binding MarketItems}"
                                 SelectionMode="None"
-                                Grid.Row="5">
+                                Grid.Row="5"
+                                VerticalScrollBarVisibility="Always">
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
-                            <StackLayout Padding="10" x:DataType="model:Items" BackgroundColor="LightBlue">
-                                <Frame BackgroundColor="LightGray" HasShadow="False">
+                            <StackLayout Padding="10" x:DataType="model:Items">
+                                <Frame BorderColor="Gray" HasShadow="False">
                                     <Label LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
-                                                FontSize="16"
-                                                TextColor="Black">
+                                                FontSize="16">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0}: ${1}">
                                                 <Binding Path="Text"/>

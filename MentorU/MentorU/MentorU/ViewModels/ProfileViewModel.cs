@@ -140,7 +140,9 @@ namespace MentorU.ViewModels
                     foreach (var m in mentors)
                     {
                         var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
-                        Mentors.Add(men[0]);
+                        var current = men[0];
+                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                        Mentors.Add(current);
                     }
                 }
                 else
@@ -149,7 +151,9 @@ namespace MentorU.ViewModels
                     foreach (var m in mentors)
                     {
                         var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
-                        Mentors.Add(men[0]);
+                        var current = men[0];
+                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                        Mentors.Add(current);
                     }
                 }
 

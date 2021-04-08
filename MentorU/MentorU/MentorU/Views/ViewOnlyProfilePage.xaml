@@ -44,12 +44,13 @@
                 <Label Text="About Me" FontAttributes="Bold" TextDecorations="Underline"
                        Grid.Column="0" Grid.Row="5"/>
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="10"/>
-                <Button Text="Decline" Command="{Binding DeclineCommand}" BackgroundColor="Red" IsVisible="{Binding FromNotification}" Grid.Column="0" Grid.Row="7"/>
-                <Button Text="Accept" Command="{Binding AcceptCommand}" BackgroundColor="Green" IsVisible="{Binding FromNotification}" Grid.Column="1" Grid.Row="7"/>
+                <Label Text="{Binding Email}" IsVisible="{Binding showEmail}"  Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="10"/>
+                <Button Text="Decline" Command="{Binding DeclineCommand}" BackgroundColor="Red" IsVisible="{Binding FromNotification}" Grid.Column="0" Grid.Row="8"/>
+                <Button Text="Accept" Command="{Binding AcceptCommand}" BackgroundColor="Green" IsVisible="{Binding FromNotification}" Grid.Column="1" Grid.Row="8"/>
 
-                <Button Text="Chat" Command="{Binding ChatCommand}" Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
+                <Button Text="Chat" Command="{Binding ChatCommand}" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"
                         IsVisible="{Binding IsConnected}" BackgroundColor="Red"/>
-                <Button Text="Schedule Meeting" Command="{Binding ScheduleCommand}" Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"
+                <Button Text="Schedule Meeting" Command="{Binding ScheduleCommand}" Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2"
                         IsVisible="{Binding IsConnected}" BackgroundColor="Red"/>
             </Grid>
         </ScrollView>

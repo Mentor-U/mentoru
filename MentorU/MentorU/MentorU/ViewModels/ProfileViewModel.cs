@@ -206,7 +206,18 @@ namespace MentorU.ViewModels
                 var settingsList = await DatabaseService.Instance.client.GetTable<Settings>().Where(u => u.UserID == App.loggedUser.id).ToListAsync();
                 Email = settingsList.Count > 0 ? App.loggedUser.Email : "";
 
-                showEmail = settingsList.Count > 0 ? settingsList[0].AllEmailSettings : false;
+                if(settingsList.Count > 0)
+                {
+                    if (settingsList[0].AllEmailSettings == true || settingsList[0].ConnectionEmailSettings == true)
+                    {
+                        showEmail = true;
+                    }
+  
+                }
+                else
+                {
+                    showEmail = false;
+                }
 
 
 

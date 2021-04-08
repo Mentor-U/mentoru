@@ -8,22 +8,15 @@
 
     <ContentPage.Content>
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="150" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="50" />
-                <RowDefinition Height="100" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Image Source="Logo.png" MinimumWidthRequest="300"  
-                       Grid.Row="0"
-                       HorizontalOptions="CenterAndExpand"
-                       Scale="2"/>
+            <Image Source="Logo.png" Grid.RowSpan="2" ></Image>
 
-            <Button Grid.Row="3" Grid.RowSpan="2" Text="Email" Clicked="EmailClicked"
+            <Button Grid.Row="3" Grid.ColumnSpan="2" Text="Email" Clicked="EmailClicked"
+                    BackgroundColor="Khaki"/>
+            <Button Grid.Row="4" Grid.ColumnSpan="2" Text="Phone" Clicked="PhoneClicked"
                     BackgroundColor="Khaki"/>
         </Grid>
     </ContentPage.Content>

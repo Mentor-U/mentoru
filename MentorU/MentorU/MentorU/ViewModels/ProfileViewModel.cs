@@ -20,15 +20,10 @@ namespace MentorU.ViewModels
         private string _name;
         private string _major;
         private string _bio;
-        private string _email;
-        private bool _showEmail;
-
         private ImageSource _profileImage;
 
         public bool isMentor { get; set; }
         public bool isMentee { get; set; }
-
- 
 
         public ObservableCollection<string> Classes { get; set; }
         public ObservableCollection<Users> Mentors { get; set; }
@@ -80,25 +75,6 @@ namespace MentorU.ViewModels
             }
         }
 
-        public string Email
-        {
-            get => _email;
-            set
-            {
-                _email = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public bool showEmail
-        { 
-          get => _showEmail; 
-          set 
-            {
-                _showEmail = value;  OnPropertyChanged(); 
-            }
-        }
-
 
         /***
          * Constructor. Initialize bindings from view
@@ -120,8 +96,6 @@ namespace MentorU.ViewModels
             Name = App.loggedUser.FirstName;
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
-
-
 
             Title = "Profile";
 
@@ -198,14 +172,6 @@ namespace MentorU.ViewModels
                 {
                     Marketplace.Add(val);
                 }
-
-                var settingsList = await DatabaseService.Instance.client.GetTable<Settings>().Where(u => u.UserID == App.loggedUser.id).ToListAsync();
-                Email = settingsList.Count > 0 ? App.loggedUser.Email : "";
-
-                showEmail = settingsList.Count > 0 ? settingsList[0].EmailSettings : false;
-
-
-
 
             }
             catch(Exception ex)

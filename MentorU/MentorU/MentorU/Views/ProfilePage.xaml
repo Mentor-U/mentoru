@@ -25,7 +25,6 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="160"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -62,13 +61,12 @@
                        TextDecorations="Underline"
                        LineBreakMode="WordWrap"/>
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="10"/>
-                <Label Text="{Binding Email}" IsVisible="{Binding showEmail}"  Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="10"/>
-                <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="8"/>
-                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="8"/>
+                <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
+                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="7"/>
                 <CollectionView x:Name="MentorListView"
                             ItemsSource="{Binding Mentors}"
                             SelectionMode="None"
-                            Grid.Row="9" Grid.ColumnSpan="2"
+                            Grid.Row="8" Grid.ColumnSpan="2"
                             BackgroundColor="#e60000">
                     <CollectionView.ItemTemplate>
                         <DataTemplate >
@@ -97,7 +95,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <ScrollView Grid.Row="10" Grid.ColumnSpan="2">
+                <ScrollView Grid.Row="9" Grid.ColumnSpan="2">
                     <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
                         <Label Text="My Marketplace Listings" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
 

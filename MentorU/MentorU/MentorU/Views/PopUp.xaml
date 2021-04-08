@@ -10,8 +10,6 @@
             <StackLayout>
                 <Label Text ="Major/Field" />
                 <Entry Text="{Binding FilterMajor}" Placeholder="Ex: Computer Science"/>
-                <Label Text ="Years Of Experience" />
-                <Entry Text="{Binding FilterYears}" Placeholder="Ex: 5" />
                 <Button Text="Alumni" Command="{Binding SwitchAlumni}" BackgroundColor="{Binding WantsAlumni}"/>
                 <Button Text="Student" Command="{Binding SwitchAlumni}" BackgroundColor="{Binding WantsStudent}"/>
                 <Button Text="Ok" BackgroundColor="Green" HeightRequest="35" TextColor="White" Command="{Binding ClosePopUp}"/>

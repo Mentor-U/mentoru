@@ -11,6 +11,7 @@ using MentorU.ViewModels;
 using System.Threading;
 using System.Text.RegularExpressions;
 using MentorU.Views;
+using MentorU.Services.Blob;
 
 namespace MentorU.Services.Bot
 {
@@ -127,13 +128,11 @@ namespace MentorU.Services.Bot
                     {
                         FoundUser = choices[0];
                         msg.Text = string.Format(_foundMentor, FoundUser.DisplayName, entities[1], entities[2]);
-                        msg.MentorSearch = true;
                     }
                     else if (mSet.Count > 0)
                     {
                         FoundUser = mentors.Where(userID => userID.id == mSet.ToList()[0]).ToList()[0];
                         msg.Text = $"I was able to find {FoundUser.DisplayName}, who is works in {entities[1]}.";
-                        msg.MentorSearch = true;
                     }
                     else if (sSet.Count > 0)
                     {
@@ -141,19 +140,25 @@ namespace MentorU.Services.Bot
                         var uList = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == usrID).ToListAsync();
                         FoundUser = uList[0];
                         msg.Text = $"I was able to find {FoundUser.DisplayName}, who is skilled with {entities[2]}.";
-                        msg.MentorSearch = true;
                     }
                     else
                     {
                         msg.Text = string.Format(_notFound, entities[1], entities[2]);
+                        goto Finish;
                     }
 
-                    MessageList.Add(msg);
-                    App.assistU._chatHistory.Add(msg);
+                    msg.MentorSearch = true;
+                    msg.Name = FoundUser.DisplayName;
+                    msg.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", FoundUser.id);
+
+                    Finish:
+                        MessageList.Add(msg);
+                        App.assistU._chatHistory.Add(msg);
 
                     await _botService.SendMessageAsync(""); // Signal continuation of dialog
                 }
             }
+
 
             /// <summary>
             /// Sends the message to the bot and updates the UI

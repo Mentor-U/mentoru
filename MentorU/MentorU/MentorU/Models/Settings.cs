@@ -8,6 +8,8 @@ namespace MentorU.Models
     {
         public string id { get; set; }
         public string UserID { get; set; }
-        public bool EmailSettings { get; set; }
+        public bool AllEmailSettings { get; set; }
+        public bool ConnectionEmailSettings { get; set; }
+
     }
 }

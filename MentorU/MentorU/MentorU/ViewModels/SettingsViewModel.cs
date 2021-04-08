@@ -21,22 +21,24 @@ namespace MentorU.ViewModels
 
 
 
-        public bool _emailSwitch;
-        public bool emailSwitch
+        public bool _allEmailSwitch;
+        public bool allEmailSwitch
         {
-            get { return _emailSwitch; }
+            get { return _allEmailSwitch; }
             set {
-                _emailSwitch = value;
+                _allEmailSwitch = value;
                 OnPropertyChanged();
 
             }
         }
 
-        public bool _phoneSwitch;
-        public bool phoneSwitch
+        public bool _connectionsEmailSwitch;
+        public bool connectionsEmailSwitch
         {
-            get { return _phoneSwitch; }
-            set { _phoneSwitch = value; }
+            get { return _connectionsEmailSwitch; }
+            set { _connectionsEmailSwitch = value;
+                OnPropertyChanged();
+            }
         }
 
         private async void OnSave()
@@ -50,7 +52,8 @@ namespace MentorU.ViewModels
                 Settings newSettings = new Settings()
                 {
                     UserID = App.loggedUser.id,
-                    EmailSettings = _emailSwitch
+                    AllEmailSettings = _allEmailSwitch,
+                    ConnectionEmailSettings = _connectionsEmailSwitch
                 };
 
                 await DatabaseService.Instance.client.GetTable<Settings>().InsertAsync(newSettings);
@@ -64,7 +67,7 @@ namespace MentorU.ViewModels
                 {
                     {"id",  settingsList[0].id},
                     {"UserID", App.loggedUser.id },
-                    {"EmailSettings", _emailSwitch },
+                    {"AllEmailSettings", _allEmailSwitch },
 
                 };
                 await DatabaseService.Instance.client.GetTable<Settings>().UpdateAsync(data);
@@ -80,7 +83,9 @@ namespace MentorU.ViewModels
         {
             var settingsList = await DatabaseService.Instance.client.GetTable<Settings>().Where(u => u.UserID == App.loggedUser.id).ToListAsync();
 
-            emailSwitch = settingsList.Count > 0 ? settingsList[0].EmailSettings : false;
+            allEmailSwitch = settingsList.Count > 0 ? settingsList[0].AllEmailSettings : false;
+
+            connectionsEmailSwitch = settingsList.Count > 0 ? settingsList[0].ConnectionEmailSettings : false;
 
         }
 

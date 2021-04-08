@@ -18,12 +18,12 @@
                 
             </Grid.RowDefinitions>
             <Label Text="Display email publically on profile to everyone." Padding="10" LineBreakMode="WordWrap" FontSize="17" FontAttributes="Bold" Grid.Row="0" Grid.Column="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-            <Switch IsToggled="{Binding emailSwitch}" OnColor="Red"
+            <Switch IsToggled="{Binding allEmailSwitch}" OnColor="Red"
                 VerticalOptions="Center"
                 Grid.Column="1"
                 Grid.Row="0"/>
             <Label Text="Display email on profile only to connections." Padding="10" LineBreakMode="WordWrap" FontSize="17" FontAttributes="Bold" Grid.Row="1" Grid.Column="0" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
-            <Switch IsToggled="{Binding phoneSwitch}" OnColor="Red"
+            <Switch IsToggled="{Binding connectionsEmailSwitch}" OnColor="Red"
                 VerticalOptions="Center"
                 Grid.Column="1"
                 Grid.Row="1"/>

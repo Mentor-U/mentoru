@@ -7,7 +7,8 @@
              x:Class="MentorU.Views.ChatViews.ChatPage"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
-             xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              Title="{Binding Title}">
 
     <ContentPage.Content>
@@ -59,12 +60,23 @@
                                                     <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGray"/>
                                                     <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center"/>
                                                     <StackLayout Orientation="Horizontal" IsVisible="{Binding MentorSearch}" IsEnabled="{Binding MentorSearch}" Grid.Row="1">
-                                                        <abstractions:CircleImage Source="{Binding ProfileImage}" Aspect="AspectFill" Scale=".75"/>
+                                                        <ffimageloading:CachedImage 
+                                                            Source="{Binding ProfileImage}"
+                                                            ErrorPlaceholder= "error.jpg"
+                                                            CacheDuration= "50"
+                                                            RetryCount= "3"
+                                                            RetryDelay= "600"
+                                                            DownsampleToViewSize = "true"
+                                                            HeightRequest="50" WidthRequest="50">
+                                                            <ffimageloading:CachedImage.Transformations>
+                                                                <fftransformations:CircleTransformation/>
+                                                            </ffimageloading:CachedImage.Transformations>
+                                                        </ffimageloading:CachedImage>
                                                         <StackLayout Orientation="Vertical" Padding="30" >
                                                             <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Medium"/>
                                                             <Button Text="View Profile"
                                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:ChatViewModel}}, Path=ViewProfileCommand}"
-                                                                BackgroundColor="Red" TextColor="Black" Padding="10"/>
+                                                                BackgroundColor="Red" TextColor="White" Padding="10"/>
                                                         </StackLayout>
                                                     </StackLayout>
                                                     

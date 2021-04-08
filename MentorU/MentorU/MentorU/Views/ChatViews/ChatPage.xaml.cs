@@ -22,13 +22,13 @@ namespace MentorU.Views.ChatViews
                 Text = "Refresh",
                 Command = _vm.RefreshChatCommand
             });
+            _vm._messageListView = MessageListView;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             _vm.OnAppearing();
-
         }
 
         protected override void OnDisappearing()

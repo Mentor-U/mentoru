@@ -17,6 +17,7 @@ namespace MentorU.Services.Bot
         private static string WaterMark { get; set; }
         private const string _directLineSecret = "20LzcCzdXBg.IrynKUwXT74ePL49AUQhCjtdS4IH9XX1XJmvGjJaYjc";
         private static bool _started { get; set; }
+        private string _userName { get; set; }
 
         public BotService()
         {
@@ -24,16 +25,17 @@ namespace MentorU.Services.Bot
             _started = false;
         }
 
-        public async Task SetUpAsync()
+        public async Task SetUpAsync(string userName)
         {
             if (!_started)
             {
+                _userName = userName;
                 BotConversation = await Client.Conversations.StartConversationAsync()
                     .ConfigureAwait(false);
                 _started = true;
+                await RegisterAsync();
             }
         }
-
 
         public async Task ReceiveMessageAsync()
         {
@@ -45,7 +47,9 @@ namespace MentorU.Services.Bot
             foreach(var act in response.Activities)
             {
                 if (act.From.Id == BOT_HANDLE)
+                {
                     activities.Add(act);
+                }
             }
             BotMessageReceived?.Invoke(CreateBotMessages(activities));
         }
@@ -62,11 +66,11 @@ namespace MentorU.Services.Bot
         }
 
 
-        public async Task SendMessageAsync(string message, string userName="")
+        public async Task SendMessageAsync(string message)
         {
             var userMessage = new Activity()
             {
-                From = new ChannelAccount(userName),
+                From = new ChannelAccount(_userName),
                 Text = message,
                 Type = ActivityTypes.Message
             };
@@ -75,6 +79,17 @@ namespace MentorU.Services.Bot
 
             await ReceiveMessageAsync();
         }
-
+        
+        public async Task RegisterAsync()
+        {
+            var userMessage = new Activity()
+            {
+                From = new ChannelAccount(_userName),
+                Type = ActivityTypes.Message
+            };
+            await Client.Conversations.PostActivityAsync(BotConversation.ConversationId, userMessage)
+                .ConfigureAwait(false);
+            await ReceiveMessageAsync();
+        }
     }
 }

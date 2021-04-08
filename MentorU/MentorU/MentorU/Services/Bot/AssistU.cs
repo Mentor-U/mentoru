@@ -57,18 +57,18 @@ namespace MentorU.Services.Bot
                 _botService = new BotService();
                 _query = new Regex(@"<QUERY>.*");
                 _botService.BotMessageReceived += OnBotMessageReceived;
-                LoadPageData = new Command(() => { IsBusy = false; });
+                LoadPageData = new Command(async () => await ExecuteLoadPageData());
                 OnSendCommand = new Command(async () => await ExecuteSend());
                 ViewProfileCommand = new Command(ViewProfile);
             }
 
 
-            public override Task ExecuteLoadPageData()
+            public async override Task ExecuteLoadPageData()
             {
+                IsBusy = false;
+                await _botService.SetUpAsync(App.loggedUser.id);
                 var t = new Task(() => { MessageList = App.assistU._chatHistory; });
                 //t.Start();
-                IsBusy = false;
-                return t;
             }
 
             /// <summary>
@@ -94,6 +94,7 @@ namespace MentorU.Services.Bot
                             var finalMsg = new Message() { Mine = false, Theirs = true, Text = message };
                             MessageList.Add(finalMsg);
                             App.assistU._chatHistory.Add(finalMsg);
+                            _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
                         });
                     }
                 });
@@ -168,12 +169,12 @@ namespace MentorU.Services.Bot
             {
                 try
                 {
-                    await _botService.SetUpAsync();
                     var msg = new Message() { Mine = true, Theirs = false, Text = TextDraft };
                     TextDraft = string.Empty;
                     MessageList.Add(msg);
                     await _botService.SendMessageAsync(msg.Text);
                     App.assistU._chatHistory.Add(msg);
+                    _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
                 }
                 catch (Exception e)
                 {

@@ -11,6 +11,7 @@ using System.Text;
 using MentorU.Services.DatabaseServices;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http;
+using MentorU.Views.ChatViews;
 
 namespace MentorU.ViewModels
 {
@@ -34,13 +35,15 @@ namespace MentorU.ViewModels
         private string _groupName;
         private bool _useCache;
 
-        public Message lastMessage { get; set; }
+        public ListView _messageListView { get; set; }
 
         public ChatViewModel(Users ChatRecipient)
         {
             _recipient = ChatRecipient;
             Title = _recipient.FirstName;
             _useCache = true;
+
+            _messageListView = null;
 
             // Use bit mask of user id's to generate group name 
             byte[] them = Encoding.ASCII.GetBytes(_recipient.id);
@@ -76,7 +79,7 @@ namespace MentorU.ViewModels
                         else
                             MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
                         App._cache.Set(_groupName, MessageList, new TimeSpan(24, 0, 0));
-
+                        _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
                     }
                     catch (Exception ex)
                     {
@@ -105,7 +108,6 @@ namespace MentorU.ViewModels
 
         public virtual async Task ExecuteLoadPageData()
         {
-            //IsBusy = true;
             try
             {   
                 object his;
@@ -132,7 +134,8 @@ namespace MentorU.ViewModels
                     App._cache.Set(_groupName, MessageList, new TimeSpan(24,0,0));
                     _useCache = true;
                 }
-                lastMessage = MessageList[MessageList.Count - 1];
+
+                
             }
             catch (Exception ex)
             {
@@ -141,6 +144,8 @@ namespace MentorU.ViewModels
             finally
             {
                 IsBusy = false;
+                if(MessageList.Count > 0)
+                    _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
             }
         }
 
@@ -163,6 +168,7 @@ namespace MentorU.ViewModels
                 };
                 TextDraft = "";
                 await DatabaseService.Instance.client.GetTable<Messages>().InsertAsync(newMessage);
+                _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
             }
             catch (Exception ex)
             {
@@ -181,7 +187,7 @@ namespace MentorU.ViewModels
         }
 
 
-        public void OnAppearing()
+        public virtual void OnAppearing()
         {
             IsBusy = true;
         }

@@ -93,9 +93,6 @@
     <BundleResource Include="Resources\xamarin_logo.png" />
     <BundleResource Include="Resources\xamarin_logo%402x.png" />
     <BundleResource Include="Resources\xamarin_logo%403x.png" />
-    <ImageAsset Include="Assets.xcassets\settings.png.imageset\settings1.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1201.png">
       <Visible>false</Visible>
@@ -127,16 +124,7 @@
     <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\contactus.png.imageset\contactus.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\exit.png.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\contactus.png.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\settings.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\Logo.png.imageset\Contents.json">
@@ -154,33 +142,32 @@
     <ImageAsset Include="Assets.xcassets\notification.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile-1.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit-2.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\notification.png.imageset\notification.png">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\search.png.imageset\search-icon.png">
-      <Visible>false</Visible>
-    </ImageAsset>
     <ImageAsset Include="Assets.xcassets\Home.png.imageset\Contents.json">
-      <Visible>false</Visible>
-    </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Home.png.imageset\Home.png">
       <Visible>false</Visible>
     </ImageAsset>
     <ImageAsset Include="Assets.xcassets\marketplace.png.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\marketplace.png.imageset\marketplace-1.png">
-      <Visible>false</Visible>
-    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Home.png.imageset\Home-1.png" />
+    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile-2.png" />
+    <ImageAsset Include="Assets.xcassets\blank_profile.png.imageset\blank_profile-3.png" />
+    <ImageAsset Include="Assets.xcassets\Home.png.imageset\Home-2.png" />
+    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png" />
+    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit.png" />
+    <ImageAsset Include="Assets.xcassets\marketplace.png.imageset\marketplace-2.png" />
+    <ImageAsset Include="Assets.xcassets\notification.png.imageset\notification-3.png" />
+    <ImageAsset Include="Assets.xcassets\search.png.imageset\search.png" />
+    <ImageAsset Include="Assets.xcassets\search.png.imageset\search-icon.png" />
+    <ImageAsset Include="Assets.xcassets\notification.png.imageset\notification_2.png" />
+    <ImageAsset Include="Assets.xcassets\marketplace.png.imageset\marketplace-icon.png" />
+    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit-2.png" />
+    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat-2.png" />
+    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactus.png" />
+    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactus-1.png" />
+    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\settings-1.png" />
+    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\settings-2.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -245,6 +232,10 @@
     <Folder Include="Assets.xcassets\icon_about.png.imageset\" />
     <Folder Include="Assets.xcassets\icon_feed.png.imageset\" />
     <Folder Include="Assets.xcassets\Logo.png.imageset\" />
+    <Folder Include="Assets.xcassets\contactus1.png.imageset\" />
+    <Folder Include="Assets.xcassets\settings1.png.imageset\" />
+    <Folder Include="Assets.xcassets\contactUs.png.imageset\" />
+    <Folder Include="Assets.xcassets\Settings.png.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpg" />

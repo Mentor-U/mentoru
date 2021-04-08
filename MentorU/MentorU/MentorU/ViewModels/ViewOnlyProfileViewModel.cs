@@ -29,6 +29,9 @@ namespace MentorU.ViewModels
         public string Name { get => name; set => SetProperty(ref name, value); }
         public string Field { get => field; set => SetProperty(ref field, value); }
         public string Bio { get => bio; set => SetProperty(ref bio, value); }
+
+         public bool isMentor { get; set; }
+        public bool isMentee { get; set; }
         
         public TimeSpan SelectedTime
         {
@@ -91,7 +94,18 @@ namespace MentorU.ViewModels
             Field = _user.Major;
             Bio = _user.Bio;
             FromNotification = fromNotification;
-            Role = _user.Role == "0" ? "Skills:" : "Classes:";
+            //Role = _user.Role == "0" ? "Skills:" : "Classes:";
+
+            if (_user.Role == "0")
+            {
+                isMentor = true;
+                isMentee = false;
+            }
+            else
+            {
+                isMentor = false;
+                isMentee = true;
+            }
 
             Standardview = !fromNotification;
             IsConnected = isConnected;

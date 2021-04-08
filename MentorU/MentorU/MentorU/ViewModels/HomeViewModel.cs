@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections.Generic;
 using MentorU.Services.DatabaseServices;
-
+using MentorU.Services.Blob;
 
 namespace MentorU.ViewModels
 {
@@ -72,7 +72,9 @@ namespace MentorU.ViewModels
                     foreach (var m in mentors)
                     {
                         var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
-                        Mentors.Add(temp[0]);
+                        var current = temp[0];
+                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                        Mentors.Add(current);
                     }
                 }
                 else
@@ -81,7 +83,9 @@ namespace MentorU.ViewModels
                     foreach (var m in mentors)
                     {
                         var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
-                        Mentors.Add(temp[0]);
+                        var current = temp[0];
+                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                        Mentors.Add(current);
                     }
                 }
 

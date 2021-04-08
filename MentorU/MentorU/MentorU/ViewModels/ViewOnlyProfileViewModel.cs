@@ -23,10 +23,15 @@ namespace MentorU.ViewModels
         private Users _user;
         public string _scheduleMessage;
         private ImageSource _profileImage;
+        private string _email;
+        private bool _showEmail;
 
         public string Name { get => name; set => SetProperty(ref name, value); }
         public string Field { get => field; set => SetProperty(ref field, value); }
         public string Bio { get => bio; set => SetProperty(ref bio, value); }
+
+         public bool isMentor { get; set; }
+        public bool isMentee { get; set; }
         
         public TimeSpan SelectedTime
         {
@@ -45,6 +50,25 @@ namespace MentorU.ViewModels
             {
                 _profileImage = value;
                 OnPropertyChanged();
+            }
+        }
+
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool showEmail
+        {
+            get => _showEmail;
+            set
+            {
+                _showEmail = value; OnPropertyChanged();
             }
         }
 
@@ -70,7 +94,18 @@ namespace MentorU.ViewModels
             Field = _user.Major;
             Bio = _user.Bio;
             FromNotification = fromNotification;
-            Role = _user.Role == "0" ? "Skills:" : "Classes:";
+            //Role = _user.Role == "0" ? "Skills:" : "Classes:";
+
+            if (_user.Role == "0")
+            {
+                isMentor = true;
+                isMentee = false;
+            }
+            else
+            {
+                isMentor = false;
+                isMentee = true;
+            }
 
             Standardview = !fromNotification;
             IsConnected = isConnected;
@@ -98,6 +133,35 @@ namespace MentorU.ViewModels
             {
                 Classes.Add(val.ClassName);
             }
+
+
+            var settingsList = await DatabaseService.Instance.client.GetTable<Settings>().Where(u => u.UserID == _user.id).ToListAsync();
+            Email = settingsList.Count > 0 ? _user.Email : "";
+
+            if (settingsList.Count > 0)
+            {
+                if (settingsList[0].AllEmailSettings == true )
+                {
+                    showEmail = true;
+                }
+                if (settingsList[0].ConnectionEmailSettings == true)
+                {
+                    var connectionsList1 = await DatabaseService.Instance.client.GetTable<Connection>().Where((u => u.MenteeID == _user.id && u.MentorID == App.loggedUser.id)).ToListAsync();
+                    var connectionsList2 = await DatabaseService.Instance.client.GetTable<Connection>().Where((u => u.MentorID == _user.id && u.MenteeID == App.loggedUser.id)).ToListAsync();
+
+                    if(connectionsList1.Count > 0 || connectionsList2.Count > 0)
+                    {
+                        showEmail = true;
+                    }
+
+                }
+
+            }
+            else
+            {
+                showEmail = false;
+            }
+
         }
 
         /** ------------------------------------------------------

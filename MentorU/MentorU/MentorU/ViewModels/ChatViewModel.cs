@@ -94,7 +94,6 @@ namespace MentorU.ViewModels
                 await hubConnection.StartAsync();
             await hubConnection.InvokeAsync("AddToGroup", _groupName);
             hubIsConnected = true;
-            //await App.notificationService.UpdateTags(_groupName);
         }
 
         public async Task Disconnect()
@@ -164,7 +163,6 @@ namespace MentorU.ViewModels
                 };
                 TextDraft = "";
                 await DatabaseService.Instance.client.GetTable<Messages>().InsertAsync(newMessage);
-                await App.notificationService.SendAsync(HttpMethod.Put, Config.BackendServiceEndpoint, newMessage);
             }
             catch (Exception ex)
             {

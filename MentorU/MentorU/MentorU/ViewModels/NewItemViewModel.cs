@@ -40,6 +40,8 @@ namespace MentorU.ViewModels
                 "Good",
                 "Decent"
             };
+
+            _firstItemImage = "error.jpg";
         }
 
         public ImageSource ItemFirstImage

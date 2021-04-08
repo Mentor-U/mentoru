@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.ApplicationPage"
+             Shell.PresentationMode="ModalAnimated"
+             Title="New Application"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             ios:Page.UseSafeArea="true"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+    
+    <ScrollView>
+        <StackLayout Spacing="10" Padding="15">
+            <Label Text="First Name" FontSize="Medium" />
+            <Entry Text="{Binding FirstName, Mode=TwoWay}" FontSize="Medium"
+                   BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
+
+            <Label Text="Last Name" FontSize="Medium" />
+            <Entry Text="{Binding LastName, Mode=TwoWay}" FontSize="Medium"
+                   BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
+
+            <Label Text="Phone Number" FontSize="Medium" />
+            <Entry Text="{Binding PhoneNumber, Mode=TwoWay}" FontSize="Medium"
+                   BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
+
+            <Label Text="Email" FontSize="Medium" />
+            <Entry Text="{Binding Email, Mode=TwoWay}" FontSize="Medium"
+                   BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
+
+            <Image Source="{Binding Resume}" 
+                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                    Aspect="AspectFill" HeightRequest="100"/>
+
+            <Button Text="Add Resume From Your Device" Command="{Binding AddResumeCommand}" FontAttributes="Italic"
+                       BackgroundColor="LightGray" TextColor="black" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+                       />
+
+            <Label Text="Are you legal to work in the U.S?" />
+            <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                    TextColor="Black"
+                    ItemsSource="{Binding AllLegals}"
+                    SelectedItem="{Binding Legal}"
+                    WidthRequest="100" />
+
+            <Label Text="Will you now or in the future require sponsorship for employment visa status (H-1B visa status)?" />
+            <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                    TextColor="Black"
+                    ItemsSource="{Binding AllH1B}"
+                    SelectedItem="{Binding H1B}"
+                    WidthRequest="100" />
+
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

@@ -38,18 +38,18 @@
             https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
             -->
             <Style Class="FlyoutItemLabelStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="#e60000"></Setter>
+                <Setter Property="TextColor" Value="{AppThemeBinding Light=Black, Dark=White}"></Setter>
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=Black}"/>
             </Style>
             <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="#e60000"></Setter>
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=Black, Dark=White}"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
                     <VisualStateGroupList>
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
                                     <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=White, Dark=Black}" />
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="#e60000" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light=Black, Dark=White}" />
                                 </VisualState.Setters>
                             </VisualState>
                             <!--<VisualState x:Name="Selected">
@@ -71,7 +71,7 @@
                         <VisualStateGroup x:Name="CommonStates">
                             <VisualState x:Name="Normal">
                                 <VisualState.Setters>
-                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="#e60000" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{AppThemeBinding Light=Black, Dark=White}" />
                                 </VisualState.Setters>
                             </VisualState>
                         </VisualStateGroup>
@@ -113,16 +113,19 @@
     <FlyoutItem Title="Marketplace" Icon="marketplace.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
+    <FlyoutItem Title="Job Board" Icon="marketplace.png">
+        <ShellContent Route="JobBoardPage" ContentTemplate="{DataTemplate local:JobBoardPage}" />
+    </FlyoutItem>
     <FlyoutItem Title="Find New Mentors" Icon="search.png">
         <ShellContent Route="SearchNewMentorsPage" ContentTemplate="{DataTemplate local:SearchNewMentorPage}"/>
     </FlyoutItem>
     <FlyoutItem Title="Notifications" Icon="notification.png">
         <ShellContent Route="NotificationPage" ContentTemplate="{DataTemplate local:NotificationPage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Contact Us" Icon="contactus.png">
+    <FlyoutItem Title="Contact Us" Icon="contactUs.png">
         <ShellContent Route="ContactUsPage" ContentTemplate="{DataTemplate local:ContactUsPage}"/>
     </FlyoutItem>
-    <FlyoutItem Title="Settings" Icon="settings.png">
+    <FlyoutItem Title="Settings" Icon="Settings.png">
         <ShellContent Route="SettingsPage" ContentTemplate="{DataTemplate local:SettingsPage}"/>
     </FlyoutItem>
 

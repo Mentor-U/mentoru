@@ -30,5 +30,7 @@ namespace MentorU.Models
        
         public string Bio { get; set; }
 
+        [Ignore]
+        public ImageSource ProfileImage { get; set; }
     }
 }

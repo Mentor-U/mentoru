@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using MentorU.Services.DatabaseServices;
+using MentorU.Services.Blob;
 
 namespace MentorU.ViewModels
 {
@@ -55,7 +56,9 @@ namespace MentorU.ViewModels
                     {
                         List<Users> temp = await DatabaseService.Instance.client.GetTable<Users>()
                             .Where(u => u.id == c.MenteeID).ToListAsync();
-                        Chats.Add(temp[0]);
+                        var current = temp[0];
+                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                        Chats.Add(current);
                     }
                 }
                 else
@@ -66,7 +69,9 @@ namespace MentorU.ViewModels
                     {
                         List<Users> temp = await DatabaseService.Instance.client.GetTable<Users>()
                             .Where(u => u.id == c.MentorID).ToListAsync();
-                        Chats.Add(temp[0]);
+                        var current = temp[0];
+                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                        Chats.Add(current);
                     }
                 }
 

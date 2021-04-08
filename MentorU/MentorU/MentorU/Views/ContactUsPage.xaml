@@ -35,7 +35,7 @@
                FontSize="Medium" HorizontalOptions="CenterAndExpand" TextColor="Black" Padding="10" Margin="0"></Label>
 
             <Button Grid.Row="4" Grid.RowSpan="2" Text="Email MentorU" FontSize="Medium" Clicked="EmailClicked" 
-                    BackgroundColor= "#e60000" Padding="20" Margin="10" ContentLayout="Top,10"  />
+                    BackgroundColor= "#e60000" Padding="20" Margin="10"  />
         </Grid>
 
 </ContentPage>

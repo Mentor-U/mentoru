@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              x:Name="profilePage"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
@@ -24,9 +25,10 @@
                     <RowDefinition Height="100"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="160"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="350"/>
+                    <RowDefinition Height="80"/>
+                    <RowDefinition Height="350"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -47,13 +49,10 @@
                 </ffimageloading:CachedImage>-->
 
                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Large"
-                        Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1"/>
-                <Label  IsVisible="{Binding isMentee}" Text="{Binding Major, StringFormat='Major: {0:N}'}" 
-                        Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
-                <Label  IsVisible="{Binding isMentor}" Text="{Binding Major, StringFormat='Field: {0:N}'}" 
-                        Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1"/>
-                <Label IsVisible="{Binding isMentee}" Text ="Classes:" Grid.Column="1" Grid.Row="3"/>
-                <Label IsVisible="{Binding isMentor}" Text ="Skills:" Grid.Column="1" Grid.Row="3"/>
+                        Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" />
+                <Label Text="{Binding Major}" FontAttributes="Italic" FontSize="Small" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="1" />
+                <Label IsVisible="{Binding isMentee}" Text ="Classes" FontSize="Medium" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="1" Grid.Row="3" VerticalOptions="End"/>
+                <Label IsVisible="{Binding isMentor}" Text ="Skills" FontSize="Medium" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="1" Grid.Row="3" VerticalOptions="End"/>
                 <CollectionView IsVisible="{Binding isMentee}" ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
                 <CollectionView IsVisible="{Binding isMentor}" ItemsSource="{Binding Classes}" SelectionMode="None" Grid.Column="1" Grid.Row="4"/>
                 <Label Text="About Me" FontSize="Medium" 
@@ -62,78 +61,79 @@
                        TextDecorations="Underline"
                        LineBreakMode="WordWrap"/>
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="10"/>
-                <Label Text="{Binding Email}" IsVisible="{Binding showEmail}"  Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Margin="10"/>
-                <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="8"/>
-                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline" Grid.Column="0" Grid.Row="8"/>
+                <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="7" VerticalTextAlignment="End" Padding="10"/>
+                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="7" VerticalTextAlignment="End" Padding="10"/>
                 <CollectionView x:Name="MentorListView"
-                            ItemsSource="{Binding Mentors}"
-                            SelectionMode="None"
-                            Grid.Row="9" Grid.ColumnSpan="2"
-                            BackgroundColor="#e60000">
+                                ItemsSource="{Binding Mentors}"
+                                SelectionMode="None"
+                                Grid.Row="8" Grid.ColumnSpan="2"
+                                VerticalScrollBarVisibility="Always">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate >
+                        <DataTemplate>
                             <StackLayout Padding="10" x:DataType="model:Users">
-                                <Frame BackgroundColor="LightGray" HasShadow="False">
-                                    <Label LineBreakMode="NoWrap" 
-                                            Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="16"
-                                            TextColor="Black">
-                                        <Label.Text>
-                                            <MultiBinding StringFormat="{}{0}: {1}">
-                                                <Binding Path="FirstName"/>
-                                                <Binding Path="Major"/>
-                                            </MultiBinding>
-                                        </Label.Text>
-                                    </Label>
+                                <Frame BorderColor="Red" HasShadow="False" >
+                                    <StackLayout Orientation="Horizontal">
+                                        <ffimageloading:CachedImage 
+                                                Source="{Binding ProfileImage}"
+                                                ErrorPlaceholder= "error.jpg"
+                                                CacheDuration= "50"
+                                                RetryCount= "3"
+                                                RetryDelay= "600"
+                                                DownsampleToViewSize = "true"
+                                                HeightRequest="50" WidthRequest="50">
+                                            <ffimageloading:CachedImage.Transformations>
+                                                <fftransformations:CircleTransformation/>
+                                            </ffimageloading:CachedImage.Transformations>
+                                        </ffimageloading:CachedImage>
+                                       <StackLayout Orientation="Vertical">
+                                            <Label Text="{Binding DisplayName}" FontSize="Large" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Major}"  FontSize="Small" FontAttributes="Italic"/>
+                                        </StackLayout>
+                                    </StackLayout>
                                 </Frame>
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer 
-                                            NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProfileViewModel}}, Path=MentorTapped}"		
-                                            CommandParameter="{Binding .}">
+                                                NumberOfTapsRequired="1"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:HomeViewModel}}, Path=MentorTapped}"		
+                                                CommandParameter="{Binding .}">
                                     </TapGestureRecognizer>
                                 </StackLayout.GestureRecognizers>
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <ScrollView Grid.Row="10" Grid.ColumnSpan="2">
-                    <StackLayout Orientation="Vertical" Padding="0,0,0,0" Spacing="5">
-                        <Label Text="My Marketplace Listings" FontSize="Large" FontAttributes="Bold" TextDecorations="Underline"/>
-
-                        <CollectionView x:Name="MarketplaceListView"
+                <Label Text="Recommended Purchases" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.Row="9" Grid.ColumnSpan="2" VerticalTextAlignment="End" Padding="10"/>
+                <CollectionView x:Name="MarketListView"
                                 ItemsSource="{Binding Marketplace}"
                                 SelectionMode="None"
-                                Grid.Row="5">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate >
-                                    <StackLayout Padding="10" x:DataType="model:Items" BackgroundColor="LightBlue">
-                                        <Frame BackgroundColor="LightGray" HasShadow="False">
-                                            <Label LineBreakMode="NoWrap" 
+                                Grid.Row="10" Grid.ColumnSpan="2"
+                                VerticalScrollBarVisibility="Always">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate >
+                            <StackLayout Padding="10" x:DataType="model:Items">
+                                <Frame BorderColor="Gray" HasShadow="False">
+                                    <Label LineBreakMode="NoWrap" 
                                                 Style="{DynamicResource ListItemTextStyle}" 
-                                                FontSize="16"
-                                                TextColor="Black">
-                                                <Label.Text>
-                                                    <MultiBinding StringFormat="{}{0}: ${1}">
-                                                        <Binding Path="Text"/>
-                                                        <Binding Path="Price"/>
-                                                    </MultiBinding>
-                                                </Label.Text>
-                                            </Label>
-                                        </Frame>
-                                        <StackLayout.GestureRecognizers>
-                                            <TapGestureRecognizer 
+                                                FontSize="16">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0}: ${1}">
+                                                <Binding Path="Text"/>
+                                                <Binding Path="Price"/>
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </Frame>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer 
                                                 NumberOfTapsRequired="1"
                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:ProfileViewModel}}, Path=ItemTapped}"		
                                                 CommandParameter="{Binding .}">
-                                            </TapGestureRecognizer>
-                                        </StackLayout.GestureRecognizers>
-                                    </StackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </StackLayout>
-                </ScrollView>
+                                    </TapGestureRecognizer>
+                                </StackLayout.GestureRecognizers>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
         </ScrollView>
     </RefreshView>

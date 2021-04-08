@@ -22,6 +22,11 @@ namespace MentorU.Views
             await Launcher.OpenAsync((new Uri("mailto:mentoru_support@gmail.com")));
         }
 
+        public async void PhoneClicked(object sender, EventArgs args)
+        {
+            await Launcher.OpenAsync("tel:18000000000");
+        }
+
 
     }
 }

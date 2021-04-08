@@ -14,8 +14,15 @@
                     ItemsSource="{Binding AllConditions}"
                     SelectedItem="{Binding condition}"
                     WidthRequest="100" />
+                <Label Text ="Department Used:" />
+                <Picker BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}"
+                    TextColor="Black"
+                    ItemsSource="{Binding AllDepartments}"
+                    SelectedItem="{Binding Department}"
+                    WidthRequest="100" />
                 <Label Text ="Class Used:" />
-                <Entry Text="{Binding FilterClassUsed}" Placeholder="Ex: CS 1410" />
+                <Entry Text="{Binding FilterClassUsed}" Placeholder="Ex: 1210" />
+
                 <Button Text="Ok" BackgroundColor="Green" HeightRequest="35" TextColor="White" Command="{Binding ClosePopUp}"/>
             </StackLayout>
         </Frame>

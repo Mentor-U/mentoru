@@ -4,38 +4,76 @@
              x:Class="MentorU.Views.MainChatPage"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              Title="{Binding Title}"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <ContentPage.Content>
         <RefreshView x:DataType="local:MainChatViewModel" Command="{Binding LoadChatsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <StackLayout>
-                <Label Text="You have no chats at this time." IsVisible="{Binding NoChats}"  VerticalTextAlignment="End" HorizontalTextAlignment="Center"/>
-                <CollectionView x:Name="ItemsListView"
+            <Grid ColumnSpacing="0" 
+                    RowSpacing="0" 
+                    Padding="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                
+                <StackLayout>
+                    <Label Text="You have no chats at this time." IsVisible="{Binding NoChats}"  VerticalTextAlignment="End" HorizontalTextAlignment="Center"/>
+                    <CollectionView x:Name="ItemsListView"
                     ItemsSource="{Binding Chats}"
                     SelectionMode="None">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <StackLayout Padding="10" x:DataType="model:Users" Spacing="10.0">
-                                <Frame BackgroundColor="LightGray" HasShadow="True">
-                                    <Label Text="{Binding FirstName}"
-                                    FontAttributes="Bold"
-                                    LineBreakMode="NoWrap" 
-                                    Style="{DynamicResource ListItemTextStyle}" 
-                                    FontSize="16"
-                                    TextColor="Black"/>
-                                </Frame>
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer 
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10" 
+                                             x:DataType="model:Users" 
+                                             Spacing="10.0" 
+                                             Margin="5,0"
+                                             Orientation="Horizontal">
+                                    <ffimageloading:CachedImage 
+                                                Source="{Binding ProfileImage}"
+                                                ErrorPlaceholder= "error.jpg"
+                                                CacheDuration= "50"
+                                                RetryCount= "3"
+                                                RetryDelay= "600"
+                                                DownsampleToViewSize = "true"
+                                                HeightRequest="50" WidthRequest="50">
+                                        <ffimageloading:CachedImage.Transformations>
+                                            <fftransformations:CircleTransformation/>
+                                        </ffimageloading:CachedImage.Transformations>
+                                    </ffimageloading:CachedImage>
+                                    <StackLayout Orientation="Vertical"
+                                                 Spacing="0"
+                                                 Margin="5,0">
+                                        <Label Text="{Binding FirstName}"
+                                        FontAttributes="Bold"
+                                        LineBreakMode="NoWrap" 
+                                        Style="{DynamicResource ListItemTextStyle}" 
+                                        FontSize="16"
+                                        TextColor="Black"/>
+                                        <Label Text="Type to start chat" 
+                                               FontAttributes="Italic"
+                                               LineBreakMode="NoWrap" 
+                                               TextColor="DarkGray"/>
+                                    </StackLayout>
+
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
                                     NumberOfTapsRequired="1"
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type local:MainChatViewModel}}, Path=UserTapped}"		
                                     CommandParameter="{Binding .}">
-                                    </TapGestureRecognizer>
-                                </StackLayout.GestureRecognizers>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-           </StackLayout>
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Grid>
         </RefreshView>
     </ContentPage.Content>
 </ContentPage>

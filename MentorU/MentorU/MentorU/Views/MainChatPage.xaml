@@ -55,7 +55,7 @@
                                         Style="{DynamicResource ListItemTextStyle}" 
                                         FontSize="16"
                                         TextColor="Black"/>
-                                        <Label Text="Type to start chat" 
+                                        <Label Text="Tap to start chat" 
                                                FontAttributes="Italic"
                                                LineBreakMode="NoWrap" 
                                                TextColor="DarkGray"/>

@@ -66,28 +66,28 @@ namespace MentorU.ViewModels
                 Mentors.Clear();
                 List<Connection> mentors;
 
-                if (isMentee)
+                //if (isMentee)
+                //{
+                mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                foreach (var m in mentors)
                 {
-                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
-                    foreach (var m in mentors)
-                    {
-                        var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
-                        var current = temp[0];
-                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
-                        Mentors.Add(current);
-                    }
+                    var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                    var current = temp[0];
+                    current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                    Mentors.Add(current);
                 }
-                else
+                //}
+                //else
+                //{
+                mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                foreach (var m in mentors)
                 {
-                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
-                    foreach (var m in mentors)
-                    {
-                        var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
-                        var current = temp[0];
-                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
-                        Mentors.Add(current);
-                    }
+                    var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
+                    var current = temp[0];
+                    current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                    Mentors.Add(current);
                 }
+                //}
 
                 if (Mentors.Count == 0)
                 {

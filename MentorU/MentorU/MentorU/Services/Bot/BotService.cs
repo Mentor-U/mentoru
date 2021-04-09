@@ -85,7 +85,7 @@ namespace MentorU.Services.Bot
             var userMessage = new Activity()
             {
                 From = new ChannelAccount(_userName),
-                Type = ActivityTypes.Message
+                Type = ActivityTypes.ConversationUpdate
             };
             await Client.Conversations.PostActivityAsync(BotConversation.ConversationId, userMessage)
                 .ConfigureAwait(false);

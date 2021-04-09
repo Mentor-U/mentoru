@@ -203,6 +203,8 @@
     <ImageAsset Include="Assets.xcassets\Settings.png.imageset\Settings-4.png" />
     <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit-3.png" />
     <ImageAsset Include="Assets.xcassets\search.png.imageset\search-3.png" />
+    <ImageAsset Include="Assets.xcassets\send.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\send.png.imageset\send.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -269,6 +271,7 @@
     <Folder Include="Assets.xcassets\icon_feed.png.imageset\" />
     <Folder Include="Assets.xcassets\Logo.png.imageset\" />
     <Folder Include="Assets.xcassets\settings1.png.imageset\" />
+    <Folder Include="Assets.xcassets\send.png.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpg" />

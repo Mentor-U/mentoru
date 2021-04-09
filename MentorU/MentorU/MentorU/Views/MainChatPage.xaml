@@ -53,8 +53,7 @@
                                         FontAttributes="Bold"
                                         LineBreakMode="NoWrap" 
                                         Style="{DynamicResource ListItemTextStyle}" 
-                                        FontSize="16"
-                                        TextColor="Black"/>
+                                        FontSize="16"/>
                                         <Label Text="Tap to start chat" 
                                                FontAttributes="Italic"
                                                LineBreakMode="NoWrap" 

@@ -40,8 +40,8 @@ namespace MentorU.Services.Bot
 
 
         /// <summary>
-        /// Bot chat viewmodel that interfaces with the bot service
-        /// to handle all NLP.
+        /// Bot chat viewmodel that interfaces with the bot hosted on
+        /// Azure to handle all NLP.
         /// </summary>
         public class AssistUChatViewModel : ChatViewModel
         { 
@@ -49,8 +49,10 @@ namespace MentorU.Services.Bot
             Task ReceiveTask;
             Regex _query;
             string _foundMentor = "I found {0} who is knowledgable with {1} and skilled at {2}!";
-            string _notFound = "I wasn't able to find a mentor who works in {0} and is skilled at {1}.";
+            string _notFound = "I wasn't able to find a mentor who works in {0} and is skilled at {1}. " +
+                "If I wasn't able to understand your request, please try rephrasing.";
             Users FoundUser;
+
 
             public AssistUChatViewModel() : base(App.assistU)
             {
@@ -69,6 +71,9 @@ namespace MentorU.Services.Bot
                 await _botService.SetUpAsync(App.loggedUser.id);
                 var t = new Task(() => { MessageList = App.assistU._chatHistory; });
                 //t.Start();
+
+                if(MessageList.Count > 0)
+                    _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
             }
 
             /// <summary>
@@ -109,55 +114,69 @@ namespace MentorU.Services.Bot
             private async void DBQuery(string query)
             {
                 string[] entities = query.Split(':');
-                if (entities.Length >= 3) // gaurunteed unless blank message? TODO: test bot's edge cases
-                {
-                    var mentors = await DatabaseService.Instance.client
-                        .GetTable<Users>()
-                        .Where(u => u.Role == "0" && u.Major.ToLower() == entities[1])
-                        .ToListAsync();
-                    var skills = await DatabaseService.Instance.client
-                        .GetTable<Classes>()
-                        .Where(s => s.ClassName == entities[2])
-                        .ToListAsync();
-                    var mSet = new HashSet<string>(mentors.Select(mntr => mntr.id));
-                    var sSet = new HashSet<string>(skills.Select(s => s.UserId));
-                    var available = mSet.Intersect(sSet);
-                    var choices = mentors.Where(mntr => available.Contains(mntr.id)).ToList();
-                    
-                    var msg = new Message(){Mine = false,Theirs = true,};
-                    if (choices.Count > 0)
-                    {
-                        FoundUser = choices[0];
-                        msg.Text = string.Format(_foundMentor, FoundUser.DisplayName, entities[1], entities[2]);
-                    }
-                    else if (mSet.Count > 0)
-                    {
-                        FoundUser = mentors.Where(userID => userID.id == mSet.ToList()[0]).ToList()[0];
-                        msg.Text = $"I was able to find {FoundUser.DisplayName}, who is works in {entities[1]}.";
-                    }
-                    else if (sSet.Count > 0)
-                    {
-                        string usrID = skills.ToList()[0].UserId;
-                        var uList = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == usrID).ToListAsync();
-                        FoundUser = uList[0];
-                        msg.Text = $"I was able to find {FoundUser.DisplayName}, who is skilled with {entities[2]}.";
-                    }
-                    else
-                    {
-                        msg.Text = string.Format(_notFound, entities[1], entities[2]);
-                        goto Finish;
-                    }
 
+                if (entities.Length < 3)
+                    return;
+
+                var mentors = await DatabaseService.Instance.client
+                    .GetTable<Users>()
+                    .Where(u => u.Role == "0" && u.Major.ToLower() == entities[1])
+                    .ToListAsync();
+                var skills = await DatabaseService.Instance.client
+                    .GetTable<Classes>()
+                    .Where(s => s.ClassName == entities[2])
+                    .ToListAsync();
+                var mSet = new HashSet<string>(mentors.Select(mntr => mntr.id));
+                var sSet = new HashSet<string>(skills.Select(s => s.UserId));
+                var available = mSet.Intersect(sSet);
+                var choices = mentors.Where(mntr => available.Contains(mntr.id)).ToList();
+                    
+                var msg = new Message(){Mine = false,Theirs = true,};
+                foreach (var m in choices)
+                {
+                    if (m.id == App.loggedUser.id)
+                        continue;
+                    FoundUser = m;
+                    msg.Text = string.Format(_foundMentor, FoundUser.DisplayName, entities[1], entities[2]);
+                    goto MentorFound;
+                }
+
+                var mentorList = mentors.Where(userID => userID.id == mSet.ToList()[0]).ToList();
+                foreach (var m in mentorList)
+                {
+                    if (m.id == App.loggedUser.id)
+                        continue;
+                    FoundUser = m;
+                    msg.Text = $"I was able to find {FoundUser.DisplayName}, who is works in {entities[1]}.";
+                    goto MentorFound;
+                }
+
+                foreach (var m in skills.ToList())
+                {
+                    if (m.UserId == App.loggedUser.id)
+                        continue;
+                    var uList = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.UserId).ToListAsync();
+                    FoundUser = uList[0];
+                    msg.Text = $"I was able to find {FoundUser.DisplayName}, who is skilled with {entities[2]}.";
+                    goto MentorFound;
+                }
+
+                // Unsuccessful mentor query
+                msg.Text = string.Format(_notFound, entities[1], entities[2]);
+                goto Finish;
+
+                MentorFound:
                     msg.MentorSearch = true;
                     msg.Name = FoundUser.DisplayName;
-                    msg.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", FoundUser.id);
+                    msg.searchID = FoundUser.id;
+                    msg.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", msg.searchID);
 
-                    Finish:
-                        MessageList.Add(msg);
-                        App.assistU._chatHistory.Add(msg);
 
-                    await _botService.SendMessageAsync(""); // Signal continuation of dialog
-                }
+                Finish:
+                    MessageList.Add(msg);
+                    App.assistU._chatHistory.Add(msg);
+
+                await _botService.SendMessageAsync(""); // Signal continuation of dialog
             }
 
 
@@ -182,10 +201,21 @@ namespace MentorU.Services.Bot
                 }
             }
 
-            async void ViewProfile()
+            async void ViewProfile(object source)
             {
-                if (FoundUser != null)
+                if (FoundUser == null)
+                    return;
+
+                string ID = (string)source;
+                if (FoundUser.id == ID)
+                {
                     await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(FoundUser, false));
+                }
+                else
+                {
+                    var user = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == ID).ToListAsync();
+                    await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(user[0], false));
+                }
             }
         }
 
@@ -222,7 +252,6 @@ namespace MentorU.Services.Bot
                     .Where(u => u.id != App.loggedUser.id && _classes.Contains(u.ClassUsed)).ToListAsync();
                 var maxLen = 5 < items.Count ? 5 : items.Count;
                 return items.GetRange(0, maxLen); // return only the top five recommendations
-                //TODO: come up with a more clever scheme, maybe one per class/cheapest
             }
         }
     }

@@ -123,7 +123,7 @@ namespace MentorU.ViewModels
                     {
                         if (ExcludeIDs.Contains(m.id))
                             continue;
-                        if (_filterTuple.Item1 != null) // Handles AND in the boolean condition to further restrict
+                        if (_filterTuple.Item1 != null) // Handles tuple AND in the boolean condition to further restrict
                         {
                             if (_filterTuple.Item1 == m.Major)
                             {

@@ -67,6 +67,7 @@
                                             <Label Text="{Binding DisplayName}" FontSize="Large" FontAttributes="Bold"/>
                                             <Label Text="{Binding Major}"  FontSize="Small" FontAttributes="Italic"/>
                                         </StackLayout>
+                                        <Label Text="{Binding RoleSelector}" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand" />
                                     </StackLayout>
                                 </Frame>
                                 <StackLayout.GestureRecognizers>

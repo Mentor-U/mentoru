@@ -17,5 +17,7 @@ namespace MentorU.Models
         public ImageSource ProfileImage { get => _profileImage; set => _profileImage = value; }
         private string _name = null;
         public string Name { get => _name; set => _name = value; }
+        private string id = null;
+        public string searchID { get => id; set => id = value; }
     }
 }

@@ -117,7 +117,7 @@ namespace MentorU.ViewModels
                 isMentee = true;
             }
 
-            Name = App.loggedUser.FirstName;
+            Name = App.loggedUser.DisplayName;
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
 

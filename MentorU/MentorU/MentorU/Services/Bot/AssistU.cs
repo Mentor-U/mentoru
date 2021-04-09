@@ -117,7 +117,7 @@ namespace MentorU.Services.Bot
 
                 if (entities.Length < 3)
                     return;
-
+                // Query the DB based on the parameters sent from the bot
                 var mentors = await DatabaseService.Instance.client
                     .GetTable<Users>()
                     .Where(u => u.Role == "0" && u.Major.ToLower() == entities[1])
@@ -130,7 +130,9 @@ namespace MentorU.Services.Bot
                 var sSet = new HashSet<string>(skills.Select(s => s.UserId));
                 var available = mSet.Intersect(sSet);
                 var choices = mentors.Where(mntr => available.Contains(mntr.id)).ToList();
-                    
+
+
+                // Filter the response based on what mentors where found.
                 var msg = new Message(){Mine = false,Theirs = true,};
                 foreach (var m in choices)
                 {
@@ -147,7 +149,7 @@ namespace MentorU.Services.Bot
                     if (m.id == App.loggedUser.id)
                         continue;
                     FoundUser = m;
-                    msg.Text = $"I was able to find {FoundUser.DisplayName}, who is works in {entities[1]}.";
+                    msg.Text = $"I was able to find {FoundUser.DisplayName}, who works in {entities[1]}.";
                     goto MentorFound;
                 }
 

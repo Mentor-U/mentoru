@@ -25,6 +25,12 @@ namespace MentorU.Services.Bot
             _started = false;
         }
 
+        /// <summary>
+        /// Initialize the converstaion and start the registration
+        /// to prompt the bot to send the welcome message
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
         public async Task SetUpAsync(string userName)
         {
             if (!_started)
@@ -37,6 +43,10 @@ namespace MentorU.Services.Bot
             }
         }
 
+        /// <summary>
+        /// Received activites from the bot
+        /// </summary>
+        /// <returns></returns>
         public async Task ReceiveMessageAsync()
         {
             var response = await Client.Conversations.GetActivitiesAsync(
@@ -54,7 +64,11 @@ namespace MentorU.Services.Bot
             BotMessageReceived?.Invoke(CreateBotMessages(activities));
         }
 
-
+        /// <summary>
+        /// Format the message to allow extraction of content
+        /// </summary>
+        /// <param name="activities"></param>
+        /// <returns></returns>
         private List<BotMessage> CreateBotMessages(IEnumerable<Activity> activities)
         {
             var botMessages = new List<BotMessage>();
@@ -66,6 +80,11 @@ namespace MentorU.Services.Bot
         }
 
 
+        /// <summary>
+        /// Build an activity with the specified message to send to the bot
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public async Task SendMessageAsync(string message)
         {
             var userMessage = new Activity()
@@ -79,7 +98,12 @@ namespace MentorU.Services.Bot
 
             await ReceiveMessageAsync();
         }
-        
+
+
+        /// <summary>
+        /// Notify the bot that it should start the conversation.
+        /// </summary>
+        /// <returns></returns>
         public async Task RegisterAsync()
         {
             var userMessage = new Activity()

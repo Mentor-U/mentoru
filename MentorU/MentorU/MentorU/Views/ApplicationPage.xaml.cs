@@ -11,10 +11,10 @@ namespace MentorU.Views
     public partial class ApplicationPage : ContentPage
     {
         public Applications Application { get; set; }
-        public ApplicationPage()
+        public ApplicationPage(Jobs job)
         {
             InitializeComponent();
-            BindingContext = new ApplicationViewModel();
+            BindingContext = new ApplicationViewModel(job);
         }
     }
 }

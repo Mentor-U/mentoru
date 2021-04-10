@@ -37,5 +37,28 @@ namespace MentorU.Droid.Services
 
             return filePath;
         }
+
+        public string SavePDF(string name, byte[] data, string location = "temp")
+        {
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            documentsPath = Path.Combine(documentsPath, "Orders", location);
+            Directory.CreateDirectory(documentsPath);
+
+            string filePath = Path.Combine(documentsPath, name);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            
+            using (FileStream fs = new FileStream(filePath, FileMode.OpenOrCreate))
+            {
+                int length = data.Length;
+                fs.Write(data, 0, length);
+            }
+
+            return filePath;
+        }
     }
 }

@@ -29,8 +29,8 @@ namespace MentorU.Views
             {
                 interactButton = new ToolbarItem
                 {
-                    Text = "Chat",
-                    Command = new Command(_vm.StartChat)
+                    Text = "Apply",
+                    Command = new Command(_vm.StartApply)
                 };
             }
 

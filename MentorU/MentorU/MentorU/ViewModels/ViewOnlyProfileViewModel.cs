@@ -11,6 +11,10 @@ using Xamarin.Forms;
 using System.Collections.ObjectModel;
 using Rg.Plugins.Popup.Services;
 using MentorU.Views;
+using System.Net.Http;
+using System.Threading;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace MentorU.ViewModels
 {
@@ -25,6 +29,8 @@ namespace MentorU.ViewModels
         private ImageSource _profileImage;
         private string _email;
         private bool _showEmail;
+        private string _ErrorMessage;
+        private bool _showError;
 
         public string Name { get => name; set => SetProperty(ref name, value); }
         public string Field { get => field; set => SetProperty(ref field, value); }
@@ -72,6 +78,38 @@ namespace MentorU.ViewModels
             }
         }
 
+        public bool showError
+        {
+            get => _showError;
+            set
+            {
+                _showError = value; OnPropertyChanged();
+            }
+        }
+
+        private AddressInfo _selectedAddress;
+        public AddressInfo selectedAddress
+        {
+            get => _selectedAddress;
+            set
+            {
+                _selectedAddress = value; OnPropertyChanged();
+            }
+        }
+
+        public string ErrorMessage
+        {
+            get => _ErrorMessage;
+            set
+            {
+                _ErrorMessage = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
+
         public ObservableCollection<string> Classes { get; set; }
         public string Role { get; set; }
 
@@ -84,8 +122,95 @@ namespace MentorU.ViewModels
         public Command ChatCommand { get; set; }
         public Command ScheduleCommand { get; set; }
 
+        public Command AddressCommand { get; set; }
+
         public bool Standardview { get; set; }
         public bool IsConnected { get; set; }
+
+        public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:us"; //Adding country:us limits results to us
+
+        public const string GooglePlacesApiKey = "AIzaSyCYu_YWRQpx4H0LrQftSboewaW70mtq8EA";
+
+        private static HttpClient _httpClientInstance;
+        public static HttpClient HttpClientInstance => _httpClientInstance ?? (_httpClientInstance = new HttpClient());
+
+        private ObservableCollection<AddressInfo> _addresses;
+        public ObservableCollection<AddressInfo> Addresses
+        {
+            get => _addresses ?? (_addresses = new ObservableCollection<AddressInfo>());
+            set
+            {
+                if (_addresses != value)
+                {
+                    _addresses = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _addressText;
+        public string AddressText
+        {
+            get => _addressText;
+            set
+            {
+                if (_addressText != value)
+                {
+                    _addressText = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public async Task GetPlacesPredictionsAsync()
+        {
+
+            // TODO: Add throttle logic, Google begins denying requests if too many are made in a short amount of time
+
+            CancellationToken cancellationToken = new CancellationTokenSource(TimeSpan.FromMinutes(2)).Token;
+
+            using (HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, string.Format(GooglePlacesApiAutoCompletePath, GooglePlacesApiKey, WebUtility.UrlEncode(_addressText))))
+            { //Be sure to UrlEncode the search term they enter
+
+                using (HttpResponseMessage message = await HttpClientInstance.SendAsync(request, HttpCompletionOption.ResponseContentRead, cancellationToken).ConfigureAwait(false))
+                {
+                    if (message.IsSuccessStatusCode)
+                    {
+                        string json = await message.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                        PlacesLocationPredictions predictionList = await Task.Run(() => JsonConvert.DeserializeObject<PlacesLocationPredictions>(json)).ConfigureAwait(false);
+
+                        if (predictionList.Status == "OK")
+                        {
+
+                            Addresses.Clear();
+
+                            if (predictionList.Predictions.Count > 0)
+                            {
+                                showError = false;
+
+                                foreach (Prediction prediction in predictionList.Predictions)
+                                {
+                                    Addresses.Add(new AddressInfo
+                                    {
+                                        Address = prediction.Description
+                                    });
+                                }
+                            }
+                        }
+                        else
+                        {
+                            showError = true;
+                            ErrorMessage = predictionList.Status;
+                            Addresses.Clear();
+                               
+                            //throw new Exception(predictionList.Status);
+                        }
+                    }
+                }
+            }
+        }
+
 
         public ViewOnlyProfileViewModel(Users user, bool isConnected=false, bool fromNotification=false)
         {
@@ -117,6 +242,8 @@ namespace MentorU.ViewModels
             DeclineCommand = new Command(async () => await Decline());
             CancelClicked = new Command(async() => await OnCancel());
             ConfirmClicked = new Command(async () => await OnConfirm());
+
+            AddressCommand = new Command(() => { AddressText = selectedAddress.Address;});
 
             ChatCommand = new Command(StartChat);
             ScheduleCommand = new Command(ScheduleMeeting);
@@ -283,7 +410,7 @@ namespace MentorU.ViewModels
 
             ChatViewModel.Messages newMessage = new ChatViewModel.Messages
             {
-                Text = _scheduleMessage + " " + SelectedTime.ToString(@"h\:mm"),
+                Text = _scheduleMessage + " " + SelectedTime.ToString(@"h\:mm") + " @ " + AddressText,
                 UserID = App.loggedUser.id,
                 GroupName = _groupName,
                 TimeStamp = DateTime.Now

@@ -32,7 +32,7 @@
                        HorizontalOptions="CenterAndExpand"
                        Scale="2"/>
         <Label Text="Please get in touch with our support team to answer all of your questions. We appreciate all feedback! We will get back to you as soon as possible." Grid.Row="2"
-               FontSize="Medium" HorizontalOptions="CenterAndExpand" Padding="10" Margin="0"></Label>
+               FontSize="Medium" HorizontalOptions="CenterAndExpand" Padding="10"></Label>
 
             <Button Grid.Row="4" Grid.RowSpan="2" Text="Email MentorU" FontSize="Medium" Clicked="EmailClicked" 
                     BackgroundColor= "#e60000" Padding="20" Margin="10"  />

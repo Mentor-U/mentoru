@@ -4,18 +4,28 @@
              x:Class="MentorU.Views.NewItemPage"
              Shell.PresentationMode="ModalAnimated"
              Title="New Item"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              ios:Page.UseSafeArea="true"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     <ScrollView>
         <StackLayout Spacing="10" Padding="15">
-            <Label Text="Text" FontSize="Medium" />
+            <Label Text="Title" FontSize="Medium" />
             <Entry Text="{Binding Text, Mode=TwoWay}" FontSize="Medium"
                    BackgroundColor="{AppThemeBinding Dark=WhiteSmoke,Light=White}" TextColor="Black"/>
 
-            <Image Source="{Binding ItemFirstImage}" 
-                   Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
-                    Aspect="AspectFill" HeightRequest="100"/>
+           
+
+            <ffimageloading:CachedImage 
+                            Source="{Binding ItemFirstImage}"
+                            LoadingPlaceholder="error.jpg"
+                            ErrorPlaceholder= "error.jpg"
+                            CacheDuration= "50"
+                            RetryCount= "3"
+                            RetryDelay= "600"
+                            DownsampleToViewSize = "true"
+                            Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                            Aspect="AspectFit" HeightRequest="300" WidthRequest="300"
+                            />
 
             <Button Text="Add An Item Picture From Gallery" Command="{Binding AddItemPictureCommand}" FontAttributes="Italic"
                        BackgroundColor="LightGray" TextColor="black" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"

@@ -5,6 +5,8 @@
              Title="{Binding Title}"
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     
     <ContentPage.ToolbarItems>
@@ -34,19 +36,27 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate >
                         <StackLayout Padding="10" x:DataType="model:Users">
-                            <Frame BackgroundColor="LightGray" HasShadow="True">
-                                <Label LineBreakMode="NoWrap" 
-                                            Style="{DynamicResource ListItemTextStyle}" 
-                                            FontSize="16"
-                                            TextColor="Black">
-                                    <Label.Text>
-                                        <MultiBinding StringFormat="{}{0}: {1}"> <!-- MAYBE: add profile pic in bindings?-->
-                                            <Binding Path="FirstName"/>
-                                            <Binding Path="Major"/>
-                                        </MultiBinding>
-                                    </Label.Text>
-                                </Label>
-                            </Frame>
+                            <Frame BorderColor="Red" HasShadow="False" >
+                                    <StackLayout Orientation="Horizontal">
+                                        <ffimageloading:CachedImage 
+                                                Source="{Binding ProfileImage}"
+                                                ErrorPlaceholder= "error.jpg"
+                                                CacheDuration= "50"
+                                                RetryCount= "3"
+                                                RetryDelay= "600"
+                                                DownsampleToViewSize = "true"
+                                                HeightRequest="50" WidthRequest="50">
+                                            <ffimageloading:CachedImage.Transformations>
+                                                <fftransformations:CircleTransformation/>
+                                            </ffimageloading:CachedImage.Transformations>
+                                        </ffimageloading:CachedImage>
+                                       <StackLayout Orientation="Vertical">
+                                            <Label Text="{Binding DisplayName}" FontSize="Large" FontAttributes="Bold"/>
+                                            <Label Text="{Binding Major}"  FontSize="Small" FontAttributes="Italic"/>
+                                        </StackLayout>
+                                        <Label Text="{Binding RoleSelector}" FontSize="Small" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand" />
+                                    </StackLayout>
+                                </Frame>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer 
                                             NumberOfTapsRequired="1"

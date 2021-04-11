@@ -162,14 +162,14 @@ namespace MentorU.ViewModels
                 _imageChanged = false;
             }
 
-            App.loggedUser.FirstName = _parentVM.Name = Name;
+            App.loggedUser.DisplayName = _parentVM.Name = Name;
             App.loggedUser.Major = _parentVM.Major = Major;
             App.loggedUser.Bio = _parentVM.Bio = Bio;
             _parentVM.Classes = Classes;
             JObject data = new JObject
             {
                 {"id", App.loggedUser.id },
-                {"FirstName", Name },
+                {"DisplayName", Name },
                 {"Major", Major },
                 {"Bio", Bio }
             };
@@ -225,6 +225,8 @@ namespace MentorU.ViewModels
 
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
 
+            if (selectedImageFile == null) return;
+
             BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("profile-images");
 
             await BlobService.Instance.TryUploadImageStream(containerClient, fileName, selectedImageFile.GetStream());
@@ -236,7 +238,7 @@ namespace MentorU.ViewModels
 
         }
 
-        public async Task OnAppearing()
+        public new async Task OnAppearing()
         {
             IsBusy = true;
             //containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient();

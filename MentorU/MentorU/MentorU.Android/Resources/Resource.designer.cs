@@ -433,6 +433,228 @@ namespace MentorU.Droid
 			global::Plugin.Media.Resource.Styleable.GradientColor_android_tileMode = global::MentorU.Droid.Resource.Styleable.GradientColor_android_tileMode;
 			global::Plugin.Media.Resource.Styleable.GradientColor_android_type = global::MentorU.Droid.Resource.Styleable.GradientColor_android_type;
 			global::Plugin.Media.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::MentorU.Droid.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
+			global::Plugin.Permissions.Resource.Attribute.alpha = global::MentorU.Droid.Resource.Attribute.alpha;
+			global::Plugin.Permissions.Resource.Attribute.coordinatorLayoutStyle = global::MentorU.Droid.Resource.Attribute.coordinatorLayoutStyle;
+			global::Plugin.Permissions.Resource.Attribute.font = global::MentorU.Droid.Resource.Attribute.font;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderAuthority = global::MentorU.Droid.Resource.Attribute.fontProviderAuthority;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderCerts = global::MentorU.Droid.Resource.Attribute.fontProviderCerts;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderFetchStrategy = global::MentorU.Droid.Resource.Attribute.fontProviderFetchStrategy;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderFetchTimeout = global::MentorU.Droid.Resource.Attribute.fontProviderFetchTimeout;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderPackage = global::MentorU.Droid.Resource.Attribute.fontProviderPackage;
+			global::Plugin.Permissions.Resource.Attribute.fontProviderQuery = global::MentorU.Droid.Resource.Attribute.fontProviderQuery;
+			global::Plugin.Permissions.Resource.Attribute.fontStyle = global::MentorU.Droid.Resource.Attribute.fontStyle;
+			global::Plugin.Permissions.Resource.Attribute.fontVariationSettings = global::MentorU.Droid.Resource.Attribute.fontVariationSettings;
+			global::Plugin.Permissions.Resource.Attribute.fontWeight = global::MentorU.Droid.Resource.Attribute.fontWeight;
+			global::Plugin.Permissions.Resource.Attribute.keylines = global::MentorU.Droid.Resource.Attribute.keylines;
+			global::Plugin.Permissions.Resource.Attribute.layout_anchor = global::MentorU.Droid.Resource.Attribute.layout_anchor;
+			global::Plugin.Permissions.Resource.Attribute.layout_anchorGravity = global::MentorU.Droid.Resource.Attribute.layout_anchorGravity;
+			global::Plugin.Permissions.Resource.Attribute.layout_behavior = global::MentorU.Droid.Resource.Attribute.layout_behavior;
+			global::Plugin.Permissions.Resource.Attribute.layout_dodgeInsetEdges = global::MentorU.Droid.Resource.Attribute.layout_dodgeInsetEdges;
+			global::Plugin.Permissions.Resource.Attribute.layout_insetEdge = global::MentorU.Droid.Resource.Attribute.layout_insetEdge;
+			global::Plugin.Permissions.Resource.Attribute.layout_keyline = global::MentorU.Droid.Resource.Attribute.layout_keyline;
+			global::Plugin.Permissions.Resource.Attribute.statusBarBackground = global::MentorU.Droid.Resource.Attribute.statusBarBackground;
+			global::Plugin.Permissions.Resource.Attribute.ttcIndex = global::MentorU.Droid.Resource.Attribute.ttcIndex;
+			global::Plugin.Permissions.Resource.Color.browser_actions_bg_grey = global::MentorU.Droid.Resource.Color.browser_actions_bg_grey;
+			global::Plugin.Permissions.Resource.Color.browser_actions_divider_color = global::MentorU.Droid.Resource.Color.browser_actions_divider_color;
+			global::Plugin.Permissions.Resource.Color.browser_actions_text_color = global::MentorU.Droid.Resource.Color.browser_actions_text_color;
+			global::Plugin.Permissions.Resource.Color.browser_actions_title_color = global::MentorU.Droid.Resource.Color.browser_actions_title_color;
+			global::Plugin.Permissions.Resource.Color.notification_action_color_filter = global::MentorU.Droid.Resource.Color.notification_action_color_filter;
+			global::Plugin.Permissions.Resource.Color.notification_icon_bg_color = global::MentorU.Droid.Resource.Color.notification_icon_bg_color;
+			global::Plugin.Permissions.Resource.Color.ripple_material_light = global::MentorU.Droid.Resource.Color.ripple_material_light;
+			global::Plugin.Permissions.Resource.Color.secondary_text_default_material_light = global::MentorU.Droid.Resource.Color.secondary_text_default_material_light;
+			global::Plugin.Permissions.Resource.Dimension.browser_actions_context_menu_max_width = global::MentorU.Droid.Resource.Dimension.browser_actions_context_menu_max_width;
+			global::Plugin.Permissions.Resource.Dimension.browser_actions_context_menu_min_padding = global::MentorU.Droid.Resource.Dimension.browser_actions_context_menu_min_padding;
+			global::Plugin.Permissions.Resource.Dimension.compat_button_inset_horizontal_material = global::MentorU.Droid.Resource.Dimension.compat_button_inset_horizontal_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_button_inset_vertical_material = global::MentorU.Droid.Resource.Dimension.compat_button_inset_vertical_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_button_padding_horizontal_material = global::MentorU.Droid.Resource.Dimension.compat_button_padding_horizontal_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_button_padding_vertical_material = global::MentorU.Droid.Resource.Dimension.compat_button_padding_vertical_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_control_corner_material = global::MentorU.Droid.Resource.Dimension.compat_control_corner_material;
+			global::Plugin.Permissions.Resource.Dimension.compat_notification_large_icon_max_height = global::MentorU.Droid.Resource.Dimension.compat_notification_large_icon_max_height;
+			global::Plugin.Permissions.Resource.Dimension.compat_notification_large_icon_max_width = global::MentorU.Droid.Resource.Dimension.compat_notification_large_icon_max_width;
+			global::Plugin.Permissions.Resource.Dimension.notification_action_icon_size = global::MentorU.Droid.Resource.Dimension.notification_action_icon_size;
+			global::Plugin.Permissions.Resource.Dimension.notification_action_text_size = global::MentorU.Droid.Resource.Dimension.notification_action_text_size;
+			global::Plugin.Permissions.Resource.Dimension.notification_big_circle_margin = global::MentorU.Droid.Resource.Dimension.notification_big_circle_margin;
+			global::Plugin.Permissions.Resource.Dimension.notification_content_margin_start = global::MentorU.Droid.Resource.Dimension.notification_content_margin_start;
+			global::Plugin.Permissions.Resource.Dimension.notification_large_icon_height = global::MentorU.Droid.Resource.Dimension.notification_large_icon_height;
+			global::Plugin.Permissions.Resource.Dimension.notification_large_icon_width = global::MentorU.Droid.Resource.Dimension.notification_large_icon_width;
+			global::Plugin.Permissions.Resource.Dimension.notification_main_column_padding_top = global::MentorU.Droid.Resource.Dimension.notification_main_column_padding_top;
+			global::Plugin.Permissions.Resource.Dimension.notification_media_narrow_margin = global::MentorU.Droid.Resource.Dimension.notification_media_narrow_margin;
+			global::Plugin.Permissions.Resource.Dimension.notification_right_icon_size = global::MentorU.Droid.Resource.Dimension.notification_right_icon_size;
+			global::Plugin.Permissions.Resource.Dimension.notification_right_side_padding_top = global::MentorU.Droid.Resource.Dimension.notification_right_side_padding_top;
+			global::Plugin.Permissions.Resource.Dimension.notification_small_icon_background_padding = global::MentorU.Droid.Resource.Dimension.notification_small_icon_background_padding;
+			global::Plugin.Permissions.Resource.Dimension.notification_small_icon_size_as_large = global::MentorU.Droid.Resource.Dimension.notification_small_icon_size_as_large;
+			global::Plugin.Permissions.Resource.Dimension.notification_subtext_size = global::MentorU.Droid.Resource.Dimension.notification_subtext_size;
+			global::Plugin.Permissions.Resource.Dimension.notification_top_pad = global::MentorU.Droid.Resource.Dimension.notification_top_pad;
+			global::Plugin.Permissions.Resource.Dimension.notification_top_pad_large_text = global::MentorU.Droid.Resource.Dimension.notification_top_pad_large_text;
+			global::Plugin.Permissions.Resource.Drawable.notification_action_background = global::MentorU.Droid.Resource.Drawable.notification_action_background;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg = global::MentorU.Droid.Resource.Drawable.notification_bg;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_low = global::MentorU.Droid.Resource.Drawable.notification_bg_low;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_low_normal = global::MentorU.Droid.Resource.Drawable.notification_bg_low_normal;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_low_pressed = global::MentorU.Droid.Resource.Drawable.notification_bg_low_pressed;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_normal = global::MentorU.Droid.Resource.Drawable.notification_bg_normal;
+			global::Plugin.Permissions.Resource.Drawable.notification_bg_normal_pressed = global::MentorU.Droid.Resource.Drawable.notification_bg_normal_pressed;
+			global::Plugin.Permissions.Resource.Drawable.notification_icon_background = global::MentorU.Droid.Resource.Drawable.notification_icon_background;
+			global::Plugin.Permissions.Resource.Drawable.notification_template_icon_bg = global::MentorU.Droid.Resource.Drawable.notification_template_icon_bg;
+			global::Plugin.Permissions.Resource.Drawable.notification_template_icon_low_bg = global::MentorU.Droid.Resource.Drawable.notification_template_icon_low_bg;
+			global::Plugin.Permissions.Resource.Drawable.notification_tile_bg = global::MentorU.Droid.Resource.Drawable.notification_tile_bg;
+			global::Plugin.Permissions.Resource.Drawable.notify_panel_notification_icon_bg = global::MentorU.Droid.Resource.Drawable.notify_panel_notification_icon_bg;
+			global::Plugin.Permissions.Resource.Id.accessibility_action_clickable_span = global::MentorU.Droid.Resource.Id.accessibility_action_clickable_span;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_0 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_0;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_1 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_1;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_10 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_10;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_11 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_11;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_12 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_12;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_13 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_13;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_14 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_14;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_15 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_15;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_16 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_16;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_17 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_17;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_18 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_18;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_19 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_19;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_2 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_2;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_20 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_20;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_21 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_21;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_22 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_22;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_23 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_23;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_24 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_24;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_25 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_25;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_26 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_26;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_27 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_27;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_28 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_28;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_29 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_29;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_3 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_3;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_30 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_30;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_31 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_31;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_4 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_4;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_5 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_5;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_6 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_6;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_7 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_7;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_8 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_8;
+			global::Plugin.Permissions.Resource.Id.accessibility_custom_action_9 = global::MentorU.Droid.Resource.Id.accessibility_custom_action_9;
+			global::Plugin.Permissions.Resource.Id.actions = global::MentorU.Droid.Resource.Id.actions;
+			global::Plugin.Permissions.Resource.Id.action_container = global::MentorU.Droid.Resource.Id.action_container;
+			global::Plugin.Permissions.Resource.Id.action_divider = global::MentorU.Droid.Resource.Id.action_divider;
+			global::Plugin.Permissions.Resource.Id.action_image = global::MentorU.Droid.Resource.Id.action_image;
+			global::Plugin.Permissions.Resource.Id.action_text = global::MentorU.Droid.Resource.Id.action_text;
+			global::Plugin.Permissions.Resource.Id.all = global::MentorU.Droid.Resource.Id.all;
+			global::Plugin.Permissions.Resource.Id.async = global::MentorU.Droid.Resource.Id.async;
+			global::Plugin.Permissions.Resource.Id.blocking = global::MentorU.Droid.Resource.Id.blocking;
+			global::Plugin.Permissions.Resource.Id.bottom = global::MentorU.Droid.Resource.Id.bottom;
+			global::Plugin.Permissions.Resource.Id.browser_actions_header_text = global::MentorU.Droid.Resource.Id.browser_actions_header_text;
+			global::Plugin.Permissions.Resource.Id.browser_actions_menu_items = global::MentorU.Droid.Resource.Id.browser_actions_menu_items;
+			global::Plugin.Permissions.Resource.Id.browser_actions_menu_item_icon = global::MentorU.Droid.Resource.Id.browser_actions_menu_item_icon;
+			global::Plugin.Permissions.Resource.Id.browser_actions_menu_item_text = global::MentorU.Droid.Resource.Id.browser_actions_menu_item_text;
+			global::Plugin.Permissions.Resource.Id.browser_actions_menu_view = global::MentorU.Droid.Resource.Id.browser_actions_menu_view;
+			global::Plugin.Permissions.Resource.Id.center = global::MentorU.Droid.Resource.Id.center;
+			global::Plugin.Permissions.Resource.Id.center_horizontal = global::MentorU.Droid.Resource.Id.center_horizontal;
+			global::Plugin.Permissions.Resource.Id.center_vertical = global::MentorU.Droid.Resource.Id.center_vertical;
+			global::Plugin.Permissions.Resource.Id.chronometer = global::MentorU.Droid.Resource.Id.chronometer;
+			global::Plugin.Permissions.Resource.Id.clip_horizontal = global::MentorU.Droid.Resource.Id.clip_horizontal;
+			global::Plugin.Permissions.Resource.Id.clip_vertical = global::MentorU.Droid.Resource.Id.clip_vertical;
+			global::Plugin.Permissions.Resource.Id.dialog_button = global::MentorU.Droid.Resource.Id.dialog_button;
+			global::Plugin.Permissions.Resource.Id.end = global::MentorU.Droid.Resource.Id.end;
+			global::Plugin.Permissions.Resource.Id.fill = global::MentorU.Droid.Resource.Id.fill;
+			global::Plugin.Permissions.Resource.Id.fill_horizontal = global::MentorU.Droid.Resource.Id.fill_horizontal;
+			global::Plugin.Permissions.Resource.Id.fill_vertical = global::MentorU.Droid.Resource.Id.fill_vertical;
+			global::Plugin.Permissions.Resource.Id.forever = global::MentorU.Droid.Resource.Id.forever;
+			global::Plugin.Permissions.Resource.Id.icon = global::MentorU.Droid.Resource.Id.icon;
+			global::Plugin.Permissions.Resource.Id.icon_group = global::MentorU.Droid.Resource.Id.icon_group;
+			global::Plugin.Permissions.Resource.Id.info = global::MentorU.Droid.Resource.Id.info;
+			global::Plugin.Permissions.Resource.Id.italic = global::MentorU.Droid.Resource.Id.italic;
+			global::Plugin.Permissions.Resource.Id.left = global::MentorU.Droid.Resource.Id.left;
+			global::Plugin.Permissions.Resource.Id.line1 = global::MentorU.Droid.Resource.Id.line1;
+			global::Plugin.Permissions.Resource.Id.line3 = global::MentorU.Droid.Resource.Id.line3;
+			global::Plugin.Permissions.Resource.Id.none = global::MentorU.Droid.Resource.Id.none;
+			global::Plugin.Permissions.Resource.Id.normal = global::MentorU.Droid.Resource.Id.normal;
+			global::Plugin.Permissions.Resource.Id.notification_background = global::MentorU.Droid.Resource.Id.notification_background;
+			global::Plugin.Permissions.Resource.Id.notification_main_column = global::MentorU.Droid.Resource.Id.notification_main_column;
+			global::Plugin.Permissions.Resource.Id.notification_main_column_container = global::MentorU.Droid.Resource.Id.notification_main_column_container;
+			global::Plugin.Permissions.Resource.Id.right = global::MentorU.Droid.Resource.Id.right;
+			global::Plugin.Permissions.Resource.Id.right_icon = global::MentorU.Droid.Resource.Id.right_icon;
+			global::Plugin.Permissions.Resource.Id.right_side = global::MentorU.Droid.Resource.Id.right_side;
+			global::Plugin.Permissions.Resource.Id.start = global::MentorU.Droid.Resource.Id.start;
+			global::Plugin.Permissions.Resource.Id.tag_accessibility_actions = global::MentorU.Droid.Resource.Id.tag_accessibility_actions;
+			global::Plugin.Permissions.Resource.Id.tag_accessibility_clickable_spans = global::MentorU.Droid.Resource.Id.tag_accessibility_clickable_spans;
+			global::Plugin.Permissions.Resource.Id.tag_accessibility_heading = global::MentorU.Droid.Resource.Id.tag_accessibility_heading;
+			global::Plugin.Permissions.Resource.Id.tag_accessibility_pane_title = global::MentorU.Droid.Resource.Id.tag_accessibility_pane_title;
+			global::Plugin.Permissions.Resource.Id.tag_screen_reader_focusable = global::MentorU.Droid.Resource.Id.tag_screen_reader_focusable;
+			global::Plugin.Permissions.Resource.Id.tag_transition_group = global::MentorU.Droid.Resource.Id.tag_transition_group;
+			global::Plugin.Permissions.Resource.Id.tag_unhandled_key_event_manager = global::MentorU.Droid.Resource.Id.tag_unhandled_key_event_manager;
+			global::Plugin.Permissions.Resource.Id.tag_unhandled_key_listeners = global::MentorU.Droid.Resource.Id.tag_unhandled_key_listeners;
+			global::Plugin.Permissions.Resource.Id.text = global::MentorU.Droid.Resource.Id.text;
+			global::Plugin.Permissions.Resource.Id.text2 = global::MentorU.Droid.Resource.Id.text2;
+			global::Plugin.Permissions.Resource.Id.time = global::MentorU.Droid.Resource.Id.time;
+			global::Plugin.Permissions.Resource.Id.title = global::MentorU.Droid.Resource.Id.title;
+			global::Plugin.Permissions.Resource.Id.top = global::MentorU.Droid.Resource.Id.top;
+			global::Plugin.Permissions.Resource.Integer.status_bar_notification_info_maxnum = global::MentorU.Droid.Resource.Integer.status_bar_notification_info_maxnum;
+			global::Plugin.Permissions.Resource.Layout.browser_actions_context_menu_page = global::MentorU.Droid.Resource.Layout.browser_actions_context_menu_page;
+			global::Plugin.Permissions.Resource.Layout.browser_actions_context_menu_row = global::MentorU.Droid.Resource.Layout.browser_actions_context_menu_row;
+			global::Plugin.Permissions.Resource.Layout.custom_dialog = global::MentorU.Droid.Resource.Layout.custom_dialog;
+			global::Plugin.Permissions.Resource.Layout.notification_action = global::MentorU.Droid.Resource.Layout.notification_action;
+			global::Plugin.Permissions.Resource.Layout.notification_action_tombstone = global::MentorU.Droid.Resource.Layout.notification_action_tombstone;
+			global::Plugin.Permissions.Resource.Layout.notification_template_custom_big = global::MentorU.Droid.Resource.Layout.notification_template_custom_big;
+			global::Plugin.Permissions.Resource.Layout.notification_template_icon_group = global::MentorU.Droid.Resource.Layout.notification_template_icon_group;
+			global::Plugin.Permissions.Resource.Layout.notification_template_part_chronometer = global::MentorU.Droid.Resource.Layout.notification_template_part_chronometer;
+			global::Plugin.Permissions.Resource.Layout.notification_template_part_time = global::MentorU.Droid.Resource.Layout.notification_template_part_time;
+			global::Plugin.Permissions.Resource.String.status_bar_notification_info_overflow = global::MentorU.Droid.Resource.String.status_bar_notification_info_overflow;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification_Info = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification_Info;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification_Line2 = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification_Line2;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification_Time = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification_Time;
+			global::Plugin.Permissions.Resource.Style.TextAppearance_Compat_Notification_Title = global::MentorU.Droid.Resource.Style.TextAppearance_Compat_Notification_Title;
+			global::Plugin.Permissions.Resource.Style.Widget_Compat_NotificationActionContainer = global::MentorU.Droid.Resource.Style.Widget_Compat_NotificationActionContainer;
+			global::Plugin.Permissions.Resource.Style.Widget_Compat_NotificationActionText = global::MentorU.Droid.Resource.Style.Widget_Compat_NotificationActionText;
+			global::Plugin.Permissions.Resource.Style.Widget_Support_CoordinatorLayout = global::MentorU.Droid.Resource.Style.Widget_Support_CoordinatorLayout;
+			global::Plugin.Permissions.Resource.Styleable.ColorStateListItem = global::MentorU.Droid.Resource.Styleable.ColorStateListItem;
+			global::Plugin.Permissions.Resource.Styleable.ColorStateListItem_alpha = global::MentorU.Droid.Resource.Styleable.ColorStateListItem_alpha;
+			global::Plugin.Permissions.Resource.Styleable.ColorStateListItem_android_alpha = global::MentorU.Droid.Resource.Styleable.ColorStateListItem_android_alpha;
+			global::Plugin.Permissions.Resource.Styleable.ColorStateListItem_android_color = global::MentorU.Droid.Resource.Styleable.ColorStateListItem_android_color;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_keylines = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_keylines;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
+			global::Plugin.Permissions.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::MentorU.Droid.Resource.Styleable.CoordinatorLayout_statusBarBackground;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily = global::MentorU.Droid.Resource.Styleable.FontFamily;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont = global::MentorU.Droid.Resource.Styleable.FontFamilyFont;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_font = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_font;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_fontStyle = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_fontVariationSettings = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_fontVariationSettings;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_fontWeight = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_android_ttcIndex = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_android_ttcIndex;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_font = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_font;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_fontStyle = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_fontVariationSettings = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_fontVariationSettings;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_fontWeight = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_fontWeight;
+			global::Plugin.Permissions.Resource.Styleable.FontFamilyFont_ttcIndex = global::MentorU.Droid.Resource.Styleable.FontFamilyFont_ttcIndex;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderAuthority = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderAuthority;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderCerts = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderCerts;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderFetchStrategy = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderFetchStrategy;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderFetchTimeout = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderFetchTimeout;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderPackage = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
+			global::Plugin.Permissions.Resource.Styleable.FontFamily_fontProviderQuery = global::MentorU.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor = global::MentorU.Droid.Resource.Styleable.GradientColor;
+			global::Plugin.Permissions.Resource.Styleable.GradientColorItem = global::MentorU.Droid.Resource.Styleable.GradientColorItem;
+			global::Plugin.Permissions.Resource.Styleable.GradientColorItem_android_color = global::MentorU.Droid.Resource.Styleable.GradientColorItem_android_color;
+			global::Plugin.Permissions.Resource.Styleable.GradientColorItem_android_offset = global::MentorU.Droid.Resource.Styleable.GradientColorItem_android_offset;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_centerColor = global::MentorU.Droid.Resource.Styleable.GradientColor_android_centerColor;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_centerX = global::MentorU.Droid.Resource.Styleable.GradientColor_android_centerX;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_centerY = global::MentorU.Droid.Resource.Styleable.GradientColor_android_centerY;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_endColor = global::MentorU.Droid.Resource.Styleable.GradientColor_android_endColor;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_endX = global::MentorU.Droid.Resource.Styleable.GradientColor_android_endX;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_endY = global::MentorU.Droid.Resource.Styleable.GradientColor_android_endY;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_gradientRadius = global::MentorU.Droid.Resource.Styleable.GradientColor_android_gradientRadius;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_startColor = global::MentorU.Droid.Resource.Styleable.GradientColor_android_startColor;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_startX = global::MentorU.Droid.Resource.Styleable.GradientColor_android_startX;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_startY = global::MentorU.Droid.Resource.Styleable.GradientColor_android_startY;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_tileMode = global::MentorU.Droid.Resource.Styleable.GradientColor_android_tileMode;
+			global::Plugin.Permissions.Resource.Styleable.GradientColor_android_type = global::MentorU.Droid.Resource.Styleable.GradientColor_android_type;
+			global::Plugin.Permissions.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::MentorU.Droid.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
 			global::Rg.Plugins.Popup.Resource.Animation.abc_fade_in = global::MentorU.Droid.Resource.Animation.abc_fade_in;
 			global::Rg.Plugins.Popup.Resource.Animation.abc_fade_out = global::MentorU.Droid.Resource.Animation.abc_fade_out;
 			global::Rg.Plugins.Popup.Resource.Animation.abc_grow_fade_in_from_bottom = global::MentorU.Droid.Resource.Animation.abc_grow_fade_in_from_bottom;
@@ -14817,7 +15039,7 @@ namespace MentorU.Droid
 			public const int common_google_signin_btn_text_light_normal_background = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int contactus = 2131165307;
+			public const int contactUs = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
 			public const int design_bottom_navigation_item_background = 2131165308;
@@ -14852,12 +15074,6 @@ namespace MentorU.Droid
 			// aapt resource value: 0x7F070086
 			public const int Home = 2131165318;
 			
-			// aapt resource value: 0x7F07008B
-			public const int icon_about = 2131165323;
-			
-			// aapt resource value: 0x7F07008C
-			public const int icon_feed = 2131165324;
-			
 			// aapt resource value: 0x7F070087
 			public const int ic_mtrl_checked_circle = 2131165319;
 			
@@ -14870,110 +15086,116 @@ namespace MentorU.Droid
 			// aapt resource value: 0x7F07008A
 			public const int ic_mtrl_chip_close_circle = 2131165322;
 			
+			// aapt resource value: 0x7F07008B
+			public const int job = 2131165323;
+			
+			// aapt resource value: 0x7F07008C
+			public const int Logo = 2131165324;
+			
 			// aapt resource value: 0x7F07008D
-			public const int Logo = 2131165325;
+			public const int marketplace = 2131165325;
 			
 			// aapt resource value: 0x7F07008E
-			public const int marketplace = 2131165326;
+			public const int material_ic_calendar_black_24dp = 2131165326;
 			
 			// aapt resource value: 0x7F07008F
-			public const int material_ic_calendar_black_24dp = 2131165327;
+			public const int material_ic_clear_black_24dp = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int material_ic_clear_black_24dp = 2131165328;
+			public const int material_ic_edit_black_24dp = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int material_ic_edit_black_24dp = 2131165329;
+			public const int material_ic_keyboard_arrow_left_black_24dp = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int material_ic_keyboard_arrow_left_black_24dp = 2131165330;
+			public const int material_ic_keyboard_arrow_right_black_24dp = 2131165330;
 			
 			// aapt resource value: 0x7F070093
-			public const int material_ic_keyboard_arrow_right_black_24dp = 2131165331;
+			public const int material_ic_menu_arrow_down_black_24dp = 2131165331;
 			
 			// aapt resource value: 0x7F070094
-			public const int material_ic_menu_arrow_down_black_24dp = 2131165332;
+			public const int material_ic_menu_arrow_up_black_24dp = 2131165332;
 			
 			// aapt resource value: 0x7F070095
-			public const int material_ic_menu_arrow_up_black_24dp = 2131165333;
+			public const int mtrl_dialog_background = 2131165333;
 			
 			// aapt resource value: 0x7F070096
-			public const int mtrl_dialog_background = 2131165334;
+			public const int mtrl_dropdown_arrow = 2131165334;
 			
 			// aapt resource value: 0x7F070097
-			public const int mtrl_dropdown_arrow = 2131165335;
+			public const int mtrl_ic_arrow_drop_down = 2131165335;
 			
 			// aapt resource value: 0x7F070098
-			public const int mtrl_ic_arrow_drop_down = 2131165336;
+			public const int mtrl_ic_arrow_drop_up = 2131165336;
 			
 			// aapt resource value: 0x7F070099
-			public const int mtrl_ic_arrow_drop_up = 2131165337;
+			public const int mtrl_ic_cancel = 2131165337;
 			
 			// aapt resource value: 0x7F07009A
-			public const int mtrl_ic_cancel = 2131165338;
+			public const int mtrl_ic_error = 2131165338;
 			
 			// aapt resource value: 0x7F07009B
-			public const int mtrl_ic_error = 2131165339;
+			public const int mtrl_popupmenu_background = 2131165339;
 			
 			// aapt resource value: 0x7F07009C
-			public const int mtrl_popupmenu_background = 2131165340;
+			public const int mtrl_popupmenu_background_dark = 2131165340;
 			
 			// aapt resource value: 0x7F07009D
-			public const int mtrl_popupmenu_background_dark = 2131165341;
+			public const int mtrl_tabs_default_indicator = 2131165341;
 			
 			// aapt resource value: 0x7F07009E
-			public const int mtrl_tabs_default_indicator = 2131165342;
+			public const int navigation_empty_icon = 2131165342;
 			
 			// aapt resource value: 0x7F07009F
-			public const int navigation_empty_icon = 2131165343;
+			public const int notification = 2131165343;
 			
 			// aapt resource value: 0x7F0700A0
-			public const int notification = 2131165344;
+			public const int notification_action_background = 2131165344;
 			
 			// aapt resource value: 0x7F0700A1
-			public const int notification_action_background = 2131165345;
+			public const int notification_bg = 2131165345;
 			
 			// aapt resource value: 0x7F0700A2
-			public const int notification_bg = 2131165346;
+			public const int notification_bg_low = 2131165346;
 			
 			// aapt resource value: 0x7F0700A3
-			public const int notification_bg_low = 2131165347;
+			public const int notification_bg_low_normal = 2131165347;
 			
 			// aapt resource value: 0x7F0700A4
-			public const int notification_bg_low_normal = 2131165348;
+			public const int notification_bg_low_pressed = 2131165348;
 			
 			// aapt resource value: 0x7F0700A5
-			public const int notification_bg_low_pressed = 2131165349;
+			public const int notification_bg_normal = 2131165349;
 			
 			// aapt resource value: 0x7F0700A6
-			public const int notification_bg_normal = 2131165350;
+			public const int notification_bg_normal_pressed = 2131165350;
 			
 			// aapt resource value: 0x7F0700A7
-			public const int notification_bg_normal_pressed = 2131165351;
+			public const int notification_icon_background = 2131165351;
 			
 			// aapt resource value: 0x7F0700A8
-			public const int notification_icon_background = 2131165352;
+			public const int notification_template_icon_bg = 2131165352;
 			
 			// aapt resource value: 0x7F0700A9
-			public const int notification_template_icon_bg = 2131165353;
+			public const int notification_template_icon_low_bg = 2131165353;
 			
 			// aapt resource value: 0x7F0700AA
-			public const int notification_template_icon_low_bg = 2131165354;
+			public const int notification_tile_bg = 2131165354;
 			
 			// aapt resource value: 0x7F0700AB
-			public const int notification_tile_bg = 2131165355;
+			public const int notify_panel_notification_icon_bg = 2131165355;
 			
 			// aapt resource value: 0x7F0700AC
-			public const int notify_panel_notification_icon_bg = 2131165356;
+			public const int placeholder = 2131165356;
 			
 			// aapt resource value: 0x7F0700AD
-			public const int placeholder = 2131165357;
+			public const int search = 2131165357;
 			
 			// aapt resource value: 0x7F0700AE
-			public const int search = 2131165358;
+			public const int send = 2131165358;
 			
 			// aapt resource value: 0x7F0700AF
-			public const int settings = 2131165359;
+			public const int Settings = 2131165359;
 			
 			// aapt resource value: 0x7F0700B0
 			public const int test_custom_background = 2131165360;
@@ -14983,9 +15205,6 @@ namespace MentorU.Droid
 			
 			// aapt resource value: 0x7F0700B2
 			public const int tooltip_frame_light = 2131165362;
-			
-			// aapt resource value: 0x7F0700B3
-			public const int xamarin_logo = 2131165363;
 			
 			static Drawable()
 			{
@@ -16669,196 +16888,175 @@ namespace MentorU.Droid
 			public const int copy_toast_msg = 2131623990;
 			
 			// aapt resource value: 0x7F0E0037
-			public const int default_web_client_id = 2131623991;
+			public const int error_icon_content_description = 2131623991;
 			
 			// aapt resource value: 0x7F0E0038
-			public const int error_icon_content_description = 2131623992;
+			public const int exposed_dropdown_menu_content_description = 2131623992;
 			
 			// aapt resource value: 0x7F0E0039
-			public const int exposed_dropdown_menu_content_description = 2131623993;
+			public const int fab_transformation_scrim_behavior = 2131623993;
 			
 			// aapt resource value: 0x7F0E003A
-			public const int fab_transformation_scrim_behavior = 2131623994;
+			public const int fab_transformation_sheet_behavior = 2131623994;
 			
 			// aapt resource value: 0x7F0E003B
-			public const int fab_transformation_sheet_behavior = 2131623995;
+			public const int fallback_menu_item_copy_link = 2131623995;
 			
 			// aapt resource value: 0x7F0E003C
-			public const int fallback_menu_item_copy_link = 2131623996;
+			public const int fallback_menu_item_open_in_browser = 2131623996;
 			
 			// aapt resource value: 0x7F0E003D
-			public const int fallback_menu_item_open_in_browser = 2131623997;
+			public const int fallback_menu_item_share_link = 2131623997;
 			
 			// aapt resource value: 0x7F0E003E
-			public const int fallback_menu_item_share_link = 2131623998;
-			
-			// aapt resource value: 0x7F0E003F
-			public const int fcm_fallback_notification_channel_label = 2131623999;
-			
-			// aapt resource value: 0x7F0E0040
-			public const int gcm_defaultSenderId = 2131624000;
-			
-			// aapt resource value: 0x7F0E0041
-			public const int google_api_key = 2131624001;
-			
-			// aapt resource value: 0x7F0E0042
-			public const int google_app_id = 2131624002;
-			
-			// aapt resource value: 0x7F0E0043
-			public const int google_crash_reporting_api_key = 2131624003;
-			
-			// aapt resource value: 0x7F0E0044
-			public const int google_storage_bucket = 2131624004;
+			public const int fcm_fallback_notification_channel_label = 2131623998;
 			
 			// aapt resource value: 0x7F0E0001
 			public const int Hello = 2131623937;
 			
+			// aapt resource value: 0x7F0E003F
+			public const int hide_bottom_view_on_scroll_behavior = 2131623999;
+			
+			// aapt resource value: 0x7F0E0040
+			public const int icon_content_description = 2131624000;
+			
+			// aapt resource value: 0x7F0E0041
+			public const int item_view_role_description = 2131624001;
+			
+			// aapt resource value: 0x7F0E0042
+			public const int material_slider_range_end = 2131624002;
+			
+			// aapt resource value: 0x7F0E0043
+			public const int material_slider_range_start = 2131624003;
+			
+			// aapt resource value: 0x7F0E0044
+			public const int mtrl_badge_numberless_content_description = 2131624004;
+			
 			// aapt resource value: 0x7F0E0045
-			public const int hide_bottom_view_on_scroll_behavior = 2131624005;
+			public const int mtrl_chip_close_icon_content_description = 2131624005;
 			
 			// aapt resource value: 0x7F0E0046
-			public const int icon_content_description = 2131624006;
+			public const int mtrl_exceed_max_badge_number_content_description = 2131624006;
 			
 			// aapt resource value: 0x7F0E0047
-			public const int item_view_role_description = 2131624007;
+			public const int mtrl_exceed_max_badge_number_suffix = 2131624007;
 			
 			// aapt resource value: 0x7F0E0048
-			public const int material_slider_range_end = 2131624008;
+			public const int mtrl_picker_a11y_next_month = 2131624008;
 			
 			// aapt resource value: 0x7F0E0049
-			public const int material_slider_range_start = 2131624009;
+			public const int mtrl_picker_a11y_prev_month = 2131624009;
 			
 			// aapt resource value: 0x7F0E004A
-			public const int mtrl_badge_numberless_content_description = 2131624010;
+			public const int mtrl_picker_announce_current_selection = 2131624010;
 			
 			// aapt resource value: 0x7F0E004B
-			public const int mtrl_chip_close_icon_content_description = 2131624011;
+			public const int mtrl_picker_cancel = 2131624011;
 			
 			// aapt resource value: 0x7F0E004C
-			public const int mtrl_exceed_max_badge_number_content_description = 2131624012;
+			public const int mtrl_picker_confirm = 2131624012;
 			
 			// aapt resource value: 0x7F0E004D
-			public const int mtrl_exceed_max_badge_number_suffix = 2131624013;
+			public const int mtrl_picker_date_header_selected = 2131624013;
 			
 			// aapt resource value: 0x7F0E004E
-			public const int mtrl_picker_a11y_next_month = 2131624014;
+			public const int mtrl_picker_date_header_title = 2131624014;
 			
 			// aapt resource value: 0x7F0E004F
-			public const int mtrl_picker_a11y_prev_month = 2131624015;
+			public const int mtrl_picker_date_header_unselected = 2131624015;
 			
 			// aapt resource value: 0x7F0E0050
-			public const int mtrl_picker_announce_current_selection = 2131624016;
+			public const int mtrl_picker_day_of_week_column_header = 2131624016;
 			
 			// aapt resource value: 0x7F0E0051
-			public const int mtrl_picker_cancel = 2131624017;
+			public const int mtrl_picker_invalid_format = 2131624017;
 			
 			// aapt resource value: 0x7F0E0052
-			public const int mtrl_picker_confirm = 2131624018;
+			public const int mtrl_picker_invalid_format_example = 2131624018;
 			
 			// aapt resource value: 0x7F0E0053
-			public const int mtrl_picker_date_header_selected = 2131624019;
+			public const int mtrl_picker_invalid_format_use = 2131624019;
 			
 			// aapt resource value: 0x7F0E0054
-			public const int mtrl_picker_date_header_title = 2131624020;
+			public const int mtrl_picker_invalid_range = 2131624020;
 			
 			// aapt resource value: 0x7F0E0055
-			public const int mtrl_picker_date_header_unselected = 2131624021;
+			public const int mtrl_picker_navigate_to_year_description = 2131624021;
 			
 			// aapt resource value: 0x7F0E0056
-			public const int mtrl_picker_day_of_week_column_header = 2131624022;
+			public const int mtrl_picker_out_of_range = 2131624022;
 			
 			// aapt resource value: 0x7F0E0057
-			public const int mtrl_picker_invalid_format = 2131624023;
+			public const int mtrl_picker_range_header_only_end_selected = 2131624023;
 			
 			// aapt resource value: 0x7F0E0058
-			public const int mtrl_picker_invalid_format_example = 2131624024;
+			public const int mtrl_picker_range_header_only_start_selected = 2131624024;
 			
 			// aapt resource value: 0x7F0E0059
-			public const int mtrl_picker_invalid_format_use = 2131624025;
+			public const int mtrl_picker_range_header_selected = 2131624025;
 			
 			// aapt resource value: 0x7F0E005A
-			public const int mtrl_picker_invalid_range = 2131624026;
+			public const int mtrl_picker_range_header_title = 2131624026;
 			
 			// aapt resource value: 0x7F0E005B
-			public const int mtrl_picker_navigate_to_year_description = 2131624027;
+			public const int mtrl_picker_range_header_unselected = 2131624027;
 			
 			// aapt resource value: 0x7F0E005C
-			public const int mtrl_picker_out_of_range = 2131624028;
+			public const int mtrl_picker_save = 2131624028;
 			
 			// aapt resource value: 0x7F0E005D
-			public const int mtrl_picker_range_header_only_end_selected = 2131624029;
+			public const int mtrl_picker_text_input_date_hint = 2131624029;
 			
 			// aapt resource value: 0x7F0E005E
-			public const int mtrl_picker_range_header_only_start_selected = 2131624030;
+			public const int mtrl_picker_text_input_date_range_end_hint = 2131624030;
 			
 			// aapt resource value: 0x7F0E005F
-			public const int mtrl_picker_range_header_selected = 2131624031;
+			public const int mtrl_picker_text_input_date_range_start_hint = 2131624031;
 			
 			// aapt resource value: 0x7F0E0060
-			public const int mtrl_picker_range_header_title = 2131624032;
+			public const int mtrl_picker_text_input_day_abbr = 2131624032;
 			
 			// aapt resource value: 0x7F0E0061
-			public const int mtrl_picker_range_header_unselected = 2131624033;
+			public const int mtrl_picker_text_input_month_abbr = 2131624033;
 			
 			// aapt resource value: 0x7F0E0062
-			public const int mtrl_picker_save = 2131624034;
+			public const int mtrl_picker_text_input_year_abbr = 2131624034;
 			
 			// aapt resource value: 0x7F0E0063
-			public const int mtrl_picker_text_input_date_hint = 2131624035;
+			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131624035;
 			
 			// aapt resource value: 0x7F0E0064
-			public const int mtrl_picker_text_input_date_range_end_hint = 2131624036;
+			public const int mtrl_picker_toggle_to_day_selection = 2131624036;
 			
 			// aapt resource value: 0x7F0E0065
-			public const int mtrl_picker_text_input_date_range_start_hint = 2131624037;
+			public const int mtrl_picker_toggle_to_text_input_mode = 2131624037;
 			
 			// aapt resource value: 0x7F0E0066
-			public const int mtrl_picker_text_input_day_abbr = 2131624038;
+			public const int mtrl_picker_toggle_to_year_selection = 2131624038;
 			
 			// aapt resource value: 0x7F0E0067
-			public const int mtrl_picker_text_input_month_abbr = 2131624039;
+			public const int overflow_tab_title = 2131624039;
 			
 			// aapt resource value: 0x7F0E0068
-			public const int mtrl_picker_text_input_year_abbr = 2131624040;
+			public const int password_toggle_content_description = 2131624040;
 			
 			// aapt resource value: 0x7F0E0069
-			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131624041;
+			public const int path_password_eye = 2131624041;
 			
 			// aapt resource value: 0x7F0E006A
-			public const int mtrl_picker_toggle_to_day_selection = 2131624042;
+			public const int path_password_eye_mask_strike_through = 2131624042;
 			
 			// aapt resource value: 0x7F0E006B
-			public const int mtrl_picker_toggle_to_text_input_mode = 2131624043;
+			public const int path_password_eye_mask_visible = 2131624043;
 			
 			// aapt resource value: 0x7F0E006C
-			public const int mtrl_picker_toggle_to_year_selection = 2131624044;
+			public const int path_password_strike_through = 2131624044;
 			
 			// aapt resource value: 0x7F0E006D
-			public const int overflow_tab_title = 2131624045;
+			public const int search_menu_title = 2131624045;
 			
 			// aapt resource value: 0x7F0E006E
-			public const int password_toggle_content_description = 2131624046;
-			
-			// aapt resource value: 0x7F0E006F
-			public const int path_password_eye = 2131624047;
-			
-			// aapt resource value: 0x7F0E0070
-			public const int path_password_eye_mask_strike_through = 2131624048;
-			
-			// aapt resource value: 0x7F0E0071
-			public const int path_password_eye_mask_visible = 2131624049;
-			
-			// aapt resource value: 0x7F0E0072
-			public const int path_password_strike_through = 2131624050;
-			
-			// aapt resource value: 0x7F0E0073
-			public const int project_id = 2131624051;
-			
-			// aapt resource value: 0x7F0E0074
-			public const int search_menu_title = 2131624052;
-			
-			// aapt resource value: 0x7F0E0075
-			public const int status_bar_notification_info_overflow = 2131624053;
+			public const int status_bar_notification_info_overflow = 2131624046;
 			
 			static String()
 			{

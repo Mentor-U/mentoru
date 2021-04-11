@@ -13,6 +13,7 @@ namespace MentorU
             InitializeComponent();
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(NewJobPage), typeof(NewJobPage));
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(MainChatPage), typeof(MainChatPage));
             Routing.RegisterRoute(nameof(ViewOnlyProfilePage), typeof(ViewOnlyProfilePage));
@@ -20,6 +21,8 @@ namespace MentorU
             Routing.RegisterRoute(nameof(NotificationPage), typeof(NotificationPage));
             Routing.RegisterRoute(nameof(ActivityWaitPage), typeof(ActivityWaitPage));
             Routing.RegisterRoute(nameof(ProfilePage), typeof(ProfilePage));
+            Routing.RegisterRoute(nameof(ContactUsPage), typeof(ContactUsPage));
+            Routing.RegisterRoute(nameof(SettingsPage), typeof(SettingsPage));
             Routing.RegisterRoute("Main/Login", typeof(LoginPage));
         }
 

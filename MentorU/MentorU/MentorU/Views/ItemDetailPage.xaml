@@ -8,9 +8,6 @@
 
     <ScrollView>
         <StackLayout Spacing="20" Padding="15">
-            <Label Text="{Binding Text}" FontSize="Large"/>
-
-
 
             <ffimageloading:CachedImage 
                             Source="{Binding ItemImageSource}"
@@ -22,6 +19,7 @@
                             Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
                             Aspect="AspectFit" HeightRequest="300" WidthRequest="300"
                             />
+            <Label Text="{Binding Text}" FontSize="Large"/>
 
             <Label Text="{Binding ItemPrice, StringFormat='Item Price = {0:N} $'}" 
                             LineBreakMode="NoWrap" 

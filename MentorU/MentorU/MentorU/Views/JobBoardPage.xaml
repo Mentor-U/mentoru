@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.JobBoardPage"
+             Title="{Binding Title}"
+             xmlns:local="clr-namespace:MentorU.ViewModels"  
+             xmlns:model="clr-namespace:MentorU.Models"  
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             x:Name="JobSearchPage"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="List a Job" Command="{Binding AddJobCommand}" />
+    </ContentPage.ToolbarItems>
+    <!--
+      x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
+      https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
+    -->
+    <RefreshView x:DataType="local:JobBoardViewModel" Command="{Binding LoadJobsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <Grid ColumnSpacing="0" 
+                RowSpacing="0" 
+                Padding="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="{Binding ShowFilters, StringFormat='Filters: {0:N}'}" FontAttributes="Bold" FontSize="Medium" VerticalOptions="Center" Grid.Row="0">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding FilterCommand}" NumberOfTapsRequired="1"/>
+                </Label.GestureRecognizers>
+            </Label>
+            <Button Text="Clear" Command="{Binding ClearFilters}" Grid.Column="1" TextColor="Black" FontSize="Small" BackgroundColor="LightCoral" Grid.Row="0"/>
+
+            <CollectionView x:Name="ItemsListView"
+                ItemsSource="{Binding Jobs}"
+                SelectionMode="None"
+                            Grid.Row="1" Grid.ColumnSpan="2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackLayout Orientation="Horizontal"
+                                     Spacing="4"
+                                    Margin="5,0"
+                                     x:DataType="model:Jobs">
+                            <ffimageloading:CachedImage 
+                            Source="{Binding jobImage}"
+                            ErrorPlaceholder= "error.jpg"
+                            CacheDuration= "50"
+                            RetryCount= "3"
+                            RetryDelay= "600"
+                            DownsampleToViewSize = "true"
+                            Grid.Column="0" Grid.Row="1" Grid.RowSpan="3"
+                            Aspect="AspectFit" HeightRequest="70" WidthRequest="70"
+                            />
+                            <StackLayout Orientation="Vertical"
+                                         Spacing="0"
+                                         Margin="5,0"
+                                         x:DataType="model:Jobs">
+                                <Label Text=""/>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="16" Text="{Binding Text}" FontAttributes="Bold">
+                                </Label>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="16" Text="{Binding CompanyName}">
+                                </Label>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="16" Text="{Binding Location}" FontAttributes="Italic" TextColor="Gray">
+                                </Label>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="16" Text="-------------" FontAttributes="Italic" TextColor="LightGray">
+                                </Label>
+                                <Label LineBreakMode="NoWrap"
+                                   Style="{DynamicResource ListJobTextStyle}" 
+                                   FontSize="Small" Text="{Binding Date}" TextColor="Green" FontAttributes="Bold">
+                                </Label>
+
+                            </StackLayout>
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer 
+                                NumberOfTapsRequired="1"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type local:JobBoardViewModel}}, Path=JobTapped}"		
+                                CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </StackLayout.GestureRecognizers>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </RefreshView>
+</ContentPage>

@@ -1,200 +1,88 @@
 {
   "images": [
     {
-      "appearances": [],
       "idiom": "universal"
     },
     {
-      "appearances": [],
       "scale": "1x",
-      "idiom": "universal",
-      "filename": "notification.png"
+      "idiom": "universal"
     },
     {
-      "appearances": [],
       "scale": "2x",
       "idiom": "universal"
     },
     {
-      "appearances": [],
       "scale": "3x",
       "idiom": "universal"
     },
     {
-      "appearances": [],
       "idiom": "iphone"
     },
     {
-      "appearances": [],
       "scale": "1x",
       "idiom": "iphone"
     },
     {
-      "appearances": [],
       "scale": "2x",
       "idiom": "iphone"
     },
     {
-      "appearances": [],
+      "subtype": "retina4",
       "scale": "2x",
-      "idiom": "iphone",
-      "subtype": "retina4"
+      "idiom": "iphone"
     },
     {
-      "appearances": [],
       "scale": "3x",
       "idiom": "iphone"
     },
     {
-      "appearances": [],
       "idiom": "ipad"
     },
     {
-      "appearances": [],
       "scale": "1x",
       "idiom": "ipad"
     },
     {
-      "appearances": [],
       "scale": "2x",
       "idiom": "ipad"
     },
     {
-      "appearances": [],
+      "idiom": "watch"
+    },
+    {
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "screenWidth": "{130,145}",
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "screenWidth": "{146,165}",
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "idiom": "mac"
+    },
+    {
+      "scale": "1x",
+      "idiom": "mac"
+    },
+    {
+      "scale": "2x",
+      "idiom": "mac"
+    },
+    {
+      "idiom": "car"
+    },
+    {
       "scale": "2x",
       "idiom": "car"
     },
     {
-      "appearances": [],
       "scale": "3x",
-      "idiom": "car"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "idiom": "universal"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "1x",
-      "idiom": "universal"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "2x",
-      "idiom": "universal"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "3x",
-      "idiom": "universal"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "idiom": "iphone"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "1x",
-      "idiom": "iphone"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "2x",
-      "idiom": "iphone"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "2x",
-      "idiom": "iphone",
-      "subtype": "retina4"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "3x",
-      "idiom": "iphone"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "idiom": "ipad"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "1x",
-      "idiom": "ipad"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "2x",
-      "idiom": "ipad"
-    },
-    {
-      "appearances": [
-        {
-          "appearance": "luminosity",
-          "value": "dark"
-        }
-      ],
-      "scale": "2x",
       "idiom": "car"
     },
     {
@@ -204,6 +92,214 @@
           "value": "dark"
         }
       ],
+      "idiom": "universal"
+    },
+    {
+      "filename": "notification-3.png",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "1x",
+      "idiom": "universal"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "universal"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "3x",
+      "idiom": "universal"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "idiom": "iphone"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "1x",
+      "idiom": "iphone"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "iphone"
+    },
+    {
+      "subtype": "retina4",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "iphone"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "3x",
+      "idiom": "iphone"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "idiom": "ipad"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "1x",
+      "idiom": "ipad"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "ipad"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "idiom": "watch"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "screenWidth": "{130,145}",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "screenWidth": "{146,165}",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "idiom": "mac"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "1x",
+      "idiom": "mac"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "mac"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "idiom": "car"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "car"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "dark"
+        }
+      ],
       "scale": "3x",
       "idiom": "car"
     },
@@ -217,6 +313,7 @@
       "idiom": "universal"
     },
     {
+      "filename": "notification_2.png",
       "appearances": [
         {
           "appearance": "luminosity",
@@ -276,6 +373,7 @@
       "idiom": "iphone"
     },
     {
+      "subtype": "retina4",
       "appearances": [
         {
           "appearance": "luminosity",
@@ -283,8 +381,7 @@
         }
       ],
       "scale": "2x",
-      "idiom": "iphone",
-      "subtype": "retina4"
+      "idiom": "iphone"
     },
     {
       "appearances": [
@@ -324,6 +421,85 @@
       ],
       "scale": "2x",
       "idiom": "ipad"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "light"
+        }
+      ],
+      "idiom": "watch"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "light"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "screenWidth": "{130,145}",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "light"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "screenWidth": "{146,165}",
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "light"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "watch"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "light"
+        }
+      ],
+      "idiom": "mac"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "light"
+        }
+      ],
+      "scale": "1x",
+      "idiom": "mac"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "light"
+        }
+      ],
+      "scale": "2x",
+      "idiom": "mac"
+    },
+    {
+      "appearances": [
+        {
+          "appearance": "luminosity",
+          "value": "light"
+        }
+      ],
+      "idiom": "car"
     },
     {
       "appearances": [
@@ -346,7 +522,6 @@
       "idiom": "car"
     }
   ],
-  "properties": {},
   "info": {
     "version": 1,
     "author": "xcode"

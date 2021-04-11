@@ -11,6 +11,7 @@ using System.Linq;
 using MentorU.Services.DatabaseServices;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Essentials;
+using MentorU.Services.Blob;
 
 namespace MentorU.ViewModels
 {
@@ -25,6 +26,9 @@ namespace MentorU.ViewModels
 
         public ObservableCollection<Users> Mentors { get; }
         public ObservableCollection<string> Filters { get; }
+
+        private Tuple<string,string> _filterTuple;
+        private HashSet<string> ExcludeIDs;
 
         private string _filters;
         public string ShowFilters
@@ -85,14 +89,14 @@ namespace MentorU.ViewModels
 
         public SearchNewMentorViewModel()
         {
-            Title = "Find New Mentors";
+            Title = "Find Connections";
             Mentors = new ObservableCollection<Users>();
             Filters = new ObservableCollection<string>();
 
             LoadMentorsCommand = new Command(async () => await ExecuteLoadMentors());
             FilterCommand = new Command(async () => await ExecuteFilterMentors());
             MentorTapped = new Command<Users>(OnMentorSelected);
-            ClearFilters = new Command(async () => { Filters.Clear(); await ExecuteLoadMentors(); });
+            ClearFilters = new Command(async () => { _filterTuple = null; Filters.Clear(); await ExecuteLoadMentors(); });
             ClosePopUp = new Command(async () => await ClosePopUpWindow());
             OpenAssistU = new Command(AssistUChat);
             SwitchAlumni = new Command(SwitchToAlumni);
@@ -103,29 +107,54 @@ namespace MentorU.ViewModels
             try
             {
                 Mentors.Clear();
-                if (Filters.Count != 0)
+                if (_filterTuple != null)
                 {
-                    var temp = await DatabaseService.Instance.client.GetTable<Users>().Where(user => user.Role == "0").ToListAsync();
+                    string _role = null;
+                    List<Users> temp = null;
+                    if (_filterTuple.Item2 != null)
+                    {
+                        _role = _filterTuple.Item2 == "Alumni" ? "0" : "1";
+                        temp = await DatabaseService.Instance.client.GetTable<Users>().Where(user => user.Role == _role).ToListAsync();
+                        Filters.Add(_filterTuple.Item2);
+                    }
+                    else
+                        temp = await DatabaseService.Instance.client.GetTable<Users>().ToListAsync();
                     foreach (Users m in temp)
                     {
-                        if (Filters.Contains(m.Major))
+                        if (ExcludeIDs.Contains(m.id))
+                            continue;
+                        if (_filterTuple.Item1 != null) // Handles tuple AND in the boolean condition to further restrict
                         {
+                            if (_filterTuple.Item1 == m.Major)
+                            {
+                                m.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", m.id);
+                                Mentors.Add(m);
+                            }
+                        }
+                        else
+                        {
+                            m.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", m.id);
                             Mentors.Add(m);
-                            Debug.WriteLine("------- Filtering ------");
                         }
                     }
-                    ShowFilters = string.Join(", ", Filters);
+                    if(_filterTuple.Item1 != null)
+                        Filters.Add(_filterTuple.Item1);
+                    ShowFilters = string.Join(",", Filters);
                 }
                 else
                 {
-                    var connections = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
-                    var available = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.Role == "0" ).ToListAsync();
-                    var excludedIDs = new HashSet<string>(connections.Select(u => u.MentorID));
-                    var result = available.Where(p => !excludedIDs.Contains(p.id) && p.id != App.loggedUser.id);
+                    var connections = await DatabaseService.Instance.client.GetTable<Connection>()
+                        .Where(u => u.MenteeID == App.loggedUser.id || u.MentorID == App.loggedUser.id).ToListAsync();
+                    var available = await DatabaseService.Instance.client.GetTable<Users>().ToListAsync();
+                    var excludedMentorIDs = new HashSet<string>(connections.Select(u => u.MentorID));
+                    ExcludeIDs = new HashSet<string>(connections.Select(u => u.MenteeID));
+                    ExcludeIDs.UnionWith(excludedMentorIDs);
+                    var result = available.Where(p => !ExcludeIDs.Contains(p.id));
 
-                    foreach (Users element in result)
+                    foreach (Users m in result)
                     {
-                        Mentors.Add(element);
+                        m.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", m.id);
+                        Mentors.Add(m);
                     }
                     ShowFilters = "";
                 }
@@ -148,18 +177,17 @@ namespace MentorU.ViewModels
 
         async Task ClosePopUpWindow()
         {
+            string major = null;
+            string role = null;
             if (!string.IsNullOrEmpty(FilterMajor))
             {
-                Filters.Add(FilterMajor); //FIXME: Make filters a dictionary mapping values to query
-                FilterYears = "";
-                //TODO: change to only execute on changes once users have been updated to have this information
-                IsBusy = true;
-            }
-            if (!string.IsNullOrEmpty(FilterYears))
-            {
-                Filters.Add(FilterYears);
+                major = FilterMajor;
                 FilterYears = "";
             }
+            if (WantsAlumni == Color.Red || WantsStudent == Color.Red)
+                role = WantsAlumni == Color.Red ? "Alumni" : "Student";
+            _filterTuple = new Tuple<string,string>(major, role);
+            IsBusy = true;
             await PopupNavigation.Instance.PopAllAsync();
         }
 
@@ -189,9 +217,9 @@ namespace MentorU.ViewModels
 
         async void AssistUChat()
         {
-            //await Shell.Current.Navigation.PushAsync(new ChatPage(App.assistU));
-            await Shell.Current.Navigation.PushAsync(new Services.Bot.AssisUWebPage());
-            //App.assistU.StartChat();
+            await Shell.Current.Navigation.PushAsync(new ChatPage());
+            //await Shell.Current.Navigation.PushAsync(new Services.Bot.AssisUWebPage());
+
         }
 
 

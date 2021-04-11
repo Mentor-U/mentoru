@@ -11,16 +11,16 @@ using System.Text;
 using MentorU.Services.DatabaseServices;
 using Microsoft.Extensions.Caching.Memory;
 using System.Net.Http;
-
+using MentorU.Views.ChatViews;
 
 namespace MentorU.ViewModels
 {
     public class ChatViewModel : BaseViewModel
     {
         private string _textDraft;
-        private Users _recipient;
+        public Users _recipient;
         private ObservableCollection<Message> _messageList;
-        
+
         public ObservableCollection<Message> MessageList { get => _messageList; set { _messageList = value; OnPropertyChanged(); } }
         public string TextDraft { get => _textDraft; set { _textDraft = value; OnPropertyChanged(); } }
         public Command OnSendCommand { get; set; }
@@ -28,19 +28,22 @@ namespace MentorU.ViewModels
         public Command ConnectChat { get; set; }
         public Command DisconnectChat { get; set; }
         public Command RefreshChatCommand { get; set; }
+        public Command ViewProfileCommand { get; set; }
 
         private HubConnection hubConnection;
         private bool hubIsConnected = false;
         private string _groupName;
         private bool _useCache;
 
-        public Message lastMessage { get; set; }
+        public ListView _messageListView { get; set; }
 
         public ChatViewModel(Users ChatRecipient)
         {
-            Title = ChatRecipient.FirstName;
             _recipient = ChatRecipient;
+            Title = _recipient.FirstName;
             _useCache = true;
+
+            _messageListView = null;
 
             // Use bit mask of user id's to generate group name 
             byte[] them = Encoding.ASCII.GetBytes(_recipient.id);
@@ -57,6 +60,7 @@ namespace MentorU.ViewModels
             ConnectChat = new Command(async () => await Connect());
             DisconnectChat = new Command(async () => await Disconnect());
             RefreshChatCommand = new Command(() => { _useCache = false; IsBusy = true; });
+            ViewProfileCommand = null; // used by assistU
 
             hubConnection = new HubConnectionBuilder()
                 .WithUrl($"{App.SignalRBackendUrl}")
@@ -75,7 +79,7 @@ namespace MentorU.ViewModels
                         else
                             MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
                         App._cache.Set(_groupName, MessageList, new TimeSpan(24, 0, 0));
-
+                        _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
                     }
                     catch (Exception ex)
                     {
@@ -83,6 +87,7 @@ namespace MentorU.ViewModels
                     }
                 });
             });
+
         }
 
 
@@ -92,7 +97,6 @@ namespace MentorU.ViewModels
                 await hubConnection.StartAsync();
             await hubConnection.InvokeAsync("AddToGroup", _groupName);
             hubIsConnected = true;
-            //await App.notificationService.UpdateTags(_groupName);
         }
 
         public async Task Disconnect()
@@ -102,9 +106,8 @@ namespace MentorU.ViewModels
         }
 
 
-        async Task ExecuteLoadPageData()
+        public virtual async Task ExecuteLoadPageData()
         {
-            //IsBusy = true;
             try
             {   
                 object his;
@@ -131,7 +134,8 @@ namespace MentorU.ViewModels
                     App._cache.Set(_groupName, MessageList, new TimeSpan(24,0,0));
                     _useCache = true;
                 }
-                lastMessage = MessageList[MessageList.Count - 1];
+
+                
             }
             catch (Exception ex)
             {
@@ -140,10 +144,12 @@ namespace MentorU.ViewModels
             finally
             {
                 IsBusy = false;
+                if(MessageList.Count > 0)
+                    _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
             }
         }
 
-        async Task ExecuteSend()
+        public virtual async Task ExecuteSend()
         {
             try
             {
@@ -162,7 +168,7 @@ namespace MentorU.ViewModels
                 };
                 TextDraft = "";
                 await DatabaseService.Instance.client.GetTable<Messages>().InsertAsync(newMessage);
-                await App.notificationService.SendAsync(HttpMethod.Put, Config.BackendServiceEndpoint, newMessage);
+                _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
             }
             catch (Exception ex)
             {
@@ -181,7 +187,7 @@ namespace MentorU.ViewModels
         }
 
 
-        public void OnAppearing()
+        public virtual void OnAppearing()
         {
             IsBusy = true;
         }

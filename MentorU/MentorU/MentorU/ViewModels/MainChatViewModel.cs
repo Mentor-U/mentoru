@@ -48,8 +48,8 @@ namespace MentorU.ViewModels
                 List<Users> mentor_list = new List<Users>();
 
                 //Adds only mentors that you have connected with
-                if (App.loggedUser.Role == "0")
-                {
+                //if (App.loggedUser.Role == "0")
+                //{
                     List<Connection> cons = await DatabaseService.Instance.client.GetTable<Connection>()
                         .Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (Connection c in cons)
@@ -60,10 +60,10 @@ namespace MentorU.ViewModels
                         current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
                         Chats.Add(current);
                     }
-                }
-                else
-                {
-                    List<Connection> cons = await DatabaseService.Instance.client.GetTable<Connection>()
+                //}
+                //else
+                //{
+                    cons = await DatabaseService.Instance.client.GetTable<Connection>()
                         .Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (Connection c in cons)
                     {
@@ -73,7 +73,7 @@ namespace MentorU.ViewModels
                         current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
                         Chats.Add(current);
                     }
-                }
+                //}
 
                 if (Chats.Count > 0)
                     NoChats = false;

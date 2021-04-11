@@ -160,8 +160,8 @@ namespace MentorU.ViewModels
 
                 // Load all connections
                 List<Connection> mentors;
-                if(isMentee)
-                {
+                //if(isMentee)
+                //{
                     mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
@@ -170,9 +170,9 @@ namespace MentorU.ViewModels
                         current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
                         Mentors.Add(current);
                     }
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
@@ -181,7 +181,7 @@ namespace MentorU.ViewModels
                         current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
                         Mentors.Add(current);
                     }
-                }
+                //}
 
                 // Redirect option to browse for new mentors -1 role so clicked event can react appropriately
                 if (Mentors.Count == 0)

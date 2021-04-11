@@ -53,12 +53,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignKey>Apple Development: Brayden Muir (6W7CU9N5Z8)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>None</MtouchLink>
     <MtouchInterpreter>-all</MtouchInterpreter>
-    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignProvision>VS: com.MentorU Development</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -196,18 +196,42 @@
     <ImageAsset Include="Assets.xcassets\Settings.png.imageset\settings-2.png">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactus-2.png" />
-    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactUs-3.png" />
-    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png" />
-    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\settings-3.png" />
-    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\Settings-4.png" />
-    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit-3.png" />
-    <ImageAsset Include="Assets.xcassets\search.png.imageset\search-3.png" />
-    <ImageAsset Include="Assets.xcassets\send.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\send.png.imageset\send.png" />
-    <ImageAsset Include="Assets.xcassets\job.png.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\job.png.imageset\job.png" />
-    <ImageAsset Include="Assets.xcassets\job.png.imageset\job-1.png" />
+    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactus-2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\contactUs.png.imageset\contactUs-3.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\chat.png.imageset\chat.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\settings-3.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Settings.png.imageset\Settings-4.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\exit.png.imageset\exit-3.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\search.png.imageset\search-3.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\send.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\send.png.imageset\send.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\job.png.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\job.png.imageset\job.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\job.png.imageset\job-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -274,8 +298,6 @@
     <Folder Include="Assets.xcassets\icon_feed.png.imageset\" />
     <Folder Include="Assets.xcassets\Logo.png.imageset\" />
     <Folder Include="Assets.xcassets\settings1.png.imageset\" />
-    <Folder Include="Assets.xcassets\send.png.imageset\" />
-    <Folder Include="Assets.xcassets\job.png.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpg" />
@@ -291,7 +313,7 @@
   </ItemGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties XamarinHotReloadWrongLinkerErrorInfoBarMentorUiOSHideInfoBar="True" TriggeredFromHotReload="False" />
+      <UserProperties TriggeredFromHotReload="False" XamarinHotReloadWrongLinkerErrorInfoBarMentorUiOSHideInfoBar="True" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

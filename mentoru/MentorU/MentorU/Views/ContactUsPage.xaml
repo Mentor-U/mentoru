@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MentorU.Views.ContactUsPage"
+             Title="Contact Us"
+             xmlns:local="clr-namespace:MentorU.ViewModels"
+             BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+
+
+    <!--<StackLayout>
+        <Image Source="Logo.png" HorizontalOptions="CenterAndExpand" Scale=".6" AnchorY="0" VerticalOptions="Start" />
+        <Button  Text="Email" Clicked="EmailClicked"
+                    BackgroundColor="Khaki"/>
+
+
+    </StackLayout>-->
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="100" />
+                <RowDefinition Height="50" />
+                <RowDefinition Height="100" />
+        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>   
+            <Image Source="Logo.png" MinimumWidthRequest="300"  
+                       Grid.Row="0"
+                       HorizontalOptions="CenterAndExpand"
+                       Scale="2"/>
+        <Label Text="Please get in touch with our support team to answer all of your questions. We appreciate all feedback! We will get back to you as soon as possible." Grid.Row="2"
+               FontSize="Medium" HorizontalOptions="CenterAndExpand" Padding="10"></Label>
+
+            <Button Grid.Row="4" Grid.RowSpan="2" Text="Email MentorU" FontSize="Medium" Clicked="EmailClicked" 
+                    BackgroundColor= "#e60000" Padding="20" Margin="10"  />
+        </Grid>
+
+</ContentPage>

@@ -11,33 +11,12 @@ using System.Threading.Tasks;
 using System.IO;
 using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 using ImageCircle.Forms.Plugin.Droid;
-using System;
-using Android.Runtime;
-using Firebase.Iid;
-using MentorU.Droid.Services;
-using MentorU.Services;
-using Firebase.Installations;
-using Firebase;
-using Firebase.Provider;
 
 namespace MentorU.Droid
 {
     [Activity(Label = "MentorU", LaunchMode = LaunchMode.SingleTop, Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize)]
-    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity, Android.Gms.Tasks.IOnSuccessListener
+    public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        IPushNotificationActionService _notificationActionService;
-        IDeviceInstallationService _deviceInstallationService;
-
-        IPushNotificationActionService NotificationActionService
-            => _notificationActionService ??
-                (_notificationActionService =
-                ServiceContainer.Resolve<IPushNotificationActionService>());
-
-        IDeviceInstallationService DeviceInstallationService
-            => _deviceInstallationService ??
-                (_deviceInstallationService =
-                ServiceContainer.Resolve<IDeviceInstallationService>());
-
         internal static MainActivity Instance { get; private set; }
         
         //FirebaseInitProvider fireBase { get; set; }
@@ -54,25 +33,6 @@ namespace MentorU.Droid
 
             base.OnCreate(savedInstanceState);
 
-            //fireBase = new FirebaseInitProvider();
-            
-
-            Bootstrap.Begin(() => new DeviceInstallationService());
-
-            // ignore warning, don't even bother.
-            if (DeviceInstallationService.NotificationsSupported)
-            {
-                FirebaseInstanceId.GetInstance(Firebase.FirebaseApp.Instance)
-                    .GetInstanceId()
-                    .AddOnSuccessListener(this);
-            }
-
-            //if (DeviceInstallationService.NotificationsSupported)
-            //{
-            //    FirebaseInstallations.GetInstance(Firebase.FirebaseApp.Instance).GetId()
-            //        .AddOnSuccessListener(this);
-            //}
-
             Rg.Plugins.Popup.Popup.Init(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
@@ -83,11 +43,7 @@ namespace MentorU.Droid
 
             ImageCircleRenderer.Init();
 
-            //FirebaseApp.InitializeApp(this.ApplicationContext);
-
             LoadApplication(new App());
-
-            ProcessNotificationActions(Intent);
 
             // Keyboard visibility adjustment
             App.Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
@@ -144,12 +100,6 @@ namespace MentorU.Droid
                 App.Current.MainPage.Navigation.PopToRootAsync();
         }
 
-        protected override void OnNewIntent(Intent intent)
-        {
-            base.OnNewIntent(intent);
-            ProcessNotificationActions(intent);
-        }
-
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Android.Content.PM.Permission[] grantResults)
         {
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -157,26 +107,6 @@ namespace MentorU.Droid
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-        public void OnSuccess(Java.Lang.Object result)
-            => DeviceInstallationService.Token =
-                result.Class.GetMethod("getToken").Invoke(result).ToString();
-
-        void ProcessNotificationActions(Intent intent)
-        {
-            try
-            {
-                if (intent?.HasExtra("action") == true)
-                {
-                    var action = intent.GetStringExtra("action");
-
-                    if (!string.IsNullOrEmpty(action))
-                        NotificationActionService.TriggerAction(action);
-                }
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
-        }
+        
     }
 }

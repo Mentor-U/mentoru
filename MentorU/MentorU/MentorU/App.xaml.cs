@@ -25,8 +25,6 @@ namespace MentorU
 
         public static Users loggedUser { get; internal set; }
 
-        public static INotificationRegistrationService notificationService { get; internal set; }
-
         // FIXME: Pull this lad from the DB
         public static AssistU assistU = new AssistU();
 
@@ -45,13 +43,6 @@ namespace MentorU
                 Current.UserAppTheme = Current.RequestedTheme;
             };
 
-            notificationService =
-                ServiceContainer.Resolve<INotificationRegistrationService>();
-            notificationService.RegisterDeviceAsync();
-
-            ServiceContainer.Resolve<IPushNotificationActionService>()
-                .ActionTriggered += NotificationActionTriggered;
-
             MainPage = new AppShell();
         }
 
@@ -66,14 +57,6 @@ namespace MentorU
             DependencyService.Register<DatabaseService>();
             DependencyService.Register<BlobService>();
         }
-
-        void NotificationActionTriggered(object sender, PushAction e)
-            => ShowActionAlert(e);
-
-        void ShowActionAlert(PushAction action)
-            => MainThread.BeginInvokeOnMainThread(()
-                => MainPage?.DisplayAlert("PushDemo", $"{action} action received", "OK")
-                    .ContinueWith((task) => { if (task.IsFaulted) throw task.Exception; }));
 
         protected override void OnStart()
         {

@@ -17,8 +17,21 @@ namespace MentorU.ViewModels
     {
         private Items _selectedItem;
         public ObservableCollection<string> AllConditions { get; set; }
+        public List<string> AllDepartments { get; set; }
+        private string _department;
+        public string Department
+        {
+            get => _department;
+            set
+            {
+                _department = value;
+                OnPropertyChanged();
+            }
+        }
+
         private string _condition;
-        private string _classUsed;
+
+        private string _classNumber;
 
 
         public ObservableCollection<Items> Items { get; }
@@ -76,10 +89,10 @@ namespace MentorU.ViewModels
 
         public string ClassUsed
         {
-            get => _classUsed;
+            get => _classNumber;
             set
             {
-                _classUsed = value;
+                _classNumber = value;
                 OnPropertyChanged();
             }
         }
@@ -97,6 +110,8 @@ namespace MentorU.ViewModels
                 "Good",
                 "Decent"
             };
+
+            AllDepartments = new List<string>(DatabaseService.Instance.ClassList.classList);
 
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -161,7 +176,7 @@ namespace MentorU.ViewModels
 
                         Items.Add(item);
                     }
-                    ShowFilters = "";
+                    ShowFilters = "None";
                 }
             }
             catch (Exception ex)
@@ -217,11 +232,28 @@ namespace MentorU.ViewModels
                 Filters.Add(condition);
                 condition = "";
             }
-            if (!string.IsNullOrEmpty(FilterClassUsed))
+            if (!string.IsNullOrEmpty(Department))
+            {
+                string classFilter = "";
+
+                classFilter += Department;
+                Department = "";
+
+                if (!string.IsNullOrEmpty(FilterClassUsed))
+                {
+                    classFilter += " " + FilterClassUsed;
+                    FilterClassUsed = "";
+                }
+
+                Filters.Add(classFilter);
+
+            }
+            else if (!string.IsNullOrEmpty(FilterClassUsed))
             {
                 Filters.Add(FilterClassUsed);
                 FilterClassUsed = "";
             }
+           
             IsBusy = true;
             await PopupNavigation.Instance.PopAllAsync();
         }

@@ -20,10 +20,15 @@ namespace MentorU.ViewModels
         private string _name;
         private string _major;
         private string _bio;
+        private string _email;
+        private bool _showEmail;
+
         private ImageSource _profileImage;
 
         public bool isMentor { get; set; }
         public bool isMentee { get; set; }
+
+ 
 
         public ObservableCollection<string> Classes { get; set; }
         public ObservableCollection<Users> Mentors { get; set; }
@@ -75,6 +80,25 @@ namespace MentorU.ViewModels
             }
         }
 
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool showEmail
+        { 
+          get => _showEmail; 
+          set 
+            {
+                _showEmail = value;  OnPropertyChanged(); 
+            }
+        }
+
 
         /***
          * Constructor. Initialize bindings from view
@@ -93,9 +117,11 @@ namespace MentorU.ViewModels
                 isMentee = true;
             }
 
-            Name = App.loggedUser.FirstName;
+            Name = App.loggedUser.DisplayName;
             Major = App.loggedUser.Major;
             Bio = App.loggedUser.Bio;
+
+
 
             Title = "Profile";
 
@@ -134,24 +160,28 @@ namespace MentorU.ViewModels
 
                 // Load all connections
                 List<Connection> mentors;
-                if(isMentee)
-                {
+                //if(isMentee)
+                //{
                     mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
                         var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
-                        Mentors.Add(men[0]);
+                        var current = men[0];
+                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                        Mentors.Add(current);
                     }
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                     foreach (var m in mentors)
                     {
                         var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
-                        Mentors.Add(men[0]);
+                        var current = men[0];
+                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                        Mentors.Add(current);
                     }
-                }
+                //}
 
                 // Redirect option to browse for new mentors -1 role so clicked event can react appropriately
                 if (Mentors.Count == 0)
@@ -172,6 +202,25 @@ namespace MentorU.ViewModels
                 {
                     Marketplace.Add(val);
                 }
+
+                var settingsList = await DatabaseService.Instance.client.GetTable<Settings>().Where(u => u.UserID == App.loggedUser.id).ToListAsync();
+                Email = settingsList.Count > 0 ? App.loggedUser.Email : "";
+
+                if(settingsList.Count > 0)
+                {
+                    if (settingsList[0].AllEmailSettings == true || settingsList[0].ConnectionEmailSettings == true)
+                    {
+                        showEmail = true;
+                    }
+  
+                }
+                else
+                {
+                    showEmail = false;
+                }
+
+
+
 
             }
             catch(Exception ex)

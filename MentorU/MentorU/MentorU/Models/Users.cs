@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using Xamarin.Forms;
 
 namespace MentorU.Models
 {
@@ -29,5 +30,10 @@ namespace MentorU.Models
        
         public string Bio { get; set; }
 
+        [Ignore]
+        public ImageSource ProfileImage { get; set; }
+
+        [Ignore]
+        public string RoleSelector { get => Role == "0" ? "Alumni" : "Student"; }
     }
 }

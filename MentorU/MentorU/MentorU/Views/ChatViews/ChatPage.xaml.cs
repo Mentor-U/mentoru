@@ -9,25 +9,26 @@ namespace MentorU.Views.ChatViews
     public partial class ChatPage : ContentPage
     {
         ChatViewModel _vm;
-        public ChatPage(Users ChatRecipient)
+        public ChatPage(Users ChatRecipient=null)
         {
             InitializeComponent();
-            BindingContext = _vm = new ChatViewModel(ChatRecipient);
+            if (ChatRecipient != null)
+                BindingContext = _vm = new ChatViewModel(ChatRecipient);
+            else
+                BindingContext = _vm = App.assistU.StartChat();
 
             ToolbarItems.Add(new ToolbarItem()
             {
                 Text = "Refresh",
                 Command = _vm.RefreshChatCommand
             });
-
-            WebView browser = null;
+            _vm._messageListView = MessageListView;
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
             _vm.OnAppearing();
-
         }
 
         protected override void OnDisappearing()

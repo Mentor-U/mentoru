@@ -10,8 +10,9 @@ namespace MentorU.Services.Bot
         {
             var browser = new WebView()
             {
-                Source = "https://assistu.azurewebsites.net/embed/"
-                //Source = "https://portal.azure.com/#@mentoruauth.onmicrosoft.com/resource/subscriptions/acffcfa7-04dd-4570-a431-3b424ea362f9/resourceGroups/MentorU/providers/Microsoft.BotService/botServices/AssistU/test"
+                Source = "https://webchat.botframework.com/embed/AssistU?s=20LzcCzdXBg.IrynKUwXT74ePL49AUQhCjtdS4IH9XX1XJmvGjJaYjc",
+                HorizontalOptions = LayoutOptions.FillAndExpand,
+                VerticalOptions = LayoutOptions.FillAndExpand,
             };
             this.Content = browser;
         }

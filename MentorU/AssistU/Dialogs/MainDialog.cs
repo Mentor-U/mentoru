@@ -17,11 +17,11 @@ namespace CoreBot.Dialogs
 {
     public class MainDialog : ComponentDialog
     {
-        private readonly FlightBookingRecognizer _luisRecognizer;
+        private readonly EntityRecognizer _luisRecognizer;
         protected readonly ILogger Logger;
 
         // Dependency injection uses this constructor to instantiate MainDialog
-        public MainDialog(FlightBookingRecognizer luisRecognizer, BookingDialog bookingDialog, ILogger<MainDialog> logger)
+        public MainDialog(EntityRecognizer luisRecognizer, BookingDialog bookingDialog, ILogger<MainDialog> logger)
             : base(nameof(MainDialog))
         {
             _luisRecognizer = luisRecognizer;
@@ -29,7 +29,7 @@ namespace CoreBot.Dialogs
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(bookingDialog);
-            AddDialog(new FindMentorDialog());
+            AddDialog(new FindMentorDialog(_luisRecognizer));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
@@ -52,7 +52,7 @@ namespace CoreBot.Dialogs
             }
 
             // Use the text provided in FinalStepAsync or the default if it is the first time.
-            var messageText = "I can help you find a mentor.";
+            var messageText = stepContext.Options?.ToString() ?? "I am your assistant and can help you find mentors. What can I do for you today?";
             var promptMessage = MessageFactory.Text(messageText, messageText, InputHints.ExpectingInput);
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = promptMessage }, cancellationToken);
         }
@@ -85,16 +85,15 @@ namespace CoreBot.Dialogs
                     return await stepContext.BeginDialogAsync(nameof(BookingDialog), bookingDetails, cancellationToken);
 
                 case MentorFinder.Intent.FindMentor:
-
-                    //var mentorDesire = new MentorDesire()
-                    //{
-                    //    Field = luisResult.ExtractField,
-                    //    Skills = luisResult.ExtractSkill
-                    //};
-                    return await stepContext.BeginDialogAsync(nameof(FindMentorDialog), new MentorDesire(), cancellationToken);
+                    var mentorDesire = new MentorDesire()
+                    {
+                        Field = luisResult.ExtractField,
+                        Skills = luisResult.ExtractSkill
+                    };
+                    return await stepContext.BeginDialogAsync(nameof(FindMentorDialog), mentorDesire, cancellationToken);
 
                 case MentorFinder.Intent.GetWeather:
-                    // We haven't implemented the GetWeatherDialog so we just display a TODO message.
+                    // Unimplemented 
                     var getWeatherMessageText = "TODO: get weather flow here";
                     var getWeatherMessage = MessageFactory.Text(getWeatherMessageText, getWeatherMessageText, InputHints.IgnoringInput);
                     await stepContext.Context.SendActivityAsync(getWeatherMessage, cancellationToken);
@@ -102,7 +101,7 @@ namespace CoreBot.Dialogs
 
                 default:
                     // Catch all for unhandled intents
-                    var didntUnderstandMessageText = $"Sorry, I didn't get that. Please try asking in a different way (intent was {luisResult.TopIntent().intent})";
+                    var didntUnderstandMessageText = $"Sorry, I didn't get that. Please try asking in a different way.";
                     var didntUnderstandMessage = MessageFactory.Text(didntUnderstandMessageText, didntUnderstandMessageText, InputHints.IgnoringInput);
                     await stepContext.Context.SendActivityAsync(didntUnderstandMessage, cancellationToken);
                     break;
@@ -140,27 +139,12 @@ namespace CoreBot.Dialogs
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            // If the child dialog ("BookingDialog") was cancelled, the user failed to confirm or if the intent wasn't BookFlight
-            // the Result here will be null.
-            if (stepContext.Result is BookingDetails result)
-            {
-                // Now we have all the booking details call the booking service.
-
-                // If the call to the booking service was successful tell the user.
-
-                var timeProperty = new TimexProperty(result.TravelDate);
-                var travelDateMsg = timeProperty.ToNaturalLanguage(DateTime.Now);
-                var messageText = $"I have you booked to {result.Destination} from {result.Origin} on {travelDateMsg}";
-                var message = MessageFactory.Text(messageText, messageText, InputHints.IgnoringInput);
-                await stepContext.Context.SendActivityAsync(message, cancellationToken);
-            }
-
-            if (stepContext.Result is MentorDesire mentor)
-            {
-                var text = $"Alright, I will find a mentor working in {mentor.Field} and skilled in {mentor.Skills}";
-                var message = MessageFactory.Text(text, text, InputHints.IgnoringInput);
-                await stepContext.Context.SendActivityAsync(message, cancellationToken);
-            }
+            //if (stepContext.Result is MentorDesire mentor)
+            //{
+            //    var text = $"Alright, I will find a mentor working in {mentor.Field} and skilled in {mentor.Skills}";
+            //    var message = MessageFactory.Text(text, text, InputHints.IgnoringInput);
+            //    await stepContext.Context.SendActivityAsync(message, cancellationToken);
+            //}
 
             // Restart the main dialog with a different message the second time around
             var promptMessage = "What else can I do for you?";

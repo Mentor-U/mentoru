@@ -205,6 +205,9 @@
     <ImageAsset Include="Assets.xcassets\search.png.imageset\search-3.png" />
     <ImageAsset Include="Assets.xcassets\send.png.imageset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\send.png.imageset\send.png" />
+    <ImageAsset Include="Assets.xcassets\job.png.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\job.png.imageset\job.png" />
+    <ImageAsset Include="Assets.xcassets\job.png.imageset\job-1.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -272,6 +275,7 @@
     <Folder Include="Assets.xcassets\Logo.png.imageset\" />
     <Folder Include="Assets.xcassets\settings1.png.imageset\" />
     <Folder Include="Assets.xcassets\send.png.imageset\" />
+    <Folder Include="Assets.xcassets\job.png.imageset\" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\placeholder.jpg" />

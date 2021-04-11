@@ -59,6 +59,8 @@
                                                     </Grid.RowDefinitions>
                                                     <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGray"/>
                                                     <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center"/>
+
+                                                    <!-- AssitU stuffs below -->
                                                     <StackLayout Orientation="Horizontal" IsVisible="{Binding MentorSearch}" IsEnabled="{Binding MentorSearch}" Grid.Row="1">
                                                         <ffimageloading:CachedImage 
                                                             Source="{Binding ProfileImage}"
@@ -106,7 +108,9 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </Grid>
-                <Editor Placeholder="Message" Grid.Row="1" Keyboard="Chat" Grid.Column="0" Text="{Binding TextDraft}" AutoSize="TextChanges"/>
+                <Frame BorderColor="Red" HasShadow="False" Grid.Row="1" Grid.Column="0" Padding="5" Margin="10">
+                    <Editor Placeholder="Message" Keyboard="Chat" Text="{Binding TextDraft}" AutoSize="TextChanges"/>
+                </Frame>
                 <ImageButton Source="send.png" Scale=".5" VerticalOptions="Start"  BackgroundColor="{AppThemeBinding Light=White, Dark=Black}" Grid.Row="1" Grid.Column="1" WidthRequest="70" HeightRequest="50" Command="{Binding OnSendCommand}"/>
             </Grid>
         </RefreshView>

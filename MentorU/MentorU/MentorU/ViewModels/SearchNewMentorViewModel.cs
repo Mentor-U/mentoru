@@ -89,7 +89,7 @@ namespace MentorU.ViewModels
 
         public SearchNewMentorViewModel()
         {
-            Title = "Find New Mentors";
+            Title = "Find Connections";
             Mentors = new ObservableCollection<Users>();
             Filters = new ObservableCollection<string>();
 

@@ -61,8 +61,9 @@
                        TextDecorations="Underline"
                        LineBreakMode="WordWrap"/>
                 <Label Text="{Binding Bio}"  Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" Margin="10"/>
-                <Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="7" VerticalTextAlignment="End" Padding="10"/>
-                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="7" VerticalTextAlignment="End" Padding="10"/>
+                <!--<Label IsVisible="{Binding isMentee}" Text="Your Mentors" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="7" VerticalTextAlignment="End" Padding="10"/>
+                <Label IsVisible="{Binding isMentor}" Text="Your Mentees" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="7" VerticalTextAlignment="End" Padding="10"/>-->
+                <Label Text="Your Connections" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.ColumnSpan="2" Grid.Row="7" VerticalTextAlignment="End" Padding="10"/>
                 <CollectionView x:Name="MentorListView"
                                 ItemsSource="{Binding Mentors}"
                                 SelectionMode="None"
@@ -89,6 +90,7 @@
                                             <Label Text="{Binding DisplayName}" FontSize="Large" FontAttributes="Bold"/>
                                             <Label Text="{Binding Major}"  FontSize="Small" FontAttributes="Italic"/>
                                         </StackLayout>
+                                        <Label Text="{Binding RoleSelector}" FontSize="Small" HorizontalOptions="EndAndExpand" VerticalOptions="StartAndExpand" />
                                     </StackLayout>
                                 </Frame>
                                 <StackLayout.GestureRecognizers>

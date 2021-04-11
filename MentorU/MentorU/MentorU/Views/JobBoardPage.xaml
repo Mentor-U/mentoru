@@ -63,11 +63,11 @@
                                 <Label Text=""/>
                                 <Label LineBreakMode="NoWrap"
                                    Style="{DynamicResource ListJobTextStyle}" 
-                                   FontSize="16" Text="{Binding Text}" FontAttributes="Bold" TextColor="Black">
+                                   FontSize="16" Text="{Binding Text}" FontAttributes="Bold">
                                 </Label>
                                 <Label LineBreakMode="NoWrap"
                                    Style="{DynamicResource ListJobTextStyle}" 
-                                   FontSize="16" Text="{Binding CompanyName}" TextColor="Black">
+                                   FontSize="16" Text="{Binding CompanyName}">
                                 </Label>
                                 <Label LineBreakMode="NoWrap"
                                    Style="{DynamicResource ListJobTextStyle}" 

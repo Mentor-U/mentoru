@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.AI.Luis;
+using System.Diagnostics;
 
 namespace CoreBot.CognitiveModels
 {

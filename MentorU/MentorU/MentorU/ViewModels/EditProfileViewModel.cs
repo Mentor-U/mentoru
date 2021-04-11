@@ -162,14 +162,14 @@ namespace MentorU.ViewModels
                 _imageChanged = false;
             }
 
-            App.loggedUser.FirstName = _parentVM.Name = Name;
+            App.loggedUser.DisplayName = _parentVM.Name = Name;
             App.loggedUser.Major = _parentVM.Major = Major;
             App.loggedUser.Bio = _parentVM.Bio = Bio;
             _parentVM.Classes = Classes;
             JObject data = new JObject
             {
                 {"id", App.loggedUser.id },
-                {"FirstName", Name },
+                {"DisplayName", Name },
                 {"Major", Major },
                 {"Bio", Bio }
             };

@@ -89,7 +89,7 @@ namespace MentorU.ViewModels
 
         public SearchNewMentorViewModel()
         {
-            Title = "Find New Mentors";
+            Title = "Find Connections";
             Mentors = new ObservableCollection<Users>();
             Filters = new ObservableCollection<string>();
 
@@ -123,7 +123,7 @@ namespace MentorU.ViewModels
                     {
                         if (ExcludeIDs.Contains(m.id))
                             continue;
-                        if (_filterTuple.Item1 != null) // Handles AND in the boolean condition to further restrict
+                        if (_filterTuple.Item1 != null) // Handles tuple AND in the boolean condition to further restrict
                         {
                             if (_filterTuple.Item1 == m.Major)
                             {
@@ -217,9 +217,9 @@ namespace MentorU.ViewModels
 
         async void AssistUChat()
         {
-            //await Shell.Current.Navigation.PushAsync(new ChatPage(App.assistU));
-            await Shell.Current.Navigation.PushAsync(new Services.Bot.AssisUWebPage());
-            //App.assistU.StartChat();
+            await Shell.Current.Navigation.PushAsync(new ChatPage());
+            //await Shell.Current.Navigation.PushAsync(new Services.Bot.AssisUWebPage());
+
         }
 
 

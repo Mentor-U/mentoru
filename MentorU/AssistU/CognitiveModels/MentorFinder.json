@@ -347,6 +347,11 @@
       ]
     },
     {
+      "text": "i need a mentor",
+      "intent": "FindMentor",
+      "entities": []
+    },
+    {
       "text": "i need help with math and specifically calculus",
       "intent": "FindMentor",
       "entities": [
@@ -363,6 +368,53 @@
           "children": []
         }
       ]
+    },
+    {
+      "text": "i need someone to help me with math",
+      "intent": "FindMentor",
+      "entities": [
+        {
+          "entity": "Field",
+          "startPos": 31,
+          "endPos": 34,
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "i need someone who is good with math",
+      "intent": "FindMentor",
+      "entities": [
+        {
+          "entity": "Field",
+          "startPos": 32,
+          "endPos": 35,
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "i need someone who works in sculpting and uses clay",
+      "intent": "FindMentor",
+      "entities": [
+        {
+          "entity": "Field",
+          "startPos": 28,
+          "endPos": 36,
+          "children": []
+        },
+        {
+          "entity": "Skill",
+          "startPos": 47,
+          "endPos": 50,
+          "children": []
+        }
+      ]
+    },
+    {
+      "text": "i want help finding a mentor",
+      "intent": "FindMentor",
+      "entities": []
     },
     {
       "text": "i want to do research in biology and specifically protein folding",
@@ -419,6 +471,18 @@
       ]
     },
     {
+      "text": "i would like them to work in finance",
+      "intent": "FindMentor",
+      "entities": [
+        {
+          "entity": "Field",
+          "startPos": 29,
+          "endPos": 35,
+          "children": []
+        }
+      ]
+    },
+    {
       "text": "i'd like to rent a car",
       "intent": "None",
       "entities": []
@@ -451,6 +515,11 @@
           "children": []
         }
       ]
+    },
+    {
+      "text": "mentor",
+      "intent": "FindMentor",
+      "entities": []
     },
     {
       "text": "travel from new york to paris",
@@ -521,7 +590,7 @@
     }
   ],
   "versionId": "0.1",
-  "name": "AssistU-b11b",
+  "name": "AssistU",
   "desc": "Luis Model for CoreBot",
   "culture": "en-us",
   "tokenizerVersion": "1.0.0",

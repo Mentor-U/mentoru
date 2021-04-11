@@ -113,7 +113,7 @@
     <FlyoutItem Title="Marketplace" Icon="marketplace.png">
         <ShellContent Route="ItemsPage" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Job Board" Icon="marketplace.png">
+    <FlyoutItem Title="Job Board" Icon="job.png">
         <ShellContent Route="JobBoardPage" ContentTemplate="{DataTemplate local:JobBoardPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Find New Mentors" Icon="search.png">

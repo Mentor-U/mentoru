@@ -10,7 +10,7 @@ namespace MentorU.Views
     public partial class JobDetailPage : ContentPage
     {
         JobDetailViewModel _vm;
-        public JobDetailPage(Jobs j)
+        public JobDetailPage(Jobs j, bool isApplied = false)
         {
             InitializeComponent();
             BindingContext = _vm = new JobDetailViewModel(j);
@@ -27,11 +27,21 @@ namespace MentorU.Views
             }
             else
             {
-                interactButton = new ToolbarItem
+                if(!isApplied)
                 {
-                    Text = "Chat",
-                    Command = new Command(_vm.StartChat)
-                };
+                    interactButton = new ToolbarItem
+                    {
+                        Text = "Apply",
+                        Command = new Command(_vm.StartApply)
+                    };
+                }
+                else
+                {
+                    interactButton = new ToolbarItem
+                    {
+                        Text = "Applied"
+                    };
+                }
             }
 
             ToolbarItems.Add(interactButton);

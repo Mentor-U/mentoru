@@ -1,5 +1,5 @@
-﻿using Plugin.FilePicker.Abstractions;
-using SQLite;
+﻿using SQLite;
+using Xamarin.Forms;
 
 namespace MentorU.Models
 {
@@ -17,6 +17,6 @@ namespace MentorU.Models
         public string H1B { get; set; }
 
         [Ignore]
-        public FileData Resume { get; set; }
+        public ImageSource Resume { get; set; }
     }
 }

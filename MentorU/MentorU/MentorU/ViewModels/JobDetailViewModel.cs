@@ -3,6 +3,7 @@ using Azure.Storage.Blobs.Models;
 using MentorU.Models;
 using MentorU.Services.Blob;
 using MentorU.Services.DatabaseServices;
+using MentorU.Views;
 using MentorU.Views.ChatViews;
 using System;
 using System.Diagnostics;
@@ -88,13 +89,14 @@ namespace MentorU.ViewModels
             JobType = job.JobType;
             Level = job.Level;
 
-            CompanyLogoSource = await BlobService.Instance.TryDownloadImage(Id, "Image0");
+            CompanyLogoSource = await BlobService.Instance.TryDownloadImage("company-logo", job.id);
         }
-        public async void StartChat(object obj)
+
+        public async void StartApply(object obj)
         {
             await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation
-            var user = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == _job.Owner).ToListAsync();
-            await Shell.Current.Navigation.PushAsync(new ChatPage(user[0]));
+            var job = await DatabaseService.Instance.client.GetTable<Jobs>().Where(u => u.id == _job.id).ToListAsync();
+            await Shell.Current.Navigation.PushAsync(new ApplicationPage(job[0]));
         }
 
         public async void DeleteJob(object obj)

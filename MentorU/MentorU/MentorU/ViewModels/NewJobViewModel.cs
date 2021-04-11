@@ -170,13 +170,11 @@ namespace MentorU.ViewModels
 
             if (jobImageFilePath != null)
             {
-                BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient(jobId);
+                BlobContainerClient containerClient = BlobService.Instance.BlobServiceClient.GetBlobContainerClient("company-logo");
                 await containerClient.CreateIfNotExistsAsync();
 
-                string fileName = "Image0";
-
                 //deletes the blob file if it exists and uploads an image
-                await BlobService.Instance.TryUploadImage(containerClient, fileName, jobImageFilePath);
+                await BlobService.Instance.TryUploadImage(containerClient, jobId, jobImageFilePath);
 
                 File.Delete(jobImageFilePath);
             }

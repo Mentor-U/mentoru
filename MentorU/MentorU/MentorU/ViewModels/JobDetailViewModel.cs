@@ -89,8 +89,9 @@ namespace MentorU.ViewModels
             JobType = job.JobType;
             Level = job.Level;
 
-            CompanyLogoSource = await BlobService.Instance.TryDownloadImage(Id, "Image0");
+            CompanyLogoSource = await BlobService.Instance.TryDownloadImage("company-logo", job.id);
         }
+
         public async void StartApply(object obj)
         {
             await Shell.Current.Navigation.PopToRootAsync(false); // false -> disables navigation animation

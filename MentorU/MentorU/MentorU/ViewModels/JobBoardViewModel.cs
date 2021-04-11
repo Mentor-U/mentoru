@@ -136,17 +136,17 @@ namespace MentorU.ViewModels
                     {
                         if(Filters.Contains(job.Level) && Filters.Contains(job.JobType))
                         {
-                            job.jobImage = await BlobService.Instance.TryDownloadImage(job.id, "Image0");
+                            job.jobImage = await BlobService.Instance.TryDownloadImage("company-logo", job.id);
                             Jobs.Add(job);
                         }
                         else if(Filters.Contains(job.Level) && Filters.Count == 1)
                         {
-                            job.jobImage = await BlobService.Instance.TryDownloadImage(job.id, "Image0");
+                            job.jobImage = await BlobService.Instance.TryDownloadImage("company-logo", job.id);
                             Jobs.Add(job);
                         }
                         else if(Filters.Contains(job.JobType) && Filters.Count == 1)
                         {
-                            job.jobImage = await BlobService.Instance.TryDownloadImage(job.id, "Image0");
+                            job.jobImage = await BlobService.Instance.TryDownloadImage("company-logo", job.id);
                             Jobs.Add(job);
                         }
                     }
@@ -158,7 +158,7 @@ namespace MentorU.ViewModels
                     var jobs = await DatabaseService.Instance.client.GetTable<Jobs>().ToListAsync();
                     foreach(var job in jobs)
                     {
-                        job.jobImage = await BlobService.Instance.TryDownloadImage(job.id, "Image0");
+                        job.jobImage = await BlobService.Instance.TryDownloadImage("company-logo", job.id);
                         Jobs.Add(job);
                     }
                     ShowFilters = "";
@@ -200,9 +200,11 @@ namespace MentorU.ViewModels
             if (job == null)
                 return;
 
-            // This will push the ItemDetailPage onto the navigation stack
-            //await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
-            await Application.Current.MainPage.Navigation.PushAsync(new JobDetailPage(job));
+            var application = await DatabaseService.Instance.client.GetTable<Applications>()
+                .Where(u => u.ApplicantId == App.loggedUser.id && u.JobId == job.id).ToListAsync();
+            bool isApplied = application.Count > 0;
+            // This will push the JobDetailPage onto the navigation stack
+            await Application.Current.MainPage.Navigation.PushAsync(new JobDetailPage(job, isApplied));
         }
 
         async Task ExecuteFilterItems()

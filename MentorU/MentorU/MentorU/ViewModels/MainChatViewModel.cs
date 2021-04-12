@@ -16,6 +16,9 @@ namespace MentorU.ViewModels
         public ObservableCollection<Users> Chats { get; }
         public Command LoadChatsCommand { get; }
         public Command<Users> UserTapped { get; }
+
+        public Command OpenGroupChat { get; }
+
         private bool _noChats;
         public bool NoChats
         {
@@ -36,6 +39,7 @@ namespace MentorU.ViewModels
             LoadChatsCommand = new Command(async () => await ExecuteLoadChats());
             UserTapped = new Command<Users>(OpenChat);
             NoChats = true;
+            OpenGroupChat = new Command(GroupChat);
         }
 
         async Task ExecuteLoadChats()
@@ -98,6 +102,12 @@ namespace MentorU.ViewModels
         public void OnAppearing()
         {
             IsBusy = true;
+        }
+
+        async void GroupChat()
+        {
+            await Shell.Current.Navigation.PushAsync(new GroupChatMainPage());
+           
         }
     }
 }

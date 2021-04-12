@@ -10,7 +10,7 @@
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
    
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Class Group Chats" Command="{Binding OpenGroupChat}"/>
+        <ToolbarItem Text="Group Chats" Command="{Binding OpenGroupChat}"/>
     </ContentPage.ToolbarItems>
     
     <ContentPage.Content>

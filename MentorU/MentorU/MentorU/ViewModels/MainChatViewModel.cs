@@ -106,7 +106,9 @@ namespace MentorU.ViewModels
 
         async void GroupChat()
         {
-            await Shell.Current.Navigation.PushAsync(new GroupChatMainPage());
+           
+            await Shell.Current.GoToAsync("GroupChatMainPage");
+           // await Shell.Current.Navigation.PushAsync(new GroupChatMainPage());
            
         }
     }

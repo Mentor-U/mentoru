@@ -18,5 +18,7 @@ namespace MentorU.Views.ChatViews
             base.OnAppearing();
             _viewModel.OnAppearing();
         }
+
+      
     }
 }

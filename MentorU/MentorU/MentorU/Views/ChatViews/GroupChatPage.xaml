@@ -12,7 +12,7 @@
              Title="{Binding Title}">
     
     <ContentPage.Content>
-        <RefreshView x:DataType="local:ChatViewModel" Command="{Binding LoadPageData}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+        <RefreshView x:DataType="local:GroupChatViewModel" Command="{Binding LoadPageData}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

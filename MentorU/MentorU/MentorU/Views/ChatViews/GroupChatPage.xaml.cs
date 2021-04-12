@@ -37,5 +37,6 @@ namespace MentorU.Views.ChatViews
             base.OnDisappearing();
             _ = _vm.Disconnect();
         }
+
     }
 }

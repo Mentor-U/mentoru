@@ -50,8 +50,7 @@ namespace MentorU.ViewModels
 
         public GroupMainChatViewModel()
         {
-            Title = "Class Chats";
-            //_user.FirstName = "Wallace";
+            Title = "Group Chats";
             Chats = new ObservableCollection<GroupMessages>();
             LoadChatsCommand = new Command(async () => await ExecuteLoadChats());
             ChatTapped = new Command<GroupMessages>(OpenChat);
@@ -94,6 +93,7 @@ namespace MentorU.ViewModels
 
         async void OpenChat(GroupMessages Group)
         {
+            await Shell.Current.Navigation.PopAsync();
             await Shell.Current.Navigation.PushAsync(new GroupChatPage(Group.GroupName));
         }
 
@@ -122,7 +122,9 @@ namespace MentorU.ViewModels
 
                 if(!badName)
                 {
+                    // DB table for all groups
                     await DatabaseService.Instance.client.GetTable<GroupMessages>().InsertAsync(newChat);
+
                     await PopupNavigation.Instance.PopAllAsync();
                 }
                 else

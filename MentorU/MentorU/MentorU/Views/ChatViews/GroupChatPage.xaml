@@ -44,6 +44,7 @@
                                 <ViewCell>
                                     <Grid>
                                         <!-- LHS messages -->
+                                        
                                         <Grid x:DataType="model:Message" IsVisible="{Binding Theirs}" HorizontalOptions="Start">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
@@ -56,9 +57,12 @@
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="Auto"/>
+
                                                 </Grid.RowDefinitions>
-                                                <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGray"/>
-                                                <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center"/>
+
+                                                <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Name}" VerticalTextAlignment="Center" Grid.Row="0"/>
+                                                <BoxView CornerRadius="20" HorizontalOptions="FillAndExpand" BackgroundColor="DarkGray" Grid.Row="1"/>
+                                                <Label Margin="10" LineBreakMode="WordWrap" Text="{Binding Text}" TextColor="White" VerticalTextAlignment="Center" Grid.Row="1"/>
 
                                             </Grid>
                                         </Grid>

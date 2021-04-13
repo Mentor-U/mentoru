@@ -39,8 +39,20 @@
                        HorizontalOptions="CenterAndExpand"
                        Scale="2"/>
 
-                <abstractions:CircleImage Source="{Binding ProfileImage}"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Aspect="AspectFill"/>
-                
+                <!--<abstractions:CircleImage Source="{Binding ProfileImage}"  Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Aspect="AspectFill"/>-->
+                <ffimageloading:CachedImage 
+                    Source="{Binding ProfileImage}"
+                    ErrorPlaceholder= "error.jpg"
+                    CacheDuration= "50"
+                    RetryCount= "3"
+                    RetryDelay= "600"
+                    DownsampleToViewSize = "true"
+                    HeightRequest="50" WidthRequest="50"
+                    Grid.Column="0" Grid.Row="1" Grid.RowSpan="4">
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:CircleTransformation/>
+                </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
 
                 <!--<ffimageloading:CachedImage LoadingPlaceholder="placeholder.jpg" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
 			        DownsampleToViewSize="true"

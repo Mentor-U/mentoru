@@ -140,8 +140,9 @@ namespace MentorU.ViewModels
 
         async Task ClosePopUpWindow()
         {
-            IsBusy = true;
             await PopupNavigation.Instance.PopAllAsync();
+            IsBusy = true;
+            await ExecuteLoadChats();
         }
 
 

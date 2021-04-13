@@ -37,12 +37,16 @@ namespace MentorU.ViewModels
 
         public ListView _messageListView { get; set; }
 
+        public string OtherName { get; set; }
+
+        private Dictionary<string, string> userMap;
+
         public GroupChatViewModel(string GroupName)
         {
 
             Title = GroupName;
             _useCache = true;
-
+            OtherName = "Other Name";
             _messageListView = null;
             _groupName = GroupName;
 
@@ -58,6 +62,7 @@ namespace MentorU.ViewModels
                 .WithUrl($"{App.SignalRBackendUrl}")
                 .Build();
 
+            userMap = new Dictionary<string, string>();
             // Receiving messages callback
             hubConnection.On<string, string>("ReceiveMessage", (userID, message) =>
             {
@@ -65,9 +70,12 @@ namespace MentorU.ViewModels
                 {
                     try
                     {
-
+                        
                         if (userID != App.loggedUser.id)
-                            MessageList.Add(new Message() { UserID = userID, Mine = false, Theirs = true, Text = message });
+                        {
+                            MessageList.Add(new Message() { UserID = userID, Mine = false, Theirs = true, Text = message});
+                        }
+                            
                         else
                             MessageList.Add(new Message() { UserID = App.loggedUser.id, Mine = true, Theirs = false, Text = message });
                         App._cache.Set(_groupName, MessageList, new TimeSpan(24, 0, 0));
@@ -113,6 +121,8 @@ namespace MentorU.ViewModels
                     MessageList.Clear();
                     history = await DatabaseService.Instance.client.GetTable<Messages>()
                     .OrderBy(u => u.TimeStamp).Where(u => u.GroupName == _groupName).ToListAsync();
+
+                    HashSet<string> IDs = new HashSet<string>();
                     foreach (var m in history)
                     {
                         MessageList.Add(new Message()
@@ -122,7 +132,22 @@ namespace MentorU.ViewModels
                             Mine = m.UserID != App.loggedUser.id ? false : true,
                             Theirs = m.UserID != App.loggedUser.id ? true : false
                         });
+                        IDs.Add(m.UserID);
+                        
                     }
+
+                    foreach(string id in IDs)
+                    {
+                        var name = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == id).ToListAsync();
+                        userMap[id] = name[0].DisplayName;
+                    }
+
+                    foreach(var m in MessageList)
+                    {
+                        m.Name = userMap[m.UserID];
+                    }
+
+
                     App._cache.Set(_groupName, MessageList, new TimeSpan(24, 0, 0));
                     _useCache = true;
                 }

@@ -16,6 +16,7 @@ namespace MentorU.Views.ChatViews
                 BindingContext = _vm = new ChatViewModel(ChatRecipient);
             else
                 BindingContext = _vm = App.assistU.StartChat();
+               
 
             ToolbarItems.Add(new ToolbarItem()
             {

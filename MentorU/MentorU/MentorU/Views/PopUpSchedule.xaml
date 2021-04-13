@@ -6,13 +6,13 @@
                  x:Class="MentorU.Views.PopUpSchedule">
 
     <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="0" Margin="0">
-        <Frame WidthRequest="320" HeightRequest="400" Padding="15">
+        <Frame WidthRequest="370" HeightRequest="450" Padding="15">
             <StackLayout>
                 <DatePicker x:Name="DatePicker" MinimumDate="1/1/2021" MaximumDate="12/31/2031"
                     DateSelected="DatePicker_DateSelected"/>
                 <Label x:Name="ScheduleDate" Text="{Binding Date, StringFormat='I want to schedule a meeting on {0:N}'}" FontSize="Medium"/>
                 <TimePicker x:Name="TimePicker" Time="{Binding SelectedTime}"/>
-   
+
                 <Entry Text="{Binding AddressText}" Placeholder="Enter a Meeting Location" TextChanged ="OnTextChanged" />
                 <Label IsVisible="{Binding showError}" Text="{Binding ErrorMessage}" TextColor="Red" FontAttributes="Italic" FontSize="Small"/>
 
@@ -24,7 +24,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                
+
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Button Text="Cancel" BackgroundColor="Red" Command="{Binding CancelClicked}"/>
                     <Button Text="Confirm" Background="Green" Command="{Binding ConfirmClicked}" />

@@ -90,7 +90,10 @@ namespace MentorU.ViewModels
 
         }
 
-
+        /// <summary>
+        /// create connection whenever two people connect
+        /// </summary>
+        /// <returns></returns>
         async Task Connect()
         {
             if (!hubIsConnected)
@@ -99,13 +102,20 @@ namespace MentorU.ViewModels
             hubIsConnected = true;
         }
 
+        /// <summary>
+        /// Remove chat connection whenver two people disconnect
+        /// </summary>
+        /// <returns></returns>
         public async Task Disconnect()
         {
             await hubConnection.InvokeAsync("RemoveFromGroup", _groupName);
             hubIsConnected = false;
         }
 
-
+        /// <summary>
+        /// All the chat message will be cached automatically on users' devices
+        /// </summary>
+        /// <returns></returns>
         public virtual async Task ExecuteLoadPageData()
         {
             try
@@ -167,7 +177,7 @@ namespace MentorU.ViewModels
                     TimeStamp = DateTime.Now
                 };
                 TextDraft = "";
-                await DatabaseService.Instance.client.GetTable<Messages>().InsertAsync(newMessage);
+                await DatabaseService.Instance.client.GetTable<Messages>().InsertAsync(newMessage); // write message chat to database
                 _messageListView.ScrollTo(MessageList[MessageList.Count - 1], ScrollToPosition.MakeVisible, true);
             }
             catch (Exception ex)

@@ -5,6 +5,8 @@
              xmlns:local="clr-namespace:MentorU.ViewModels"
              xmlns:model="clr-namespace:MentorU.Models"
              xmlns:abstractions="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
     
     <ContentPage.Content>
@@ -31,9 +33,22 @@
                        HorizontalOptions="CenterAndExpand"
                        Scale="2"/>
 
-                <abstractions:CircleImage Source="{Binding ProfileImage}"
+                <!--<abstractions:CircleImage Source="{Binding ProfileImage}"
                            Grid.Column="0" Grid.Row="1" Grid.RowSpan="4"
-                           Aspect="AspectFill"/>
+                           Aspect="AspectFill"/>-->
+                <ffimageloading:CachedImage 
+                    Source="{Binding ProfileImage}"
+                    ErrorPlaceholder= "error.jpg"
+                    CacheDuration= "50"
+                    RetryCount= "3"
+                    RetryDelay= "600"
+                    DownsampleToViewSize = "true"
+                    HeightRequest="50" WidthRequest="50"
+                     Grid.Column="0" Grid.Row="1" Grid.RowSpan="4">
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:CircleTransformation/>
+                </ffimageloading:CachedImage.Transformations>
+            </ffimageloading:CachedImage>
             
                 <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Large"
                         Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" />

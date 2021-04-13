@@ -63,11 +63,12 @@ namespace MentorU.ViewModels
         public string OldClass { get; set; }
 
 
-        /***
-         * Allows for changes to the users profile and inherits the state of
-         * the ProfileViewModel to allow the changes to be reflected in the ProfileView
-         * if the are saved.
-         */
+        /// <summary>
+        /// Allows for changes to the users profile and inherits the state of
+        /// the ProfileViewModel to allow the changes to be reflected in the ProfileView
+        /// if the are saved.
+        /// </summary>
+        /// <param name="profileVM"></param>
         public EditProfileViewModel(ProfileViewModel profileVM)
         {
             _parentVM = profileVM;
@@ -94,7 +95,10 @@ namespace MentorU.ViewModels
             AddProfilePictureCommand = new Command(AddPicture);
         }
 
-
+        /// <summary>
+        /// Add a class to a temporary list that will replace the current list
+        /// if the user selects save
+        /// </summary>
         private void AddClass()
         {
             if(!string.IsNullOrEmpty(NewClass))
@@ -114,6 +118,11 @@ namespace MentorU.ViewModels
             }
         }
 
+        /// <summary>
+        /// Remove the 'OldClass', which is selected by the user, from the
+        /// temporary class list
+        /// </summary>
+        /// <returns></returns>
         private async Task RemoveClass()
         {
             if(OldClass != null)
@@ -128,6 +137,9 @@ namespace MentorU.ViewModels
             }
         }
 
+        /// <summary>
+        /// Update the UI and save the changes to the database.
+        /// </summary>
         private async void OnSave()
         {
 
@@ -201,11 +213,19 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PopModalAsync();
         }
 
+
+        /// <summary>
+        /// Discard the changes and return to the profile page
+        /// </summary>
         private async void OnCancel()
         {
             await Shell.Current.Navigation.PopModalAsync();
         }
 
+
+        /// <summary>
+        /// Open the native photos application and allow images to be add to the application.
+        /// </summary>
         private async void AddPicture()
         {
 
@@ -237,6 +257,8 @@ namespace MentorU.ViewModels
             _imageChanged = true;
 
         }
+
+
 
         public new async Task OnAppearing()
         {

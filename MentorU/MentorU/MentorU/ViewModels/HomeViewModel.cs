@@ -87,7 +87,7 @@ namespace MentorU.ViewModels
 
                 if (Mentors.Count == 0)
                 {
-                    Mentors.Add(new Users() { FirstName = "No current connections", Major = "Click to browse  list", Role = "-1" });
+                    Mentors.Add(new Users() { DisplayName = "No current connections", Major = "Click to browse  list", Role = "-1", RoleSelector="" });
                 }
 
                 //Load marketplace items

@@ -90,6 +90,7 @@ namespace MentorU.ViewModels
             Jobs = new ObservableCollection<Jobs>();
             Filters = new ObservableCollection<string>();
 
+            // Create a list of levels so that user can select it from this list
             AllLevels = new ObservableCollection<string>()
             {
                 "Associate",
@@ -100,6 +101,7 @@ namespace MentorU.ViewModels
                 "Internship"
             };
 
+            // Create a list of job types so that user can select it from this list
             AllJobTypes = new ObservableCollection<string>()
             {
                 "Full-time",
@@ -120,6 +122,10 @@ namespace MentorU.ViewModels
             ClosePopUp = new Command(async () => await ClosePopUpWindow());
         }
 
+        /// <summary>
+        /// Loading the data from database based on filtering
+        /// </summary>
+        /// <returns></returns>
         async Task ExecuteLoadJobsCommand()
         {
             IsBusy = true;

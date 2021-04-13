@@ -84,6 +84,8 @@ namespace MentorU.ViewModels
 
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
 
+            if (selectedImageFile == null) return;
+
             itemImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
 
             ItemFirstImage = itemImageFilePath;

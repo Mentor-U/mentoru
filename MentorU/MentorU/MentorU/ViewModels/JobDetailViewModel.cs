@@ -107,6 +107,8 @@ namespace MentorU.ViewModels
                 try
                 {
                     _job.jobImage = null;
+                    var application = await DatabaseService.Instance.client.GetTable<Applications>().Where(u => u.JobId == _job.id).ToListAsync();
+                    await DatabaseService.Instance.client.GetTable<Applications>().DeleteAsync(application[0]);
                     await DatabaseService.Instance.client.GetTable<Jobs>().DeleteAsync(_job);
                     await BlobService.Instance.BlobServiceClient.DeleteBlobContainerAsync(_job.id);
                 }

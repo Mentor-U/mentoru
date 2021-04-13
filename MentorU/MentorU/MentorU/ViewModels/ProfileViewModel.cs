@@ -158,30 +158,24 @@ namespace MentorU.ViewModels
                 //if mentor
                 //if(App.loggedUser.Role == 0) { return; }
 
-                // Load all connections
+                // Load all connections 
                 List<Connection> mentors;
-                //if(isMentee)
-                //{
-                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
-                    foreach (var m in mentors)
-                    {
-                        var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
-                        var current = men[0];
-                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
-                        Mentors.Add(current);
-                    }
-                //}
-                //else
-                //{
-                    mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
-                    foreach (var m in mentors)
-                    {
-                        var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
-                        var current = men[0];
-                        current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
-                        Mentors.Add(current);
-                    }
-                //}
+                mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
+                foreach (var m in mentors)
+                {
+                    var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MentorID).ToListAsync();
+                    var current = men[0];
+                    current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                    Mentors.Add(current);
+                }
+                mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
+                foreach (var m in mentors)
+                {
+                    var men = await DatabaseService.Instance.client.GetTable<Users>().Where(u => u.id == m.MenteeID).ToListAsync();
+                    var current = men[0];
+                    current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
+                    Mentors.Add(current);
+                }
 
                 // Redirect option to browse for new mentors -1 role so clicked event can react appropriately
                 if (Mentors.Count == 0)
@@ -233,12 +227,21 @@ namespace MentorU.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// Navigate to the edit profile page and pass the current state of the profile page to
+        /// be edited.
+        /// </summary>
+        /// <param name="obj"></param>
         private async void EditProfile(object obj)
         {
             await Shell.Current.Navigation.PushModalAsync(new EditProfilePage(this));
         }
 
-
+        /// <summary>
+        /// Navigate to the selected users profile
+        /// </summary>
+        /// <param name="mentor"></param>
         async void OnMentorSelected(Users mentor)
         {
             if (mentor == null)
@@ -249,6 +252,11 @@ namespace MentorU.ViewModels
                 await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, true));
         }
 
+
+        /// <summary>
+        /// Navigate to the selected marketplace items page.
+        /// </summary>
+        /// <param name="item"></param>
         async void OnItemSelected(Items item)
         {
             if (item == null)

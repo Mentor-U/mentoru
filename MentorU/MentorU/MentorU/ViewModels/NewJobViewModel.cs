@@ -83,9 +83,13 @@ namespace MentorU.ViewModels
 
             var selectedImageFile = await CrossMedia.Current.PickPhotoAsync(mediaOption);
 
-            jobImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
+            if (selectedImageFile == null) return;
+            else
+            {
+                jobImageFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, selectedImageFile.GetStream());
 
-            CompanyLogo = jobImageFilePath;
+                CompanyLogo = jobImageFilePath;
+            }
         }
 
         private bool ValidateSave()

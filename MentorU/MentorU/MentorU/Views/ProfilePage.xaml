@@ -116,7 +116,7 @@
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>
-                <Label Text="Recommended Purchases" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.Row="9" Grid.ColumnSpan="2" VerticalTextAlignment="End" Padding="10"/>
+                <Label Text="My Listings" FontAttributes="Bold" FontSize="Title" TextDecorations="Underline" Grid.Row="9" Grid.ColumnSpan="2" VerticalTextAlignment="End" Padding="10"/>
                 <CollectionView x:Name="MarketListView"
                                 ItemsSource="{Binding Marketplace}"
                                 SelectionMode="None"

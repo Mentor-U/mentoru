@@ -18,8 +18,6 @@ namespace MentorU.ViewModels
         public Command LoadPageDataCommand { get; }
         public Command<Users> MentorTapped { get; }
         public Command<Items> ItemTapped { get; }
-        public Command OpenProfileCommand { get; }
-        public Command OpenNotificationsCommand { get; }
         private string _usersName;
         public string UsersName
         {
@@ -31,6 +29,7 @@ namespace MentorU.ViewModels
             }
         }
 
+        // UI flags to control visibility
         public bool isMentor { get; set; }
         public bool isMentee { get; set; }
 
@@ -42,8 +41,6 @@ namespace MentorU.ViewModels
             LoadPageDataCommand = new Command(async () => await ExecuteLoadPageData());
             MentorTapped = new Command<Users>(OnMentorSelected);
             ItemTapped = new Command<Items>(OnItemSelected);
-            OpenProfileCommand = new Command(OpenProfile);
-            OpenNotificationsCommand = new Command(OpenNotifications);
             UsersName = App.loggedUser.DisplayName;
 
             if (App.loggedUser.Role == "0")
@@ -58,6 +55,10 @@ namespace MentorU.ViewModels
             }
         }
 
+        /// <summary>
+        /// Load data from the data base to populate fields in the view
+        /// </summary>
+        /// <returns></returns>
         async Task ExecuteLoadPageData()
         {
             IsBusy = true;
@@ -66,8 +67,6 @@ namespace MentorU.ViewModels
                 Mentors.Clear();
                 List<Connection> mentors;
 
-                //if (isMentee)
-                //{
                 mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MenteeID == App.loggedUser.id).ToListAsync();
                 foreach (var m in mentors)
                 {
@@ -76,9 +75,7 @@ namespace MentorU.ViewModels
                     current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
                     Mentors.Add(current);
                 }
-                //}
-                //else
-                //{
+
                 mentors = await DatabaseService.Instance.client.GetTable<Connection>().Where(u => u.MentorID == App.loggedUser.id).ToListAsync();
                 foreach (var m in mentors)
                 {
@@ -87,11 +84,10 @@ namespace MentorU.ViewModels
                     current.ProfileImage = await BlobService.Instance.TryDownloadImage("profile-images", current.id);
                     Mentors.Add(current);
                 }
-                //}
 
                 if (Mentors.Count == 0)
                 {
-                    Mentors.Add(new Users() { FirstName = "No current connections", Major = "Click to browse  list", Role = "-1" });
+                    Mentors.Add(new Users() { DisplayName = "No current connections", Major = "Click to browse  list", Role = "-1", RoleSelector="" });
                 }
 
                 //Load marketplace items
@@ -115,6 +111,10 @@ namespace MentorU.ViewModels
         }
 
 
+        /// <summary>
+        /// Navigate to the selected users profile page.
+        /// </summary>
+        /// <param name="mentor"></param>
         async void OnMentorSelected(Users mentor)
         {
             if (mentor == null)
@@ -126,7 +126,10 @@ namespace MentorU.ViewModels
         }
 
 
-
+        /// <summary>
+        /// Open the page of the item that was selected
+        /// </summary>
+        /// <param name="item"></param>
         async void OnItemSelected(Items item)
         {
             if (item == null)
@@ -137,15 +140,6 @@ namespace MentorU.ViewModels
                 await Shell.Current.Navigation.PushAsync(new ItemDetailPage(item));
         }
 
-        async void OpenProfile()
-        {
-            await Shell.Current.Navigation.PushAsync(new ProfilePage());
-        }
-
-        async void OpenNotifications()
-        {
-            await Shell.Current.Navigation.PushAsync(new NotificationPage());
-        }
 
         public void OnAppearing()
         {

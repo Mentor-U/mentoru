@@ -34,6 +34,11 @@ namespace MentorU.Models
         public ImageSource ProfileImage { get; set; }
 
         [Ignore]
-        public string RoleSelector { get => Role == "0" ? "Alumni" : "Student"; }
+        private string selector { get; set; }
+
+        [Ignore]
+        public string RoleSelector { get => Role == "0" ? "Alumni"
+                : selector == null ? "Student"
+                : "" ; set { selector = value; } }
     }
 }

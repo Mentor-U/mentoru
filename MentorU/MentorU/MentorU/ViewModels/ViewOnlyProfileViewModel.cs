@@ -348,20 +348,11 @@ namespace MentorU.ViewModels
             bool remove = await App.Current.MainPage.DisplayAlert("Options", $"Remove {_user.DisplayName} from your connections?", "Yes", "No");
             if (remove)
             {
-                // Mentor removes mentee
-                if (App.loggedUser.Role == "0") { 
-                    var con = await DatabaseService.Instance.client.GetTable<Connection>()
-                        .Where(u => u.MenteeID == _user.id && u.MentorID == App.loggedUser.id).ToListAsync();
-                    await DatabaseService.Instance.client.GetTable<Connection>().DeleteAsync(con[0]);
-                    
-                }
-                // Mentee removes mentor
-                else
-                {
-                    var con = await DatabaseService.Instance.client.GetTable<Connection>()
-                        .Where(u => u.MentorID == _user.id && u.MenteeID == App.loggedUser.id).ToListAsync();
-                    await DatabaseService.Instance.client.GetTable<Connection>().DeleteAsync(con[0]);
-                }
+
+                var c = await DatabaseService.Instance.client.GetTable<Connection>()
+                    .Where(u => (u.MenteeID == _user.id && u.MentorID == App.loggedUser.id) || (u.MentorID == _user.id && u.MenteeID == App.loggedUser.id))
+                    .ToListAsync();
+                await DatabaseService.Instance.client.GetTable<Connection>().DeleteAsync(c[0]);
 
                 //// Delete message history
                 //byte[] them = Encoding.ASCII.GetBytes(_user.id);

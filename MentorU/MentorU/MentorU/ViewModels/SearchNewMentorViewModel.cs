@@ -87,6 +87,7 @@ namespace MentorU.ViewModels
 
         public Command SwitchAlumni { get; set; }
 
+
         public SearchNewMentorViewModel()
         {
             Title = "Find Connections";
@@ -102,12 +103,17 @@ namespace MentorU.ViewModels
             SwitchAlumni = new Command(SwitchToAlumni);
         }
 
+
+        /// <summary>
+        /// Load all the users that are not currently connected with the active user.
+        /// </summary>
+        /// <returns></returns>
         async Task ExecuteLoadMentors()
         {
             try
             {
                 Mentors.Clear();
-                if (_filterTuple != null)
+                if (_filterTuple != null) // Condition for filters on the available users
                 {
                     string _role = null;
                     List<Users> temp = null;
@@ -170,11 +176,20 @@ namespace MentorU.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// Open the pop up dialog to allow for filters to be selected
+        /// </summary>
+        /// <returns></returns>
         async Task ExecuteFilterMentors()
         {
             await PopupNavigation.Instance.PushAsync(new PopUp(this));
         }
 
+        /// <summary>
+        /// Close pop up and load the users based on the filters
+        /// </summary>
+        /// <returns></returns>
         async Task ClosePopUpWindow()
         {
             string major = null;
@@ -187,10 +202,13 @@ namespace MentorU.ViewModels
             if (WantsAlumni == Color.Red || WantsStudent == Color.Red)
                 role = WantsAlumni == Color.Red ? "Alumni" : "Student";
             _filterTuple = new Tuple<string,string>(major, role);
-            IsBusy = true;
+            IsBusy = true; // triggers LoadPageData()
             await PopupNavigation.Instance.PopAllAsync();
         }
 
+        /// <summary>
+        /// Visual toggle for the pop up
+        /// </summary>
         void SwitchToAlumni()
         {
             if (WantsAlumni == Color.Red)
@@ -206,7 +224,10 @@ namespace MentorU.ViewModels
         }
 
 
-
+        /// <summary>
+        /// Navigate to the selected users profile
+        /// </summary>
+        /// <param name="mentor"></param>
         async void OnMentorSelected(Users mentor)
         {
             if (mentor == null)
@@ -214,12 +235,13 @@ namespace MentorU.ViewModels
             await Shell.Current.Navigation.PushAsync(new ViewOnlyProfilePage(mentor, false));
         }
 
-
+        /// <summary>
+        /// Open a chat with the chat bot to allow for more advance
+        /// search queries using NLP
+        /// </summary>
         async void AssistUChat()
         {
             await Shell.Current.Navigation.PushAsync(new ChatPage());
-            //await Shell.Current.Navigation.PushAsync(new Services.Bot.AssisUWebPage());
-
         }
 
 

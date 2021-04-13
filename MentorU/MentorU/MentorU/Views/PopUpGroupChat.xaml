@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:vm="clr-namespace:MentorU.ViewModels"
+             x:Class="MentorU.Views.PopUpGroupChat">
+
+    <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="0" Margin="0">
+        <Frame WidthRequest="270" HeightRequest="400" Padding="15">
+            <StackLayout>
+                <Entry Text="{Binding GroupChatName}" Placeholder="Group Name" />
+                <Button Text="Create Public Group" BackgroundColor="Green" HeightRequest="35" TextColor="White" Command="{Binding CloseCreateChat}"/>
+                <Button Text="Cancel" BackgroundColor="Red" HeightRequest="35" TextColor="White" Command="{Binding ClosePopUp}"/>
+
+            </StackLayout>
+        </Frame>
+    </StackLayout>
+</popup:PopupPage>

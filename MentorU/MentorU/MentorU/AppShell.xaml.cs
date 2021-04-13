@@ -1,5 +1,6 @@
 ﻿using MentorU.Services.LogOn;
 using MentorU.Views;
+using MentorU.Views.ChatViews;
 using System;
 using Xamarin.Forms;
 
@@ -16,6 +17,7 @@ namespace MentorU
             Routing.RegisterRoute(nameof(NewJobPage), typeof(NewJobPage));
             Routing.RegisterRoute(nameof(EditProfilePage), typeof(EditProfilePage));
             Routing.RegisterRoute(nameof(MainChatPage), typeof(MainChatPage));
+            Routing.RegisterRoute(nameof(GroupChatMainPage), typeof(GroupChatMainPage));
             Routing.RegisterRoute(nameof(ViewOnlyProfilePage), typeof(ViewOnlyProfilePage));
             //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             Routing.RegisterRoute(nameof(NotificationPage), typeof(NotificationPage));

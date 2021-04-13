@@ -140,12 +140,13 @@ namespace MentorU.ViewModels
                     PickerTitle = "Select your Resume"
                 });
 
-                if(pickResult != null)
+                if (pickResult != null)
                 {
                     string fileName = "temp-job-resume";
                     resumeFilePath = DependencyService.Get<IFileService>().SavePicture(fileName, pickResult.OpenReadAsync().Result);
                     ResumeFile = resumeFilePath;
                 }
+                else return;
 
 
                 //ResumeFile = await CrossFilePicker.Current.PickFile();

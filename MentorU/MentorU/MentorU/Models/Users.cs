@@ -38,7 +38,7 @@ namespace MentorU.Models
 
         [Ignore]
         public string RoleSelector { get => Role == "0" ? "Alumni"
-                : string.IsNullOrWhiteSpace(selector) ? "Student"
+                : selector == null ? "Student"
                 : "" ; set { selector = value; } }
     }
 }

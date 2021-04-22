@@ -129,7 +129,7 @@ namespace MentorU.ViewModels
 
         public const string GooglePlacesApiAutoCompletePath = "https://maps.googleapis.com/maps/api/place/autocomplete/json?key={0}&input={1}&components=country:us"; //Adding country:us limits results to us
 
-        public const string GooglePlacesApiKey = "AIzaSyCYu_YWRQpx4H0LrQftSboewaW70mtq8EA";
+        public const string GooglePlacesApiKey = "put in your API key"; //replace this with your API Key
 
         private static HttpClient _httpClientInstance;
         public static HttpClient HttpClientInstance => _httpClientInstance ?? (_httpClientInstance = new HttpClient());
